@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>ENEMY_WEAPON_ST</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="u16 Weapon ID = 9000">
+      <DisplayName>武器ID</DisplayName>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Joint Control = -1">
+      <DisplayName>関節制御</DisplayName>
+      <Enum>JOINTCTRL_ID</Enum>
+      <Minimum>-1</Minimum>
+      <Maximum>99</Maximum>
+    </Field>
+    <Field Def="u16 Damipoli = 110">
+      <DisplayName>ダミポリ</DisplayName>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u8 Bend to lock enemies = 1">
+      <DisplayName>ロック敵に曲げる</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Use Weapon Joint Control? = 0">
+      <DisplayName>武器関節制御を使うか？</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>Use Weapon Joint Control?？</Description>
+      <Maximum>0</Maximum>
+    </Field>
+    <Field Def="u8 Barrage Operation Range X Upper Limit [degrees] = 45">
+      <DisplayName>弾幕稼動範囲Ｘ　上限[deg]</DisplayName>
+      <Maximum>90</Maximum>
+    </Field>
+    <Field Def="u8 Barrage Operation Range Y [degrees] = 45">
+      <DisplayName>弾幕稼動範囲Ｙ[deg]</DisplayName>
+      <Maximum>180</Maximum>
+    </Field>
+    <Field Def="u8 Barrage Operating Angular Velocity X [deg/sec] = 40">
+      <DisplayName>弾幕稼動角速度Ｘ[deg/sec]</DisplayName>
+      <Maximum>180</Maximum>
+    </Field>
+    <Field Def="u8 Barrage Operating Angular Velocity Y [deg/sec] = 40">
+      <DisplayName>弾幕稼動角速度Y[deg/sec]</DisplayName>
+      <Maximum>180</Maximum>
+    </Field>
+    <Field Def="u16 Barrage Prediction Position Deviation Width [meters] = 50">
+      <DisplayName>弾幕予測位置ずれ幅[m]</DisplayName>
+      <Maximum>1000</Maximum>
+    </Field>
+    <Field Def="u8 Barrage Spread Rate [0-200] = 50">
+      <DisplayName>弾幕拡散率[0～200]</DisplayName>
+      <Maximum>200</Maximum>
+    </Field>
+    <Field Def="s8 Barrage Operating Range X Lower Limit [degrees] = 45">
+      <DisplayName>弾幕稼動範囲Ｘ 下限[deg]</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>90</Maximum>
+    </Field>
+    <Field Def="u8 Random Delay Max [frame] = 0">
+      <DisplayName>ランダム最大遅延[frame]</DisplayName>
+    </Field>
+    <Field Def="u8 Random Delay Min [frame] = 0">
+      <DisplayName>ランダム最小遅延[frame]</DisplayName>
+    </Field>
+    <Field Def="s16 Prediction Deviation: Max Frame [frame] = 0">
+      <DisplayName>予測ずれ：最大フレーム[frame]</DisplayName>
+      <Minimum>-1000</Minimum>
+      <Maximum>1000</Maximum>
+      <Increment>5</Increment>
+    </Field>
+    <Field Def="s16 Prediction Deviation: Addition Frame [frame] = 0">
+      <DisplayName>予測ずれ：加算フレーム[frame]</DisplayName>
+      <Minimum>-1000</Minimum>
+      <Maximum>1000</Maximum>
+    </Field>
+    <Field Def="u16 Prediction Deviation: 0 Frame Distance [meters] = 0">
+      <DisplayName>予測ずれ：０フレーム距離[m]</DisplayName>
+      <Maximum>30000</Maximum>
+      <Increment>10</Increment>
+    </Field>
+    <Field Def="u16 Attack Animation Group = 0">
+      <DisplayName>攻撃アニメグループ</DisplayName>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u16 Number of Damipoli = 0">
+      <DisplayName>ダミポリの数</DisplayName>
+      <Description>If 0, create up to the next weapon Damipoly as usual; If other than 0, create the specified number of Damipoli from Damipoly.</Description>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u8 Bending Angle to Target [degrees] = 15">
+      <DisplayName>ターゲットへ曲げる角度[deg]</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Maximum>90</Maximum>
+    </Field>
+    <Field Def="u8 Random Rate of Bullet Shooting Point Production = 0">
+      <DisplayName>弾丸射撃地点演出ランダム率</DisplayName>
+      <Description>The initial percentage that fires bullets in the target's line of sight when shooting from behind the target.</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Forced Barrage Spread Rate = 0">
+      <DisplayName>強制弾幕拡散率</DisplayName>
+      <Description>0 for disabled; 100 for parallel.</Description>
+      <Maximum>200</Maximum>
+    </Field>
+    <Field Def="u8 Bullet Effect: Max Radius of the Target Point [meters] = 50">
+      <DisplayName>弾丸演出：目標地点の最大半径[m]</DisplayName>
+      <EditFlags>None</EditFlags>
+    </Field>
+    <Field Def="u16 Bullet Effect: Lock time until it hits correctly [in frames] = 0">
+      <DisplayName>弾丸演出：正確に当てるまでのロック時間[frame]</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u8 Bullet Production: Min Production Rate in Target Site [0-100] = 0">
+      <DisplayName>弾丸演出：ターゲットサイト内最低演出率[0-100]</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="dummy8 reserve[1]">
+      <DisplayName>予約</DisplayName>
+    </Field>
+    <Field Def="u16 Bullet Effect: Distance Without Effect [meters] = 0">
+      <DisplayName>弾丸演出：演出を行わない距離[m]</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="dummy8 reserve[26]">
+      <DisplayName>予約</DisplayName>
+    </Field>
+  </Fields>
+</PARAMDEF>

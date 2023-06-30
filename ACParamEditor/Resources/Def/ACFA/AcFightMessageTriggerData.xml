@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>AC_FIGHT_MESSAGE_TRIGGER_DATA</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="u8 Player AP Low; Enemy AP High; Threshold for judging that Player AP is Low (%) = 20">
+      <DisplayName>自機AP減少　敵機AP多 自機のAPが低いと判定する閾値(%)</DisplayName>
+      <Description>自機AP減少　敵機AP多：自機のAPが低いと判定する閾値(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Player AP Low; Enemy AP High; Threshold for judging that Enemy AP is High (%) = 80">
+      <DisplayName>自機AP減少　敵機AP多 敵機のAPが高いと判定する閾値(%)</DisplayName>
+      <Description>自機AP減少　敵機AP多：敵機のAPが高いと判定する閾値(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Player AP Low; Enemy AP Medium; Threshold for judging that Player AP is Low (%) = 20">
+      <DisplayName>自機AP減少　敵機AP中 自機のAPが低いと判定する閾値(%)</DisplayName>
+      <Description>自機AP減少　敵機AP中：自機のAPが低いと判定する閾値(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Player AP Low; Enemy AP Medium; Upper limit value for judging that Enemy AP is Medium (%) = 80">
+      <DisplayName>自機AP減少　敵機AP中 敵機のAPが中程度と判定する上限値(%)</DisplayName>
+      <Description>自機AP減少　敵機AP中：敵機のAPが中程度と判定する上限値(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Player AP Low; Enemy AP Medium; Lower limit value for judging that Enemy AP is Medium (%) = 50">
+      <DisplayName>自機AP減少　敵機AP中 敵機のAPが中程度と判定する下限値(%)</DisplayName>
+      <Description>自機AP減少　敵機AP中：敵機のAPが中程度と判定する下限値(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Player AP Low; Enemy AP Low; Threshold for judging that Player AP is Low (%) = 20">
+      <DisplayName>自機AP減少　敵機AP少 自機のAPが低いと判定する閾値(%)</DisplayName>
+      <Description>自機AP減少　敵機AP少：自機のAPが低いと判定する閾値(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Player AP Low; Enemy AP Low; Threshold for judging that Enemy AP is Low (%) = 50">
+      <DisplayName>自機AP減少　敵機AP少 敵機のAPが低いと判定する閾値(%)</DisplayName>
+      <Description>自機AP減少　敵機AP少：敵機のAPが低いと判定する閾値(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Enemy AP Low; Player AP High; Threshold for judging that Player AP is High (%) = 80">
+      <DisplayName>敵機AP減少　自機AP多 自機のAPが高いと判定する閾値(%)</DisplayName>
+      <Description>敵機AP減少　自機AP多：自機のAPが高いと判定する閾値(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Enemy AP Low;　Player AP High; Threshold for judging that Enemy AP is Low (%) = 20">
+      <DisplayName>敵機AP減少　自機AP多 敵機のAPが低いと判定する閾値(%)</DisplayName>
+      <Description>敵機AP減少　自機AP多：敵機のAPが低いと判定する閾値(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Enemy AP Low;　Player AP Medium; Upper limit value for judging that Player AP is Medium (%) = 80">
+      <DisplayName>敵機AP減少　自機AP中 自機のAPが中程度と判定する上限値(%)</DisplayName>
+      <Description>敵機AP減少　自機AP中：自機のAPが中程度と判定する上限値(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Enemy AP Low;　Player AP Medium; Lower limit value for judging that Player AP is Medium (%) = 50">
+      <DisplayName>敵機AP減少　自機AP中 自機のAPが中程度と判定する下限値(%)</DisplayName>
+      <Description>敵機AP減少　自機AP中：自機のAPが中程度と判定する下限値(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Enemy AP Low; Player AP Medium; Threshold for judging that Enemy AP is Low (%) = 20">
+      <DisplayName>敵機AP減少　自機AP中 敵機のAPが低いと判定する閾値(%)</DisplayName>
+      <Description>敵機AP減少　自機AP中：敵機のAPが低いと判定する閾値(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Enemy AP Low; Player AP Low; Threshold for judging that Player AP is Low (%) = 50">
+      <DisplayName>敵機AP減少　自機AP少 自機のAPが低いと判定する閾値(%)</DisplayName>
+      <Description>敵機AP減少　自機AP少：自機のAPが低いと判定する閾値(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Enemy AP Low; Player AP Low; Threshold for judging that Enemy AP is Low (%) = 20">
+      <DisplayName>敵機AP減少　自機AP少 敵機のAPが低いと判定する閾値(%)</DisplayName>
+      <Description>敵機AP減少　自機AP少：敵機のAPが低いと判定する閾値(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Enemy AP0; Threshold for judging that Player AP is High (%) = 80">
+      <DisplayName>敵機AP0 自機のAPが高いと判定する閾値(%)</DisplayName>
+      <Description>敵機AP0：自機のAPが高いと判定する閾値(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Enemy AP0; Upper limit value for judging that Player AP is Medium (%) = 80">
+      <DisplayName>敵機AP0 自機のAPが中程度と判定する上限値(%)</DisplayName>
+      <Description>敵機AP0：自機のAPが中程度と判定する上限値(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Enemy AP0; Lower limit value for judging that Player AP is Medium (%) = 50">
+      <DisplayName>敵機AP0 自機のAPが中程度と判定する下限値(%)</DisplayName>
+      <Description>敵機AP0：自機のAPが中程度と判定する下限値(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Enemy AP0; Threshold for judging that Player AP is Low (%) = 50">
+      <DisplayName>敵機AP0 自機のAPが低いと判定する閾値(%)</DisplayName>
+      <Description>敵機AP0：自機のAPが低いと判定する閾値(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 AP rate judged to be advantageous to Enemy (%) = 80">
+      <DisplayName>敵機が有利と判定するAP率(%)</DisplayName>
+      <Description>敵機が有利と判定するAP率(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 AP rate judged to be disadvantageous to Enemy (%) = 50">
+      <DisplayName>敵機が不利と判定するAP率(%)</DisplayName>
+      <Description>敵機が不利と判定するAP率(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u32 AC approach distance 1 = 200">
+      <DisplayName>AC接近距離 1</DisplayName>
+      <Description>AC接近距離 1</Description>
+      <Maximum>9009999</Maximum>
+    </Field>
+    <Field Def="u32 AC approach distance 2 = 100">
+      <DisplayName>AC接近距離 2</DisplayName>
+      <Description>AC接近距離 2</Description>
+      <Maximum>9009999</Maximum>
+    </Field>
+    <Field Def="u32 AC approach distance 3 = 50">
+      <DisplayName>AC接近距離 3</DisplayName>
+      <Description>AC接近距離 3</Description>
+      <Maximum>9009999</Maximum>
+    </Field>
+    <Field Def="u32 AC approach distance 4 = 20">
+      <DisplayName>AC接近距離 4</DisplayName>
+      <Description>AC接近距離 4</Description>
+      <Maximum>9009999</Maximum>
+    </Field>
+    <Field Def="u32 AC escape time 1 = 5">
+      <DisplayName>AC逃走時間 1</DisplayName>
+      <Description>AC逃走時間 1</Description>
+      <Maximum>9009999</Maximum>
+    </Field>
+    <Field Def="u32 AC escape distance 1 = 500">
+      <DisplayName>AC逃走距離 1</DisplayName>
+      <Description>AC逃走距離 1</Description>
+      <Maximum>9009999</Maximum>
+    </Field>
+    <Field Def="u32 AC escape time 2 = 5">
+      <DisplayName>AC逃走時間 2</DisplayName>
+      <Description>AC逃走時間 2</Description>
+      <Maximum>9009999</Maximum>
+    </Field>
+    <Field Def="u32 AC escape distance 2 = 1000">
+      <DisplayName>AC逃走距離 2</DisplayName>
+      <Description>AC逃走距離 2</Description>
+      <Maximum>9009999</Maximum>
+    </Field>
+    <Field Def="u32 Time to measure Player damage (seconds) = 3">
+      <DisplayName>自機ダメージを計測する時間(秒)</DisplayName>
+      <Description>自機ダメージを計測する時間(秒)</Description>
+      <Maximum>9009999</Maximum>
+    </Field>
+    <Field Def="u32 Amount of AP judged to be large damage = 5000">
+      <DisplayName>自機が大ダメージだと判定するAP量</DisplayName>
+      <Description>自機が大ダメージだと判定するAP量</Description>
+      <Maximum>9009999</Maximum>
+    </Field>
+    <Field Def="u32 Time to measure Enemy damage (seconds) = 3">
+      <DisplayName>敵機ダメージを計測する時間(秒)</DisplayName>
+      <Description>敵機ダメージを計測する時間(秒)</Description>
+      <Maximum>9009999</Maximum>
+    </Field>
+    <Field Def="u32 Amount of AP that determines that the Enemy has a large amount of damage = 5000">
+      <DisplayName>敵機が大ダメージだと判定するAP量</DisplayName>
+      <Description>敵機が大ダメージだと判定するAP量</Description>
+      <Maximum>9009999</Maximum>
+    </Field>
+    <Field Def="u32 Time to determine that the Player has lost sight of an Enemy (seconds) = 10">
+      <DisplayName>自機が敵機を見失ったと判定する時間(秒)</DisplayName>
+      <Description>自機が敵機を見失ったと判定する時間(秒)</Description>
+      <Maximum>9009999</Maximum>
+    </Field>
+    <Field Def="u32 Time to determine that an Enemy has lost sight of the Player (seconds) = 10">
+      <DisplayName>敵機が自機を見失ったと判定する時間(秒)</DisplayName>
+      <Description>敵機が自機を見失ったと判定する時間(秒)</Description>
+      <Maximum>9009999</Maximum>
+    </Field>
+    <Field Def="u8 Threshold for judging that the Player's hit rate is Low (%) = 20">
+      <DisplayName>自機の命中率が低いと判定する閾値(%)</DisplayName>
+      <Description>自機の命中率が低いと判定する閾値(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Threshold for judging that the Enemy's hit rate is Low (%) = 20">
+      <DisplayName>敵機の命中率が低いと判定する閾値(%)</DisplayName>
+      <Description>敵機の命中率が低いと判定する閾値(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Probability of sending a message when an Enemy shoots (%) = 10">
+      <DisplayName>敵機が射撃した時にメッセージを出す確率(%)</DisplayName>
+      <Description>敵機が射撃した時にメッセージを出す確率(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Probability of sending a message when an Enemy is hit (%) = 10">
+      <DisplayName>敵機が被弾した時にメッセージを出す確率(%)</DisplayName>
+      <Description>敵機が被弾した時にメッセージを出す確率(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 When Player AP is halved, play a message when AP is Greater than the specified AP Lower limit = 50">
+      <DisplayName>自機APが半減時 所定APより多いときメッセージ再生する 所定AP下限値</DisplayName>
+      <Description>自機APが半減時 所定APより多いときメッセージ再生する 所定AP下限値(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 When Player AP is halved, play a message when AP is Less than the specified AP Upper limit = 50">
+      <DisplayName>自機APが半減時 所定APより少ないときメッセージ再生する 所定AP上限</DisplayName>
+      <Description>自機APが半減時 所定APより少ないときメッセージ再生する 所定AP上限値(%)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="fixstr reserve[46]">
+      <DisplayName>予約</DisplayName>
+      <EditFlags>None</EditFlags>
+    </Field>
+  </Fields>
+</PARAMDEF>

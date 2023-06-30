@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>ENEMY_ANIME_INTPOLATION_DATA_ST</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="u16 Interpolated frames for walking animation = 90">
+      <DisplayName>歩きアニメへの補間フレーム</DisplayName>
+      <Description>歩きアニメへの補間フレーム</Description>
+      <Maximum>999</Maximum>
+    </Field>
+    <Field Def="u16 Interpolated frames for stop animation = 120">
+      <DisplayName>停止アニメへの補間フレーム</DisplayName>
+      <Description>停止アニメへの補間フレーム</Description>
+      <Maximum>999</Maximum>
+    </Field>
+    <Field Def="u16 Interpolated frames for turning animation = 120">
+      <DisplayName>旋回アニメへの補間フレーム</DisplayName>
+      <Description>旋回アニメへの補間フレーム</Description>
+      <Maximum>999</Maximum>
+    </Field>
+    <Field Def="u16 Interpolated frames for dash animation = 120">
+      <DisplayName>ダッシュアニメへの補間フレーム</DisplayName>
+      <Description>ダッシュアニメへの補間フレーム</Description>
+      <Maximum>999</Maximum>
+    </Field>
+    <Field Def="u16 Interpolated frames for jump animation = 180">
+      <DisplayName>ジャンプアニメへの補間フレーム</DisplayName>
+      <Description>ジャンプアニメへの補間フレーム</Description>
+      <Maximum>999</Maximum>
+    </Field>
+    <Field Def="u16 Interpolated frames for flight animation = 120">
+      <DisplayName>飛行アニメへの補間フレーム</DisplayName>
+      <Description>飛行アニメへの補間フレーム</Description>
+      <Maximum>999</Maximum>
+    </Field>
+    <Field Def="u16 Interpolated frames for landing animation = 8">
+      <DisplayName>着地アニメへの補間フレーム</DisplayName>
+      <Description>着地アニメへの補間フレーム</Description>
+      <Maximum>999</Maximum>
+    </Field>
+    <Field Def="u16 Interpolated frames for damage animation = 180">
+      <DisplayName>ダメージアニメへの補間フレーム</DisplayName>
+      <Description>ダメージアニメへの補間フレーム</Description>
+      <Maximum>999</Maximum>
+    </Field>
+    <Field Def="u16 Interpolated frames for death animation = 8">
+      <DisplayName>死亡アニメへの補間フレーム</DisplayName>
+      <Description>死亡アニメへの補間フレーム</Description>
+      <Maximum>999</Maximum>
+    </Field>
+    <Field Def="u16 Interpolated frames for blade animation = 30">
+      <DisplayName>ブレードアニメへの補間フレーム</DisplayName>
+      <Description>ブレードアニメへの補間フレーム</Description>
+      <Maximum>999</Maximum>
+    </Field>
+    <Field Def="fixstr reserve[44]">
+      <DisplayName>予約</DisplayName>
+      <EditFlags>None</EditFlags>
+    </Field>
+  </Fields>
+</PARAMDEF>

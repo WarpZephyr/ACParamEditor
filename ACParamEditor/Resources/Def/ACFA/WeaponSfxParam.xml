@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>WEAPONSFX_PARAM_ST</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="s16 Bullet SFX = 0">
+      <DisplayName>弾丸 SFX</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Launch SFX = 0">
+      <DisplayName>発射 SFX</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Shell SFX = 0">
+      <DisplayName>薬莢 SFX</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="dummy8 --reserve--[2]">
+      <DisplayName>--予約--</DisplayName>
+    </Field>
+    <Field Def="s32 Landing type = 0">
+      <DisplayName>着弾 ﾀｲﾌﾟ</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>99999</Maximum>
+    </Field>
+    <Field Def="s16 Charge SFX = 0">
+      <DisplayName>溜め SFX</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Stagnant state SFX = 0">
+      <DisplayName>溜まり状態 SFX</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+  </Fields>
+</PARAMDEF>

@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>AC_ASSEMBLY_DESIGN_ST</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="fixstrW Design Name[24]">
+      <DisplayName>機体名</DisplayName>
+    </Field>
+    <Field Def="fixstrW Designer Name[24]">
+      <DisplayName>設計者名</DisplayName>
+    </Field>
+    <Field Def="s16 Head = 0">
+      <DisplayName>Head</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Core = 0">
+      <DisplayName>Core</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Arms = 0">
+      <DisplayName>Arms</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Legs = 0">
+      <DisplayName>Legs</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 FCS = 0">
+      <DisplayName>Fcs</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Generator = 0">
+      <DisplayName>Gene</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Booster = 0">
+      <DisplayName>Booster</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Back Booster = 0">
+      <DisplayName>BackBoost</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Side Booster = 0">
+      <DisplayName>SideBoost</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Overed Booster = 0">
+      <DisplayName>OverBoost</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Arm Unit Right = 0">
+      <DisplayName>ArmUnitR</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Arm Unit Left = 0">
+      <DisplayName>ArmUnitL</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Back Unit Right = 0">
+      <DisplayName>BackUnitR</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Back Unit Left = 0">
+      <DisplayName>BackUnitL</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Shoulder Unit = 0">
+      <DisplayName>Shoulder</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Hanger Unit Right = 0">
+      <DisplayName>HangerR</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Hanger Unit Left = 0">
+      <DisplayName>HangerL</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Head Top Stabilizer = 0">
+      <DisplayName>HeadT</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Head Side Stabilizer Right = 0">
+      <DisplayName>HeadS_R</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Head Side Stabilizer Left = 0">
+      <DisplayName>HeadS_L</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Core Upper Stabilizer Right = 0">
+      <DisplayName>CoreU_R</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Core Upper Stabilizer Left = 0">
+      <DisplayName>CoreU_L</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Core Lower Stabilizer Right = 0">
+      <DisplayName>CoreL_R</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Core Lower Stabilizer Left = 0">
+      <DisplayName>CoreL_L</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Arm Stabilizer Right = 0">
+      <DisplayName>ArmsR</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Arm Stabilizer Left = 0">
+      <DisplayName>ArmsL</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Legs Back Stabilizer = 0">
+      <DisplayName>LegsB</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Legs Upper Stabilizer Right = 0">
+      <DisplayName>LegsU_R</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Legs Upper Stabilizer Left = 0">
+      <DisplayName>LegsU_L</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Legs Upper Stabilizer Right Back = 0">
+      <DisplayName>LegsU_RB</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Legs Upper Stabilizer Left Back = 0">
+      <DisplayName>LegsU_LB</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Legs Middle Stabilizer Right = 0">
+      <DisplayName>LegsM_R</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Legs Middle Stabilizer Left = 0">
+      <DisplayName>LegsM_L</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Legs Middle Stabilizer Right Back = 0">
+      <DisplayName>LegsM_RB</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Legs Middle Stabilizer Left Back = 0">
+      <DisplayName>LegsM_LB</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Legs Lower Stabilizer Right = 0">
+      <DisplayName>LegsL_R</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Legs Lower Stabilizer Left = 0">
+      <DisplayName>LegsL_L</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Legs Lower Stabilizer Right Back = 0">
+      <DisplayName>LegsL_RB</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Legs Lower Stabilizer Left Back = 0">
+      <DisplayName>LegsL_LB</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u8 EN Output = 0">
+      <DisplayName>EN出力</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 EN Capacity = 0">
+      <DisplayName>コンデンサ容量</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 KP Output = 0">
+      <DisplayName>PA出力</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Legs: Load = 0">
+      <DisplayName>脚部：積載能力</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Arms: Energy Weapon Skill = 0">
+      <DisplayName>腕部：EN供給能力</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Arms: Firing Stability = 0">
+      <DisplayName>腕部：運動性能　</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Arms: Aim Precision = 0">
+      <DisplayName>腕部：射撃安定</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Arms: Maneuverability = 0">
+      <DisplayName>腕部：照準制度</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 FCS: Lock Speed = 0">
+      <DisplayName>FCS：ロック速度</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 FCS: Missile Lock Speed = 0">
+      <DisplayName>FCS：MISロック速度</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 FCS: Radar Refresh Rate = 0">
+      <DisplayName>FCS：レーダー</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 FCS: ECM Resistance = 0">
+      <DisplayName>FCS：対ECM性能　</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Head: PA Rectification = 0">
+      <DisplayName>頭部：整波性能　</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Core: PA Rectification = 0">
+      <DisplayName>コア：整波性能　</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Arms: PA Rectification = 0">
+      <DisplayName>腕部：整波性能　</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Legs: PA Rectification = 0">
+      <DisplayName>脚部：整波性能　</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Main Booster Horizontal Thrust = 0">
+      <DisplayName>メイン：水平推力</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Main Booster Vertical Thrust = 0">
+      <DisplayName>メイン：垂直推力</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Side Booster Thrust = 0">
+      <DisplayName>サイド：推力</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Back Booster Thrust = 0">
+      <DisplayName>バック：推力</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Main Booster Quick Thrust = 0">
+      <DisplayName>メイン：クイック推力</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Side Booster Quick Thrust = 0">
+      <DisplayName>サイド：クイック推力</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Back Booster Quick Thrust = 0">
+      <DisplayName>バック：クイック推力</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Overed Booster Thrust = 0">
+      <DisplayName>オーバード推力</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Legs: Walking Ability = 0">
+      <DisplayName>脚部：移動性能　</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Legs: Braking Ability = 0">
+      <DisplayName>脚部：制動性能　</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Legs: Turning Ability = 0">
+      <DisplayName>脚部：旋回性能　</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Legs: Jumping Ability = 0">
+      <DisplayName>脚部：ジャンプ</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Head: Stability = 0">
+      <DisplayName>頭部：機体安定</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Legs: Hit Stability = 0">
+      <DisplayName>脚部：被弾安定</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Legs: Landing Stability = 0">
+      <DisplayName>脚部：着地安定</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 Legs: Shooting Stability = 0">
+      <DisplayName>脚部：射撃安定</DisplayName>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u16 AcColorSet ID = 0">
+      <DisplayName>カラーリングID</DisplayName>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u8 Emblem ID = 0">
+      <DisplayName>エンブレムID</DisplayName>
+    </Field>
+    <Field Def="u8 reserve = 0">
+      <DisplayName>予約</DisplayName>
+    </Field>
+  </Fields>
+</PARAMDEF>

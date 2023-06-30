@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>ARENA_AC_INFO</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="u8 ID = 0">
+      <DisplayName>ID</DisplayName>
+    </Field>
+    <Field Def="u8 Arena ID = 0">
+      <DisplayName>所属アリーナID</DisplayName>
+    </Field>
+    <Field Def="u8 AcDataInfo ID = 0">
+      <DisplayName>ACのデータID</DisplayName>
+    </Field>
+    <Field Def="u8 AcProfileInfo ID = 0">
+      <DisplayName>プロフィールデータID</DisplayName>
+    </Field>
+    <Field Def="fixstr AI Script Name[12]">
+      <DisplayName>AIの名前</DisplayName>
+    </Field>
+    <Field Def="u32 Reward Amount = 0">
+      <DisplayName>報酬金額</DisplayName>
+      <EditFlags>Wrap, Lock</EditFlags>
+      <Maximum>999999</Maximum>
+    </Field>
+    <Field Def="s16 GA Contribution = 0">
+      <DisplayName>GA貢献度</DisplayName>
+      <Minimum>-9999</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Interior Union Contribution = 0">
+      <DisplayName>インテリオル貢献度</DisplayName>
+      <Minimum>-9999</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Omer Science Contribution = 0">
+      <DisplayName>オーメル貢献度</DisplayName>
+      <Minimum>-9999</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 League Contribution = 0">
+      <DisplayName>企業連貢献度</DisplayName>
+      <Minimum>-9999</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 ORCA Contribution = 0">
+      <DisplayName>ORCA貢献度</DisplayName>
+      <Minimum>-9999</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Line Ark Contribution = 0">
+      <DisplayName>自治都市貢献度</DisplayName>
+      <Minimum>-9999</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Reserve Contribution 1 = 0">
+      <DisplayName>貢献度予備1</DisplayName>
+      <Minimum>-9999</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Reserve Contribution 2 = 0">
+      <DisplayName>貢献度予備2</DisplayName>
+      <Minimum>-9999</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+  </Fields>
+</PARAMDEF>

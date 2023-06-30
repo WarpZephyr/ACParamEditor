@@ -1,0 +1,479 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>AC_AI_PARAM_ST</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="fixstr name[32]">
+      <DisplayName>名前</DisplayName>
+      <Description>AIの名前・説明（AC用AIパラメータは、この名前と同じ名前の共通パラメータとセット）</Description>
+      <EditFlags>None</EditFlags>
+    </Field>
+    <Field Def="dummy8 reserve[32]">
+      <DisplayName>予約</DisplayName>
+      <Description>予約</Description>
+    </Field>
+    <Field Def="f32 Energy threshold to go into the air = 0.4">
+      <DisplayName>空中に行こうとするエネルギー閾値</DisplayName>
+      <Description>空中に行こうとするエネルギー閾値</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+      <Increment>0.001</Increment>
+    </Field>
+    <Field Def="f32 Energy threshold to give up staying in the air = 0.3">
+      <DisplayName>空中にい続ける事を断念するエネルギー閾値</DisplayName>
+      <Description>空中にい続ける事を断念するエネルギー閾値</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+      <Increment>0.001</Increment>
+    </Field>
+    <Field Def="f32 Energy Threshold When Turn Boosting = 0.2">
+      <DisplayName>ターンブーストするときのエネルギー閾値</DisplayName>
+      <Description>ターンブーストするときのエネルギー閾値</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+      <Increment>0.001</Increment>
+    </Field>
+    <Field Def="f32 Risk of ignoring quick boost energy threshold = 0.8">
+      <DisplayName>クイックブーストエネルギー閾値を無視する危険度</DisplayName>
+      <Description>エネルギーの消費を無視してでも、QBで移動したい場合、この数値を下げておく</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+      <Increment>0.001</Increment>
+    </Field>
+    <Field Def="f32 Quick Boost Sensitivity to Opponent Distance = 0.4">
+      <DisplayName>クイックブーストの相手距離に対する敏感性</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+      <Increment>0.001</Increment>
+    </Field>
+    <Field Def="f32 Frontality sensitivity when quick boosting = 0.2">
+      <DisplayName>クイックブーストする際の正面度に対する敏感性</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+      <Increment>0.001</Increment>
+    </Field>
+    <Field Def="f32 Lock sensitivity when quick boosting = 0.6">
+      <DisplayName>クイックブーストする際のロックに対する敏感性</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+      <Increment>0.001</Increment>
+    </Field>
+    <Field Def="f32 Threshold for QB based on risk = 0.5">
+      <DisplayName>危険度によってQBをする閾値</DisplayName>
+      <Description>危険度がこの数値以上になった場合、QBを試みる</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+      <Increment>0.001</Increment>
+    </Field>
+    <Field Def="f32 Energy threshold to allow quick boost = 0.5">
+      <DisplayName>クイックブーストを許可するエネルギー閾値</DisplayName>
+      <Description>エネルギー評価値がこの閾値以上の場合、QBの実行が許可される。</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+      <Increment>0.001</Increment>
+    </Field>
+    <Field Def="u16 Effectiveness calculation parameters for OB by distance: short range ~ = 100">
+      <DisplayName>距離によるOBの有効度算出パラメータ：近距離～</DisplayName>
+      <Description>距離によるOBの有効度算出パラメータ：近距離～</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>10000</Maximum>
+    </Field>
+    <Field Def="u16 Effectiveness calculation parameter of OB by distance: ~ Middle distance = 200">
+      <DisplayName>距離によるOBの有効度算出パラメータ：～中距離</DisplayName>
+      <Description>距離によるOBの有効度算出パラメータ：～中距離</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>10000</Maximum>
+    </Field>
+    <Field Def="u16 Effectiveness calculation parameters for OB by distance: Middle distance ~ = 800">
+      <DisplayName>距離によるOBの有効度算出パラメータ：中距離～</DisplayName>
+      <Description>距離によるOBの有効度算出パラメータ：中距離～</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>10000</Maximum>
+    </Field>
+    <Field Def="u16 OB effectiveness calculation parameter by distance: ~ long distance = 1000">
+      <DisplayName>距離によるOBの有効度算出パラメータ：～遠距離</DisplayName>
+      <Description>距離によるOBの有効度算出パラメータ：～遠距離</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>10000</Maximum>
+    </Field>
+    <Field Def="u8 Approach OB: Angle error between target position and target = 30">
+      <DisplayName>接近OB：目標位置とターゲットの角度誤差</DisplayName>
+      <Description>接近OBする際、目標地点と自分とターゲットがなす角がこの角度以内の場合、許可される。</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>180</Maximum>
+    </Field>
+    <Field Def="u8 Lower limit of PA effectiveness when OB = 30">
+      <DisplayName>OBするときのPA有効度の下限</DisplayName>
+      <Description>OBのPA率による評価は、これ以上で０～</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Upper limit of PA effectiveness when OB = 80">
+      <DisplayName>OBするときのPA有効度の上限</DisplayName>
+      <Description>OBのPA率による評価は、これ以上で1</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 PA effectiveness threshold for OB = 50">
+      <DisplayName>OBするときのPA有効度閾値</DisplayName>
+      <Description>OBするときPA有効度がこの値以上の場合、OB許可</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Energy availability threshold when OB = 50">
+      <DisplayName>OBするときのエネルギー有効度閾値</DisplayName>
+      <Description>OBするときエネルギー有効度がこの値以上の場合、OB許可</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Angle from the front to judge turn boost = 60">
+      <DisplayName>ターンブースト判定する正面からの角度</DisplayName>
+      <Description>相手の位置と自分の位置を結ぶ直線と、自分の正面方向となす角がこの角度以上でTQBを試みる</Description>
+      <Maximum>180</Maximum>
+    </Field>
+    <Field Def="dummy8 reserve[2]">
+      <DisplayName>予約</DisplayName>
+      <Description>予約</Description>
+    </Field>
+    <Field Def="f32 Coefficient of effectiveness by OB distance = 0.8">
+      <DisplayName>OB距離による有効性の係数</DisplayName>
+      <Description>OB距離有効度係数</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>10</Maximum>
+    </Field>
+    <Field Def="f32 Effectiveness threshold for OB activation = 0.4">
+      <DisplayName>OB発動に関する有効度閾値</DisplayName>
+      <Description>OB発動有効度がこの値以上の場合、実行される。</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>10</Maximum>
+    </Field>
+    <Field Def="u8 Mobile system pad input delay (frame) = 40">
+      <DisplayName>移動系パッド入力遅延(フレーム)</DisplayName>
+      <Description>パッドの入力し始めにかかる遅延時間</Description>
+      <EditFlags>None</EditFlags>
+    </Field>
+    <Field Def="u8 Mobile system pad release delay (frame) = 40">
+      <DisplayName>移動系パッド開放遅延(フレーム)</DisplayName>
+      <Description>パッドの別の入力を受け付けるのにかかる遅延時間</Description>
+      <EditFlags>None</EditFlags>
+    </Field>
+    <Field Def="u8 swivel pad input delay (frames) = 40">
+      <DisplayName>旋回パッド入力遅延(フレーム)</DisplayName>
+      <Description>パッドの入力し始めにかかる遅延時間</Description>
+      <EditFlags>None</EditFlags>
+    </Field>
+    <Field Def="u8 Swivel pad release delay (frames) = 40">
+      <DisplayName>旋回パッド開放遅延(フレーム)</DisplayName>
+      <Description>パッドの別の入力を受け付けるのにかかる遅延時間</Description>
+      <EditFlags>None</EditFlags>
+    </Field>
+    <Field Def="u8 Gaze pad input delay (frames) = 40">
+      <DisplayName>視線パッド入力遅延(フレーム)</DisplayName>
+      <Description>パッドの入力し始めにかかる遅延時間</Description>
+      <EditFlags>None</EditFlags>
+    </Field>
+    <Field Def="u8 Gaze pad open delay (frames) = 40">
+      <DisplayName>視線パッド開放遅延(フレーム)</DisplayName>
+      <Description>パッドの別の入力を受け付けるのにかかる遅延時間</Description>
+      <EditFlags>None</EditFlags>
+    </Field>
+    <Field Def="u8 Shooting pad input delay (frames) = 40">
+      <DisplayName>射撃パッド入力遅延(フレーム)</DisplayName>
+      <Description>パッドの入力し始めにかかる遅延時間</Description>
+      <EditFlags>None</EditFlags>
+    </Field>
+    <Field Def="u8 Shooting pad release delay (frames) = 40">
+      <DisplayName>射撃パッド開放遅延(フレーム)</DisplayName>
+      <Description>パッドの別の入力を受け付けるのにかかる遅延時間</Description>
+      <EditFlags>None</EditFlags>
+    </Field>
+    <Field Def="u8 Quick Boost Pad Input Delay (frames) = 40">
+      <DisplayName>クイックブーストパッド入力遅延(フレーム)</DisplayName>
+      <Description>パッドの入力し始めにかかる遅延時間</Description>
+      <EditFlags>None</EditFlags>
+    </Field>
+    <Field Def="u8 Quick boost pad release delay (frames) = 40">
+      <DisplayName>クイックブーストパッド開放遅延(フレーム)</DisplayName>
+      <Description>パッドの別の入力を受け付けるのにかかる遅延時間</Description>
+      <EditFlags>None</EditFlags>
+    </Field>
+    <Field Def="u16 Target point calculation interval (frame) = 0">
+      <DisplayName>目標地点の算出間隔（フレーム）</DisplayName>
+      <Description>移動目標地点の算出間隔</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>6000</Maximum>
+    </Field>
+    <Field Def="u16 Target point applied delay frame = 0">
+      <DisplayName>目標地点の適用遅延フレーム</DisplayName>
+      <Description>目標地点の適用遅延フレーム</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>6000</Maximum>
+    </Field>
+    <Field Def="u16 purposefulness = 100">
+      <DisplayName>目的遂行能力</DisplayName>
+      <Description>オペレーションを実行できる能力</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u8 Ability to use to move to target position = 10">
+      <DisplayName>目標位置に移動するために使用する能力</DisplayName>
+      <Description>目標位置に移動するために使用する能力</Description>
+    </Field>
+    <Field Def="u8 Abilities used to dodge attacks = 10">
+      <DisplayName>攻撃をよけるために使用する能力</DisplayName>
+      <Description>攻撃をよけるために使用する能力</Description>
+    </Field>
+    <Field Def="u8 Abilities used to trap enemies = 10">
+      <DisplayName>敵を捕捉するために使用する能力</DisplayName>
+      <Description>敵を捕捉するために使用する能力</Description>
+    </Field>
+    <Field Def="u8 Abilities used to attack = 10">
+      <DisplayName>攻撃するために使用する能力</DisplayName>
+      <Description>攻撃するために使用する能力</Description>
+    </Field>
+    <Field Def="u16 Thinking Ability Consumption Table ID = 0">
+      <DisplayName>思考能力消費テーブルID</DisplayName>
+      <Description>思考能力消費テーブルID</Description>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u16 Thinking Capacity Parameter ID = 0">
+      <DisplayName>思考能力キャパシティパラメータID</DisplayName>
+      <Description>思考能力キャパシティパラメータID</Description>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="dummy8 reserve[2]">
+      <DisplayName>予約</DisplayName>
+    </Field>
+    <Field Def="u16 OB stop rating increase distance = 100">
+      <DisplayName>OBの停止評価上昇距離</DisplayName>
+      <Description>OBの停止評価上昇距離</Description>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="f32 Factor for OB stopping distance rating = 0.5">
+      <DisplayName>OB停止距離評価の係数</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Energy Rate Lower Limit for OB Stop Evaluation = 0">
+      <DisplayName>OB停止評価のエネルギー率下限</DisplayName>
+      <Description>OB停止評価のエネルギー率下限</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Energy Rate Upper Limit for OB Stop Evaluation = 100">
+      <DisplayName>OB停止評価のエネルギー率上限</DisplayName>
+      <Description>OB停止評価のエネルギー率上限</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 OB stop evaluation fuzzy value lower limit = 0">
+      <DisplayName>OB停止評価ファジイ値下限</DisplayName>
+      <Description>OB停止評価ファジイ値下限</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 OB stop evaluation fuzzy value upper limit = 100">
+      <DisplayName>OB停止評価ファジイ値上限</DisplayName>
+      <Description>OB停止評価ファジイ値上限</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="f32 Coefficient of OB stop energy rating = 0.5">
+      <DisplayName>OB停止エネルギー評価の係数</DisplayName>
+      <Description>OB停止エネルギー評価の係数</Description>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Lower limit of PA rate for OB termination evaluation = 0">
+      <DisplayName>OB停止評価のPA率下限</DisplayName>
+      <Description>OB停止評価のエネルギー率下限</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 PA rate upper limit for OB suspension evaluation = 100">
+      <DisplayName>OB停止評価のPA率上限</DisplayName>
+      <Description>OB停止評価のエネルギー率上限</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 OB stop PA evaluation fuzzy value lower limit = 0">
+      <DisplayName>OB停止PA評価ファジイ値下限</DisplayName>
+      <Description>OB停止評価ファジイ値下限</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 OB stop PA evaluation fuzzy value upper limit = 100">
+      <DisplayName>OB停止PA評価ファジイ値上限</DisplayName>
+      <Description>OB停止評価ファジイ値上限</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="f32 Coefficient of OB stop PA rating = 0.5">
+      <DisplayName>OB停止PA評価の係数</DisplayName>
+      <Description>OB停止エネルギー評価の係数</Description>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="f32 OB Stop Evaluation Threshold = 0.8">
+      <DisplayName>OB停止評価しきい値</DisplayName>
+      <Description>評価がこの数値より上になったら、</Description>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 OB activation: Coefficient applied to frontal degree = 100">
+      <DisplayName>OB発動：正面度にかかる係数</DisplayName>
+      <Description>OB発動：正面度にかかる係数</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="dummy8 reserve[7]">
+      <DisplayName>予約</DisplayName>
+    </Field>
+    <Field Def="u8 Quick Boost Consecutive Intervals (frames) = 0">
+      <DisplayName>クイックブースト連続インターバル(フレーム）</DisplayName>
+      <Description>クイックブースト連続インターバル(フレーム）</Description>
+    </Field>
+    <Field Def="u8 Quick Boost Consecutive Interval (in another direction) = 0">
+      <DisplayName>クイックブースト連続インターバル（別の方向の）</DisplayName>
+      <Description>クイックブースト連続インターバル（別の方向の）</Description>
+    </Field>
+    <Field Def="u16 Reload after consecutive QBs (frames) = 0">
+      <DisplayName>連続QB後のリロード(フレーム）</DisplayName>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u16 Discontinuous interval (frame) = 0">
+      <DisplayName>不連続インターバル(フレーム）</DisplayName>
+      <Description>この値以上たったら連続とみなさない</Description>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u8 Consecutive QB number limit = 1">
+      <DisplayName>連続QB回数制限</DisplayName>
+      <Minimum>1</Minimum>
+    </Field>
+    <Field Def="u8 Correct QB rate = 0">
+      <DisplayName>正解QB率</DisplayName>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u16 Activation distance to dodge missiles using QB = 100">
+      <DisplayName>QBを使用してミサイルをよける発動距離</DisplayName>
+      <Description>自分に追尾しているミサイルがこの距離に入ったときに、QBよけが発動する</Description>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u16 Missile avoidance: QB dodge interval [frame] = 0">
+      <DisplayName>ミサイル回避：QB避け間隔[frame]</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u16 Missile Avoidance: Altitude Limit = 1000">
+      <DisplayName>ミサイル回避：高度制限</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u8 Missile avoidance: angle from the direction of missile travel [deg] = 90">
+      <DisplayName>ミサイル回避：ミサイル進行方向からの角度[deg]</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Maximum>90</Maximum>
+    </Field>
+    <Field Def="dummy8 reserve[9]">
+      <DisplayName>予約</DisplayName>
+    </Field>
+    <Field Def="u8 Energy rate threshold at which energy weapons can be fired = 0">
+      <DisplayName>エネルギー武器を撃っていいエネルギー率しきい値</DisplayName>
+      <Description>エネルギーがこの率以上ないと、エネルギー武器を使用できない</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Lower reference value of remaining bullet rate fuzzy function = 0">
+      <DisplayName>残弾率ファジイ関数の下限基準値</DisplayName>
+      <Description>残弾率ファジイ関数の下限基準値</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Upper limit of bullet rate fuzzy function = 100">
+      <DisplayName>残弾率ファジイ関数の上限基準値</DisplayName>
+      <Description>残弾率ファジイ関数の上限基準値</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Remaining bullet fuzzy value lower limit = 0">
+      <DisplayName>残弾率のファジイ値下限</DisplayName>
+      <Description>残弾率のファジイ値上限</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Remaining bullet rate fuzzy value upper limit = 100">
+      <DisplayName>残弾率のファジイ値上限</DisplayName>
+      <Description>残弾率のファジイ値下限</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="s8 Coefficient applied to the remaining bullet rate fuzzy value (-100 to 100) = 0">
+      <DisplayName>残弾率ファジイ値にかける係数（-100～100）</DisplayName>
+      <Description>残弾率ファジイ値にかける係数（-100～100）１００が１に相当。プラスで右肩上がりのファジイ関数</Description>
+      <Minimum>-100</Minimum>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 predictive avoidance delayFrame = 0">
+      <DisplayName>予測回避delayFrame</DisplayName>
+      <Description>予測回避delayTime</Description>
+      <Maximum>200</Maximum>
+    </Field>
+    <Field Def="dummy8 reserve[1]">
+      <DisplayName>予約</DisplayName>
+    </Field>
+    <Field Def="u16 Missile turn avoidance radius = 200">
+      <DisplayName>ミサイル旋回内回避半径</DisplayName>
+      <Description>ミサイルの進行方向から９０度の方向の目標位置までの距離</Description>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u8 Danger: Standard Danger to be applied when locked = 100">
+      <DisplayName>危険度：ロックされたらかかる基準危険度</DisplayName>
+      <Description>危険度：ロックされたらかかる危険度。0～１００を０～１にスケーリングして使用します。</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Danger: Coefficient of time spent locked = 100">
+      <DisplayName>危険度：ロックされている時間にかかる係数</DisplayName>
+      <Description>0～１００を０～１にスケーリングして使用します。ロックによる危険度は、基準値＋ロック時間（秒）＊係数。</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u16 Danger: Distance criteria (close range) = 100">
+      <DisplayName>危険度：距離基準（近距離）</DisplayName>
+      <Description>危険度：距離基準（近距離）。距離危険度１の距離</Description>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u16 Danger: Distance criteria (long distance) = 300">
+      <DisplayName>危険度：距離基準（遠距離）</DisplayName>
+      <Description>危険度：距離基準（遠距離）。距離危険度０の距離</Description>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u8 Hazardousness: Line-of-sight cone angle that gives the target frontal angle = 80">
+      <DisplayName>危険度：ターゲット正面度を出す視線円錐角度</DisplayName>
+      <Description>危険度：ターゲット正面度を出す視線円錐角度</Description>
+      <Maximum>180</Maximum>
+    </Field>
+    <Field Def="u8 Quick boost sensitivity due to stiffness = 0">
+      <DisplayName>硬直によるクイックブーストの敏感性</DisplayName>
+      <Description>硬直によるクイックブーストの敏感性(0～１にマップされます)</Description>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Danger: Rigidity Criteria = 0">
+      <DisplayName>危険度：硬直基準</DisplayName>
+      <Description>硬直した段階で、この値が危険度に入ります（※実際には、この数値1/100です。）</Description>
+    </Field>
+    <Field Def="u8 Danger: Rigidity Duration Coefficient = 0">
+      <DisplayName>危険度：硬直継続時間係数</DisplayName>
+      <Description>硬直継続時間（秒）にかかる係数（※実際には、この数値1/100です。）</Description>
+    </Field>
+    <Field Def="u8 Mission wingman: trigger random rate [0-100] = 0">
+      <DisplayName>ミッション僚機：トリガーランダム率[0-100]</DisplayName>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Mission wingman: Trigger random rate calculation interval [frame] = 0">
+      <DisplayName>ミッション僚機：トリガーランダム率算出間隔[frame]</DisplayName>
+    </Field>
+    <Field Def="dummy8 reserve[26]">
+      <DisplayName>予約</DisplayName>
+      <Description>予約</Description>
+    </Field>
+  </Fields>
+</PARAMDEF>

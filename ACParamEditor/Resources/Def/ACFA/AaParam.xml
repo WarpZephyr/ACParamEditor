@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>ASSAULT_ARMOR_PARAM_ST</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="f32 Rectification Performance">
+      <DisplayName>整波性能</DisplayName>
+      <Description>Standard PA Rectification performance.</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>99999</Maximum>
+      <Increment>100</Increment>
+    </Field>
+    <Field Def="f32 Attack Factor">
+      <DisplayName>攻撃力係数</DisplayName>
+      <Description>Raw attack power for enemies.</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>99999</Maximum>
+    </Field>
+    <Field Def="f32 Attack Factor at the end of Assault Armor Use">
+      <DisplayName>AA終了時の攻撃力係数</DisplayName>
+      <Description>Raw attack power for enemies.</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>99999</Maximum>
+    </Field>
+    <Field Def="f32 PA-Attack Power Conversion Rate">
+      <DisplayName>PA-攻撃力変換率</DisplayName>
+      <Description>How much remaining PA to add to attack power.</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="f32 PA Attenuation">
+      <DisplayName>PA減衰</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>10</Increment>
+    </Field>
+    <Field Def="f32 PA Penetration">
+      <DisplayName>PA貫通</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>10</Increment>
+    </Field>
+    <Field Def="f32 Recoil">
+      <DisplayName>反動</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>999</Maximum>
+      <Increment>10</Increment>
+    </Field>
+    <Field Def="f32 Recoil at the end of Assault Armor Use">
+      <DisplayName>AA終了時の反動</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>999</Maximum>
+      <Increment>10</Increment>
+    </Field>
+    <Field Def="f32 PA-Recoil Conversion Rate">
+      <DisplayName>PA-反動変換率</DisplayName>
+      <Description>How much remaining PA to add to recoil.</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+      <Increment>0.001</Increment>
+    </Field>
+    <Field Def="f32 Initial Blast Radius Factor">
+      <DisplayName>初期爆発半径係数</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1000</Maximum>
+    </Field>
+    <Field Def="f32 Maximum Blast Radius Factor">
+      <DisplayName>最大爆発半径係数</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1000</Maximum>
+    </Field>
+    <Field Def="f32 PA-Blast Radius Conversion Factor">
+      <DisplayName>PA-爆発半径変換率</DisplayName>
+      <Description>How much remaining PA to add to the blast radius.</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+      <Increment>0.001</Increment>
+    </Field>
+    <Field Def="s32 Frame of Damage = 10">
+      <DisplayName>ダメージ発生フレーム</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>1</Minimum>
+      <Maximum>99</Maximum>
+    </Field>
+    <Field Def="f32 Flash Duration (Seconds) = 10">
+      <DisplayName>閃光効果時間（秒）</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 Negative value from PA0">
+      <DisplayName>PA0からのマイナス値</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>99999</Maximum>
+      <Increment>1000</Increment>
+    </Field>
+    <Field Def="s32 Damage Type (0 is Ballistic; 1 is EN) = 1">
+      <DisplayName>ダメージの種類（0：実弾 1：EN）</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="f32 Minimum PA required to use Assault Armor">
+      <DisplayName>AAを使うのに必要な最低PA</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>99999</Maximum>
+      <Increment>1000</Increment>
+    </Field>
+  </Fields>
+</PARAMDEF>

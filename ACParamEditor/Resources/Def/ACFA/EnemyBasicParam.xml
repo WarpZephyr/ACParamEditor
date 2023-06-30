@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>ENEMY_BASIC_ST</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="s32 Program = 1">
+      <DisplayName>プログラム</DisplayName>
+      <Enum>ENEMY_BEHAVIOR_ID</Enum>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u8 Lockable = 1">
+      <DisplayName>ロック可能</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Radar Shape ID = 2">
+      <DisplayName>レーダー形状ID</DisplayName>
+      <Description>敵は２がデフォルト値。IDは、レーダー.xls参照の事。</Description>
+    </Field>
+    <Field Def="u8 Vertical movement fixed = 1">
+      <DisplayName>上下移動固定</DisplayName>
+      <Enum>ON_OFF</Enum>
+    </Field>
+    <Field Def="u8 Pushability = 1">
+      <DisplayName>押されやすさ</DisplayName>
+      <Enum>COLLIDE_LV</Enum>
+    </Field>
+    <Field Def="f32 AP = 1">
+      <DisplayName>AP</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>999999</Maximum>
+      <Increment>10</Increment>
+    </Field>
+    <Field Def="f32 Aircraft weight = 1">
+      <DisplayName>機体重量</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>999</Maximum>
+    </Field>
+    <Field Def="f32 Bullet Defense = 1">
+      <DisplayName>実弾防御</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>10</Maximum>
+    </Field>
+    <Field Def="f32 EN Defense = 1">
+      <DisplayName>EN防御</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>10</Maximum>
+    </Field>
+    <Field Def="f32 Collision Defense = 1">
+      <DisplayName>衝突防御</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>10</Maximum>
+    </Field>
+    <Field Def="f32 Leg Collision Defense = 1">
+      <DisplayName>脚部衝突防御</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>10</Maximum>
+    </Field>
+    <Field Def="f32 Normal maximum speed = 100">
+      <DisplayName>通常最高速</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 Rear normal maximum speed = 100">
+      <DisplayName>後方通常最高速</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 Ground resistance = 0.5">
+      <DisplayName>地上抵抗</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>999</Maximum>
+    </Field>
+    <Field Def="f32 Turning thrust = 0.5">
+      <DisplayName>旋回推力</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>10</Maximum>
+    </Field>
+    <Field Def="f32 Turning resistance = 0.5">
+      <DisplayName>旋回抵抗</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>10</Maximum>
+    </Field>
+    <Field Def="f32 Jump upward thrust = 0.2">
+      <DisplayName>ジャンプ上昇推力</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>999</Maximum>
+    </Field>
+    <Field Def="f32 Ground boost top speed = 200">
+      <DisplayName>地上ブースト最高速</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 Air boost top speed = 200">
+      <DisplayName>空中ブースト最高速</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 Booster lift force = 0.2">
+      <DisplayName>ブースタ上昇力</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>999</Maximum>
+    </Field>
+    <Field Def="f32 Booster lift force (neutral) = 0.2">
+      <DisplayName>ブースタ上昇力（ニュートラル）</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>999</Maximum>
+    </Field>
+    <Field Def="f32 Ascent thrust (for helicopter) = 0.1">
+      <DisplayName>上昇推力(ヘリ用)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="f32 Descent thrust (for helicopter) = 0.1">
+      <DisplayName>下降推力(ヘリ用)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="f32 Aerodynamic coefficient (horizontal) = 1">
+      <DisplayName>空力係数（水平）</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="f32 Aerodynamic coefficient (vertical) = 1">
+      <DisplayName>空力係数（垂直）</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="f32 Horizontal line of sight range (-1 is infinite) = -1">
+      <DisplayName>水平視線範囲（-1=∞)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>-1</Minimum>
+      <Maximum>180</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 Downward line of sight = -70">
+      <DisplayName>下方視線範囲</DisplayName>
+      <Minimum>-180</Minimum>
+      <Maximum>180</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 Upward line of sight = 70">
+      <DisplayName>上方視線範囲</DisplayName>
+      <Minimum>-180</Minimum>
+      <Maximum>180</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 Radial velocity = 0.02">
+      <DisplayName>視線速度</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>10</Maximum>
+      <Increment>0.001</Increment>
+    </Field>
+    <Field Def="f32 Energy capacity">
+      <DisplayName>エネルギー許容量</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>10000</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 Recoil damping = 4">
+      <DisplayName>反動抑制</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1000</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 Penetration">
+      <DisplayName>貫通具合</DisplayName>
+      <Description>弾丸の貫通しやすさ( 死亡時 )</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Hit type = 0">
+      <DisplayName>当たりタイプ</DisplayName>
+      <Enum>ENEMY_COLLISION_TYPE</Enum>
+      <Description>当たりの形状を指定します。</Description>
+    </Field>
+    <Field Def="s8 Lock-on method = 0">
+      <DisplayName>ロックオン方式</DisplayName>
+      <Enum>LOCKON_TYPE</Enum>
+      <Description>ロックのされ方</Description>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 AntiWaterBoostStartDepth = 0">
+      <DisplayName>AntiWaterBoostStartDepth</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Maximum>99</Maximum>
+    </Field>
+    <Field Def="u8 AntiWaterBoostMaxDepth = 4">
+      <DisplayName>AntiWaterBoostMaxDepth</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Maximum>99</Maximum>
+    </Field>
+    <Field Def="u8 AntiWaterBoostShallowDepth = 4">
+      <DisplayName>AntiWaterBoostShallowDepth</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Maximum>99</Maximum>
+    </Field>
+    <Field Def="fixstr reserve[1]">
+      <DisplayName>予約</DisplayName>
+      <EditFlags>None</EditFlags>
+    </Field>
+    <Field Def="u16 Collision damage threshold = 10000">
+      <DisplayName>衝突ダメージの敷居値</DisplayName>
+      <EditFlags>None</EditFlags>
+    </Field>
+    <Field Def="f32 AntiWaterBoostMaxRate = 0.8">
+      <DisplayName>AntiWaterBoostMaxRate</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>99</Maximum>
+    </Field>
+    <Field Def="u8 Use drown death treatment? = 0">
+      <DisplayName>水没死亡処理を使用するか？</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>水没死亡処理を使用するか？</Description>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Whether to accept target setting from AI = 0">
+      <DisplayName>ＡＩからのターゲット設定を受け付けるか</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>ＡＩからのターゲット設定を受け付けるか</Description>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u16 Ground back-boost maximum speed = 200">
+      <DisplayName>地上バックブースト最高速</DisplayName>
+      <Description>地上バックブースト最高速</Description>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u16 Aerial back-boost maximum speed = 200">
+      <DisplayName>空中バックブースト最高速</DisplayName>
+      <Description>空中バックブースト最高速</Description>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s8 Line of sight vertical velocity [deg/sec] = 0">
+      <DisplayName>視線上下速度[deg/sec]</DisplayName>
+      <Description>マイナス値で水平視線旋回速度を使用する。！注意！単位は、度/secです</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Do not update room ID = 0">
+      <DisplayName>部屋ID更新しない</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <EditFlags>None</EditFlags>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u32 PA ID = 0">
+      <DisplayName>PAのID</DisplayName>
+      <Maximum>8999999</Maximum>
+    </Field>
+    <Field Def="u32 Assault Armor ID = 0">
+      <DisplayName>アサルトアーマーID</DisplayName>
+      <Maximum>8999999</Maximum>
+    </Field>
+    <Field Def="fixstr reserve[16]">
+      <DisplayName>予約</DisplayName>
+      <EditFlags>None</EditFlags>
+    </Field>
+  </Fields>
+</PARAMDEF>

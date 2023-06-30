@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>ENEMY_PERFORMANCE_ST</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="u8 Don't hit the map. = 0">
+      <DisplayName>マップに当たらない</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>Do not hit the map while ON.</Description>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Don't hit normal enemies = 0">
+      <DisplayName>通常の敵に当たらない</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>When ON, do not make contact with other enemies, only see the hit with the player.</Description>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Target is the player only = 0">
+      <DisplayName>ターゲットは自機のみ</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>Only attack the player.</Description>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Works only within its own site = 0">
+      <DisplayName>自機のサイト内でしか動かない</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>Earn calculation time by making it work only within its own site. Can be used in combination with "Distance to disable control"</Description>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Don't use IK = 0">
+      <DisplayName>IKを使用しない</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>Don't use IK.</Description>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Percentage of bullets that do not hit = 0">
+      <DisplayName>あたり無し弾丸含有率</DisplayName>
+      <Description>Set the rate of bullets that do not hit when shooting.</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Do not use joint control. = 0">
+      <DisplayName>関節制御を使用しない</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>Do not use joint control.</Description>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Don't animate = 0">
+      <DisplayName>アニメーションしない</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>Do not fully animate the enemy.</Description>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="f32 Distance to disable control = 1000">
+      <DisplayName>制御を無効化する距離</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>10000</Maximum>
+      <Increment>5</Increment>
+    </Field>
+    <Field Def="u8 Not hit by SFX = 0">
+      <DisplayName>ＳＦＸに当たらない</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>Avoid being hit by SFX.</Description>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 It does not correspond to the SFX of the viewpoint = 0">
+      <DisplayName>見方のSFXにあたらない</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>It does not correspond to the SFX of the viewpoint.</Description>
+      <Maximum>1</Maximum>
+      <Increment>0</Increment>
+    </Field>
+    <Field Def="u8 Does not damage itself = 0">
+      <DisplayName>自機に当たらない</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>The enemy does not damage itself.</Description>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Able to ride on moving objects = 0">
+      <DisplayName>動くものに乗れるようにする。</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>Setting this flag allows enemies to ride on moving objects. (Too heavy for raycasting)</Description>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Autoboost update interval = 2">
+      <DisplayName>オートブースト更新間隔</DisplayName>
+    </Field>
+    <Field Def="u8 AI sync skip frame = 10">
+      <DisplayName>ＡI同期スキップフレーム</DisplayName>
+      <Description>Interval at which information is passed from the control side to the AI side.</Description>
+    </Field>
+    <Field Def="u8 Number of frames to skip AI manipulation = 10">
+      <DisplayName>AIの操作をスキップするフレーム数</DisplayName>
+      <Description>Interval for interpreting operations on the AI side.</Description>
+    </Field>
+    <Field Def="u8 FCS target search interval (frames) = 0">
+      <DisplayName>Fcsのターゲット検索の間隔（フレーム）</DisplayName>
+      <Description>FCS target search interval (frames)</Description>
+    </Field>
+    <Field Def="u8 Joint control update interval = 0">
+      <DisplayName>関節制御の更新間隔</DisplayName>
+      <Description>Joint control update interval</Description>
+    </Field>
+    <Field Def="u8 Decimated frames for IK collision judgment = 5">
+      <DisplayName>IK用の当たり判定の間引きフレーム</DisplayName>
+      <Description>Decimated frames for IK collision judgment.</Description>
+    </Field>
+    <Field Def="u8 Disable lock occlusion check = 0">
+      <DisplayName>ロックの遮蔽チェックを行わない</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>Disable lock occlusion check</Description>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Destroy even in the air = 0">
+      <DisplayName>空中にいても、破壊する</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>Destroy even in the air</Description>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="dummy8 --reserve--[8]">
+      <DisplayName>--予約--</DisplayName>
+      <EditFlags>Wrap</EditFlags>
+    </Field>
+  </Fields>
+</PARAMDEF>

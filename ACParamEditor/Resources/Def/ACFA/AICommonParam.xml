@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>AI_COMMON_PARAM_ST</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="fixstr name[32]">
+      <DisplayName>名前</DisplayName>
+      <Description>AIの名前・説明</Description>
+      <EditFlags>None</EditFlags>
+    </Field>
+    <Field Def="fixstr script name[32]">
+      <DisplayName>スクリプト名</DisplayName>
+      <Description>ファイル名から拡張子を抜いた名前</Description>
+      <EditFlags>None</EditFlags>
+    </Field>
+    <Field Def="f32 time to forget">
+      <DisplayName>忘れるまでの時間</DisplayName>
+      <Description>認識してから忘れるまでの時間。マイナスで絶対忘れない</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>-1</Minimum>
+      <Maximum>999</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 Distance at which path navigation fails = 100">
+      <DisplayName>パスナビゲーションが失敗する距離</DisplayName>
+      <Description>実際の目標位置からパスの目標位置がこの値ずれたら、パスは失敗する。</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 Time to give up on path finding = 1">
+      <DisplayName>パス検索をあきらめる時間</DisplayName>
+      <Description>パス検索をあきらめる時間</Description>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="f32 Judgment distance whether it arrived at the node of the path movement = 15">
+      <DisplayName>パス移動のノードに到着したか判定距離</DisplayName>
+      <Description>パス移動のノードに到着したか判定距離</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 Power to split to dodge walls">
+      <DisplayName>壁をよけるのに割く力</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>10</Maximum>
+    </Field>
+    <Field Def="f32 power to avoid moving obstacles">
+      <DisplayName>動く障害物をよけるのに割く力</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>10</Maximum>
+    </Field>
+    <Field Def="f32 power to dodge bullets">
+      <DisplayName>弾をよけるのに割く力</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>10</Maximum>
+    </Field>
+    <Field Def="f32 Force to spare to move to destination = 1">
+      <DisplayName>目的地に移動するために割く力</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>10</Maximum>
+    </Field>
+    <Field Def="f32 power to roam">
+      <DisplayName>ウロウロするために割く力</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>10</Maximum>
+    </Field>
+    <Field Def="f32 Power to spare in trying to separate from peers">
+      <DisplayName>仲間から離れようとするのに割く力</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>10</Maximum>
+    </Field>
+    <Field Def="f32 Power to spend trying to get close to allies">
+      <DisplayName>仲間に近づこうとするのに割く力</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>10</Maximum>
+    </Field>
+    <Field Def="f32 Power to spare to go in the same direction as allies">
+      <DisplayName>仲間と同じ方向に向こうとするのに割く力</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>10</Maximum>
+    </Field>
+    <Field Def="f32 herd control radius">
+      <DisplayName>群れ制御半径</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1000</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 Herd control visibility range">
+      <DisplayName>群れ制御視界範囲</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>180</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 effective amount of force = 2">
+      <DisplayName>力の有効量</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>10</Maximum>
+    </Field>
+    <Field Def="f32 Force to keep from leaving the specified area">
+      <DisplayName>指定領域から出ないようにする力</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>10</Maximum>
+    </Field>
+    <Field Def="u8 Use Terrain Awareness? = 0">
+      <DisplayName>地形認識を使用するか？</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>地形認識を使用するか？</Description>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Use herd control? = 0">
+      <DisplayName>群れ制御を使用するか？</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 force distribution method = 0">
+      <DisplayName>力の分配方法</DisplayName>
+      <Enum>AI_COMBINING_STEEIRNG_METHOD</Enum>
+      <Description>力の合成方法を選択する。</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Use obstacle avoidance control? = 0">
+      <DisplayName>障害物回避制御を使用するか？</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>直線当たりを使用した障害物回避制御をONOFF</Description>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Use wall avoidance control? = 0">
+      <DisplayName>壁回避制御を使用するか？</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>壁回避制御を使用するか？</Description>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Are you going to do a ground check? = 0">
+      <DisplayName>地面チェックを行うか？</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>地面チェックを行うか？</Description>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Do you want me to stay out of the operational area? = 0">
+      <DisplayName>作戦領域外に出ないようにするか？</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>作戦領域外に出ないようにするか？</Description>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Do you want to avoid entering the restricted area? = 0">
+      <DisplayName>進入禁止領域に入らないようにするか？</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>進入禁止領域に入らないようにするか？</Description>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u16 Length of the sensor that determines the no-entry area = 200">
+      <DisplayName>進入禁止領域の判定を行うセンサーの長さ</DisplayName>
+      <Description>進入禁止領域の判定を行うセンサーの長さ</Description>
+      <Maximum>1000</Maximum>
+    </Field>
+    <Field Def="fixstr reserve[22]">
+      <DisplayName>予約</DisplayName>
+      <Description>予約</Description>
+      <EditFlags>None</EditFlags>
+    </Field>
+    <Field Def="u8 Length of hit line segment for wall detection = 30">
+      <DisplayName>壁検出の当た線分の長さ</DisplayName>
+      <Description>壁検出用当たり線分の長さ</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>1</Minimum>
+    </Field>
+    <Field Def="u8 Angle with line segment per auxiliary wall detection = 45">
+      <DisplayName>補助壁検出当たり線分との角度</DisplayName>
+      <Description>補助壁検出当たり線分のメインとの角度（°）</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>180</Maximum>
+    </Field>
+    <Field Def="u8 Turning margin = 15">
+      <DisplayName>旋回時マージン</DisplayName>
+      <Description>旋回の際のマージン。旋回速度の速いキャラの場合、大きめに設定する事</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>90</Maximum>
+    </Field>
+    <Field Def="u8 Margin when turning line of sight = 15">
+      <DisplayName>視線旋回時マージン</DisplayName>
+      <Description>視線旋回の際のマージン。旋回速度の速いキャラの場合、大きめに設定する事</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>90</Maximum>
+    </Field>
+    <Field Def="fixstr reserve[28]">
+      <DisplayName>予約</DisplayName>
+      <Description>予約</Description>
+      <EditFlags>None</EditFlags>
+    </Field>
+    <Field Def="f32 additional parameter 0">
+      <DisplayName>追加パラメータ０</DisplayName>
+      <Description>追加パラメータ０</Description>
+      <Minimum>-9999</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="f32 Additional parameter 1">
+      <DisplayName>追加パラメータ１</DisplayName>
+      <Description>追加パラメータ１</Description>
+      <Minimum>-9999</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="f32 Additional parameter 2">
+      <DisplayName>追加パラメータ２</DisplayName>
+      <Description>追加パラメータ２</Description>
+      <Minimum>-9999</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="f32 Additional parameter 3">
+      <DisplayName>追加パラメータ３</DisplayName>
+      <Description>追加パラメータ３</Description>
+      <Minimum>-9999</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="f32 Additional parameter 4">
+      <DisplayName>追加パラメータ４</DisplayName>
+      <Description>追加パラメータ４</Description>
+      <Minimum>-9999</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="f32 Additional parameter 5">
+      <DisplayName>追加パラメータ５</DisplayName>
+      <Description>追加パラメータ５</Description>
+      <Minimum>-9999</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="f32 Additional parameter 6">
+      <DisplayName>追加パラメータ６</DisplayName>
+      <Description>追加パラメータ６</Description>
+      <Minimum>-9999</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="f32 Additional parameter 7">
+      <DisplayName>追加パラメータ７</DisplayName>
+      <Description>追加パラメータ７</Description>
+      <Minimum>-9999</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="fixstr reservation 2[32]">
+      <DisplayName>予約２</DisplayName>
+      <Description>予約</Description>
+      <EditFlags>None</EditFlags>
+    </Field>
+  </Fields>
+</PARAMDEF>

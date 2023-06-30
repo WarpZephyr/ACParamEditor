@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>BULLET_RIGID_ST</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="s32 Program = 0">
+      <DisplayName>プログラム</DisplayName>
+      <Enum>BULLET_BEHAVIOR_ID</Enum>
+      <EditFlags>Wrap, Lock</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u8 Can be shot down = 0">
+      <DisplayName>撃墜可</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>この弾が「迎撃可」の弾によって撃ち落されることができる</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Can go underwater = 0">
+      <DisplayName>水中可</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <EditFlags>None</EditFlags>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Can penetrate wire mesh = 0">
+      <DisplayName>金網貫通</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <EditFlags>None</EditFlags>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Can intercept = 1">
+      <DisplayName>迎撃可</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>この弾が「撃墜可」の弾を撃ち落すことができる</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="f32 Hit Radius">
+      <DisplayName>当たり半径</DisplayName>
+      <Description>0 なら直線当たり</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>99</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 Proximity Fuse Distance">
+      <DisplayName>近接信管距離</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 Attenuation: Power">
+      <DisplayName>減衰：威力</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+      <Increment>0.05</Increment>
+    </Field>
+    <Field Def="f32 Attenuation: Recoil">
+      <DisplayName>減衰：反動</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+      <Increment>0.05</Increment>
+    </Field>
+    <Field Def="f32 Attenuation: Diffusion">
+      <DisplayName>減衰：拡散力</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+      <Increment>0.05</Increment>
+    </Field>
+    <Field Def="f32 Attenuation: Penetration">
+      <DisplayName>減衰：貫通力</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+      <Increment>0.05</Increment>
+    </Field>
+    <Field Def="f32 Aerodynamic Coefficient">
+      <DisplayName>空力係数</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+      <Increment>0.0001</Increment>
+    </Field>
+    <Field Def="f32 Stall Aerodynamic Coefficient (Horizontal)">
+      <DisplayName>失速時空力係数（水平）</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+      <Increment>0.0001</Increment>
+    </Field>
+    <Field Def="f32 Stall Aerodynamic Coefficient (Vertical)">
+      <DisplayName>失速時空力係数（垂直）</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+      <Increment>0.0001</Increment>
+    </Field>
+    <Field Def="f32 Gravitational Acceleration">
+      <DisplayName>重力加速度</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>999</Maximum>
+    </Field>
+  </Fields>
+</PARAMDEF>

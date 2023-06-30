@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>FRIEND_AC_INFO</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="u8 ID = 0">
+      <DisplayName>ID</DisplayName>
+    </Field>
+    <Field Def="u8 Appearance Mission ID = 0">
+      <DisplayName>登場ミッションID</DisplayName>
+    </Field>
+    <Field Def="u8 AcDataInfo ID = 0">
+      <DisplayName>ACのデータID</DisplayName>
+    </Field>
+    <Field Def="u8 AcProfileInfo ID = 0">
+      <DisplayName>プロフィールデータID</DisplayName>
+    </Field>
+    <Field Def="fixstr AI Script Name[15]">
+      <DisplayName>AIの名前</DisplayName>
+    </Field>
+    <Field Def="u8 Compensation Amount (Percentage) = 0">
+      <DisplayName>報酬金額(割合)</DisplayName>
+      <EditFlags>Wrap, Lock</EditFlags>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u16 AcFightMessage ID = 0">
+      <DisplayName>AC対戦メッセージID</DisplayName>
+      <Description>0 means disabled.</Description>
+      <EditFlags>Wrap, Lock</EditFlags>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u16 CharaEventData ID = 0">
+      <DisplayName>キャラスクリプトID</DisplayName>
+      <Maximum>9999</Maximum>
+    </Field>
+  </Fields>
+</PARAMDEF>

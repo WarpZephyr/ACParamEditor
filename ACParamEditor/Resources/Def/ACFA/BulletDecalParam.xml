@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>BULLETDECAL_PARAM_ST</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="f32 stone (size) = 5">
+      <DisplayName>石 (サイズ)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 water (size) = 5">
+      <DisplayName>水 (サイズ)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 glass (size) = 5">
+      <DisplayName>ガラス (サイズ)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 Concrete (size) = 5">
+      <DisplayName>ｺﾝｸﾘ (サイズ)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 ice (size) = 5">
+      <DisplayName>氷 (サイズ)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 sand (size) = 5">
+      <DisplayName>砂 (サイズ)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 iron (size) = 5">
+      <DisplayName>鉄 (サイズ)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 wire mesh (size) = 5">
+      <DisplayName>金網 (サイズ)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 soil (size) = 5">
+      <DisplayName>土 (サイズ)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 snow (size) = 5">
+      <DisplayName>雪 (サイズ)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 PA (size) = 5">
+      <DisplayName>PA (サイズ)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 AC (size) = 5">
+      <DisplayName>AC (サイズ)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 VR (size) = 5">
+      <DisplayName>VR (サイズ)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="s32 building (size) = 5">
+      <DisplayName>ビル (サイズ)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+    <Field Def="s32 pipe (size) = 5">
+      <DisplayName>パイプ (サイズ)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+    <Field Def="s32 Electricity (size) = 5">
+      <DisplayName>電気 (サイズ)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+    <Field Def="f32 Others (Size) = 5">
+      <DisplayName>その他 (サイズ)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 stone (depth) = 5">
+      <DisplayName>石 (深度)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 water (depth) = 5">
+      <DisplayName>水 (深度)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 glass (depth) = 5">
+      <DisplayName>ガラス (深度)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 Concrete (depth) = 5">
+      <DisplayName>ｺﾝｸﾘ (深度)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 ice (depth) = 5">
+      <DisplayName>氷 (深度)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 sand (depth) = 5">
+      <DisplayName>砂 (深度)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 iron (depth) = 5">
+      <DisplayName>鉄 (深度)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 wire mesh (depth) = 5">
+      <DisplayName>金網 (深度)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 soil (depth) = 5">
+      <DisplayName>土 (深度)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 snow (depth) = 5">
+      <DisplayName>雪 (深度)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 PA (depth) = 5">
+      <DisplayName>PA (深度)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 AC (depth) = 5">
+      <DisplayName>AC (深度)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 VR (depth) = 5">
+      <DisplayName>VR (深度)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="s32 Bill (depth) = 5">
+      <DisplayName>ビル (深度)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+    <Field Def="s32 pipe (depth) = 5">
+      <DisplayName>パイプ (深度)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+    <Field Def="s32 electric (depth) = 5">
+      <DisplayName>電気 (深度)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+    <Field Def="f32 Other (Depth) = 5">
+      <DisplayName>その他 (深度)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="s32 stone (TextureId) = 0">
+      <DisplayName>石 (TextureId)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+    <Field Def="s32 Water (TextureId) = 1">
+      <DisplayName>水 (TextureId)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+    <Field Def="s32 Glass (TextureId) = 2">
+      <DisplayName>ガラス (TextureId)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+    <Field Def="s32 Concrete (TextureId) = 3">
+      <DisplayName>ｺﾝｸﾘ (TextureId)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+    <Field Def="s32 ice (TextureId) = 4">
+      <DisplayName>氷 (TextureId)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+    <Field Def="s32 sand (TextureId) = 5">
+      <DisplayName>砂 (TextureId)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+    <Field Def="s32 Iron (TextureId) = 6">
+      <DisplayName>鉄 (TextureId)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+    <Field Def="s32 wire mesh (TextureId) = 7">
+      <DisplayName>金網 (TextureId)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+    <Field Def="s32 soil (TextureId) = 8">
+      <DisplayName>土 (TextureId)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+    <Field Def="s32 snow (TextureId) = 9">
+      <DisplayName>雪 (TextureId)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+    <Field Def="s32 PA (TextureId) = 10">
+      <DisplayName>PA (TextureId)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+    <Field Def="s32 AC (TextureId) = 11">
+      <DisplayName>AC (TextureId)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+    <Field Def="s32 VR (TextureId) = 12">
+      <DisplayName>VR (TextureId)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+    <Field Def="s32 Building (TextureId) = 13">
+      <DisplayName>ビル (TextureId)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+    <Field Def="s32 pipe (TextureId) = 14">
+      <DisplayName>パイプ (TextureId)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+    <Field Def="s32 electrical (TextureId) = 15">
+      <DisplayName>電気 (TextureId)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+    <Field Def="s32 Other (TextureId) = 13">
+      <DisplayName>その他 (TextureId)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>15</Maximum>
+    </Field>
+  </Fields>
+</PARAMDEF>

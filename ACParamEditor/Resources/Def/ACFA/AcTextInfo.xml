@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>AC_TEXT_INFO</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="u8 ID = 0">
+      <DisplayName>ID</DisplayName>
+    </Field>
+    <Field Def="fixstr dummy[1]">
+      <DisplayName>ダミー</DisplayName>
+      <EditFlags>None</EditFlags>
+    </Field>
+    <Field Def="fixstrW Pilot Name[31]">
+      <DisplayName>搭乗者名</DisplayName>
+    </Field>
+    <Field Def="fixstrW AC Name[32]">
+      <DisplayName>機体名</DisplayName>
+    </Field>
+    <Field Def="fixstr Affiliation[32]">
+      <DisplayName>所属勢力</DisplayName>
+      <Description>Not currently in use. Leaving it in as specifications may change.</Description>
+      <EditFlags>None</EditFlags>
+    </Field>
+  </Fields>
+</PARAMDEF>

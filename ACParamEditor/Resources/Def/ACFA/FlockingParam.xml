@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>FLOCKING_PARAM_ST</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="f32 Maximum force to use in herd control">
+      <DisplayName>群れ制御で使用する最大の力</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 Percentage of force leaving">
+      <DisplayName>離れる力の割合</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>99999</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 Rate of approaching force">
+      <DisplayName>近づく力の割合</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 Percentage of force approaching the target position">
+      <DisplayName>目標位置に近づく力の割合</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="u16 Minimum distance [m] = 0">
+      <DisplayName>最低限あける距離[m]</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Maximum>3000</Maximum>
+    </Field>
+    <Field Def="u8 herd type = 0">
+      <DisplayName>群れタイプ</DisplayName>
+      <Enum>FLOCKING_BEHAVIOR_TYPE</Enum>
+      <EditFlags>None</EditFlags>
+      <Maximum>100</Maximum>
+    </Field>
+    <Field Def="u8 Separation force calculation interval [frame] = 0">
+      <DisplayName>離れる力算出間隔[frame]</DisplayName>
+      <EditFlags>None</EditFlags>
+    </Field>
+    <Field Def="f32 Percentage of wall protection force">
+      <DisplayName>壁よけ力の割合</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="dummy8 reserve[8]">
+      <DisplayName>予約</DisplayName>
+    </Field>
+  </Fields>
+</PARAMDEF>

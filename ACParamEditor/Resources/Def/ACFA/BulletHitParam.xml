@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>BULLETHIT_PARAM_ST</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="s16 Stone (Bullet) = 0">
+      <DisplayName>石 （弾)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 stone (map) = 0">
+      <DisplayName>石 (マップ)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Water (Bullet) = 0">
+      <DisplayName>水 （弾)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 water (map) = 0">
+      <DisplayName>水 (マップ)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Glass (Bullet) = 0">
+      <DisplayName>ガラス （弾)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 glass (map) = 0">
+      <DisplayName>ガラス (マップ)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Concrete (Bullet) = 0">
+      <DisplayName>ｺﾝｸﾘ （弾)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Concrete (Map) = 0">
+      <DisplayName>ｺﾝｸﾘ (マップ)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Ice (Bullet) = 0">
+      <DisplayName>氷 （弾)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 ice (map) = 0">
+      <DisplayName>氷 (マップ)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Sand (Bullet) = 0">
+      <DisplayName>砂 （弾)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 sand (map) = 0">
+      <DisplayName>砂 (マップ)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Iron (Bullet) = 0">
+      <DisplayName>鉄 （弾)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 iron (map) = 0">
+      <DisplayName>鉄 (マップ)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 wire mesh (bullet) = 0">
+      <DisplayName>金網 （弾)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 wire mesh (map) = 0">
+      <DisplayName>金網 (マップ)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Soil (Bullet) = 0">
+      <DisplayName>土 （弾)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 soil (map) = 0">
+      <DisplayName>土 (マップ)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Snow (Bullet) = 0">
+      <DisplayName>雪 （弾)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 snow (map) = 0">
+      <DisplayName>雪 (マップ)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 PA (Bullet) = 0">
+      <DisplayName>PA （弾)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 PA (map) = 0">
+      <DisplayName>PA (マップ)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 AC (Bullet) = 0">
+      <DisplayName>AC （弾)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 AC (map) = 0">
+      <DisplayName>AC (マップ)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 VR (Bullet) = 0">
+      <DisplayName>VR （弾)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 VR (Map) = 0">
+      <DisplayName>VR (マップ)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Bill (Bullet) = 0">
+      <DisplayName>ビル （弾)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Building (Map) = 0">
+      <DisplayName>ビル (マップ)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Pipe (Bullet) = 0">
+      <DisplayName>パイプ （弾)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 pipe (map) = 0">
+      <DisplayName>パイプ (マップ)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Electricity (Bullet) = 0">
+      <DisplayName>電気 （弾)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 electricity (map) = 0">
+      <DisplayName>電気 (マップ)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Other (Bullet) = 0">
+      <DisplayName>その他 （弾)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Other (Map) = 0">
+      <DisplayName>その他 (マップ)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+  </Fields>
+</PARAMDEF>

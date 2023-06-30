@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>ARENA_DATAPACK</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="u8 ID = 0">
+      <DisplayName>ID</DisplayName>
+    </Field>
+    <Field Def="u8 reserve = 0">
+      <DisplayName>予約</DisplayName>
+      <EditFlags>Wrap, Lock</EditFlags>
+    </Field>
+    <Field Def="fixstrW DataPack ID[30]">
+      <DisplayName>データパックID</DisplayName>
+    </Field>
+    <Field Def="fixstr Client name[32]">
+      <DisplayName>依頼者名</DisplayName>
+    </Field>
+    <Field Def="fixstr reserve[2]">
+      <DisplayName>予約</DisplayName>
+      <EditFlags>None</EditFlags>
+    </Field>
+    <Field Def="u32 Reward Amount = 0">
+      <DisplayName>報酬金額</DisplayName>
+      <Maximum>999999</Maximum>
+    </Field>
+    <Field Def="u8 reserve = 0">
+      <DisplayName>予約</DisplayName>
+      <EditFlags>Wrap, Lock</EditFlags>
+    </Field>
+    <Field Def="s8 Rewarded Part Category = 0">
+      <DisplayName>報酬パーツ種別</DisplayName>
+      <Enum>PARTS_CATEGORY</Enum>
+      <Minimum>0</Minimum>
+    </Field>
+    <Field Def="u16 Rewarded Part ID = 0">
+      <DisplayName>報酬パーツID</DisplayName>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="fixstr reserve[24]">
+      <DisplayName>予約</DisplayName>
+      <EditFlags>None</EditFlags>
+    </Field>
+  </Fields>
+</PARAMDEF>

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>TUTORIAL_TASK_TEXT</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="u32 placeholder = 0">
+      <DisplayName>Task message ID</DisplayName>
+      <Description>課題メッセージID</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>9000000</Maximum>
+    </Field>
+    <Field Def="u32 placeholder = 0">
+      <DisplayName>Supplemental message ID</DisplayName>
+      <Description>補足メッセージID</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>9000000</Maximum>
+    </Field>
+    <Field Def="u32 placeholder = 0">
+      <DisplayName>Supplemental message ID2</DisplayName>
+      <Description>補足メッセージID2</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>9000000</Maximum>
+    </Field>
+    <Field Def="fixstr placeholder[4]">
+      <DisplayName>reserve</DisplayName>
+      <Description>予約</Description>
+      <EditFlags>None</EditFlags>
+    </Field>
+  </Fields>
+</PARAMDEF>

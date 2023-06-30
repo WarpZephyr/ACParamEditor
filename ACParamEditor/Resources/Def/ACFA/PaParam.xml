@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>PRIMAL_ARMOR_PARAM_ST</ParamType>
+  <DataVersion>3</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="f32 Maximum bullet defense = 0.8">
+      <DisplayName>最大実弾防御力</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="f32 Minimum bullet defense">
+      <DisplayName>最低実弾防御力</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="f32 Maximum EN Defense Power = 0.8">
+      <DisplayName>最大ＥＮ防御力</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="f32 Minimum EN Defense Power">
+      <DisplayName>最低ＥＮ防御力</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="f32 Bullet versus spread performance = 0.15">
+      <DisplayName>実弾対拡散性能</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="f32 EN versus spread performance = 0.15">
+      <DisplayName>ＥＮ対拡散性能</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="f32 Minimum bullet penetration damage">
+      <DisplayName>実弾貫通最低ダメージ</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>5</Increment>
+    </Field>
+    <Field Def="f32 Minimum EN penetration damage">
+      <DisplayName>ＥＮ貫通最低ダメージ</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>5</Increment>
+    </Field>
+    <Field Def="f32 Maximum Diffusion Power (/sec) = 500">
+      <DisplayName>最大拡散力(/秒)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>10</Increment>
+    </Field>
+    <Field Def="f32 Minimum Diffusion Power (/sec) = 200">
+      <DisplayName>最低拡散力(/秒)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>5</Increment>
+    </Field>
+    <Field Def="f32 Stability: Maximum value = 3500">
+      <DisplayName>安定度：最大値</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>99999</Maximum>
+      <Increment>100</Increment>
+    </Field>
+    <Field Def="f32 Stability: Defense effect generation value = 600">
+      <DisplayName>安定度：防御効果発生値</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>99999</Maximum>
+      <Increment>100</Increment>
+    </Field>
+    <Field Def="f32 Stability: Recovery (/sec) = 300">
+      <DisplayName>安定度：回復力（/秒)</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 Stability: Decrease amount when EN is insufficient (/sec) = 1000">
+      <DisplayName>安定度：ＥＮ不足時減少量（/秒）</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 PA width = 8">
+      <DisplayName>ＰＡ幅</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>999</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 PA height = 8">
+      <DisplayName>ＰＡ高さ</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>999</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 PA depth = 8">
+      <DisplayName>ＰＡ奥行き</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>999</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 ----">
+      <DisplayName>----</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 Level 2 effect generation damage value">
+      <DisplayName>レベル２エフェクト発生ダメージ値</DisplayName>
+      <Description>レベル２の着弾エフェクトが出るダメージ値</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 Level 3 effect generation damage value">
+      <DisplayName>レベル３エフェクト発生ダメージ値</DisplayName>
+      <Description>レベル３の着弾エフェクトが出るダメージ値</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="s32 SFXID = 0">
+      <DisplayName>SFXID</DisplayName>
+      <Description>SFX一覧：PA のID</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s32 PA type = 0">
+      <DisplayName>PAタイプ</DisplayName>
+      <Description>0..通常PA、1..施設PA</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="f32 Initial stability percentage">
+      <DisplayName>初期安定度割合</DisplayName>
+      <Description>0～1</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="f32 PA generation stability rate = 0.3">
+      <DisplayName>PA発生安定度割合</DisplayName>
+      <Description>0～1</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+  </Fields>
+</PARAMDEF>

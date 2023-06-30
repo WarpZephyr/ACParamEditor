@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>BULLET_BLADE_ST</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="s32 Program = 0">
+      <DisplayName>プログラム</DisplayName>
+      <Enum>BULLET_BEHAVIOR_ID</Enum>
+      <EditFlags>Wrap, Lock</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u8 Can be shot down = 0">
+      <DisplayName>撃墜可</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>この弾が「迎撃可」の弾によって撃ち落されることができる</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Can go underwater = 0">
+      <DisplayName>水中可</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <EditFlags>None</EditFlags>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Penerates wire mesh = 1">
+      <DisplayName>金網貫通</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <EditFlags>None</EditFlags>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="u8 Can intercept = 1">
+      <DisplayName>迎撃可</DisplayName>
+      <Enum>ON_OFF</Enum>
+      <Description>この弾が「撃墜可」の弾を撃ち落すことができる</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="f32 Blade Length">
+      <DisplayName>当たり長さ</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>999</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 Proximity Fuse Distance">
+      <DisplayName>近接信管距離</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 Attenuation: Power">
+      <DisplayName>減衰：威力</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+      <Increment>0.05</Increment>
+    </Field>
+    <Field Def="f32 Attenuation: Recoil">
+      <DisplayName>減衰：反動</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+      <Increment>0.05</Increment>
+    </Field>
+    <Field Def="f32 Attenuation: Diffusion">
+      <DisplayName>減衰：拡散力</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+      <Increment>0.05</Increment>
+    </Field>
+    <Field Def="f32 Attenuation: Penetration">
+      <DisplayName>減衰：貫通力</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+      <Increment>0.05</Increment>
+    </Field>
+  </Fields>
+</PARAMDEF>

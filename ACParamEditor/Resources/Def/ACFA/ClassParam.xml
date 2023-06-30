@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>CLASS_PARAM_ST</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="f32 Battle Bonuses by Class">
+      <DisplayName>クラス別の対戦ボーナス</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>1000</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 Base Point for Class Down">
+      <DisplayName>クラスダウンする基準ポイント</DisplayName>
+      <Description>Just in case.</Description>
+      <Minimum>-100000</Minimum>
+      <Maximum>100000</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 Base Point for Class Upgrade = 25">
+      <DisplayName>クラスアップする基準ポイント</DisplayName>
+      <Minimum>-100000</Minimum>
+      <Maximum>100000</Maximum>
+      <Increment>1</Increment>
+    </Field>
+  </Fields>
+</PARAMDEF>

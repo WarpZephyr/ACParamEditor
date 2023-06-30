@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>RADAR_SHAPE</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="u8 Shape = 1">
+      <DisplayName>形状</DisplayName>
+      <Enum>RADAR_SHAPE_ID</Enum>
+    </Field>
+    <Field Def="dummy8 --reserve--[3]">
+      <DisplayName>--予約--</DisplayName>
+      <EditFlags>Wrap</EditFlags>
+    </Field>
+    <Field Def="u8 Ally ( R ) = 0">
+      <DisplayName>味方 ( R )</DisplayName>
+    </Field>
+    <Field Def="u8 Ally ( G ) = 255">
+      <DisplayName>味方 ( G )</DisplayName>
+    </Field>
+    <Field Def="u8 Ally ( B ) = 0">
+      <DisplayName>味方 ( B )</DisplayName>
+    </Field>
+    <Field Def="u8 Ally ( A ) = 255">
+      <DisplayName>味方 ( A )</DisplayName>
+    </Field>
+    <Field Def="u8 Enemy ( R ) = 255">
+      <DisplayName> 敵 ( R )</DisplayName>
+    </Field>
+    <Field Def="u8 Enemy ( G ) = 0">
+      <DisplayName> 敵 ( G )</DisplayName>
+    </Field>
+    <Field Def="u8 Enemy ( B ) = 0">
+      <DisplayName> 敵 ( B )</DisplayName>
+    </Field>
+    <Field Def="u8 Enemy ( A ) = 255">
+      <DisplayName> 敵 ( A )</DisplayName>
+    </Field>
+    <Field Def="u8 Neutral ( R ) = 255">
+      <DisplayName>中立 ( R )</DisplayName>
+    </Field>
+    <Field Def="u8 Neutral ( G ) = 255">
+      <DisplayName>中立 ( G )</DisplayName>
+    </Field>
+    <Field Def="u8 Neutral ( B ) = 0">
+      <DisplayName>中立 ( B )</DisplayName>
+    </Field>
+    <Field Def="u8 Neutral ( A ) = 255">
+      <DisplayName>中立 ( A )</DisplayName>
+    </Field>
+  </Fields>
+</PARAMDEF>

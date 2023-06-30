@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>PA_SFXPARAM_ST</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="s16 Before disappearance (loop) = 0">
+      <DisplayName>消滅前 (ループ)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 disappearance = 0">
+      <DisplayName>消滅</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 recovery = 0">
+      <DisplayName>復活</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Live bullet (small) = 0">
+      <DisplayName>実弾(小) 着弾</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Live bullet (medium) = 0">
+      <DisplayName>実弾(中) 着弾</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Live bullet (large) = 0">
+      <DisplayName>実弾（大） 着弾</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 EN bullet (small) landing = 0">
+      <DisplayName>EN弾(小) 着弾</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 EN bullet (medium) landing = 0">
+      <DisplayName>EN弾(中) 着弾</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 EN Bullet (large) landing = 0">
+      <DisplayName>EN弾（大） 着弾</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Assault Armor Tame = 0">
+      <DisplayName>アサルトアーマー タメ</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Assault Armor Activation = 0">
+      <DisplayName>アサルトアーマー 発動</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="s16 Assault Armor Stagnation = 0">
+      <DisplayName>アサルトアーマー 停滞</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="dummy8 ----[8]">
+      <DisplayName>----</DisplayName>
+      <EditFlags>Wrap</EditFlags>
+    </Field>
+  </Fields>
+</PARAMDEF>
