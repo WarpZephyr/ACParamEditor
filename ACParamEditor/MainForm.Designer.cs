@@ -62,6 +62,9 @@
             RowView = new ToolStripMenuItem();
             RowViewID = new ToolStripMenuItem();
             RowViewName = new ToolStripMenuItem();
+            RowCopy = new ToolStripMenuItem();
+            RowPaste = new ToolStripMenuItem();
+            RowDuplicate = new ToolStripMenuItem();
             CellDataGridView = new DataGridView();
             paramcelltype = new DataGridViewTextBoxColumn();
             paramcellvalue = new DataGridViewTextBoxColumn();
@@ -126,7 +129,7 @@
             MenuFileOpen.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileOpen.ForeColor = SystemColors.Control;
             MenuFileOpen.Name = "MenuFileOpen";
-            MenuFileOpen.Size = new Size(120, 22);
+            MenuFileOpen.Size = new Size(180, 22);
             MenuFileOpen.Text = "Open";
             MenuFileOpen.Click += MenuFileOpen_Click;
             // 
@@ -135,7 +138,7 @@
             MenuFileSave.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileSave.ForeColor = SystemColors.Control;
             MenuFileSave.Name = "MenuFileSave";
-            MenuFileSave.Size = new Size(120, 22);
+            MenuFileSave.Size = new Size(180, 22);
             MenuFileSave.Text = "Save";
             MenuFileSave.Click += MenuFileSave_Click;
             // 
@@ -144,7 +147,7 @@
             MenuFileSaveAll.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileSaveAll.ForeColor = SystemColors.Control;
             MenuFileSaveAll.Name = "MenuFileSaveAll";
-            MenuFileSaveAll.Size = new Size(120, 22);
+            MenuFileSaveAll.Size = new Size(180, 22);
             MenuFileSaveAll.Text = "Save All";
             MenuFileSaveAll.Click += MenuFileSaveAll_Click;
             // 
@@ -153,7 +156,7 @@
             MenuFileClose.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileClose.ForeColor = SystemColors.Control;
             MenuFileClose.Name = "MenuFileClose";
-            MenuFileClose.Size = new Size(120, 22);
+            MenuFileClose.Size = new Size(180, 22);
             MenuFileClose.Text = "Close";
             MenuFileClose.Click += MenuFileClose_Click;
             // 
@@ -162,7 +165,7 @@
             MenuFileCloseAll.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileCloseAll.ForeColor = SystemColors.Control;
             MenuFileCloseAll.Name = "MenuFileCloseAll";
-            MenuFileCloseAll.Size = new Size(120, 22);
+            MenuFileCloseAll.Size = new Size(180, 22);
             MenuFileCloseAll.Text = "Close All";
             MenuFileCloseAll.Click += MenuFileCloseAll_Click;
             // 
@@ -379,6 +382,8 @@
             RowDataGridView.RowTemplate.Height = 25;
             RowDataGridView.Size = new Size(417, 580);
             RowDataGridView.TabIndex = 1;
+            RowDataGridView.CellBeginEdit += RowDataGridView_CellBeginEdit;
+            RowDataGridView.CellValidating += RowDataGridView_CellValidating;
             RowDataGridView.SelectionChanged += RowDataGridView_SelectionChanged;
             // 
             // paramrowid
@@ -395,9 +400,9 @@
             // 
             // RowContextMenu
             // 
-            RowContextMenu.Items.AddRange(new ToolStripItem[] { RowView });
+            RowContextMenu.Items.AddRange(new ToolStripItem[] { RowView, RowCopy, RowPaste, RowDuplicate });
             RowContextMenu.Name = "ParamDataGridViewContextMenu";
-            RowContextMenu.Size = new Size(100, 26);
+            RowContextMenu.Size = new Size(125, 92);
             // 
             // RowView
             // 
@@ -405,7 +410,7 @@
             RowView.DropDownItems.AddRange(new ToolStripItem[] { RowViewID, RowViewName });
             RowView.ForeColor = SystemColors.Control;
             RowView.Name = "RowView";
-            RowView.Size = new Size(99, 22);
+            RowView.Size = new Size(124, 22);
             RowView.Text = "View";
             // 
             // RowViewID
@@ -431,6 +436,33 @@
             RowViewName.Size = new Size(132, 22);
             RowViewName.Text = "Row Name";
             RowViewName.Click += RowViewName_Click;
+            // 
+            // RowCopy
+            // 
+            RowCopy.BackColor = Color.FromArgb(65, 65, 65);
+            RowCopy.ForeColor = SystemColors.Control;
+            RowCopy.Name = "RowCopy";
+            RowCopy.Size = new Size(124, 22);
+            RowCopy.Text = "Copy";
+            RowCopy.Click += RowCopy_Click;
+            // 
+            // RowPaste
+            // 
+            RowPaste.BackColor = Color.FromArgb(65, 65, 65);
+            RowPaste.ForeColor = SystemColors.Control;
+            RowPaste.Name = "RowPaste";
+            RowPaste.Size = new Size(124, 22);
+            RowPaste.Text = "Paste";
+            RowPaste.Click += RowPaste_Click;
+            // 
+            // RowDuplicate
+            // 
+            RowDuplicate.BackColor = Color.FromArgb(65, 65, 65);
+            RowDuplicate.ForeColor = SystemColors.Control;
+            RowDuplicate.Name = "RowDuplicate";
+            RowDuplicate.Size = new Size(124, 22);
+            RowDuplicate.Text = "Duplicate";
+            RowDuplicate.Click += RowDuplicate_Click;
             // 
             // CellDataGridView
             // 
@@ -746,5 +778,8 @@
         private DataGridViewTextBoxColumn paramtype;
         private DataGridViewTextBoxColumn paramgame;
         private ToolStripMenuItem ParamViewGame;
+        private ToolStripMenuItem RowCopy;
+        private ToolStripMenuItem RowPaste;
+        private ToolStripMenuItem RowDuplicate;
     }
 }

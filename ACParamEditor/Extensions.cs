@@ -65,5 +65,19 @@
                 return -1;
             return datagridview.CurrentCell.ColumnIndex;
         }
+
+        /// <summary>
+        /// Check if a ParamInfo list contains a param already.
+        /// </summary>
+        /// <param name="paramlist">An enumerable list of ParamInfo.</param>
+        /// <param name="paraminfo">The param info to check for.</param>
+        /// <returns>Whether or not the ParamInfo list contains the param already.</returns>
+        public static bool ContainsParam(this IEnumerable<ParamInfo> paramlist, ParamInfo paraminfo)
+        {
+            foreach (var param in paramlist)
+                if (param.Path == paraminfo.Path)
+                    return true;
+            return false;
+        }
     }
 }

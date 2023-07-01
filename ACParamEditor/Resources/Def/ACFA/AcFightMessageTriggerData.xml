@@ -6,72 +6,72 @@
   <Unicode>False</Unicode>
   <FormatVersion>101</FormatVersion>
   <Fields>
-    <Field Def="u8 Player AP Low; Enemy AP High; Threshold for judging that Player AP is Low (%) = 20">
+    <Field Def="u8 Player AP decrease; Enemy AP High; Threshold for judging that Player AP is Low (%) = 20">
       <DisplayName>自機AP減少　敵機AP多 自機のAPが低いと判定する閾値(%)</DisplayName>
       <Description>自機AP減少　敵機AP多：自機のAPが低いと判定する閾値(%)</Description>
       <Maximum>100</Maximum>
     </Field>
-    <Field Def="u8 Player AP Low; Enemy AP High; Threshold for judging that Enemy AP is High (%) = 80">
+    <Field Def="u8 Player AP decrease; Enemy AP High; Threshold for judging that Enemy AP is High (%) = 80">
       <DisplayName>自機AP減少　敵機AP多 敵機のAPが高いと判定する閾値(%)</DisplayName>
       <Description>自機AP減少　敵機AP多：敵機のAPが高いと判定する閾値(%)</Description>
       <Maximum>100</Maximum>
     </Field>
-    <Field Def="u8 Player AP Low; Enemy AP Medium; Threshold for judging that Player AP is Low (%) = 20">
+    <Field Def="u8 Player AP decrease; Enemy AP Medium; Threshold for judging that Player AP is Low (%) = 20">
       <DisplayName>自機AP減少　敵機AP中 自機のAPが低いと判定する閾値(%)</DisplayName>
       <Description>自機AP減少　敵機AP中：自機のAPが低いと判定する閾値(%)</Description>
       <Maximum>100</Maximum>
     </Field>
-    <Field Def="u8 Player AP Low; Enemy AP Medium; Upper limit value for judging that Enemy AP is Medium (%) = 80">
+    <Field Def="u8 Player AP decrease; Enemy AP Medium; Upper limit value for judging that Enemy AP is Medium (%) = 80">
       <DisplayName>自機AP減少　敵機AP中 敵機のAPが中程度と判定する上限値(%)</DisplayName>
       <Description>自機AP減少　敵機AP中：敵機のAPが中程度と判定する上限値(%)</Description>
       <Maximum>100</Maximum>
     </Field>
-    <Field Def="u8 Player AP Low; Enemy AP Medium; Lower limit value for judging that Enemy AP is Medium (%) = 50">
+    <Field Def="u8 Player AP decrease; Enemy AP Medium; Lower limit value for judging that Enemy AP is Medium (%) = 50">
       <DisplayName>自機AP減少　敵機AP中 敵機のAPが中程度と判定する下限値(%)</DisplayName>
       <Description>自機AP減少　敵機AP中：敵機のAPが中程度と判定する下限値(%)</Description>
       <Maximum>100</Maximum>
     </Field>
-    <Field Def="u8 Player AP Low; Enemy AP Low; Threshold for judging that Player AP is Low (%) = 20">
+    <Field Def="u8 Player AP decrease; Enemy AP Low; Threshold for judging that Player AP is Low (%) = 20">
       <DisplayName>自機AP減少　敵機AP少 自機のAPが低いと判定する閾値(%)</DisplayName>
       <Description>自機AP減少　敵機AP少：自機のAPが低いと判定する閾値(%)</Description>
       <Maximum>100</Maximum>
     </Field>
-    <Field Def="u8 Player AP Low; Enemy AP Low; Threshold for judging that Enemy AP is Low (%) = 50">
+    <Field Def="u8 Player AP decrease; Enemy AP Low; Threshold for judging that Enemy AP is Low (%) = 50">
       <DisplayName>自機AP減少　敵機AP少 敵機のAPが低いと判定する閾値(%)</DisplayName>
       <Description>自機AP減少　敵機AP少：敵機のAPが低いと判定する閾値(%)</Description>
       <Maximum>100</Maximum>
     </Field>
-    <Field Def="u8 Enemy AP Low; Player AP High; Threshold for judging that Player AP is High (%) = 80">
+    <Field Def="u8 Enemy AP decrease; Player AP High; Threshold for judging that Player AP is High (%) = 80">
       <DisplayName>敵機AP減少　自機AP多 自機のAPが高いと判定する閾値(%)</DisplayName>
       <Description>敵機AP減少　自機AP多：自機のAPが高いと判定する閾値(%)</Description>
       <Maximum>100</Maximum>
     </Field>
-    <Field Def="u8 Enemy AP Low;　Player AP High; Threshold for judging that Enemy AP is Low (%) = 20">
+    <Field Def="u8 Enemy AP decrease;　Player AP High; Threshold for judging that Enemy AP is Low (%) = 20">
       <DisplayName>敵機AP減少　自機AP多 敵機のAPが低いと判定する閾値(%)</DisplayName>
       <Description>敵機AP減少　自機AP多：敵機のAPが低いと判定する閾値(%)</Description>
       <Maximum>100</Maximum>
     </Field>
-    <Field Def="u8 Enemy AP Low;　Player AP Medium; Upper limit value for judging that Player AP is Medium (%) = 80">
+    <Field Def="u8 Enemy AP decrease;　Player AP Medium; Upper limit value for judging that Player AP is Medium (%) = 80">
       <DisplayName>敵機AP減少　自機AP中 自機のAPが中程度と判定する上限値(%)</DisplayName>
       <Description>敵機AP減少　自機AP中：自機のAPが中程度と判定する上限値(%)</Description>
       <Maximum>100</Maximum>
     </Field>
-    <Field Def="u8 Enemy AP Low;　Player AP Medium; Lower limit value for judging that Player AP is Medium (%) = 50">
+    <Field Def="u8 Enemy AP decrease;　Player AP Medium; Lower limit value for judging that Player AP is Medium (%) = 50">
       <DisplayName>敵機AP減少　自機AP中 自機のAPが中程度と判定する下限値(%)</DisplayName>
       <Description>敵機AP減少　自機AP中：自機のAPが中程度と判定する下限値(%)</Description>
       <Maximum>100</Maximum>
     </Field>
-    <Field Def="u8 Enemy AP Low; Player AP Medium; Threshold for judging that Enemy AP is Low (%) = 20">
+    <Field Def="u8 Enemy AP decrease; Player AP Medium; Threshold for judging that Enemy AP is Low (%) = 20">
       <DisplayName>敵機AP減少　自機AP中 敵機のAPが低いと判定する閾値(%)</DisplayName>
       <Description>敵機AP減少　自機AP中：敵機のAPが低いと判定する閾値(%)</Description>
       <Maximum>100</Maximum>
     </Field>
-    <Field Def="u8 Enemy AP Low; Player AP Low; Threshold for judging that Player AP is Low (%) = 50">
+    <Field Def="u8 Enemy AP decrease; Player AP Low; Threshold for judging that Player AP is Low (%) = 50">
       <DisplayName>敵機AP減少　自機AP少 自機のAPが低いと判定する閾値(%)</DisplayName>
       <Description>敵機AP減少　自機AP少：自機のAPが低いと判定する閾値(%)</Description>
       <Maximum>100</Maximum>
     </Field>
-    <Field Def="u8 Enemy AP Low; Player AP Low; Threshold for judging that Enemy AP is Low (%) = 20">
+    <Field Def="u8 Enemy AP decrease; Player AP Low; Threshold for judging that Enemy AP is Low (%) = 20">
       <DisplayName>敵機AP減少　自機AP少 敵機のAPが低いと判定する閾値(%)</DisplayName>
       <Description>敵機AP減少　自機AP少：敵機のAPが低いと判定する閾値(%)</Description>
       <Maximum>100</Maximum>
@@ -196,12 +196,12 @@
       <Description>敵機が被弾した時にメッセージを出す確率(%)</Description>
       <Maximum>100</Maximum>
     </Field>
-    <Field Def="u8 When Player AP is halved, play a message when AP is Greater than the specified AP Lower limit = 50">
+    <Field Def="u8 When Player AP is halved, play a message when it is Greater than the specified AP Lower limit = 50">
       <DisplayName>自機APが半減時 所定APより多いときメッセージ再生する 所定AP下限値</DisplayName>
       <Description>自機APが半減時 所定APより多いときメッセージ再生する 所定AP下限値(%)</Description>
       <Maximum>100</Maximum>
     </Field>
-    <Field Def="u8 When Player AP is halved, play a message when AP is Less than the specified AP Upper limit = 50">
+    <Field Def="u8 When Player AP is halved, play a message when it is Less than the specified AP Upper limit = 50">
       <DisplayName>自機APが半減時 所定APより少ないときメッセージ再生する 所定AP上限</DisplayName>
       <Description>自機APが半減時 所定APより少ないときメッセージ再生する 所定AP上限値(%)</Description>
       <Maximum>100</Maximum>

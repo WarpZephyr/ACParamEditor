@@ -661,6 +661,44 @@ namespace ACParamEditor
         }
 
         /// <summary>
+        /// Check if a row is compatible with the param.
+        /// </summary>
+        /// <param name="row">The row to check for compatibility.</param>
+        /// <returns>Whether or not the row is compatible with the param.</returns>
+        /// <exception cref="InvalidOperationException">The param was null.</exception>
+        public bool RowCompatible(PARAM.Row row)
+        {
+            if (Param == null)
+                throw new InvalidOperationException("Param must exist to compare rows to its rows.");
+
+            var rowsample = Param.Rows[0];
+            if (rowsample.Cells.Count != row.Cells.Count)
+                return false;
+
+            for (int i = 0; i < rowsample.Cells.Count; i++)
+                if (rowsample.Cells[i].Def != row.Cells[i].Def)
+                    return false;
+
+            return true;
+        }
+
+        /// <summary>
+        /// Check if a row ID exists in the param.
+        /// </summary>
+        /// <param name="id">The id to check for.</param>
+        /// <returns>Whether or not the row id exists in the param.</returns>
+        /// <exception cref="InvalidOperationException">The param was null.</exception>
+        public bool ContainsRowID(int id)
+        {
+            if (Param == null)
+                throw new InvalidOperationException("Param must exist to check its row IDs.");
+            foreach (var row in Param.Rows)
+                if (row.ID == id)
+                    return true;
+            return false;
+        }
+
+        /// <summary>
         /// Write the param to its set path.
         /// </summary>
         public void WriteToPath()
