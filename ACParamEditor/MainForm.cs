@@ -351,7 +351,10 @@ namespace ACParamEditor
 
         private void RowDataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            PreviousRowID = Convert.ToInt32(RowDataGridView.CurrentCell.Value);
+            if (RowDataGridView.GetCurrentColumnName() == "paramrowid")
+            {
+                PreviousRowID = Convert.ToInt32(RowDataGridView.CurrentCell.Value);
+            }
         }
 
         private void RowDataGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
