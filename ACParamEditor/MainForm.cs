@@ -1140,6 +1140,8 @@ namespace ACParamEditor
 
         #endregion
 
+        #region Binder - Experimental
+
         private void ReadBinder(IBinder bnd, string path, string rel)
         {
             foreach (var file in bnd.Files)
@@ -1173,5 +1175,7 @@ namespace ACParamEditor
                 }
             }
         }
+
+        #endregion
     }
 }
