@@ -391,14 +391,6 @@ namespace ACParamEditor
                 UpdateStatus($"Selected {selected.Count} rows.");
         }
 
-        private void RowDataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            if (RowDataGridView.GetCurrentColumnName() == "paramrowid")
-            {
-                PreviousRowID = Convert.ToInt32(RowDataGridView.CurrentCell.Value);
-            }
-        }
-
         private void RowDataGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
             if (RowDataGridView.GetCurrentColumnName() == "paramrowid" && RowDataGridView.IsCurrentCellInEditMode)

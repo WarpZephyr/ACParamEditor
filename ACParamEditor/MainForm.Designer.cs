@@ -517,7 +517,6 @@
             RowDataGridView.RowTemplate.Height = 25;
             RowDataGridView.Size = new Size(417, 580);
             RowDataGridView.TabIndex = 1;
-            RowDataGridView.CellBeginEdit += RowDataGridView_CellBeginEdit;
             RowDataGridView.CellValidating += RowDataGridView_CellValidating;
             RowDataGridView.SelectionChanged += RowDataGridView_SelectionChanged;
             // 
