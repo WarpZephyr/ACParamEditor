@@ -296,6 +296,30 @@ namespace ACParamEditor
             CellView.DropDown.Show();
         }
 
+        private void CellViewSortID_Click(object sender, EventArgs e)
+        {
+            CellDataGridView.Columns["paramcellsortid"].Visible = CellViewSortID.Checked;
+            UpdateStatus(CellViewDescription.Checked ? "Showing Cell Sort IDs" : "Hid Cell Sort IDs");
+            CellContextMenu.Show();
+            CellView.DropDown.Show();
+        }
+
+        private void CellViewArrayLength_Click(object sender, EventArgs e)
+        {
+            CellDataGridView.Columns["paramcellarraylength"].Visible = CellViewArrayLength.Checked;
+            UpdateStatus(CellViewDescription.Checked ? "Showing Cell Array Lengths" : "Hid Cell Array Lengths");
+            CellContextMenu.Show();
+            CellView.DropDown.Show();
+        }
+
+        private void CellViewBitSize_Click(object sender, EventArgs e)
+        {
+            CellDataGridView.Columns["paramcellbitsize"].Visible = CellViewBitSize.Checked;
+            UpdateStatus(CellViewDescription.Checked ? "Showing Cell Bit Sizes" : "Hid Cell Bit Sizes");
+            CellContextMenu.Show();
+            CellView.DropDown.Show();
+        }
+
         #endregion
 
         #region Form DataGridView
@@ -324,6 +348,25 @@ namespace ACParamEditor
             if (ParamDataGridView.Rows.Count == 0)
                 return;
 
+            // This feels hacky
+            var currentparam = (ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem;
+            if (currentparam.Param == null)
+            {
+                Params.Remove(currentparam);
+                UpdateStatus("Warning: Invalid param found, removing.");
+                return;
+            }
+
+            if (currentparam.RowCount == 0)
+            {
+                CellDataGridView.DataSource = null;
+                return;
+            }
+
+            if (RowDataGridView.CurrentRow.Index + 1 > currentparam.RowCount)
+                return;
+            // This feels hacky
+
             CellDataGridView.AutoGenerateColumns = false;
             CellDataGridView.DataSource = ((PARAM.Row)RowDataGridView.CurrentRow.DataBoundItem).Cells;
             CellDataGridView.Columns["paramcelltype"].DataPropertyName = "DisplayType";
@@ -336,6 +379,9 @@ namespace ACParamEditor
             CellDataGridView.Columns["paramcellincrement"].DataPropertyName = "Increment";
             CellDataGridView.Columns["paramcellminimum"].DataPropertyName = "Minimum";
             CellDataGridView.Columns["paramcellmaximum"].DataPropertyName = "Maximum";
+            CellDataGridView.Columns["paramcellsortid"].DataPropertyName = "SortID";
+            CellDataGridView.Columns["paramcellarraylength"].DataPropertyName = "ArrayLength";
+            CellDataGridView.Columns["paramcellbitsize"].DataPropertyName = "BitSize";
 
             var selected = new List<int>();
             foreach (DataGridViewCell cell in RowDataGridView.SelectedCells)
@@ -361,31 +407,9 @@ namespace ACParamEditor
         {
             if (RowDataGridView.GetCurrentColumnName() == "paramrowid" && RowDataGridView.IsCurrentCellInEditMode)
             {
-                var currentparam = (ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem;
-                if (currentparam.Param == null)
-                {
-                    Params.Remove(currentparam);
-                    UpdateStatus("Warning: Invalid param found, removing.");
-                    return;
-                }
-
                 try
                 {
                     int id = Convert.ToInt32(e.FormattedValue);
-                    if (id != PreviousRowID)
-                    {
-                        if (currentparam.ContainsRowID(id))
-                        {
-                            do
-                            {
-                                id++;
-                            } while (currentparam.ContainsRowID(id));
-                        }
-
-                        RowDataGridView.EndEdit();
-                        RowDataGridView.CurrentCell.Value = id;
-                        UpdateStatus("Made row ID unique.");
-                    }
                 }
                 catch
                 {
@@ -423,10 +447,7 @@ namespace ACParamEditor
             {
                 CellDataGridView.CancelEdit();
                 CellDataGridView.EndEdit();
-                if (cell.DisplayType == DefType.dummy8)
-                    UpdateStatus($"Invalid value: {e.FormattedValue}; Dummy8 should not be modified.");
-                else
-                    UpdateStatus($"Invalid value: {e.FormattedValue}");
+                UpdateStatus($"Invalid value: {e.FormattedValue}");
             }
         }
 
@@ -470,7 +491,7 @@ namespace ACParamEditor
 
         #endregion
 
-        #region Form Copy
+        #region Form Rows
 
         private void RowCopy_Click(object sender, EventArgs e)
         {
@@ -556,6 +577,62 @@ namespace ACParamEditor
             UpdateStatus($"Duplicated {copies.Count} rows.");
         }
 
+        private void RowDelete_Click(object sender, EventArgs e)
+        {
+            if (ParamDataGridView.Rows.Count == 0)
+                return;
+
+            bool question = FormUtil.ShowQuestionDialog("Are you sure you wish to delete the currently selected rows?", "Delete Currently Selected Rows");
+            if (!question)
+            {
+                UpdateStatus("Canceled row deletion.");
+                return;
+            }
+
+            var currentparam = (ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem;
+            if (currentparam.Param == null)
+            {
+                Params.Remove(currentparam);
+                UpdateStatus("Warning: Invalid param found, removing.");
+                return;
+            }
+
+            var found = new List<int>();
+            foreach (DataGridViewCell cell in RowDataGridView.SelectedCells)
+            {
+                if (!found.Contains(cell.RowIndex))
+                {
+                    currentparam.Param.Rows.Remove((PARAM.Row)RowDataGridView.Rows[cell.RowIndex].DataBoundItem);
+                    found.Add(cell.RowIndex);
+                }
+            }
+
+            RefreshRows();
+            UpdateStatus($"Deleted {found.Count} rows.");
+        }
+
+        private void RowViewNew_Click(object sender, EventArgs e)
+        {
+            if (ParamDataGridView.Rows.Count == 0)
+                return;
+
+            var currentparam = (ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem;
+            if (currentparam.Param == null)
+            {
+                Params.Remove(currentparam);
+                UpdateStatus("Warning: Invalid param found, removing.");
+                return;
+            }
+
+            int id = 1;
+            if (currentparam.Param.Rows.Count > 0)
+                id = currentparam.GetNextRowID();
+            currentparam.Param.Rows.Add(new PARAM.Row(id, "NEWROW", currentparam.Param.AppliedParamdef));
+
+            RefreshRows();
+            UpdateStatus("Made a new row.");
+        }
+
         #endregion
 
         #region Refresh
@@ -608,8 +685,9 @@ namespace ACParamEditor
             if (ParamDataGridView.Rows.Count == 0)
                 return;
 
-            RowDataGridView.DataSource = null;
             RowDataGridView.AutoGenerateColumns = false;
+            RowDataGridView.DataSource = new List<PARAM.Row>();
+            RowDataGridView.Refresh();
             var param = ((ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem).Param;
             if (param == null)
             {

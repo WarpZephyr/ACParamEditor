@@ -65,6 +65,7 @@
             RowCopy = new ToolStripMenuItem();
             RowPaste = new ToolStripMenuItem();
             RowDuplicate = new ToolStripMenuItem();
+            RowDelete = new ToolStripMenuItem();
             CellDataGridView = new DataGridView();
             paramcelltype = new DataGridViewTextBoxColumn();
             paramcellvalue = new DataGridViewTextBoxColumn();
@@ -76,6 +77,9 @@
             paramcellincrement = new DataGridViewTextBoxColumn();
             paramcellmaximum = new DataGridViewTextBoxColumn();
             paramcellminimum = new DataGridViewTextBoxColumn();
+            paramcellsortid = new DataGridViewTextBoxColumn();
+            paramcellarraylength = new DataGridViewTextBoxColumn();
+            paramcellbitsize = new DataGridViewTextBoxColumn();
             CellContextMenu = new ContextMenuStrip(components);
             CellView = new ToolStripMenuItem();
             CellViewType = new ToolStripMenuItem();
@@ -88,6 +92,10 @@
             CellViewIncrement = new ToolStripMenuItem();
             CellViewMinimum = new ToolStripMenuItem();
             CellViewMaximum = new ToolStripMenuItem();
+            CellViewSortID = new ToolStripMenuItem();
+            CellViewArrayLength = new ToolStripMenuItem();
+            CellViewBitSize = new ToolStripMenuItem();
+            RowViewNew = new ToolStripMenuItem();
             MainFormMenu.SuspendLayout();
             MainFormStatusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)MainFormSplitContainerA).BeginInit();
@@ -129,7 +137,7 @@
             MenuFileOpen.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileOpen.ForeColor = SystemColors.Control;
             MenuFileOpen.Name = "MenuFileOpen";
-            MenuFileOpen.Size = new Size(180, 22);
+            MenuFileOpen.Size = new Size(120, 22);
             MenuFileOpen.Text = "Open";
             MenuFileOpen.Click += MenuFileOpen_Click;
             // 
@@ -138,7 +146,7 @@
             MenuFileSave.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileSave.ForeColor = SystemColors.Control;
             MenuFileSave.Name = "MenuFileSave";
-            MenuFileSave.Size = new Size(180, 22);
+            MenuFileSave.Size = new Size(120, 22);
             MenuFileSave.Text = "Save";
             MenuFileSave.Click += MenuFileSave_Click;
             // 
@@ -147,7 +155,7 @@
             MenuFileSaveAll.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileSaveAll.ForeColor = SystemColors.Control;
             MenuFileSaveAll.Name = "MenuFileSaveAll";
-            MenuFileSaveAll.Size = new Size(180, 22);
+            MenuFileSaveAll.Size = new Size(120, 22);
             MenuFileSaveAll.Text = "Save All";
             MenuFileSaveAll.Click += MenuFileSaveAll_Click;
             // 
@@ -156,7 +164,7 @@
             MenuFileClose.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileClose.ForeColor = SystemColors.Control;
             MenuFileClose.Name = "MenuFileClose";
-            MenuFileClose.Size = new Size(180, 22);
+            MenuFileClose.Size = new Size(120, 22);
             MenuFileClose.Text = "Close";
             MenuFileClose.Click += MenuFileClose_Click;
             // 
@@ -165,7 +173,7 @@
             MenuFileCloseAll.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileCloseAll.ForeColor = SystemColors.Control;
             MenuFileCloseAll.Name = "MenuFileCloseAll";
-            MenuFileCloseAll.Size = new Size(180, 22);
+            MenuFileCloseAll.Size = new Size(120, 22);
             MenuFileCloseAll.Text = "Close All";
             MenuFileCloseAll.Click += MenuFileCloseAll_Click;
             // 
@@ -400,9 +408,9 @@
             // 
             // RowContextMenu
             // 
-            RowContextMenu.Items.AddRange(new ToolStripItem[] { RowView, RowCopy, RowPaste, RowDuplicate });
+            RowContextMenu.Items.AddRange(new ToolStripItem[] { RowView, RowViewNew, RowCopy, RowPaste, RowDuplicate, RowDelete });
             RowContextMenu.Name = "ParamDataGridViewContextMenu";
-            RowContextMenu.Size = new Size(125, 92);
+            RowContextMenu.Size = new Size(181, 158);
             // 
             // RowView
             // 
@@ -410,7 +418,7 @@
             RowView.DropDownItems.AddRange(new ToolStripItem[] { RowViewID, RowViewName });
             RowView.ForeColor = SystemColors.Control;
             RowView.Name = "RowView";
-            RowView.Size = new Size(124, 22);
+            RowView.Size = new Size(180, 22);
             RowView.Text = "View";
             // 
             // RowViewID
@@ -442,7 +450,7 @@
             RowCopy.BackColor = Color.FromArgb(65, 65, 65);
             RowCopy.ForeColor = SystemColors.Control;
             RowCopy.Name = "RowCopy";
-            RowCopy.Size = new Size(124, 22);
+            RowCopy.Size = new Size(180, 22);
             RowCopy.Text = "Copy";
             RowCopy.Click += RowCopy_Click;
             // 
@@ -451,7 +459,7 @@
             RowPaste.BackColor = Color.FromArgb(65, 65, 65);
             RowPaste.ForeColor = SystemColors.Control;
             RowPaste.Name = "RowPaste";
-            RowPaste.Size = new Size(124, 22);
+            RowPaste.Size = new Size(180, 22);
             RowPaste.Text = "Paste";
             RowPaste.Click += RowPaste_Click;
             // 
@@ -460,9 +468,18 @@
             RowDuplicate.BackColor = Color.FromArgb(65, 65, 65);
             RowDuplicate.ForeColor = SystemColors.Control;
             RowDuplicate.Name = "RowDuplicate";
-            RowDuplicate.Size = new Size(124, 22);
+            RowDuplicate.Size = new Size(180, 22);
             RowDuplicate.Text = "Duplicate";
             RowDuplicate.Click += RowDuplicate_Click;
+            // 
+            // RowDelete
+            // 
+            RowDelete.BackColor = Color.FromArgb(65, 65, 65);
+            RowDelete.ForeColor = SystemColors.Control;
+            RowDelete.Name = "RowDelete";
+            RowDelete.Size = new Size(180, 22);
+            RowDelete.Text = "Delete";
+            RowDelete.Click += RowDelete_Click;
             // 
             // CellDataGridView
             // 
@@ -482,7 +499,7 @@
             dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
             CellDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             CellDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            CellDataGridView.Columns.AddRange(new DataGridViewColumn[] { paramcelltype, paramcellvalue, paramcelldisplayname, paramcellinternalname, paramcelldescription, paramcelldisplayformat, paramcelldefault, paramcellincrement, paramcellmaximum, paramcellminimum });
+            CellDataGridView.Columns.AddRange(new DataGridViewColumn[] { paramcelltype, paramcellvalue, paramcelldisplayname, paramcellinternalname, paramcelldescription, paramcelldisplayformat, paramcelldefault, paramcellincrement, paramcellmaximum, paramcellminimum, paramcellsortid, paramcellarraylength, paramcellbitsize });
             CellDataGridView.ContextMenuStrip = CellContextMenu;
             CellDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             CellDataGridView.Dock = DockStyle.Fill;
@@ -569,6 +586,24 @@
             paramcellminimum.ReadOnly = true;
             paramcellminimum.Visible = false;
             // 
+            // paramcellsortid
+            // 
+            paramcellsortid.HeaderText = "Sort ID";
+            paramcellsortid.Name = "paramcellsortid";
+            paramcellsortid.Visible = false;
+            // 
+            // paramcellarraylength
+            // 
+            paramcellarraylength.HeaderText = "Array Length";
+            paramcellarraylength.Name = "paramcellarraylength";
+            paramcellarraylength.Visible = false;
+            // 
+            // paramcellbitsize
+            // 
+            paramcellbitsize.HeaderText = "Bit Size";
+            paramcellbitsize.Name = "paramcellbitsize";
+            paramcellbitsize.Visible = false;
+            // 
             // CellContextMenu
             // 
             CellContextMenu.Items.AddRange(new ToolStripItem[] { CellView });
@@ -578,7 +613,7 @@
             // CellView
             // 
             CellView.BackColor = Color.FromArgb(65, 65, 65);
-            CellView.DropDownItems.AddRange(new ToolStripItem[] { CellViewType, CellViewValue, CellViewDisplayName, CellViewInternalName, CellViewDescription, CellViewDisplayFormat, CellViewDefault, CellViewIncrement, CellViewMinimum, CellViewMaximum });
+            CellView.DropDownItems.AddRange(new ToolStripItem[] { CellViewType, CellViewValue, CellViewDisplayName, CellViewInternalName, CellViewDescription, CellViewDisplayFormat, CellViewDefault, CellViewIncrement, CellViewMinimum, CellViewMaximum, CellViewSortID, CellViewArrayLength, CellViewBitSize });
             CellView.ForeColor = SystemColors.Control;
             CellView.Name = "CellView";
             CellView.Size = new Size(99, 22);
@@ -690,6 +725,45 @@
             CellViewMaximum.Text = "Maximum Value";
             CellViewMaximum.Click += CellViewMaximum_Click;
             // 
+            // CellViewSortID
+            // 
+            CellViewSortID.BackColor = Color.FromArgb(65, 65, 65);
+            CellViewSortID.CheckOnClick = true;
+            CellViewSortID.ForeColor = SystemColors.Control;
+            CellViewSortID.Name = "CellViewSortID";
+            CellViewSortID.Size = new Size(175, 22);
+            CellViewSortID.Text = "Sort ID";
+            CellViewSortID.Click += CellViewSortID_Click;
+            // 
+            // CellViewArrayLength
+            // 
+            CellViewArrayLength.BackColor = Color.FromArgb(65, 65, 65);
+            CellViewArrayLength.CheckOnClick = true;
+            CellViewArrayLength.ForeColor = SystemColors.Control;
+            CellViewArrayLength.Name = "CellViewArrayLength";
+            CellViewArrayLength.Size = new Size(175, 22);
+            CellViewArrayLength.Text = "Array Length";
+            CellViewArrayLength.Click += CellViewArrayLength_Click;
+            // 
+            // CellViewBitSize
+            // 
+            CellViewBitSize.BackColor = Color.FromArgb(65, 65, 65);
+            CellViewBitSize.CheckOnClick = true;
+            CellViewBitSize.ForeColor = SystemColors.Control;
+            CellViewBitSize.Name = "CellViewBitSize";
+            CellViewBitSize.Size = new Size(175, 22);
+            CellViewBitSize.Text = "Bit Size";
+            CellViewBitSize.Click += CellViewBitSize_Click;
+            // 
+            // RowViewNew
+            // 
+            RowViewNew.BackColor = Color.FromArgb(65, 65, 65);
+            RowViewNew.ForeColor = SystemColors.Control;
+            RowViewNew.Name = "RowViewNew";
+            RowViewNew.Size = new Size(180, 22);
+            RowViewNew.Text = "New";
+            RowViewNew.Click += RowViewNew_Click;
+            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -764,6 +838,13 @@
         private ToolStripMenuItem CellViewIncrement;
         private ToolStripMenuItem CellViewMinimum;
         private ToolStripMenuItem CellViewMaximum;
+        private DataGridViewTextBoxColumn paramfilename;
+        private DataGridViewTextBoxColumn paramtype;
+        private DataGridViewTextBoxColumn paramgame;
+        private ToolStripMenuItem ParamViewGame;
+        private ToolStripMenuItem RowCopy;
+        private ToolStripMenuItem RowPaste;
+        private ToolStripMenuItem RowDuplicate;
         private DataGridViewTextBoxColumn paramcelltype;
         private DataGridViewTextBoxColumn paramcellvalue;
         private DataGridViewTextBoxColumn paramcelldisplayname;
@@ -774,12 +855,13 @@
         private DataGridViewTextBoxColumn paramcellincrement;
         private DataGridViewTextBoxColumn paramcellmaximum;
         private DataGridViewTextBoxColumn paramcellminimum;
-        private DataGridViewTextBoxColumn paramfilename;
-        private DataGridViewTextBoxColumn paramtype;
-        private DataGridViewTextBoxColumn paramgame;
-        private ToolStripMenuItem ParamViewGame;
-        private ToolStripMenuItem RowCopy;
-        private ToolStripMenuItem RowPaste;
-        private ToolStripMenuItem RowDuplicate;
+        private DataGridViewTextBoxColumn paramcellsortid;
+        private DataGridViewTextBoxColumn paramcellarraylength;
+        private DataGridViewTextBoxColumn paramcellbitsize;
+        private ToolStripMenuItem CellViewSortID;
+        private ToolStripMenuItem CellViewArrayLength;
+        private ToolStripMenuItem CellViewBitSize;
+        private ToolStripMenuItem RowDelete;
+        private ToolStripMenuItem RowViewNew;
     }
 }
