@@ -13,9 +13,9 @@ namespace Utilities
         /// Shows an information dialog.
         /// </summary>
         /// <param name="message">The message to show in the dialog.</param>
-        public static void ShowInformationDialog(string message = null, string caption = null)
+        public static void ShowInformationDialog(string? message = null, string? caption = null)
         {
-            MessageBox.Show(message ?? "There is something you should know.", caption ?? @"Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            _ = MessageBox.Show(message ?? "There is something you should know.", caption ?? "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         /// <summary>
@@ -23,9 +23,9 @@ namespace Utilities
         /// </summary>
         /// <param name="message">The message to show in the dialog.</param>
         /// <param name="caption">The caption to give this dialog.</param>
-        public static void ShowErrorDialog(string message = null, string caption = null)
+        public static void ShowErrorDialog(string? message = null, string? caption = null)
         {
-            MessageBox.Show(message ?? "An error has occurred.", caption ?? @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            _ = MessageBox.Show(message ?? "An error has occurred.", caption ?? "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Utilities
         /// <param name="message">The message to show in the dialog.</param>
         /// <param name="caption">The caption to give this dialog.</param>
         /// <returns>A bool representing whether or not the user pressed yes.</returns>
-        public static bool ShowQuestionDialog(string message = null, string caption = null)
+        public static bool ShowQuestionDialog(string? message = null, string? caption = null)
         {
             DialogResult dialog = MessageBox.Show(message ?? "Are you sure you want to do this?", caption ?? @"Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             return dialog == DialogResult.Yes;
@@ -46,7 +46,7 @@ namespace Utilities
         /// <param name="message">The message to show in the dialog.</param>
         /// <param name="caption">The caption to give this dialog.</param>
         /// <returns>What the user inputted or an empty string if cancelled.</returns>
-        public static string ShowInputDialog(string message = null, string caption = null)
+        public static string ShowInputDialog(string? message = null, string? caption = null)
         {
             var prompt = new Form
             {
@@ -83,7 +83,7 @@ namespace Utilities
         /// <param name="options">The options to give the user.</param>
         /// <param name="style">The dropdown style of the combobox.</param>
         /// <returns>What option the user choose or an empty string if cancelled.</returns>
-        public static string ShowComboBoxDialog(string message = null, string caption = null, string[] options = null, ComboBoxStyle style = ComboBoxStyle.DropDownList)
+        public static string ShowComboBoxDialog(string? message = null, string? caption = null, string[]? options = null, ComboBoxStyle style = ComboBoxStyle.DropDownList)
         {
             var prompt = new Form
             {

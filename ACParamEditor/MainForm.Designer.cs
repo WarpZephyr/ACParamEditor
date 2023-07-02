@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             MainFormMenu = new MenuStrip();
             MenuFile = new ToolStripMenuItem();
             MenuFileOpen = new ToolStripMenuItem();
@@ -42,6 +42,18 @@
             MenuFileClose = new ToolStripMenuItem();
             MenuFileCloseAll = new ToolStripMenuItem();
             MenuGameCombobox = new ToolStripComboBox();
+            MenuEditor = new ToolStripMenuItem();
+            MenuEditorDef = new ToolStripMenuItem();
+            otherToolStripMenuItem = new ToolStripMenuItem();
+            MenuOtherOpenResourcesFolder = new ToolStripMenuItem();
+            MenuOtherOpenResourcesDefFolder = new ToolStripMenuItem();
+            MenuOtherOpenCurrentDefsFolder = new ToolStripMenuItem();
+            helpToolStripMenuItem = new ToolStripMenuItem();
+            MenuHelpWhatIsAParam = new ToolStripMenuItem();
+            MenuHelpAddingNewRows = new ToolStripMenuItem();
+            MenuHelpSelectingDifferentDefs = new ToolStripMenuItem();
+            MenuHelpAddingNewDefSets = new ToolStripMenuItem();
+            MenuHelpIhadACrash = new ToolStripMenuItem();
             MainFormStatusStrip = new StatusStrip();
             MainFormStatusLabel = new ToolStripStatusLabel();
             MainFormSplitContainerA = new SplitContainer();
@@ -62,10 +74,11 @@
             RowView = new ToolStripMenuItem();
             RowViewID = new ToolStripMenuItem();
             RowViewName = new ToolStripMenuItem();
+            RowNew = new ToolStripMenuItem();
+            RowDelete = new ToolStripMenuItem();
             RowCopy = new ToolStripMenuItem();
             RowPaste = new ToolStripMenuItem();
             RowDuplicate = new ToolStripMenuItem();
-            RowDelete = new ToolStripMenuItem();
             CellDataGridView = new DataGridView();
             paramcelltype = new DataGridViewTextBoxColumn();
             paramcellvalue = new DataGridViewTextBoxColumn();
@@ -95,7 +108,6 @@
             CellViewSortID = new ToolStripMenuItem();
             CellViewArrayLength = new ToolStripMenuItem();
             CellViewBitSize = new ToolStripMenuItem();
-            RowViewNew = new ToolStripMenuItem();
             MainFormMenu.SuspendLayout();
             MainFormStatusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)MainFormSplitContainerA).BeginInit();
@@ -117,7 +129,7 @@
             // MainFormMenu
             // 
             MainFormMenu.BackColor = Color.FromArgb(60, 60, 60);
-            MainFormMenu.Items.AddRange(new ToolStripItem[] { MenuFile, MenuGameCombobox });
+            MainFormMenu.Items.AddRange(new ToolStripItem[] { MenuFile, MenuGameCombobox, MenuEditor, otherToolStripMenuItem, helpToolStripMenuItem });
             MainFormMenu.Location = new Point(0, 0);
             MainFormMenu.Name = "MainFormMenu";
             MainFormMenu.Size = new Size(1270, 27);
@@ -139,6 +151,7 @@
             MenuFileOpen.Name = "MenuFileOpen";
             MenuFileOpen.Size = new Size(120, 22);
             MenuFileOpen.Text = "Open";
+            MenuFileOpen.ToolTipText = "Open more params";
             MenuFileOpen.Click += MenuFileOpen_Click;
             // 
             // MenuFileSave
@@ -148,6 +161,7 @@
             MenuFileSave.Name = "MenuFileSave";
             MenuFileSave.Size = new Size(120, 22);
             MenuFileSave.Text = "Save";
+            MenuFileSave.ToolTipText = "Save the currently selected params";
             MenuFileSave.Click += MenuFileSave_Click;
             // 
             // MenuFileSaveAll
@@ -157,6 +171,7 @@
             MenuFileSaveAll.Name = "MenuFileSaveAll";
             MenuFileSaveAll.Size = new Size(120, 22);
             MenuFileSaveAll.Text = "Save All";
+            MenuFileSaveAll.ToolTipText = "Save all params";
             MenuFileSaveAll.Click += MenuFileSaveAll_Click;
             // 
             // MenuFileClose
@@ -166,6 +181,7 @@
             MenuFileClose.Name = "MenuFileClose";
             MenuFileClose.Size = new Size(120, 22);
             MenuFileClose.Text = "Close";
+            MenuFileClose.ToolTipText = "Close the currently selected params";
             MenuFileClose.Click += MenuFileClose_Click;
             // 
             // MenuFileCloseAll
@@ -175,6 +191,7 @@
             MenuFileCloseAll.Name = "MenuFileCloseAll";
             MenuFileCloseAll.Size = new Size(120, 22);
             MenuFileCloseAll.Text = "Close All";
+            MenuFileCloseAll.ToolTipText = "Close all params";
             MenuFileCloseAll.Click += MenuFileCloseAll_Click;
             // 
             // MenuGameCombobox
@@ -187,8 +204,117 @@
             MenuGameCombobox.Items.AddRange(new object[] { "None" });
             MenuGameCombobox.Name = "MenuGameCombobox";
             MenuGameCombobox.Size = new Size(121, 23);
+            MenuGameCombobox.ToolTipText = "Select which set of defs from Resources should be used";
             MenuGameCombobox.DropDown += MenuGameCombobox_DropDown;
             MenuGameCombobox.SelectedIndexChanged += MenuGameCombobox_SelectedIndexChanged;
+            // 
+            // MenuEditor
+            // 
+            MenuEditor.BackColor = Color.FromArgb(65, 65, 65);
+            MenuEditor.DropDownItems.AddRange(new ToolStripItem[] { MenuEditorDef });
+            MenuEditor.ForeColor = SystemColors.Control;
+            MenuEditor.Name = "MenuEditor";
+            MenuEditor.Size = new Size(50, 23);
+            MenuEditor.Text = "Editor";
+            // 
+            // MenuEditorDef
+            // 
+            MenuEditorDef.BackColor = Color.FromArgb(55, 55, 55);
+            MenuEditorDef.ForeColor = SystemColors.Control;
+            MenuEditorDef.Name = "MenuEditorDef";
+            MenuEditorDef.Size = new Size(195, 22);
+            MenuEditorDef.Text = "Open Param Def Editor";
+            MenuEditorDef.Click += MenuEditorDef_Click;
+            // 
+            // otherToolStripMenuItem
+            // 
+            otherToolStripMenuItem.BackColor = Color.FromArgb(65, 65, 65);
+            otherToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { MenuOtherOpenResourcesFolder, MenuOtherOpenResourcesDefFolder, MenuOtherOpenCurrentDefsFolder });
+            otherToolStripMenuItem.ForeColor = SystemColors.Control;
+            otherToolStripMenuItem.Name = "otherToolStripMenuItem";
+            otherToolStripMenuItem.Size = new Size(49, 23);
+            otherToolStripMenuItem.Text = "Other";
+            // 
+            // MenuOtherOpenResourcesFolder
+            // 
+            MenuOtherOpenResourcesFolder.BackColor = Color.FromArgb(55, 55, 55);
+            MenuOtherOpenResourcesFolder.ForeColor = SystemColors.Control;
+            MenuOtherOpenResourcesFolder.Name = "MenuOtherOpenResourcesFolder";
+            MenuOtherOpenResourcesFolder.Size = new Size(216, 22);
+            MenuOtherOpenResourcesFolder.Text = "Open Resources Folder";
+            MenuOtherOpenResourcesFolder.Click += MenuOtherOpenResourcesFolder_Click;
+            // 
+            // MenuOtherOpenResourcesDefFolder
+            // 
+            MenuOtherOpenResourcesDefFolder.BackColor = Color.FromArgb(55, 55, 55);
+            MenuOtherOpenResourcesDefFolder.ForeColor = SystemColors.Control;
+            MenuOtherOpenResourcesDefFolder.Name = "MenuOtherOpenResourcesDefFolder";
+            MenuOtherOpenResourcesDefFolder.Size = new Size(216, 22);
+            MenuOtherOpenResourcesDefFolder.Text = "Open Resources Def Folder";
+            MenuOtherOpenResourcesDefFolder.Click += MenuOtherOpenResourcesDefFolder_Click;
+            // 
+            // MenuOtherOpenCurrentDefsFolder
+            // 
+            MenuOtherOpenCurrentDefsFolder.BackColor = Color.FromArgb(55, 55, 55);
+            MenuOtherOpenCurrentDefsFolder.ForeColor = SystemColors.Control;
+            MenuOtherOpenCurrentDefsFolder.Name = "MenuOtherOpenCurrentDefsFolder";
+            MenuOtherOpenCurrentDefsFolder.Size = new Size(216, 22);
+            MenuOtherOpenCurrentDefsFolder.Text = "Open Current Defs Folder";
+            MenuOtherOpenCurrentDefsFolder.Click += MenuOtherOpenCurrentDefsFolder_Click;
+            // 
+            // helpToolStripMenuItem
+            // 
+            helpToolStripMenuItem.BackColor = Color.FromArgb(65, 65, 65);
+            helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { MenuHelpWhatIsAParam, MenuHelpAddingNewRows, MenuHelpSelectingDifferentDefs, MenuHelpAddingNewDefSets, MenuHelpIhadACrash });
+            helpToolStripMenuItem.ForeColor = SystemColors.Control;
+            helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            helpToolStripMenuItem.Size = new Size(44, 23);
+            helpToolStripMenuItem.Text = "Help";
+            // 
+            // MenuHelpWhatIsAParam
+            // 
+            MenuHelpWhatIsAParam.BackColor = Color.FromArgb(55, 55, 55);
+            MenuHelpWhatIsAParam.ForeColor = SystemColors.Control;
+            MenuHelpWhatIsAParam.Name = "MenuHelpWhatIsAParam";
+            MenuHelpWhatIsAParam.Size = new Size(195, 22);
+            MenuHelpWhatIsAParam.Text = "What is a param?";
+            MenuHelpWhatIsAParam.Click += MenuHelpWhatIsAParam_Click;
+            // 
+            // MenuHelpAddingNewRows
+            // 
+            MenuHelpAddingNewRows.BackColor = Color.FromArgb(55, 55, 55);
+            MenuHelpAddingNewRows.ForeColor = SystemColors.Control;
+            MenuHelpAddingNewRows.Name = "MenuHelpAddingNewRows";
+            MenuHelpAddingNewRows.Size = new Size(195, 22);
+            MenuHelpAddingNewRows.Text = "Adding new rows";
+            MenuHelpAddingNewRows.Click += MenuHelpAddingNewRows_Click;
+            // 
+            // MenuHelpSelectingDifferentDefs
+            // 
+            MenuHelpSelectingDifferentDefs.BackColor = Color.FromArgb(55, 55, 55);
+            MenuHelpSelectingDifferentDefs.ForeColor = SystemColors.Control;
+            MenuHelpSelectingDifferentDefs.Name = "MenuHelpSelectingDifferentDefs";
+            MenuHelpSelectingDifferentDefs.Size = new Size(195, 22);
+            MenuHelpSelectingDifferentDefs.Text = "Selecting different defs";
+            MenuHelpSelectingDifferentDefs.Click += MenuHelpSelectingDifferentDefs_Click;
+            // 
+            // MenuHelpAddingNewDefSets
+            // 
+            MenuHelpAddingNewDefSets.BackColor = Color.FromArgb(55, 55, 55);
+            MenuHelpAddingNewDefSets.ForeColor = SystemColors.Control;
+            MenuHelpAddingNewDefSets.Name = "MenuHelpAddingNewDefSets";
+            MenuHelpAddingNewDefSets.Size = new Size(195, 22);
+            MenuHelpAddingNewDefSets.Text = "Adding new def sets";
+            MenuHelpAddingNewDefSets.Click += MenuHelpAddingNewDefSets_Click;
+            // 
+            // MenuHelpIhadACrash
+            // 
+            MenuHelpIhadACrash.BackColor = Color.FromArgb(55, 55, 55);
+            MenuHelpIhadACrash.ForeColor = SystemColors.Control;
+            MenuHelpIhadACrash.Name = "MenuHelpIhadACrash";
+            MenuHelpIhadACrash.Size = new Size(195, 22);
+            MenuHelpIhadACrash.Text = "I had a crash!";
+            MenuHelpIhadACrash.Click += MenuHelpIhadACrash_Click;
             // 
             // MainFormStatusStrip
             // 
@@ -203,6 +329,7 @@
             // 
             MainFormStatusLabel.Name = "MainFormStatusLabel";
             MainFormStatusLabel.Size = new Size(0, 17);
+            MainFormStatusLabel.ToolTipText = "This will keep you updated on what the program is doing";
             // 
             // MainFormSplitContainerA
             // 
@@ -234,39 +361,39 @@
             ParamDataGridView.BackgroundColor = Color.FromArgb(45, 45, 45);
             ParamDataGridView.BorderStyle = BorderStyle.None;
             ParamDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(50, 50, 50);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = SystemColors.Control;
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(70, 70, 70);
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.Control;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            ParamDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(50, 50, 50);
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle6.ForeColor = SystemColors.Control;
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(70, 70, 70);
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.Control;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            ParamDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             ParamDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             ParamDataGridView.Columns.AddRange(new DataGridViewColumn[] { paramfilename, paramtype, paramgame });
             ParamDataGridView.ContextMenuStrip = ParamContextMenu;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(55, 55, 55);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = SystemColors.Control;
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(75, 75, 75);
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.Control;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            ParamDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(55, 55, 55);
+            dataGridViewCellStyle7.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle7.ForeColor = SystemColors.Control;
+            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(75, 75, 75);
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.Control;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
+            ParamDataGridView.DefaultCellStyle = dataGridViewCellStyle7;
             ParamDataGridView.Dock = DockStyle.Fill;
             ParamDataGridView.EnableHeadersVisualStyles = false;
             ParamDataGridView.GridColor = Color.FromArgb(45, 45, 45);
             ParamDataGridView.Location = new Point(0, 0);
             ParamDataGridView.Name = "ParamDataGridView";
             ParamDataGridView.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(50, 50, 50);
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = SystemColors.Control;
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(70, 70, 70);
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.Control;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            ParamDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = Color.FromArgb(50, 50, 50);
+            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle8.ForeColor = SystemColors.Control;
+            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(70, 70, 70);
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.Control;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
+            ParamDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             ParamDataGridView.RowTemplate.Height = 25;
             ParamDataGridView.Size = new Size(395, 580);
             ParamDataGridView.TabIndex = 0;
@@ -368,25 +495,25 @@
             RowDataGridView.BackgroundColor = Color.FromArgb(45, 45, 45);
             RowDataGridView.BorderStyle = BorderStyle.None;
             RowDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(50, 50, 50);
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = SystemColors.Control;
-            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(70, 70, 70);
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.Control;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            RowDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(50, 50, 50);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.Control;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(70, 70, 70);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.Control;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            RowDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             RowDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             RowDataGridView.Columns.AddRange(new DataGridViewColumn[] { paramrowid, paramrowname });
             RowDataGridView.ContextMenuStrip = RowContextMenu;
-            RowDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            RowDataGridView.DefaultCellStyle = dataGridViewCellStyle7;
             RowDataGridView.Dock = DockStyle.Fill;
             RowDataGridView.EnableHeadersVisualStyles = false;
             RowDataGridView.GridColor = Color.FromArgb(45, 45, 45);
             RowDataGridView.Location = new Point(0, 0);
             RowDataGridView.Name = "RowDataGridView";
             RowDataGridView.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            RowDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            RowDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             RowDataGridView.RowTemplate.Height = 25;
             RowDataGridView.Size = new Size(417, 580);
             RowDataGridView.TabIndex = 1;
@@ -408,7 +535,7 @@
             // 
             // RowContextMenu
             // 
-            RowContextMenu.Items.AddRange(new ToolStripItem[] { RowView, RowViewNew, RowCopy, RowPaste, RowDuplicate, RowDelete });
+            RowContextMenu.Items.AddRange(new ToolStripItem[] { RowView, RowNew, RowDelete, RowCopy, RowPaste, RowDuplicate });
             RowContextMenu.Name = "ParamDataGridViewContextMenu";
             RowContextMenu.Size = new Size(181, 158);
             // 
@@ -445,6 +572,26 @@
             RowViewName.Text = "Row Name";
             RowViewName.Click += RowViewName_Click;
             // 
+            // RowNew
+            // 
+            RowNew.BackColor = Color.FromArgb(65, 65, 65);
+            RowNew.ForeColor = SystemColors.Control;
+            RowNew.Name = "RowNew";
+            RowNew.Size = new Size(180, 22);
+            RowNew.Text = "New";
+            RowNew.ToolTipText = "Add a new row";
+            RowNew.Click += RowNew_Click;
+            // 
+            // RowDelete
+            // 
+            RowDelete.BackColor = Color.FromArgb(65, 65, 65);
+            RowDelete.ForeColor = SystemColors.Control;
+            RowDelete.Name = "RowDelete";
+            RowDelete.Size = new Size(180, 22);
+            RowDelete.Text = "Delete";
+            RowDelete.ToolTipText = "Delete the selected rows";
+            RowDelete.Click += RowDelete_Click;
+            // 
             // RowCopy
             // 
             RowCopy.BackColor = Color.FromArgb(65, 65, 65);
@@ -452,6 +599,7 @@
             RowCopy.Name = "RowCopy";
             RowCopy.Size = new Size(180, 22);
             RowCopy.Text = "Copy";
+            RowCopy.ToolTipText = "Copy the currently selected rows";
             RowCopy.Click += RowCopy_Click;
             // 
             // RowPaste
@@ -461,6 +609,7 @@
             RowPaste.Name = "RowPaste";
             RowPaste.Size = new Size(180, 22);
             RowPaste.Text = "Paste";
+            RowPaste.ToolTipText = "Paste copied rows";
             RowPaste.Click += RowPaste_Click;
             // 
             // RowDuplicate
@@ -470,16 +619,8 @@
             RowDuplicate.Name = "RowDuplicate";
             RowDuplicate.Size = new Size(180, 22);
             RowDuplicate.Text = "Duplicate";
+            RowDuplicate.ToolTipText = "Duplicate the selected rows";
             RowDuplicate.Click += RowDuplicate_Click;
-            // 
-            // RowDelete
-            // 
-            RowDelete.BackColor = Color.FromArgb(65, 65, 65);
-            RowDelete.ForeColor = SystemColors.Control;
-            RowDelete.Name = "RowDelete";
-            RowDelete.Size = new Size(180, 22);
-            RowDelete.Text = "Delete";
-            RowDelete.Click += RowDelete_Click;
             // 
             // CellDataGridView
             // 
@@ -490,25 +631,25 @@
             CellDataGridView.BackgroundColor = Color.FromArgb(45, 45, 45);
             CellDataGridView.BorderStyle = BorderStyle.None;
             CellDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = Color.FromArgb(50, 50, 50);
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle5.ForeColor = SystemColors.Control;
-            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(70, 70, 70);
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.Control;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            CellDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(50, 50, 50);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.Control;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(70, 70, 70);
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.Control;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            CellDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             CellDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             CellDataGridView.Columns.AddRange(new DataGridViewColumn[] { paramcelltype, paramcellvalue, paramcelldisplayname, paramcellinternalname, paramcelldescription, paramcelldisplayformat, paramcelldefault, paramcellincrement, paramcellmaximum, paramcellminimum, paramcellsortid, paramcellarraylength, paramcellbitsize });
             CellDataGridView.ContextMenuStrip = CellContextMenu;
-            CellDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            CellDataGridView.DefaultCellStyle = dataGridViewCellStyle7;
             CellDataGridView.Dock = DockStyle.Fill;
             CellDataGridView.EnableHeadersVisualStyles = false;
             CellDataGridView.GridColor = Color.FromArgb(45, 45, 45);
             CellDataGridView.Location = new Point(0, 0);
             CellDataGridView.Name = "CellDataGridView";
             CellDataGridView.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            CellDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            CellDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             CellDataGridView.RowTemplate.Height = 25;
             CellDataGridView.Size = new Size(450, 580);
             CellDataGridView.TabIndex = 1;
@@ -521,6 +662,7 @@
             paramcelltype.HeaderText = "Cell Type";
             paramcelltype.Name = "paramcelltype";
             paramcelltype.ReadOnly = true;
+            paramcelltype.Resizable = DataGridViewTriState.True;
             // 
             // paramcellvalue
             // 
@@ -755,15 +897,6 @@
             CellViewBitSize.Text = "Bit Size";
             CellViewBitSize.Click += CellViewBitSize_Click;
             // 
-            // RowViewNew
-            // 
-            RowViewNew.BackColor = Color.FromArgb(65, 65, 65);
-            RowViewNew.ForeColor = SystemColors.Control;
-            RowViewNew.Name = "RowViewNew";
-            RowViewNew.Size = new Size(180, 22);
-            RowViewNew.Text = "New";
-            RowViewNew.Click += RowViewNew_Click;
-            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -845,6 +978,11 @@
         private ToolStripMenuItem RowCopy;
         private ToolStripMenuItem RowPaste;
         private ToolStripMenuItem RowDuplicate;
+        private ToolStripMenuItem CellViewSortID;
+        private ToolStripMenuItem CellViewArrayLength;
+        private ToolStripMenuItem CellViewBitSize;
+        private ToolStripMenuItem RowDelete;
+        private ToolStripMenuItem RowNew;
         private DataGridViewTextBoxColumn paramcelltype;
         private DataGridViewTextBoxColumn paramcellvalue;
         private DataGridViewTextBoxColumn paramcelldisplayname;
@@ -858,10 +996,17 @@
         private DataGridViewTextBoxColumn paramcellsortid;
         private DataGridViewTextBoxColumn paramcellarraylength;
         private DataGridViewTextBoxColumn paramcellbitsize;
-        private ToolStripMenuItem CellViewSortID;
-        private ToolStripMenuItem CellViewArrayLength;
-        private ToolStripMenuItem CellViewBitSize;
-        private ToolStripMenuItem RowDelete;
-        private ToolStripMenuItem RowViewNew;
+        private ToolStripMenuItem helpToolStripMenuItem;
+        private ToolStripMenuItem MenuHelpWhatIsAParam;
+        private ToolStripMenuItem MenuHelpAddingNewRows;
+        private ToolStripMenuItem MenuHelpSelectingDifferentDefs;
+        private ToolStripMenuItem MenuHelpAddingNewDefSets;
+        private ToolStripMenuItem MenuHelpIhadACrash;
+        private ToolStripMenuItem otherToolStripMenuItem;
+        private ToolStripMenuItem MenuOtherOpenResourcesFolder;
+        private ToolStripMenuItem MenuOtherOpenResourcesDefFolder;
+        private ToolStripMenuItem MenuOtherOpenCurrentDefsFolder;
+        private ToolStripMenuItem MenuEditor;
+        private ToolStripMenuItem MenuEditorDef;
     }
 }

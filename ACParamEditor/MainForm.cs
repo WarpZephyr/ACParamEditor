@@ -369,6 +369,7 @@ namespace ACParamEditor
 
             CellDataGridView.AutoGenerateColumns = false;
             CellDataGridView.DataSource = ((PARAM.Row)RowDataGridView.CurrentRow.DataBoundItem).Cells;
+
             CellDataGridView.Columns["paramcelltype"].DataPropertyName = "DisplayType";
             CellDataGridView.Columns["paramcellvalue"].DataPropertyName = "Value";
             CellDataGridView.Columns["paramcelldisplayname"].DataPropertyName = "DisplayName";
@@ -493,6 +494,62 @@ namespace ACParamEditor
 
         #region Form Rows
 
+        private void RowNew_Click(object sender, EventArgs e)
+        {
+            if (ParamDataGridView.Rows.Count == 0)
+                return;
+
+            var currentparam = (ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem;
+            if (currentparam.Param == null)
+            {
+                Params.Remove(currentparam);
+                UpdateStatus("Warning: Invalid param found, removing.");
+                return;
+            }
+
+            int id = 1;
+            if (currentparam.Param.Rows.Count > 0)
+                id = currentparam.GetNextRowID();
+            currentparam.Param.Rows.Add(new PARAM.Row(id, "NEWROW", currentparam.Param.AppliedParamdef));
+
+            RefreshRows();
+            UpdateStatus("Made a new row.");
+        }
+
+        private void RowDelete_Click(object sender, EventArgs e)
+        {
+            if (ParamDataGridView.Rows.Count == 0)
+                return;
+
+            bool question = FormUtil.ShowQuestionDialog("Are you sure you wish to delete the currently selected rows?", "Delete Currently Selected Rows");
+            if (!question)
+            {
+                UpdateStatus("Canceled row deletion.");
+                return;
+            }
+
+            var currentparam = (ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem;
+            if (currentparam.Param == null)
+            {
+                Params.Remove(currentparam);
+                UpdateStatus("Warning: Invalid param found, removing.");
+                return;
+            }
+
+            var found = new List<int>();
+            foreach (DataGridViewCell cell in RowDataGridView.SelectedCells)
+            {
+                if (!found.Contains(cell.RowIndex))
+                {
+                    currentparam.Param.Rows.Remove((PARAM.Row)RowDataGridView.Rows[cell.RowIndex].DataBoundItem);
+                    found.Add(cell.RowIndex);
+                }
+            }
+
+            RefreshRows();
+            UpdateStatus($"Deleted {found.Count} rows.");
+        }
+
         private void RowCopy_Click(object sender, EventArgs e)
         {
             if (ParamDataGridView.CurrentRow == null)
@@ -577,60 +634,146 @@ namespace ACParamEditor
             UpdateStatus($"Duplicated {copies.Count} rows.");
         }
 
-        private void RowDelete_Click(object sender, EventArgs e)
+        #endregion
+
+        #region Form Editor
+
+        private void MenuEditorDef_Click(object sender, EventArgs e)
         {
-            if (ParamDataGridView.Rows.Count == 0)
-                return;
-
-            bool question = FormUtil.ShowQuestionDialog("Are you sure you wish to delete the currently selected rows?", "Delete Currently Selected Rows");
-            if (!question)
-            {
-                UpdateStatus("Canceled row deletion.");
-                return;
-            }
-
-            var currentparam = (ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem;
-            if (currentparam.Param == null)
-            {
-                Params.Remove(currentparam);
-                UpdateStatus("Warning: Invalid param found, removing.");
-                return;
-            }
-
-            var found = new List<int>();
-            foreach (DataGridViewCell cell in RowDataGridView.SelectedCells)
-            {
-                if (!found.Contains(cell.RowIndex))
-                {
-                    currentparam.Param.Rows.Remove((PARAM.Row)RowDataGridView.Rows[cell.RowIndex].DataBoundItem);
-                    found.Add(cell.RowIndex);
-                }
-            }
-
-            RefreshRows();
-            UpdateStatus($"Deleted {found.Count} rows.");
+            var form = new DefEditorForm();
+            UpdateStatus("Opened Param Def Editor");
+            form.ShowDialog();
+            UpdateStatus("Closed Param Def Editor");
         }
 
-        private void RowViewNew_Click(object sender, EventArgs e)
+        #endregion
+
+        #region Form Other
+
+        private void MenuOtherOpenResourcesFolder_Click(object sender, EventArgs e)
         {
-            if (ParamDataGridView.Rows.Count == 0)
-                return;
-
-            var currentparam = (ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem;
-            if (currentparam.Param == null)
+            try
             {
-                Params.Remove(currentparam);
-                UpdateStatus("Warning: Invalid param found, removing.");
-                return;
+                bool question = FormUtil.ShowQuestionDialog("Are you sure you want to open the Resources folder?", "Open Resources Folder");
+                if (!question)
+                {
+                    UpdateStatus("Canceled opening Resources folder.");
+                    return;
+                }
+
+                if (PathUtil.OpenResources())
+                {
+                    UpdateStatus("Opened Resources folder.");
+                }
+                else
+                {
+                    UpdateStatus("Could not find Resources folder.");
+                }
             }
+            catch
+            {
+                UpdateStatus("Failed to open Resources folder.");
+            }
+        }
 
-            int id = 1;
-            if (currentparam.Param.Rows.Count > 0)
-                id = currentparam.GetNextRowID();
-            currentparam.Param.Rows.Add(new PARAM.Row(id, "NEWROW", currentparam.Param.AppliedParamdef));
+        private void MenuOtherOpenResourcesDefFolder_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bool question = FormUtil.ShowQuestionDialog("Are you sure you want to open the Resources Def folder?", "Open Resources Def Folder");
+                if (!question)
+                {
+                    UpdateStatus("Canceled opening Resources Def folder.");
+                    return;
+                }
 
-            RefreshRows();
-            UpdateStatus("Made a new row.");
+                if (PathUtil.OpenFolder(DefFolderPath))
+                {
+                    UpdateStatus("Opened Resources Def folder.");
+                }
+                else
+                {
+                    UpdateStatus("Could not find Resources Def folder.");
+                }
+            }
+            catch
+            {
+                UpdateStatus("Failed to open Resources Def folder.");
+            }
+        }
+
+        private void MenuOtherOpenCurrentDefsFolder_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bool question = FormUtil.ShowQuestionDialog("Are you sure you want to open the Current Def folder?", "Open Current Def Folder");
+                if (!question)
+                {
+                    UpdateStatus("Canceled opening Current Def folder.");
+                    return;
+                }
+
+                if (PathUtil.OpenFolder(GetCurrentDefPath()))
+                {
+                    UpdateStatus("Opened Current Def folder.");
+                }
+                else
+                {
+                    RefreshDefGames();
+                    UpdateStatus("Could not find Current Def folder, refreshing def combobox.");
+                }
+            }
+            catch
+            {
+                UpdateStatus("Failed to open Current Def folder.");
+            }
+        }
+
+        #endregion
+
+        #region Form Help
+
+        private void MenuHelpWhatIsAParam_Click(object sender, EventArgs e)
+        {
+            FormUtil.ShowInformationDialog("A param is a file used for settings in FromSoftware games.\n" +
+                "Params are like spreadsheets in that they have rows, and those rows have cells.\n\n" +
+                "You can add as many rows as you want as they are entries.\n" +
+                "However cells must always be the same across all rows.\n\n" +
+                "Params are read using \".def\" files which define them.\n" +
+                "Without a def file, you cannot read a param, though defs they can be made.\n\n" +
+                "Generally params are in a \"param\" folder,\n" +
+                "The extensions used are usually \".bin\" though rarely \".param\" is also seen.", "What is a param?");
+        }
+
+        private void MenuHelpAddingNewRows_Click(object sender, EventArgs e)
+        {
+            FormUtil.ShowInformationDialog("Rows are entries for the same data.\n" +
+                "They can be added by right-clicking and pressing \"New\"\n" +
+                "You can also copy and paste or duplicate all selected rows.\n" +
+                "If the rows in another param are compatible, you can paste the copied rows into it.\n\n" +
+                "Selected rows can also be deleted.", "Adding New Rows");
+        }
+
+        private void MenuHelpSelectingDifferentDefs_Click(object sender, EventArgs e)
+        {
+            FormUtil.ShowInformationDialog("The combobox, or dropdown in the upper right corner will allow you to select different sets of defs from the Resources folder.", "Selecting different defs");
+        }
+
+        private void MenuHelpAddingNewDefSets_Click(object sender, EventArgs e)
+        {
+            FormUtil.ShowInformationDialog("The \"Resources\\Def\\\" folder with the program holds several different def sets.\n\n" +
+                "The program will treat any folder it finds in here as a new set of defs.\n\n" +
+                "Any defs found inside will be loaded which switched to in the combobox in the upper right corner.\n\n" +
+                "The names of added folders will be displayed as the name in the combobox.\n\n" +
+                "Def files and XML files designed for def can be used.\n" +
+                "Defs are usually found along in the \"def\" folder in the under the \"param\" folder in game files.\n\n" +
+                "Newer games may not include defs, in which case they must be made with XML.", "Adding different defs");
+        }
+
+        private void MenuHelpIhadACrash_Click(object sender, EventArgs e)
+        {
+            FormUtil.ShowInformationDialog("If you had a crash, any issues, or just suggestions about the program, you can leave an issue on the github repo here:\n\n" +
+                "https://www.github.com/WarpZephyr/ACParamEditor", "I had a crash!");
         }
 
         #endregion
@@ -754,19 +897,7 @@ namespace ACParamEditor
             MainFormStatusLabel.Text = text;
         }
 
-        private void UpdateCountStatus(string text, string partialtext, string emptytext, string failedtext, int count, int failcount)
-        {
-            if (failcount == 0)
-                MainFormStatusLabel.Text = text;
-            else if (count - failcount > 0)
-                MainFormStatusLabel.Text = partialtext;
-            else if (count - failcount == 0)
-                MainFormStatusLabel.Text = failedtext;
-            else if (count == 0)
-                MainFormStatusLabel.Text = emptytext;
-        }
-
-        private void UpdateLoadStatus(int total, int skipped, int failed)
+        private void UpdateParamLoadStatus(int total, int skipped, int failed)
         {
             if (total == 1)
             {
@@ -812,6 +943,40 @@ namespace ACParamEditor
                 else if (skipped == 0 && total - failed == 0)
                 {
                     UpdateStatus($"Failed to read all {total} files.");
+                }
+            }
+        }
+
+        private void UpdateDefLoadStatus(int total, int failed)
+        {
+            if (total == 0)
+            {
+                UpdateStatus($"No param defs found in {MenuGameCombobox.Text}, disabling param loading until defs are loaded.");
+            }
+            else if (total == 1)
+            {
+                if (total - failed == total)
+                {
+                    UpdateStatus($"Successfully read only param def in {MenuGameCombobox.Text}.");
+                }
+                else if (failed == 1)
+                {
+                    UpdateStatus($"Failed to read only file in {MenuGameCombobox.Text}, disabling param loading until defs are loaded.");
+                }
+            }
+            else if (total > 1)
+            {
+                if (total - failed == total)
+                {
+                    UpdateStatus($"Successfully read all {total} {MenuGameCombobox.Text} param defs.");
+                }
+                else if (total - failed != 0)
+                {
+                    UpdateStatus($"Read {total - failed} {MenuGameCombobox.Text} param defs, failed reading {failed} files.");
+                }
+                else if (total - failed == 0)
+                {
+                    UpdateStatus($"Failed to read all {total} files in {MenuGameCombobox.Text}, disabling param loading until defs are loaded.");
                 }
             }
         }
@@ -878,11 +1043,7 @@ namespace ACParamEditor
                     failed++;
             }
 
-            UpdateCountStatus($"Successfully read all {total} {MenuGameCombobox.Text} param defs.",
-                              $"Read {total} param defs, failed reading {failed} param defs.",
-                              $"No param defs were read.",
-                              $"Failed to read all {total} param defs.", total, failed);
-
+            UpdateDefLoadStatus(total, failed);
             RefreshParamOpenAccess();
         }
 
@@ -956,7 +1117,7 @@ namespace ACParamEditor
                 }
             }
 
-            UpdateLoadStatus(total, skipped, failed);
+            UpdateParamLoadStatus(total, skipped, failed);
         }
 
         #endregion
