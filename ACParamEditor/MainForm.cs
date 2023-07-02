@@ -34,11 +34,6 @@ namespace ACParamEditor
         /// </summary>
         private List<PARAM.Row> RowCopies { get; set; } = new List<PARAM.Row>();
 
-        /// <summary>
-        /// The row ID when a row ID is starting to be edited.
-        /// </summary>
-        private int PreviousRowID { get; set; } = -1;
-
         public MainWindow()
         {
             InitializeComponent();
