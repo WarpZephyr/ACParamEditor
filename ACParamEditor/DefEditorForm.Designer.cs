@@ -41,6 +41,14 @@
             MenuFileClose = new ToolStripMenuItem();
             MenuFileCloseAll = new ToolStripMenuItem();
             MenuGameCombobox = new ToolStripComboBox();
+            MenuExport = new ToolStripMenuItem();
+            MenuExportParam = new ToolStripMenuItem();
+            MenuExportDef = new ToolStripMenuItem();
+            MenuExportXml = new ToolStripMenuItem();
+            MenuExportTxt = new ToolStripMenuItem();
+            MenuOptions = new ToolStripMenuItem();
+            MenuOptionsValidation = new ToolStripMenuItem();
+            MenuOptionsValidationNewDefaults = new ToolStripMenuItem();
             MenuOther = new ToolStripMenuItem();
             MenuOtherOpenResourcesFolder = new ToolStripMenuItem();
             MenuOtherOpenResourcesDefFolder = new ToolStripMenuItem();
@@ -52,19 +60,22 @@
             MenuHelpAddingNewDefSets = new ToolStripMenuItem();
             MenuHelpIhadACrash = new ToolStripMenuItem();
             DefEditorFormStatusStrip = new StatusStrip();
-            MainFormStatusLabel = new ToolStripStatusLabel();
-            MainFormSplitContainerB = new SplitContainer();
+            DefEditorFormStatusLabel = new ToolStripStatusLabel();
+            DefEditorFormSplitContainerA = new SplitContainer();
             DefDataGridView = new DataGridView();
-            paramdefname = new DataGridViewTextBoxColumn();
+            paramdeffilename = new DataGridViewTextBoxColumn();
             paramdeftype = new DataGridViewTextBoxColumn();
+            paramdefformatversion = new DataGridViewTextBoxColumn();
+            paramdefdataversion = new DataGridViewTextBoxColumn();
             paramdefgame = new DataGridViewTextBoxColumn();
             DefContextMenu = new ContextMenuStrip(components);
-            RowView = new ToolStripMenuItem();
+            DefView = new ToolStripMenuItem();
             DefViewName = new ToolStripMenuItem();
             DefViewType = new ToolStripMenuItem();
             DefViewGame = new ToolStripMenuItem();
             FieldDataGridView = new DataGridView();
-            paramdeffieldtype = new DataGridViewTextBoxColumn();
+            paramdeffielddisplaytype = new DataGridViewTextBoxColumn();
+            paramdeffieldinternaltype = new DataGridViewTextBoxColumn();
             paramdeffielddisplayname = new DataGridViewTextBoxColumn();
             paramdeffieldinternalname = new DataGridViewTextBoxColumn();
             paramdeffielddescription = new DataGridViewTextBoxColumn();
@@ -77,9 +88,9 @@
             paramdeffieldarraylength = new DataGridViewTextBoxColumn();
             paramdeffieldbitsize = new DataGridViewTextBoxColumn();
             FieldContextMenu = new ContextMenuStrip(components);
-            CellView = new ToolStripMenuItem();
-            FieldViewType = new ToolStripMenuItem();
-            CellViewValue = new ToolStripMenuItem();
+            FieldView = new ToolStripMenuItem();
+            FieldViewDisplayType = new ToolStripMenuItem();
+            FieldViewInternalType = new ToolStripMenuItem();
             FieldViewDisplayName = new ToolStripMenuItem();
             FieldViewInternalName = new ToolStripMenuItem();
             FieldViewDescription = new ToolStripMenuItem();
@@ -96,12 +107,14 @@
             FieldCopy = new ToolStripMenuItem();
             FieldPaste = new ToolStripMenuItem();
             FieldDuplicate = new ToolStripMenuItem();
+            DefViewFormatVersion = new ToolStripMenuItem();
+            DefViewDataVersion = new ToolStripMenuItem();
             DefEditorFormMenu.SuspendLayout();
             DefEditorFormStatusStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)MainFormSplitContainerB).BeginInit();
-            MainFormSplitContainerB.Panel1.SuspendLayout();
-            MainFormSplitContainerB.Panel2.SuspendLayout();
-            MainFormSplitContainerB.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)DefEditorFormSplitContainerA).BeginInit();
+            DefEditorFormSplitContainerA.Panel1.SuspendLayout();
+            DefEditorFormSplitContainerA.Panel2.SuspendLayout();
+            DefEditorFormSplitContainerA.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DefDataGridView).BeginInit();
             DefContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)FieldDataGridView).BeginInit();
@@ -111,10 +124,10 @@
             // DefEditorFormMenu
             // 
             DefEditorFormMenu.BackColor = Color.FromArgb(60, 60, 60);
-            DefEditorFormMenu.Items.AddRange(new ToolStripItem[] { MenuFile, MenuGameCombobox, MenuOther, MenuHelp });
+            DefEditorFormMenu.Items.AddRange(new ToolStripItem[] { MenuFile, MenuGameCombobox, MenuExport, MenuOptions, MenuOther, MenuHelp });
             DefEditorFormMenu.Location = new Point(0, 0);
             DefEditorFormMenu.Name = "DefEditorFormMenu";
-            DefEditorFormMenu.Size = new Size(800, 27);
+            DefEditorFormMenu.Size = new Size(1076, 27);
             DefEditorFormMenu.TabIndex = 1;
             // 
             // MenuFile
@@ -134,6 +147,7 @@
             MenuFileOpen.Size = new Size(120, 22);
             MenuFileOpen.Text = "Open";
             MenuFileOpen.ToolTipText = "Open more param defs";
+            MenuFileOpen.Click += MenuFileOpen_Click;
             // 
             // MenuFileSave
             // 
@@ -143,6 +157,7 @@
             MenuFileSave.Size = new Size(120, 22);
             MenuFileSave.Text = "Save";
             MenuFileSave.ToolTipText = "Save the currently selected param defs";
+            MenuFileSave.Click += MenuFileSave_Click;
             // 
             // MenuFileSaveAll
             // 
@@ -152,6 +167,7 @@
             MenuFileSaveAll.Size = new Size(120, 22);
             MenuFileSaveAll.Text = "Save All";
             MenuFileSaveAll.ToolTipText = "Save all param defs";
+            MenuFileSaveAll.Click += MenuFileSaveAll_Click;
             // 
             // MenuFileClose
             // 
@@ -161,6 +177,7 @@
             MenuFileClose.Size = new Size(120, 22);
             MenuFileClose.Text = "Close";
             MenuFileClose.ToolTipText = "Close the currently selected param defs";
+            MenuFileClose.Click += MenuFileClose_Click;
             // 
             // MenuFileCloseAll
             // 
@@ -170,6 +187,7 @@
             MenuFileCloseAll.Size = new Size(120, 22);
             MenuFileCloseAll.Text = "Close All";
             MenuFileCloseAll.ToolTipText = "Close all param defs";
+            MenuFileCloseAll.Click += MenuFileCloseAll_Click;
             // 
             // MenuGameCombobox
             // 
@@ -182,6 +200,79 @@
             MenuGameCombobox.Name = "MenuGameCombobox";
             MenuGameCombobox.Size = new Size(121, 23);
             MenuGameCombobox.ToolTipText = "Select a set of defs from Resources to load and edit";
+            MenuGameCombobox.DropDown += MenuGameCombobox_DropDown;
+            MenuGameCombobox.SelectedIndexChanged += MenuGameCombobox_SelectedIndexChanged;
+            // 
+            // MenuExport
+            // 
+            MenuExport.BackColor = Color.FromArgb(65, 65, 65);
+            MenuExport.DropDownItems.AddRange(new ToolStripItem[] { MenuExportParam, MenuExportDef, MenuExportXml, MenuExportTxt });
+            MenuExport.ForeColor = SystemColors.Control;
+            MenuExport.Name = "MenuExport";
+            MenuExport.Size = new Size(53, 23);
+            MenuExport.Text = "Export";
+            // 
+            // MenuExportParam
+            // 
+            MenuExportParam.BackColor = Color.FromArgb(55, 55, 55);
+            MenuExportParam.ForeColor = SystemColors.Control;
+            MenuExportParam.Name = "MenuExportParam";
+            MenuExportParam.Size = new Size(108, 22);
+            MenuExportParam.Text = "Param";
+            // 
+            // MenuExportDef
+            // 
+            MenuExportDef.BackColor = Color.FromArgb(55, 55, 55);
+            MenuExportDef.ForeColor = SystemColors.Control;
+            MenuExportDef.Name = "MenuExportDef";
+            MenuExportDef.Size = new Size(108, 22);
+            MenuExportDef.Text = "Def";
+            // 
+            // MenuExportXml
+            // 
+            MenuExportXml.BackColor = Color.FromArgb(55, 55, 55);
+            MenuExportXml.ForeColor = SystemColors.Control;
+            MenuExportXml.Name = "MenuExportXml";
+            MenuExportXml.Size = new Size(108, 22);
+            MenuExportXml.Text = "Xml";
+            // 
+            // MenuExportTxt
+            // 
+            MenuExportTxt.BackColor = Color.FromArgb(55, 55, 55);
+            MenuExportTxt.ForeColor = SystemColors.Control;
+            MenuExportTxt.Name = "MenuExportTxt";
+            MenuExportTxt.Size = new Size(108, 22);
+            MenuExportTxt.Text = "Txt";
+            // 
+            // MenuOptions
+            // 
+            MenuOptions.BackColor = Color.FromArgb(65, 65, 65);
+            MenuOptions.DropDownItems.AddRange(new ToolStripItem[] { MenuOptionsValidation });
+            MenuOptions.ForeColor = SystemColors.Control;
+            MenuOptions.Name = "MenuOptions";
+            MenuOptions.Size = new Size(61, 23);
+            MenuOptions.Text = "Options";
+            // 
+            // MenuOptionsValidation
+            // 
+            MenuOptionsValidation.BackColor = Color.FromArgb(55, 55, 55);
+            MenuOptionsValidation.DropDownItems.AddRange(new ToolStripItem[] { MenuOptionsValidationNewDefaults });
+            MenuOptionsValidation.ForeColor = SystemColors.Control;
+            MenuOptionsValidation.Name = "MenuOptionsValidation";
+            MenuOptionsValidation.Size = new Size(126, 22);
+            MenuOptionsValidation.Text = "Validation";
+            // 
+            // MenuOptionsValidationNewDefaults
+            // 
+            MenuOptionsValidationNewDefaults.BackColor = Color.FromArgb(55, 55, 55);
+            MenuOptionsValidationNewDefaults.Checked = true;
+            MenuOptionsValidationNewDefaults.CheckOnClick = true;
+            MenuOptionsValidationNewDefaults.CheckState = CheckState.Checked;
+            MenuOptionsValidationNewDefaults.ForeColor = SystemColors.Control;
+            MenuOptionsValidationNewDefaults.Name = "MenuOptionsValidationNewDefaults";
+            MenuOptionsValidationNewDefaults.Size = new Size(361, 22);
+            MenuOptionsValidationNewDefaults.Text = "Set values to new defaults when changing display type";
+            MenuOptionsValidationNewDefaults.Click += MenuOptionsValidationNewDefaults_Click;
             // 
             // MenuOther
             // 
@@ -199,6 +290,7 @@
             MenuOtherOpenResourcesFolder.Name = "MenuOtherOpenResourcesFolder";
             MenuOtherOpenResourcesFolder.Size = new Size(216, 22);
             MenuOtherOpenResourcesFolder.Text = "Open Resources Folder";
+            MenuOtherOpenResourcesFolder.Click += MenuOtherOpenResourcesFolder_Click;
             // 
             // MenuOtherOpenResourcesDefFolder
             // 
@@ -207,6 +299,7 @@
             MenuOtherOpenResourcesDefFolder.Name = "MenuOtherOpenResourcesDefFolder";
             MenuOtherOpenResourcesDefFolder.Size = new Size(216, 22);
             MenuOtherOpenResourcesDefFolder.Text = "Open Resources Def Folder";
+            MenuOtherOpenResourcesDefFolder.Click += MenuOtherOpenResourcesDefFolder_Click;
             // 
             // MenuOtherOpenCurrentDefsFolder
             // 
@@ -215,6 +308,7 @@
             MenuOtherOpenCurrentDefsFolder.Name = "MenuOtherOpenCurrentDefsFolder";
             MenuOtherOpenCurrentDefsFolder.Size = new Size(216, 22);
             MenuOtherOpenCurrentDefsFolder.Text = "Open Current Defs Folder";
+            MenuOtherOpenCurrentDefsFolder.Click += MenuOtherOpenCurrentDefsFolder_Click;
             // 
             // MenuHelp
             // 
@@ -268,34 +362,37 @@
             // DefEditorFormStatusStrip
             // 
             DefEditorFormStatusStrip.BackColor = Color.FromArgb(60, 60, 60);
-            DefEditorFormStatusStrip.Items.AddRange(new ToolStripItem[] { MainFormStatusLabel });
+            DefEditorFormStatusStrip.Items.AddRange(new ToolStripItem[] { DefEditorFormStatusLabel });
             DefEditorFormStatusStrip.Location = new Point(0, 428);
             DefEditorFormStatusStrip.Name = "DefEditorFormStatusStrip";
-            DefEditorFormStatusStrip.Size = new Size(800, 22);
+            DefEditorFormStatusStrip.Size = new Size(1076, 22);
             DefEditorFormStatusStrip.TabIndex = 2;
             // 
-            // MainFormStatusLabel
+            // DefEditorFormStatusLabel
             // 
-            MainFormStatusLabel.Name = "MainFormStatusLabel";
-            MainFormStatusLabel.Size = new Size(0, 17);
-            MainFormStatusLabel.ToolTipText = "This will keep you updated on what the program is doing";
+            DefEditorFormStatusLabel.Name = "DefEditorFormStatusLabel";
+            DefEditorFormStatusLabel.Size = new Size(0, 17);
+            DefEditorFormStatusLabel.ToolTipText = "This will keep you updated on what the program is doing";
             // 
-            // MainFormSplitContainerB
+            // DefEditorFormSplitContainerA
             // 
-            MainFormSplitContainerB.Dock = DockStyle.Fill;
-            MainFormSplitContainerB.Location = new Point(0, 27);
-            MainFormSplitContainerB.Name = "MainFormSplitContainerB";
+            DefEditorFormSplitContainerA.AllowDrop = true;
+            DefEditorFormSplitContainerA.Dock = DockStyle.Fill;
+            DefEditorFormSplitContainerA.Location = new Point(0, 27);
+            DefEditorFormSplitContainerA.Name = "DefEditorFormSplitContainerA";
             // 
-            // MainFormSplitContainerB.Panel1
+            // DefEditorFormSplitContainerA.Panel1
             // 
-            MainFormSplitContainerB.Panel1.Controls.Add(DefDataGridView);
+            DefEditorFormSplitContainerA.Panel1.Controls.Add(DefDataGridView);
             // 
-            // MainFormSplitContainerB.Panel2
+            // DefEditorFormSplitContainerA.Panel2
             // 
-            MainFormSplitContainerB.Panel2.Controls.Add(FieldDataGridView);
-            MainFormSplitContainerB.Size = new Size(800, 401);
-            MainFormSplitContainerB.SplitterDistance = 382;
-            MainFormSplitContainerB.TabIndex = 3;
+            DefEditorFormSplitContainerA.Panel2.Controls.Add(FieldDataGridView);
+            DefEditorFormSplitContainerA.Size = new Size(1076, 401);
+            DefEditorFormSplitContainerA.SplitterDistance = 398;
+            DefEditorFormSplitContainerA.TabIndex = 3;
+            DefEditorFormSplitContainerA.DragDrop += DefEditorFormSplitContainerA_DragDrop;
+            DefEditorFormSplitContainerA.DragEnter += DefEditorFormSplitContainerA_DragEnter;
             // 
             // DefDataGridView
             // 
@@ -315,7 +412,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             DefDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             DefDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DefDataGridView.Columns.AddRange(new DataGridViewColumn[] { paramdefname, paramdeftype, paramdefgame });
+            DefDataGridView.Columns.AddRange(new DataGridViewColumn[] { paramdeffilename, paramdeftype, paramdefformatversion, paramdefdataversion, paramdefgame });
             DefDataGridView.ContextMenuStrip = DefContextMenu;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(55, 55, 55);
@@ -340,14 +437,16 @@
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             DefDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             DefDataGridView.RowTemplate.Height = 25;
-            DefDataGridView.Size = new Size(382, 401);
+            DefDataGridView.Size = new Size(398, 401);
             DefDataGridView.TabIndex = 1;
+            DefDataGridView.SelectionChanged += DefDataGridView_SelectionChanged;
             // 
-            // paramdefname
+            // paramdeffilename
             // 
-            paramdefname.FillWeight = 65.9898453F;
-            paramdefname.HeaderText = "Name";
-            paramdefname.Name = "paramdefname";
+            paramdeffilename.FillWeight = 80F;
+            paramdeffilename.HeaderText = "Name";
+            paramdeffilename.Name = "paramdeffilename";
+            paramdeffilename.ReadOnly = true;
             // 
             // paramdeftype
             // 
@@ -355,26 +454,39 @@
             paramdeftype.HeaderText = "Type";
             paramdeftype.Name = "paramdeftype";
             // 
+            // paramdefformatversion
+            // 
+            paramdefformatversion.HeaderText = "Format Version";
+            paramdefformatversion.Name = "paramdefformatversion";
+            paramdefformatversion.Visible = false;
+            // 
+            // paramdefdataversion
+            // 
+            paramdefdataversion.HeaderText = "Data Version";
+            paramdefdataversion.Name = "paramdefdataversion";
+            paramdefdataversion.Visible = false;
+            // 
             // paramdefgame
             // 
             paramdefgame.HeaderText = "Game";
             paramdefgame.Name = "paramdefgame";
+            paramdefgame.ReadOnly = true;
             paramdefgame.Visible = false;
             // 
             // DefContextMenu
             // 
-            DefContextMenu.Items.AddRange(new ToolStripItem[] { RowView });
+            DefContextMenu.Items.AddRange(new ToolStripItem[] { DefView });
             DefContextMenu.Name = "ParamDataGridViewContextMenu";
-            DefContextMenu.Size = new Size(100, 26);
+            DefContextMenu.Size = new Size(181, 48);
             // 
-            // RowView
+            // DefView
             // 
-            RowView.BackColor = Color.FromArgb(65, 65, 65);
-            RowView.DropDownItems.AddRange(new ToolStripItem[] { DefViewName, DefViewType, DefViewGame });
-            RowView.ForeColor = SystemColors.Control;
-            RowView.Name = "RowView";
-            RowView.Size = new Size(99, 22);
-            RowView.Text = "View";
+            DefView.BackColor = Color.FromArgb(65, 65, 65);
+            DefView.DropDownItems.AddRange(new ToolStripItem[] { DefViewName, DefViewType, DefViewFormatVersion, DefViewDataVersion, DefViewGame });
+            DefView.ForeColor = SystemColors.Control;
+            DefView.Name = "DefView";
+            DefView.Size = new Size(180, 22);
+            DefView.Text = "View";
             // 
             // DefViewName
             // 
@@ -384,8 +496,9 @@
             DefViewName.CheckState = CheckState.Checked;
             DefViewName.ForeColor = SystemColors.Control;
             DefViewName.Name = "DefViewName";
-            DefViewName.Size = new Size(106, 22);
+            DefViewName.Size = new Size(180, 22);
             DefViewName.Text = "Name";
+            DefViewName.Click += DefViewName_Click;
             // 
             // DefViewType
             // 
@@ -395,19 +508,19 @@
             DefViewType.CheckState = CheckState.Checked;
             DefViewType.ForeColor = SystemColors.Control;
             DefViewType.Name = "DefViewType";
-            DefViewType.Size = new Size(106, 22);
+            DefViewType.Size = new Size(180, 22);
             DefViewType.Text = "Type";
+            DefViewType.Click += DefViewType_Click;
             // 
             // DefViewGame
             // 
             DefViewGame.BackColor = Color.FromArgb(65, 65, 65);
-            DefViewGame.Checked = true;
             DefViewGame.CheckOnClick = true;
-            DefViewGame.CheckState = CheckState.Checked;
             DefViewGame.ForeColor = SystemColors.Control;
             DefViewGame.Name = "DefViewGame";
-            DefViewGame.Size = new Size(106, 22);
+            DefViewGame.Size = new Size(180, 22);
             DefViewGame.Text = "Game";
+            DefViewGame.Click += DefViewGame_Click;
             // 
             // FieldDataGridView
             // 
@@ -427,7 +540,7 @@
             dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
             FieldDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             FieldDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            FieldDataGridView.Columns.AddRange(new DataGridViewColumn[] { paramdeffieldtype, paramdeffielddisplayname, paramdeffieldinternalname, paramdeffielddescription, paramdeffielddisplayformat, paramdeffielddefault, paramdeffieldincrement, paramdeffieldmaximum, paramdeffieldminimum, paramdeffieldsortid, paramdeffieldarraylength, paramdeffieldbitsize });
+            FieldDataGridView.Columns.AddRange(new DataGridViewColumn[] { paramdeffielddisplaytype, paramdeffieldinternaltype, paramdeffielddisplayname, paramdeffieldinternalname, paramdeffielddescription, paramdeffielddisplayformat, paramdeffielddefault, paramdeffieldincrement, paramdeffieldmaximum, paramdeffieldminimum, paramdeffieldsortid, paramdeffieldarraylength, paramdeffieldbitsize });
             FieldDataGridView.ContextMenuStrip = FieldContextMenu;
             FieldDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             FieldDataGridView.Dock = DockStyle.Fill;
@@ -438,73 +551,70 @@
             FieldDataGridView.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             FieldDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             FieldDataGridView.RowTemplate.Height = 25;
-            FieldDataGridView.Size = new Size(414, 401);
+            FieldDataGridView.Size = new Size(674, 401);
             FieldDataGridView.TabIndex = 1;
+            FieldDataGridView.CellValueChanged += FieldDataGridView_CellValueChanged;
+            FieldDataGridView.SelectionChanged += FieldDataGridView_SelectionChanged;
             // 
-            // paramdeffieldtype
+            // paramdeffielddisplaytype
             // 
-            paramdeffieldtype.FillWeight = 40F;
-            paramdeffieldtype.HeaderText = "Field Type";
-            paramdeffieldtype.Name = "paramdeffieldtype";
-            paramdeffieldtype.ReadOnly = true;
-            paramdeffieldtype.Resizable = DataGridViewTriState.True;
+            paramdeffielddisplaytype.FillWeight = 60F;
+            paramdeffielddisplaytype.HeaderText = "Display Type";
+            paramdeffielddisplaytype.Name = "paramdeffielddisplaytype";
+            paramdeffielddisplaytype.Resizable = DataGridViewTriState.True;
+            // 
+            // paramdeffieldinternaltype
+            // 
+            paramdeffieldinternaltype.HeaderText = "Internal Type";
+            paramdeffieldinternaltype.Name = "paramdeffieldinternaltype";
             // 
             // paramdeffielddisplayname
             // 
             paramdeffielddisplayname.FillWeight = 70F;
             paramdeffielddisplayname.HeaderText = "Display Name";
             paramdeffielddisplayname.Name = "paramdeffielddisplayname";
-            paramdeffielddisplayname.ReadOnly = true;
             // 
             // paramdeffieldinternalname
             // 
             paramdeffieldinternalname.FillWeight = 75F;
             paramdeffieldinternalname.HeaderText = "Internal Name";
             paramdeffieldinternalname.Name = "paramdeffieldinternalname";
-            paramdeffieldinternalname.ReadOnly = true;
-            paramdeffieldinternalname.Visible = false;
             // 
             // paramdeffielddescription
             // 
             paramdeffielddescription.FillWeight = 130F;
             paramdeffielddescription.HeaderText = "Description";
             paramdeffielddescription.Name = "paramdeffielddescription";
-            paramdeffielddescription.ReadOnly = true;
             paramdeffielddescription.Visible = false;
             // 
             // paramdeffielddisplayformat
             // 
             paramdeffielddisplayformat.HeaderText = "Display Format";
             paramdeffielddisplayformat.Name = "paramdeffielddisplayformat";
-            paramdeffielddisplayformat.ReadOnly = true;
             paramdeffielddisplayformat.Visible = false;
             // 
             // paramdeffielddefault
             // 
             paramdeffielddefault.HeaderText = "Default Value";
             paramdeffielddefault.Name = "paramdeffielddefault";
-            paramdeffielddefault.ReadOnly = true;
             paramdeffielddefault.Visible = false;
             // 
             // paramdeffieldincrement
             // 
             paramdeffieldincrement.HeaderText = "Increment Amount";
             paramdeffieldincrement.Name = "paramdeffieldincrement";
-            paramdeffieldincrement.ReadOnly = true;
             paramdeffieldincrement.Visible = false;
             // 
             // paramdeffieldmaximum
             // 
             paramdeffieldmaximum.HeaderText = "Maxmium Value";
             paramdeffieldmaximum.Name = "paramdeffieldmaximum";
-            paramdeffieldmaximum.ReadOnly = true;
             paramdeffieldmaximum.Visible = false;
             // 
             // paramdeffieldminimum
             // 
             paramdeffieldminimum.HeaderText = "Minimum Value";
             paramdeffieldminimum.Name = "paramdeffieldminimum";
-            paramdeffieldminimum.ReadOnly = true;
             paramdeffieldminimum.Visible = false;
             // 
             // paramdeffieldsortid
@@ -527,40 +637,42 @@
             // 
             // FieldContextMenu
             // 
-            FieldContextMenu.Items.AddRange(new ToolStripItem[] { CellView, FieldNew, FieldDelete, FieldCopy, FieldPaste, FieldDuplicate });
+            FieldContextMenu.Items.AddRange(new ToolStripItem[] { FieldView, FieldNew, FieldDelete, FieldCopy, FieldPaste, FieldDuplicate });
             FieldContextMenu.Name = "ParamDataGridViewContextMenu";
             FieldContextMenu.Size = new Size(125, 136);
             // 
-            // CellView
+            // FieldView
             // 
-            CellView.BackColor = Color.FromArgb(65, 65, 65);
-            CellView.DropDownItems.AddRange(new ToolStripItem[] { FieldViewType, CellViewValue, FieldViewDisplayName, FieldViewInternalName, FieldViewDescription, FieldViewDisplayFormat, FieldViewDefault, FieldViewIncrement, FieldViewMinimum, FieldViewMaximum, FieldViewSortID, FieldViewArrayLength, FieldViewBitSize });
-            CellView.ForeColor = SystemColors.Control;
-            CellView.Name = "CellView";
-            CellView.Size = new Size(124, 22);
-            CellView.Text = "View";
+            FieldView.BackColor = Color.FromArgb(65, 65, 65);
+            FieldView.DropDownItems.AddRange(new ToolStripItem[] { FieldViewDisplayType, FieldViewInternalType, FieldViewDisplayName, FieldViewInternalName, FieldViewDescription, FieldViewDisplayFormat, FieldViewDefault, FieldViewIncrement, FieldViewMinimum, FieldViewMaximum, FieldViewSortID, FieldViewArrayLength, FieldViewBitSize });
+            FieldView.ForeColor = SystemColors.Control;
+            FieldView.Name = "FieldView";
+            FieldView.Size = new Size(124, 22);
+            FieldView.Text = "View";
             // 
-            // FieldViewType
+            // FieldViewDisplayType
             // 
-            FieldViewType.BackColor = Color.FromArgb(65, 65, 65);
-            FieldViewType.Checked = true;
-            FieldViewType.CheckOnClick = true;
-            FieldViewType.CheckState = CheckState.Checked;
-            FieldViewType.ForeColor = SystemColors.Control;
-            FieldViewType.Name = "FieldViewType";
-            FieldViewType.Size = new Size(175, 22);
-            FieldViewType.Text = "Field Type";
+            FieldViewDisplayType.BackColor = Color.FromArgb(65, 65, 65);
+            FieldViewDisplayType.Checked = true;
+            FieldViewDisplayType.CheckOnClick = true;
+            FieldViewDisplayType.CheckState = CheckState.Checked;
+            FieldViewDisplayType.ForeColor = SystemColors.Control;
+            FieldViewDisplayType.Name = "FieldViewDisplayType";
+            FieldViewDisplayType.Size = new Size(175, 22);
+            FieldViewDisplayType.Text = "Display Type";
+            FieldViewDisplayType.Click += FieldViewDisplayType_Click;
             // 
-            // CellViewValue
+            // FieldViewInternalType
             // 
-            CellViewValue.BackColor = Color.FromArgb(65, 65, 65);
-            CellViewValue.Checked = true;
-            CellViewValue.CheckOnClick = true;
-            CellViewValue.CheckState = CheckState.Checked;
-            CellViewValue.ForeColor = SystemColors.Control;
-            CellViewValue.Name = "CellViewValue";
-            CellViewValue.Size = new Size(175, 22);
-            CellViewValue.Text = "Field Value";
+            FieldViewInternalType.BackColor = Color.FromArgb(65, 65, 65);
+            FieldViewInternalType.Checked = true;
+            FieldViewInternalType.CheckOnClick = true;
+            FieldViewInternalType.CheckState = CheckState.Checked;
+            FieldViewInternalType.ForeColor = SystemColors.Control;
+            FieldViewInternalType.Name = "FieldViewInternalType";
+            FieldViewInternalType.Size = new Size(175, 22);
+            FieldViewInternalType.Text = "Internal Type";
+            FieldViewInternalType.Click += FieldViewInternalType_Click;
             // 
             // FieldViewDisplayName
             // 
@@ -572,15 +684,19 @@
             FieldViewDisplayName.Name = "FieldViewDisplayName";
             FieldViewDisplayName.Size = new Size(175, 22);
             FieldViewDisplayName.Text = "Display Name";
+            FieldViewDisplayName.Click += FieldViewDisplayName_Click;
             // 
             // FieldViewInternalName
             // 
             FieldViewInternalName.BackColor = Color.FromArgb(65, 65, 65);
+            FieldViewInternalName.Checked = true;
             FieldViewInternalName.CheckOnClick = true;
+            FieldViewInternalName.CheckState = CheckState.Checked;
             FieldViewInternalName.ForeColor = SystemColors.Control;
             FieldViewInternalName.Name = "FieldViewInternalName";
             FieldViewInternalName.Size = new Size(175, 22);
             FieldViewInternalName.Text = "Internal Name";
+            FieldViewInternalName.Click += FieldViewInternalName_Click;
             // 
             // FieldViewDescription
             // 
@@ -590,6 +706,7 @@
             FieldViewDescription.Name = "FieldViewDescription";
             FieldViewDescription.Size = new Size(175, 22);
             FieldViewDescription.Text = "Description";
+            FieldViewDescription.Click += FieldViewDescription_Click;
             // 
             // FieldViewDisplayFormat
             // 
@@ -599,6 +716,7 @@
             FieldViewDisplayFormat.Name = "FieldViewDisplayFormat";
             FieldViewDisplayFormat.Size = new Size(175, 22);
             FieldViewDisplayFormat.Text = "Display Format";
+            FieldViewDisplayFormat.Click += FieldViewDisplayFormat_Click;
             // 
             // FieldViewDefault
             // 
@@ -608,6 +726,7 @@
             FieldViewDefault.Name = "FieldViewDefault";
             FieldViewDefault.Size = new Size(175, 22);
             FieldViewDefault.Text = "Default Value";
+            FieldViewDefault.Click += FieldViewDefault_Click;
             // 
             // FieldViewIncrement
             // 
@@ -617,6 +736,7 @@
             FieldViewIncrement.Name = "FieldViewIncrement";
             FieldViewIncrement.Size = new Size(175, 22);
             FieldViewIncrement.Text = "Increment Amount";
+            FieldViewIncrement.Click += FieldViewIncrement_Click;
             // 
             // FieldViewMinimum
             // 
@@ -626,6 +746,7 @@
             FieldViewMinimum.Name = "FieldViewMinimum";
             FieldViewMinimum.Size = new Size(175, 22);
             FieldViewMinimum.Text = "Minimum Value";
+            FieldViewMinimum.Click += FieldViewMinimum_Click;
             // 
             // FieldViewMaximum
             // 
@@ -635,6 +756,7 @@
             FieldViewMaximum.Name = "FieldViewMaximum";
             FieldViewMaximum.Size = new Size(175, 22);
             FieldViewMaximum.Text = "Maximum Value";
+            FieldViewMaximum.Click += FieldViewMaximum_Click;
             // 
             // FieldViewSortID
             // 
@@ -644,6 +766,7 @@
             FieldViewSortID.Name = "FieldViewSortID";
             FieldViewSortID.Size = new Size(175, 22);
             FieldViewSortID.Text = "Sort ID";
+            FieldViewSortID.Click += FieldViewSortID_Click;
             // 
             // FieldViewArrayLength
             // 
@@ -653,6 +776,7 @@
             FieldViewArrayLength.Name = "FieldViewArrayLength";
             FieldViewArrayLength.Size = new Size(175, 22);
             FieldViewArrayLength.Text = "Array Length";
+            FieldViewArrayLength.Click += FieldViewArrayLength_Click;
             // 
             // FieldViewBitSize
             // 
@@ -662,6 +786,7 @@
             FieldViewBitSize.Name = "FieldViewBitSize";
             FieldViewBitSize.Size = new Size(175, 22);
             FieldViewBitSize.Text = "Bit Size";
+            FieldViewBitSize.Click += FieldViewBitSize_Click;
             // 
             // FieldNew
             // 
@@ -708,13 +833,33 @@
             FieldDuplicate.Text = "Duplicate";
             FieldDuplicate.ToolTipText = "Duplicate the selected fields";
             // 
+            // DefViewFormatVersion
+            // 
+            DefViewFormatVersion.BackColor = Color.FromArgb(65, 65, 65);
+            DefViewFormatVersion.CheckOnClick = true;
+            DefViewFormatVersion.ForeColor = SystemColors.Control;
+            DefViewFormatVersion.Name = "DefViewFormatVersion";
+            DefViewFormatVersion.Size = new Size(180, 22);
+            DefViewFormatVersion.Text = "Format Version";
+            DefViewFormatVersion.Click += DefViewFormatVersion_Click;
+            // 
+            // DefViewDataVersion
+            // 
+            DefViewDataVersion.BackColor = Color.FromArgb(65, 65, 65);
+            DefViewDataVersion.CheckOnClick = true;
+            DefViewDataVersion.ForeColor = SystemColors.Control;
+            DefViewDataVersion.Name = "DefViewDataVersion";
+            DefViewDataVersion.Size = new Size(180, 22);
+            DefViewDataVersion.Text = "Data Version";
+            DefViewDataVersion.Click += DefViewDataVersion_Click;
+            // 
             // DefEditorForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(40, 40, 40);
-            ClientSize = new Size(800, 450);
-            Controls.Add(MainFormSplitContainerB);
+            ClientSize = new Size(1076, 450);
+            Controls.Add(DefEditorFormSplitContainerA);
             Controls.Add(DefEditorFormStatusStrip);
             Controls.Add(DefEditorFormMenu);
             ForeColor = SystemColors.Control;
@@ -724,10 +869,10 @@
             DefEditorFormMenu.PerformLayout();
             DefEditorFormStatusStrip.ResumeLayout(false);
             DefEditorFormStatusStrip.PerformLayout();
-            MainFormSplitContainerB.Panel1.ResumeLayout(false);
-            MainFormSplitContainerB.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)MainFormSplitContainerB).EndInit();
-            MainFormSplitContainerB.ResumeLayout(false);
+            DefEditorFormSplitContainerA.Panel1.ResumeLayout(false);
+            DefEditorFormSplitContainerA.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)DefEditorFormSplitContainerA).EndInit();
+            DefEditorFormSplitContainerA.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)DefDataGridView).EndInit();
             DefContextMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)FieldDataGridView).EndInit();
@@ -759,27 +904,12 @@
         private ToolStripMenuItem MenuHelpAddingNewDefSets;
         private ToolStripMenuItem MenuHelpIhadACrash;
         private StatusStrip DefEditorFormStatusStrip;
-        private ToolStripStatusLabel MainFormStatusLabel;
-        private SplitContainer MainFormSplitContainerB;
+        private ToolStripStatusLabel DefEditorFormStatusLabel;
+        private SplitContainer DefEditorFormSplitContainerA;
         private DataGridView DefDataGridView;
-        private DataGridViewTextBoxColumn paramdefname;
-        private DataGridViewTextBoxColumn paramdeftype;
-        private DataGridViewTextBoxColumn paramdefgame;
         private DataGridView FieldDataGridView;
-        private DataGridViewTextBoxColumn paramdeffieldtype;
-        private DataGridViewTextBoxColumn paramdeffielddisplayname;
-        private DataGridViewTextBoxColumn paramdeffieldinternalname;
-        private DataGridViewTextBoxColumn paramdeffielddescription;
-        private DataGridViewTextBoxColumn paramdeffielddisplayformat;
-        private DataGridViewTextBoxColumn paramdeffielddefault;
-        private DataGridViewTextBoxColumn paramdeffieldincrement;
-        private DataGridViewTextBoxColumn paramdeffieldmaximum;
-        private DataGridViewTextBoxColumn paramdeffieldminimum;
-        private DataGridViewTextBoxColumn paramdeffieldsortid;
-        private DataGridViewTextBoxColumn paramdeffieldarraylength;
-        private DataGridViewTextBoxColumn paramdeffieldbitsize;
         private ContextMenuStrip DefContextMenu;
-        private ToolStripMenuItem RowView;
+        private ToolStripMenuItem DefView;
         private ToolStripMenuItem DefViewName;
         private ToolStripMenuItem DefViewType;
         private ToolStripMenuItem RowViewID;
@@ -790,9 +920,8 @@
         private ToolStripMenuItem RowPaste;
         private ToolStripMenuItem RowDuplicate;
         private ContextMenuStrip FieldContextMenu;
-        private ToolStripMenuItem CellView;
-        private ToolStripMenuItem FieldViewType;
-        private ToolStripMenuItem CellViewValue;
+        private ToolStripMenuItem FieldView;
+        private ToolStripMenuItem FieldViewDisplayType;
         private ToolStripMenuItem FieldViewDisplayName;
         private ToolStripMenuItem FieldViewInternalName;
         private ToolStripMenuItem FieldViewDescription;
@@ -810,5 +939,34 @@
         private ToolStripMenuItem FieldPaste;
         private ToolStripMenuItem FieldDuplicate;
         private ToolStripMenuItem DefViewGame;
+        private ToolStripMenuItem FieldViewInternalType;
+        private DataGridViewTextBoxColumn paramdeffielddisplaytype;
+        private DataGridViewTextBoxColumn paramdeffieldinternaltype;
+        private DataGridViewTextBoxColumn paramdeffielddisplayname;
+        private DataGridViewTextBoxColumn paramdeffieldinternalname;
+        private DataGridViewTextBoxColumn paramdeffielddescription;
+        private DataGridViewTextBoxColumn paramdeffielddisplayformat;
+        private DataGridViewTextBoxColumn paramdeffielddefault;
+        private DataGridViewTextBoxColumn paramdeffieldincrement;
+        private DataGridViewTextBoxColumn paramdeffieldmaximum;
+        private DataGridViewTextBoxColumn paramdeffieldminimum;
+        private DataGridViewTextBoxColumn paramdeffieldsortid;
+        private DataGridViewTextBoxColumn paramdeffieldarraylength;
+        private DataGridViewTextBoxColumn paramdeffieldbitsize;
+        private ToolStripMenuItem MenuOptions;
+        private ToolStripMenuItem MenuOptionsValidation;
+        private ToolStripMenuItem MenuOptionsValidationNewDefaults;
+        private ToolStripMenuItem MenuExport;
+        private ToolStripMenuItem MenuExportXml;
+        private ToolStripMenuItem MenuExportParam;
+        private ToolStripMenuItem MenuExportDef;
+        private ToolStripMenuItem MenuExportTxt;
+        private DataGridViewTextBoxColumn paramdeffilename;
+        private DataGridViewTextBoxColumn paramdeftype;
+        private DataGridViewTextBoxColumn paramdefformatversion;
+        private DataGridViewTextBoxColumn paramdefdataversion;
+        private DataGridViewTextBoxColumn paramdefgame;
+        private ToolStripMenuItem DefViewFormatVersion;
+        private ToolStripMenuItem DefViewDataVersion;
     }
 }

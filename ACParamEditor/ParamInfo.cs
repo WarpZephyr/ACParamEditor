@@ -3,6 +3,9 @@ using System.Security.Cryptography;
 
 namespace ACParamEditor
 {
+    /// <summary>
+    /// A class for storing information about loaded params.
+    /// </summary>
     public class ParamInfo
     {
         /// <summary>

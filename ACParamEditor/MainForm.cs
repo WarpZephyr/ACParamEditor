@@ -47,6 +47,9 @@ namespace ACParamEditor
 
             // Disable Image Margins for all subitems of below menu items
             ((ToolStripDropDownMenu)MenuFile.DropDown).ShowImageMargin = false;
+            ((ToolStripDropDownMenu)MenuEditor.DropDown).ShowImageMargin = false;
+            ((ToolStripDropDownMenu)MenuOther.DropDown).ShowImageMargin = false;
+            ((ToolStripDropDownMenu)MenuHelp.DropDown).ShowImageMargin = false;
             ParamContextMenu.ShowImageMargin = false;
             RowContextMenu.ShowImageMargin = false;
             CellContextMenu.ShowImageMargin = false;
@@ -75,8 +78,11 @@ namespace ACParamEditor
 
         private void MenuFileOpen_Click(object sender, EventArgs e)
         {
+            UpdateStatus("Opening params.");
             string[] paths = PathUtil.GetFilePaths("C:\\Users", "Open Params", "Param (*.bin)|*.bin|Param (*.param)|*.param|All (*.*)|*.*");
             LoadParams(paths);
+            if (paths.Length == 0)
+                UpdateStatus("Canceling opening params.");
         }
 
         private void MenuFileSave_Click(object sender, EventArgs e)
@@ -100,8 +106,7 @@ namespace ACParamEditor
                 }
             }
 
-            int count = saved.Count;
-            UpdateStatus($"Saved {count} params.");
+            UpdateStatus($"Saved {saved.Count} params.");
         }
 
         private void MenuFileSaveAll_Click(object sender, EventArgs e)
@@ -145,9 +150,7 @@ namespace ACParamEditor
             }
 
             RefreshDataGridViews();
-
-            int count = closed.Count;
-            UpdateStatus($"Closed {count} params.");
+            UpdateStatus($"Closed {closed.Count} params.");
         }
 
         private void MenuFileCloseAll_Click(object sender, EventArgs e)
@@ -173,7 +176,6 @@ namespace ACParamEditor
         private void ParamViewName_Click(object sender, EventArgs e)
         {
             ParamDataGridView.Columns["paramfilename"].Visible = ParamViewName.Checked;
-
             UpdateStatus(ParamViewName.Checked ? "Showing Names" : "Hid Names");
             ParamContextMenu.Show();
             ParamView.DropDown.Show();
@@ -211,10 +213,18 @@ namespace ACParamEditor
             RowView.DropDown.Show();
         }
 
-        private void CellViewType_Click(object sender, EventArgs e)
+        private void CellViewDisplayType_Click(object sender, EventArgs e)
         {
-            CellDataGridView.Columns["paramcelltype"].Visible = CellViewType.Checked;
-            UpdateStatus(CellViewType.Checked ? "Showing Cell Types" : "Hid Cell Types");
+            CellDataGridView.Columns["paramcelldisplaytype"].Visible = CellViewDisplayType.Checked;
+            UpdateStatus(CellViewDisplayType.Checked ? "Showing Cell Display Types" : "Hid Cell Display Types");
+            CellContextMenu.Show();
+            CellView.DropDown.Show();
+        }
+
+        private void CellViewInternalType_Click(object sender, EventArgs e)
+        {
+            CellDataGridView.Columns["paramcellinternaltype"].Visible = CellViewInternalType.Checked;
+            UpdateStatus(CellViewInternalType.Checked ? "Showing Cell Internal Types" : "Hid Cell Internal Types");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -254,7 +264,7 @@ namespace ACParamEditor
         private void CellViewDisplayFormat_Click(object sender, EventArgs e)
         {
             CellDataGridView.Columns["paramcelldisplayformat"].Visible = CellViewDisplayFormat.Checked;
-            UpdateStatus(CellViewDescription.Checked ? "Showing Cell Display Formats" : "Hid Cell Display Formats");
+            UpdateStatus(CellViewDisplayFormat.Checked ? "Showing Cell Display Formats" : "Hid Cell Display Formats");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -262,7 +272,7 @@ namespace ACParamEditor
         private void CellViewDefault_Click(object sender, EventArgs e)
         {
             CellDataGridView.Columns["paramcelldefault"].Visible = CellViewDefault.Checked;
-            UpdateStatus(CellViewDescription.Checked ? "Showing Cell Default Values" : "Hid Cell Default Values");
+            UpdateStatus(CellViewDefault.Checked ? "Showing Cell Default Values" : "Hid Cell Default Values");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -270,7 +280,7 @@ namespace ACParamEditor
         private void CellViewIncrement_Click(object sender, EventArgs e)
         {
             CellDataGridView.Columns["paramcellincrement"].Visible = CellViewIncrement.Checked;
-            UpdateStatus(CellViewDescription.Checked ? "Showing Cell Increment Amount" : "Hid Cell Increment Amount");
+            UpdateStatus(CellViewIncrement.Checked ? "Showing Cell Increment Amount" : "Hid Cell Increment Amount");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -278,7 +288,7 @@ namespace ACParamEditor
         private void CellViewMinimum_Click(object sender, EventArgs e)
         {
             CellDataGridView.Columns["paramcellminimum"].Visible = CellViewMinimum.Checked;
-            UpdateStatus(CellViewDescription.Checked ? "Showing Cell Minimum Values" : "Hid Cell Mimimum Values");
+            UpdateStatus(CellViewMinimum.Checked ? "Showing Cell Minimum Values" : "Hid Cell Mimimum Values");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -286,7 +296,7 @@ namespace ACParamEditor
         private void CellViewMaximum_Click(object sender, EventArgs e)
         {
             CellDataGridView.Columns["paramcellmaximum"].Visible = CellViewMaximum.Checked;
-            UpdateStatus(CellViewDescription.Checked ? "Showing Cell Maximum Values" : "Hid Cell Maximum Values");
+            UpdateStatus(CellViewMaximum.Checked ? "Showing Cell Maximum Values" : "Hid Cell Maximum Values");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -294,7 +304,7 @@ namespace ACParamEditor
         private void CellViewSortID_Click(object sender, EventArgs e)
         {
             CellDataGridView.Columns["paramcellsortid"].Visible = CellViewSortID.Checked;
-            UpdateStatus(CellViewDescription.Checked ? "Showing Cell Sort IDs" : "Hid Cell Sort IDs");
+            UpdateStatus(CellViewSortID.Checked ? "Showing Cell Sort IDs" : "Hid Cell Sort IDs");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -302,7 +312,7 @@ namespace ACParamEditor
         private void CellViewArrayLength_Click(object sender, EventArgs e)
         {
             CellDataGridView.Columns["paramcellarraylength"].Visible = CellViewArrayLength.Checked;
-            UpdateStatus(CellViewDescription.Checked ? "Showing Cell Array Lengths" : "Hid Cell Array Lengths");
+            UpdateStatus(CellViewArrayLength.Checked ? "Showing Cell Array Lengths" : "Hid Cell Array Lengths");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -310,7 +320,7 @@ namespace ACParamEditor
         private void CellViewBitSize_Click(object sender, EventArgs e)
         {
             CellDataGridView.Columns["paramcellbitsize"].Visible = CellViewBitSize.Checked;
-            UpdateStatus(CellViewDescription.Checked ? "Showing Cell Bit Sizes" : "Hid Cell Bit Sizes");
+            UpdateStatus(CellViewBitSize.Checked ? "Showing Cell Bit Sizes" : "Hid Cell Bit Sizes");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -326,16 +336,9 @@ namespace ACParamEditor
 
             RefreshRows();
 
-            var selected = new List<int>();
-            foreach (DataGridViewCell cell in ParamDataGridView.SelectedCells)
-            {
-                if (!selected.Contains(cell.RowIndex))
-                {
-                    selected.Add(cell.RowIndex);
-                }
-            }
-            if (selected.Count > 1)
-                UpdateStatus($"Selected {selected.Count} params.");
+            int count = ParamDataGridView.GetSelectedRowCountBySelectedCells();
+            if (count > 1)
+                UpdateStatus($"Selected {count} params.");
         }
 
         private void RowDataGridView_SelectionChanged(object sender, EventArgs e)
@@ -365,7 +368,8 @@ namespace ACParamEditor
             CellDataGridView.AutoGenerateColumns = false;
             CellDataGridView.DataSource = ((PARAM.Row)RowDataGridView.CurrentRow.DataBoundItem).Cells;
 
-            CellDataGridView.Columns["paramcelltype"].DataPropertyName = "DisplayType";
+            CellDataGridView.Columns["paramcelldisplaytype"].DataPropertyName = "DisplayType";
+            CellDataGridView.Columns["paramcellinternaltype"].DataPropertyName = "InternalType";
             CellDataGridView.Columns["paramcellvalue"].DataPropertyName = "Value";
             CellDataGridView.Columns["paramcelldisplayname"].DataPropertyName = "DisplayName";
             CellDataGridView.Columns["paramcellinternalname"].DataPropertyName = "InternalName";
@@ -379,21 +383,17 @@ namespace ACParamEditor
             CellDataGridView.Columns["paramcellarraylength"].DataPropertyName = "ArrayLength";
             CellDataGridView.Columns["paramcellbitsize"].DataPropertyName = "BitSize";
 
-            var selected = new List<int>();
-            foreach (DataGridViewCell cell in RowDataGridView.SelectedCells)
-            {
-                if (!selected.Contains(cell.RowIndex))
-                {
-                    selected.Add(cell.RowIndex);
-                }
-            }
-            if (selected.Count > 1)
-                UpdateStatus($"Selected {selected.Count} rows.");
+            int count = RowDataGridView.GetSelectedRowCountBySelectedCells();
+            if (count > 1)
+                UpdateStatus($"Selected {count} rows.");
         }
 
         private void RowDataGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
-            if (RowDataGridView.GetCurrentColumnName() == "paramrowid" && RowDataGridView.IsCurrentCellInEditMode)
+            if (!RowDataGridView.IsCurrentCellInEditMode)
+                return;
+
+            if (RowDataGridView.GetCurrentColumnName() == "paramrowid")
             {
                 try
                 {
@@ -412,16 +412,9 @@ namespace ACParamEditor
             if (ParamDataGridView.Rows.Count == 0)
                 return;
 
-            var selected = new List<int>();
-            foreach (DataGridViewCell cell in CellDataGridView.SelectedCells)
-            {
-                if (!selected.Contains(cell.RowIndex))
-                {
-                    selected.Add(cell.RowIndex);
-                }
-            }
-            if (selected.Count > 1)
-                UpdateStatus($"Selected {selected.Count} cells.");
+            int count = CellDataGridView.GetSelectedRowCountBySelectedCells();
+            if (count > 1)
+                UpdateStatus($"Selected {count} clls.");
         }
 
         private void CellDataGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
@@ -829,19 +822,30 @@ namespace ACParamEditor
             RowDataGridView.DataSource = param.Rows;
             RowDataGridView.Columns["paramrowid"].DataPropertyName = "ID";
             RowDataGridView.Columns["paramrowname"].DataPropertyName = "Name";
+            UpdateStatus("Refreshed rows.");
         }
 
         private void RerfeshColumnVisibility()
         {
             ParamDataGridView.Columns["paramfilename"].Visible = ParamViewName.Checked;
             ParamDataGridView.Columns["paramtype"].Visible = ParamViewType.Checked;
+            ParamDataGridView.Columns["paramgame"].Visible = ParamViewGame.Checked;
             RowDataGridView.Columns["paramrowid"].Visible = RowViewID.Checked;
             RowDataGridView.Columns["paramrowname"].Visible = RowViewName.Checked;
-            CellDataGridView.Columns["paramcelltype"].Visible = CellViewType.Checked;
+            CellDataGridView.Columns["paramcelldisplaytype"].Visible = CellViewDisplayType.Checked;
+            CellDataGridView.Columns["paramcellinternaltype"].Visible = CellViewInternalType.Checked;
             CellDataGridView.Columns["paramcellvalue"].Visible = CellViewValue.Checked;
             CellDataGridView.Columns["paramcelldisplayname"].Visible = CellViewDisplayName.Checked;
             CellDataGridView.Columns["paramcellinternalname"].Visible = CellViewInternalName.Checked;
             CellDataGridView.Columns["paramcelldescription"].Visible = CellViewInternalName.Checked;
+            CellDataGridView.Columns["paramcelldisplayformat"].Visible = CellViewDisplayFormat.Checked;
+            CellDataGridView.Columns["paramcelldefault"].Visible = CellViewDefault.Checked;
+            CellDataGridView.Columns["paramcellincrement"].Visible = CellViewIncrement.Checked;
+            CellDataGridView.Columns["paramcellminimum"].Visible = CellViewMinimum.Checked;
+            CellDataGridView.Columns["paramcellmaximum"].Visible = CellViewMaximum.Checked;
+            CellDataGridView.Columns["paramcellsortid"].Visible = CellViewSortID.Checked;
+            CellDataGridView.Columns["paramcellarraylength"].Visible = CellViewArrayLength.Checked;
+            CellDataGridView.Columns["paramcellbitsize"].Visible = CellViewBitSize.Checked;
             UpdateStatus("Refreshed column visibility.");
         }
 
@@ -985,9 +989,7 @@ namespace ACParamEditor
                 return null;
             try
             {
-                if (path.EndsWith(".def") || path.EndsWith(".paramdef"))
-                    return PARAMDEF.Read(path);
-                else if (path.EndsWith(".xml"))
+                if (path.EndsWith(".xml"))
                     return PARAMDEF.XmlDeserialize(path);
                 else
                     return PARAMDEF.Read(path);
@@ -1041,8 +1043,7 @@ namespace ACParamEditor
         private ParamInfo ReadParamInfo(string path)
         {
             var paraminfo = new ParamInfo(path, LoadedDefs);
-            if (MenuGameCombobox.Text != "None")
-                paraminfo.Game = MenuGameCombobox.Text;
+            paraminfo.Game = MenuGameCombobox.Text;
             return paraminfo;
         }
 

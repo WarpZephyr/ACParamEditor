@@ -61,6 +61,16 @@ namespace ACParamEditor
         }
 
         /// <summary>
+        /// Get the currently selected number of rows by selected cells in them.
+        /// </summary>
+        /// <param name="datagridview">A DataGridView.</param>
+        /// <returns>The number of rows that have selected cells in them.</returns>
+        public static int GetSelectedRowCountBySelectedCells(this DataGridView datagridview)
+        {
+            return GetSelectedRowIndicesBySelectedCells(datagridview).Count;
+        }
+
+        /// <summary>
         /// Get the current column via the current cell.
         /// </summary>
         /// <param name="datagridview">A DataGridView.</param>
@@ -134,6 +144,20 @@ namespace ACParamEditor
         {
             foreach (var param in paramlist)
                 if (param.Path == paraminfo.Path)
+                    return true;
+            return false;
+        }
+
+        /// <summary>
+        /// Check if a ParamdefInfo list contains a param def already.
+        /// </summary>
+        /// <param name="deflist">An enumerable list of ParamdefInfo.</param>
+        /// <param name="definfo">The param def info to check for.</param>
+        /// <returns>Whether or not the ParamdefInfo list contains the param def already.</returns>
+        public static bool ContainsParamdef(this IEnumerable<ParamdefInfo> deflist, ParamdefInfo definfo)
+        {
+            foreach (var param in deflist)
+                if (param.Path == definfo.Path)
                     return true;
             return false;
         }

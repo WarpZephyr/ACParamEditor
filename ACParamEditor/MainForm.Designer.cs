@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             MainFormMenu = new MenuStrip();
             MenuFile = new ToolStripMenuItem();
             MenuFileOpen = new ToolStripMenuItem();
@@ -44,11 +44,11 @@
             MenuGameCombobox = new ToolStripComboBox();
             MenuEditor = new ToolStripMenuItem();
             MenuEditorDef = new ToolStripMenuItem();
-            otherToolStripMenuItem = new ToolStripMenuItem();
+            MenuOther = new ToolStripMenuItem();
             MenuOtherOpenResourcesFolder = new ToolStripMenuItem();
             MenuOtherOpenResourcesDefFolder = new ToolStripMenuItem();
             MenuOtherOpenCurrentDefsFolder = new ToolStripMenuItem();
-            helpToolStripMenuItem = new ToolStripMenuItem();
+            MenuHelp = new ToolStripMenuItem();
             MenuHelpWhatIsAParam = new ToolStripMenuItem();
             MenuHelpAddingNewRows = new ToolStripMenuItem();
             MenuHelpSelectingDifferentDefs = new ToolStripMenuItem();
@@ -80,7 +80,8 @@
             RowPaste = new ToolStripMenuItem();
             RowDuplicate = new ToolStripMenuItem();
             CellDataGridView = new DataGridView();
-            paramcelltype = new DataGridViewTextBoxColumn();
+            paramcelldisplaytype = new DataGridViewTextBoxColumn();
+            paramcellinternaltype = new DataGridViewTextBoxColumn();
             paramcellvalue = new DataGridViewTextBoxColumn();
             paramcelldisplayname = new DataGridViewTextBoxColumn();
             paramcellinternalname = new DataGridViewTextBoxColumn();
@@ -95,7 +96,8 @@
             paramcellbitsize = new DataGridViewTextBoxColumn();
             CellContextMenu = new ContextMenuStrip(components);
             CellView = new ToolStripMenuItem();
-            CellViewType = new ToolStripMenuItem();
+            CellViewDisplayType = new ToolStripMenuItem();
+            CellViewInternalType = new ToolStripMenuItem();
             CellViewValue = new ToolStripMenuItem();
             CellViewDisplayName = new ToolStripMenuItem();
             CellViewInternalName = new ToolStripMenuItem();
@@ -129,7 +131,7 @@
             // MainFormMenu
             // 
             MainFormMenu.BackColor = Color.FromArgb(60, 60, 60);
-            MainFormMenu.Items.AddRange(new ToolStripItem[] { MenuFile, MenuGameCombobox, MenuEditor, otherToolStripMenuItem, helpToolStripMenuItem });
+            MainFormMenu.Items.AddRange(new ToolStripItem[] { MenuFile, MenuGameCombobox, MenuEditor, MenuOther, MenuHelp });
             MainFormMenu.Location = new Point(0, 0);
             MainFormMenu.Name = "MainFormMenu";
             MainFormMenu.Size = new Size(1270, 27);
@@ -226,14 +228,14 @@
             MenuEditorDef.Text = "Open Param Def Editor";
             MenuEditorDef.Click += MenuEditorDef_Click;
             // 
-            // otherToolStripMenuItem
+            // MenuOther
             // 
-            otherToolStripMenuItem.BackColor = Color.FromArgb(65, 65, 65);
-            otherToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { MenuOtherOpenResourcesFolder, MenuOtherOpenResourcesDefFolder, MenuOtherOpenCurrentDefsFolder });
-            otherToolStripMenuItem.ForeColor = SystemColors.Control;
-            otherToolStripMenuItem.Name = "otherToolStripMenuItem";
-            otherToolStripMenuItem.Size = new Size(49, 23);
-            otherToolStripMenuItem.Text = "Other";
+            MenuOther.BackColor = Color.FromArgb(65, 65, 65);
+            MenuOther.DropDownItems.AddRange(new ToolStripItem[] { MenuOtherOpenResourcesFolder, MenuOtherOpenResourcesDefFolder, MenuOtherOpenCurrentDefsFolder });
+            MenuOther.ForeColor = SystemColors.Control;
+            MenuOther.Name = "MenuOther";
+            MenuOther.Size = new Size(49, 23);
+            MenuOther.Text = "Other";
             // 
             // MenuOtherOpenResourcesFolder
             // 
@@ -262,14 +264,14 @@
             MenuOtherOpenCurrentDefsFolder.Text = "Open Current Defs Folder";
             MenuOtherOpenCurrentDefsFolder.Click += MenuOtherOpenCurrentDefsFolder_Click;
             // 
-            // helpToolStripMenuItem
+            // MenuHelp
             // 
-            helpToolStripMenuItem.BackColor = Color.FromArgb(65, 65, 65);
-            helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { MenuHelpWhatIsAParam, MenuHelpAddingNewRows, MenuHelpSelectingDifferentDefs, MenuHelpAddingNewDefSets, MenuHelpIhadACrash });
-            helpToolStripMenuItem.ForeColor = SystemColors.Control;
-            helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            helpToolStripMenuItem.Size = new Size(44, 23);
-            helpToolStripMenuItem.Text = "Help";
+            MenuHelp.BackColor = Color.FromArgb(65, 65, 65);
+            MenuHelp.DropDownItems.AddRange(new ToolStripItem[] { MenuHelpWhatIsAParam, MenuHelpAddingNewRows, MenuHelpSelectingDifferentDefs, MenuHelpAddingNewDefSets, MenuHelpIhadACrash });
+            MenuHelp.ForeColor = SystemColors.Control;
+            MenuHelp.Name = "MenuHelp";
+            MenuHelp.Size = new Size(44, 23);
+            MenuHelp.Text = "Help";
             // 
             // MenuHelpWhatIsAParam
             // 
@@ -361,39 +363,39 @@
             ParamDataGridView.BackgroundColor = Color.FromArgb(45, 45, 45);
             ParamDataGridView.BorderStyle = BorderStyle.None;
             ParamDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = Color.FromArgb(50, 50, 50);
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle6.ForeColor = SystemColors.Control;
-            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(70, 70, 70);
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.Control;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            ParamDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(50, 50, 50);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.Control;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(70, 70, 70);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.Control;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            ParamDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             ParamDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             ParamDataGridView.Columns.AddRange(new DataGridViewColumn[] { paramfilename, paramtype, paramgame });
             ParamDataGridView.ContextMenuStrip = ParamContextMenu;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = Color.FromArgb(55, 55, 55);
-            dataGridViewCellStyle7.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle7.ForeColor = SystemColors.Control;
-            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(75, 75, 75);
-            dataGridViewCellStyle7.SelectionForeColor = SystemColors.Control;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
-            ParamDataGridView.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(55, 55, 55);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.Control;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(75, 75, 75);
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.Control;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            ParamDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             ParamDataGridView.Dock = DockStyle.Fill;
             ParamDataGridView.EnableHeadersVisualStyles = false;
             ParamDataGridView.GridColor = Color.FromArgb(45, 45, 45);
             ParamDataGridView.Location = new Point(0, 0);
             ParamDataGridView.Name = "ParamDataGridView";
             ParamDataGridView.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = Color.FromArgb(50, 50, 50);
-            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle8.ForeColor = SystemColors.Control;
-            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(70, 70, 70);
-            dataGridViewCellStyle8.SelectionForeColor = SystemColors.Control;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
-            ParamDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(50, 50, 50);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = SystemColors.Control;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(70, 70, 70);
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.Control;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            ParamDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             ParamDataGridView.RowTemplate.Height = 25;
             ParamDataGridView.Size = new Size(395, 580);
             ParamDataGridView.TabIndex = 0;
@@ -495,25 +497,25 @@
             RowDataGridView.BackgroundColor = Color.FromArgb(45, 45, 45);
             RowDataGridView.BorderStyle = BorderStyle.None;
             RowDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(50, 50, 50);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = SystemColors.Control;
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(70, 70, 70);
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.Control;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            RowDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(50, 50, 50);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = SystemColors.Control;
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(70, 70, 70);
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.Control;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            RowDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             RowDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             RowDataGridView.Columns.AddRange(new DataGridViewColumn[] { paramrowid, paramrowname });
             RowDataGridView.ContextMenuStrip = RowContextMenu;
-            RowDataGridView.DefaultCellStyle = dataGridViewCellStyle7;
+            RowDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             RowDataGridView.Dock = DockStyle.Fill;
             RowDataGridView.EnableHeadersVisualStyles = false;
             RowDataGridView.GridColor = Color.FromArgb(45, 45, 45);
             RowDataGridView.Location = new Point(0, 0);
             RowDataGridView.Name = "RowDataGridView";
             RowDataGridView.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            RowDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            RowDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             RowDataGridView.RowTemplate.Height = 25;
             RowDataGridView.Size = new Size(417, 580);
             RowDataGridView.TabIndex = 1;
@@ -536,7 +538,7 @@
             // 
             RowContextMenu.Items.AddRange(new ToolStripItem[] { RowView, RowNew, RowDelete, RowCopy, RowPaste, RowDuplicate });
             RowContextMenu.Name = "ParamDataGridViewContextMenu";
-            RowContextMenu.Size = new Size(181, 158);
+            RowContextMenu.Size = new Size(125, 136);
             // 
             // RowView
             // 
@@ -544,7 +546,7 @@
             RowView.DropDownItems.AddRange(new ToolStripItem[] { RowViewID, RowViewName });
             RowView.ForeColor = SystemColors.Control;
             RowView.Name = "RowView";
-            RowView.Size = new Size(180, 22);
+            RowView.Size = new Size(124, 22);
             RowView.Text = "View";
             // 
             // RowViewID
@@ -576,7 +578,7 @@
             RowNew.BackColor = Color.FromArgb(65, 65, 65);
             RowNew.ForeColor = SystemColors.Control;
             RowNew.Name = "RowNew";
-            RowNew.Size = new Size(180, 22);
+            RowNew.Size = new Size(124, 22);
             RowNew.Text = "New";
             RowNew.ToolTipText = "Add a new row";
             RowNew.Click += RowNew_Click;
@@ -586,7 +588,7 @@
             RowDelete.BackColor = Color.FromArgb(65, 65, 65);
             RowDelete.ForeColor = SystemColors.Control;
             RowDelete.Name = "RowDelete";
-            RowDelete.Size = new Size(180, 22);
+            RowDelete.Size = new Size(124, 22);
             RowDelete.Text = "Delete";
             RowDelete.ToolTipText = "Delete the selected rows";
             RowDelete.Click += RowDelete_Click;
@@ -596,7 +598,7 @@
             RowCopy.BackColor = Color.FromArgb(65, 65, 65);
             RowCopy.ForeColor = SystemColors.Control;
             RowCopy.Name = "RowCopy";
-            RowCopy.Size = new Size(180, 22);
+            RowCopy.Size = new Size(124, 22);
             RowCopy.Text = "Copy";
             RowCopy.ToolTipText = "Copy the currently selected rows";
             RowCopy.Click += RowCopy_Click;
@@ -606,7 +608,7 @@
             RowPaste.BackColor = Color.FromArgb(65, 65, 65);
             RowPaste.ForeColor = SystemColors.Control;
             RowPaste.Name = "RowPaste";
-            RowPaste.Size = new Size(180, 22);
+            RowPaste.Size = new Size(124, 22);
             RowPaste.Text = "Paste";
             RowPaste.ToolTipText = "Paste copied rows";
             RowPaste.Click += RowPaste_Click;
@@ -616,7 +618,7 @@
             RowDuplicate.BackColor = Color.FromArgb(65, 65, 65);
             RowDuplicate.ForeColor = SystemColors.Control;
             RowDuplicate.Name = "RowDuplicate";
-            RowDuplicate.Size = new Size(180, 22);
+            RowDuplicate.Size = new Size(124, 22);
             RowDuplicate.Text = "Duplicate";
             RowDuplicate.ToolTipText = "Duplicate the selected rows";
             RowDuplicate.Click += RowDuplicate_Click;
@@ -630,38 +632,44 @@
             CellDataGridView.BackgroundColor = Color.FromArgb(45, 45, 45);
             CellDataGridView.BorderStyle = BorderStyle.None;
             CellDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(50, 50, 50);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = SystemColors.Control;
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(70, 70, 70);
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.Control;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            CellDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(50, 50, 50);
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle5.ForeColor = SystemColors.Control;
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(70, 70, 70);
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.Control;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            CellDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             CellDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            CellDataGridView.Columns.AddRange(new DataGridViewColumn[] { paramcelltype, paramcellvalue, paramcelldisplayname, paramcellinternalname, paramcelldescription, paramcelldisplayformat, paramcelldefault, paramcellincrement, paramcellmaximum, paramcellminimum, paramcellsortid, paramcellarraylength, paramcellbitsize });
+            CellDataGridView.Columns.AddRange(new DataGridViewColumn[] { paramcelldisplaytype, paramcellinternaltype, paramcellvalue, paramcelldisplayname, paramcellinternalname, paramcelldescription, paramcelldisplayformat, paramcelldefault, paramcellincrement, paramcellmaximum, paramcellminimum, paramcellsortid, paramcellarraylength, paramcellbitsize });
             CellDataGridView.ContextMenuStrip = CellContextMenu;
-            CellDataGridView.DefaultCellStyle = dataGridViewCellStyle7;
+            CellDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             CellDataGridView.Dock = DockStyle.Fill;
             CellDataGridView.EnableHeadersVisualStyles = false;
             CellDataGridView.GridColor = Color.FromArgb(45, 45, 45);
             CellDataGridView.Location = new Point(0, 0);
             CellDataGridView.Name = "CellDataGridView";
             CellDataGridView.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            CellDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            CellDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             CellDataGridView.RowTemplate.Height = 25;
             CellDataGridView.Size = new Size(450, 580);
             CellDataGridView.TabIndex = 1;
             CellDataGridView.CellValidating += CellDataGridView_CellValidating;
             CellDataGridView.SelectionChanged += CellDataGridView_SelectionChanged;
             // 
-            // paramcelltype
+            // paramcelldisplaytype
             // 
-            paramcelltype.FillWeight = 40F;
-            paramcelltype.HeaderText = "Cell Type";
-            paramcelltype.Name = "paramcelltype";
-            paramcelltype.ReadOnly = true;
-            paramcelltype.Resizable = DataGridViewTriState.True;
+            paramcelldisplaytype.FillWeight = 40F;
+            paramcelldisplaytype.HeaderText = "Display Type";
+            paramcelldisplaytype.Name = "paramcelldisplaytype";
+            paramcelldisplaytype.ReadOnly = true;
+            paramcelldisplaytype.Resizable = DataGridViewTriState.True;
+            // 
+            // paramcellinternaltype
+            // 
+            paramcellinternaltype.HeaderText = "Internal Type";
+            paramcellinternaltype.Name = "paramcellinternaltype";
+            paramcellinternaltype.Visible = false;
             // 
             // paramcellvalue
             // 
@@ -731,18 +739,21 @@
             // 
             paramcellsortid.HeaderText = "Sort ID";
             paramcellsortid.Name = "paramcellsortid";
+            paramcellsortid.ReadOnly = true;
             paramcellsortid.Visible = false;
             // 
             // paramcellarraylength
             // 
             paramcellarraylength.HeaderText = "Array Length";
             paramcellarraylength.Name = "paramcellarraylength";
+            paramcellarraylength.ReadOnly = true;
             paramcellarraylength.Visible = false;
             // 
             // paramcellbitsize
             // 
             paramcellbitsize.HeaderText = "Bit Size";
             paramcellbitsize.Name = "paramcellbitsize";
+            paramcellbitsize.ReadOnly = true;
             paramcellbitsize.Visible = false;
             // 
             // CellContextMenu
@@ -754,23 +765,33 @@
             // CellView
             // 
             CellView.BackColor = Color.FromArgb(65, 65, 65);
-            CellView.DropDownItems.AddRange(new ToolStripItem[] { CellViewType, CellViewValue, CellViewDisplayName, CellViewInternalName, CellViewDescription, CellViewDisplayFormat, CellViewDefault, CellViewIncrement, CellViewMinimum, CellViewMaximum, CellViewSortID, CellViewArrayLength, CellViewBitSize });
+            CellView.DropDownItems.AddRange(new ToolStripItem[] { CellViewDisplayType, CellViewInternalType, CellViewValue, CellViewDisplayName, CellViewInternalName, CellViewDescription, CellViewDisplayFormat, CellViewDefault, CellViewIncrement, CellViewMinimum, CellViewMaximum, CellViewSortID, CellViewArrayLength, CellViewBitSize });
             CellView.ForeColor = SystemColors.Control;
             CellView.Name = "CellView";
             CellView.Size = new Size(99, 22);
             CellView.Text = "View";
             // 
-            // CellViewType
+            // CellViewDisplayType
             // 
-            CellViewType.BackColor = Color.FromArgb(65, 65, 65);
-            CellViewType.Checked = true;
-            CellViewType.CheckOnClick = true;
-            CellViewType.CheckState = CheckState.Checked;
-            CellViewType.ForeColor = SystemColors.Control;
-            CellViewType.Name = "CellViewType";
-            CellViewType.Size = new Size(175, 22);
-            CellViewType.Text = "Cell Type";
-            CellViewType.Click += CellViewType_Click;
+            CellViewDisplayType.BackColor = Color.FromArgb(65, 65, 65);
+            CellViewDisplayType.Checked = true;
+            CellViewDisplayType.CheckOnClick = true;
+            CellViewDisplayType.CheckState = CheckState.Checked;
+            CellViewDisplayType.ForeColor = SystemColors.Control;
+            CellViewDisplayType.Name = "CellViewDisplayType";
+            CellViewDisplayType.Size = new Size(175, 22);
+            CellViewDisplayType.Text = "Display Type";
+            CellViewDisplayType.Click += CellViewInternalType_Click;
+            // 
+            // CellViewInternalType
+            // 
+            CellViewInternalType.BackColor = Color.FromArgb(65, 65, 65);
+            CellViewInternalType.CheckOnClick = true;
+            CellViewInternalType.ForeColor = SystemColors.Control;
+            CellViewInternalType.Name = "CellViewInternalType";
+            CellViewInternalType.Size = new Size(175, 22);
+            CellViewInternalType.Text = "Internal Type";
+            CellViewInternalType.Click += CellViewInternalType_Click;
             // 
             // CellViewValue
             // 
@@ -781,7 +802,7 @@
             CellViewValue.ForeColor = SystemColors.Control;
             CellViewValue.Name = "CellViewValue";
             CellViewValue.Size = new Size(175, 22);
-            CellViewValue.Text = "Cell Value";
+            CellViewValue.Text = "Value";
             CellViewValue.Click += CellViewValue_Click;
             // 
             // CellViewDisplayName
@@ -962,7 +983,7 @@
         private ToolStripMenuItem RowViewName;
         private ToolStripMenuItem CellViewDisplayName;
         private ToolStripMenuItem CellViewInternalName;
-        private ToolStripMenuItem CellViewType;
+        private ToolStripMenuItem CellViewDisplayType;
         private ToolStripMenuItem CellViewValue;
         private ToolStripMenuItem CellViewDescription;
         private ToolStripMenuItem CellViewDisplayFormat;
@@ -982,7 +1003,21 @@
         private ToolStripMenuItem CellViewBitSize;
         private ToolStripMenuItem RowDelete;
         private ToolStripMenuItem RowNew;
-        private DataGridViewTextBoxColumn paramcelltype;
+        private ToolStripMenuItem MenuHelp;
+        private ToolStripMenuItem MenuHelpWhatIsAParam;
+        private ToolStripMenuItem MenuHelpAddingNewRows;
+        private ToolStripMenuItem MenuHelpSelectingDifferentDefs;
+        private ToolStripMenuItem MenuHelpAddingNewDefSets;
+        private ToolStripMenuItem MenuHelpIhadACrash;
+        private ToolStripMenuItem MenuOther;
+        private ToolStripMenuItem MenuOtherOpenResourcesFolder;
+        private ToolStripMenuItem MenuOtherOpenResourcesDefFolder;
+        private ToolStripMenuItem MenuOtherOpenCurrentDefsFolder;
+        private ToolStripMenuItem MenuEditor;
+        private ToolStripMenuItem MenuEditorDef;
+        private ToolStripMenuItem CellViewInternalType;
+        private DataGridViewTextBoxColumn paramcelldisplaytype;
+        private DataGridViewTextBoxColumn paramcellinternaltype;
         private DataGridViewTextBoxColumn paramcellvalue;
         private DataGridViewTextBoxColumn paramcelldisplayname;
         private DataGridViewTextBoxColumn paramcellinternalname;
@@ -995,17 +1030,5 @@
         private DataGridViewTextBoxColumn paramcellsortid;
         private DataGridViewTextBoxColumn paramcellarraylength;
         private DataGridViewTextBoxColumn paramcellbitsize;
-        private ToolStripMenuItem helpToolStripMenuItem;
-        private ToolStripMenuItem MenuHelpWhatIsAParam;
-        private ToolStripMenuItem MenuHelpAddingNewRows;
-        private ToolStripMenuItem MenuHelpSelectingDifferentDefs;
-        private ToolStripMenuItem MenuHelpAddingNewDefSets;
-        private ToolStripMenuItem MenuHelpIhadACrash;
-        private ToolStripMenuItem otherToolStripMenuItem;
-        private ToolStripMenuItem MenuOtherOpenResourcesFolder;
-        private ToolStripMenuItem MenuOtherOpenResourcesDefFolder;
-        private ToolStripMenuItem MenuOtherOpenCurrentDefsFolder;
-        private ToolStripMenuItem MenuEditor;
-        private ToolStripMenuItem MenuEditorDef;
     }
 }
