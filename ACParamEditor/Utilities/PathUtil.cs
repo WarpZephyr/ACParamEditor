@@ -8,6 +8,8 @@ namespace Utilities
 {
     internal static class PathUtil
     {
+        #region Helpful Static Properties
+
         /// <summary>
         /// A string representing the path to the folder the program is running from.
         /// </summary>
@@ -42,6 +44,10 @@ namespace Utilities
         /// A string representing the path to a generic log file named "log.txt" inside of the directory the program is running from.
         /// </summary>
         public static string LogTxt = $"{EnvFolderPath}\\log.txt";
+
+        #endregion
+
+        #region Get
 
         /// <summary>
         /// Get a single file from a user.
@@ -112,6 +118,33 @@ namespace Utilities
         }
 
         /// <summary>
+        /// Returns an entirely extensionless file name by removing all extensions.
+        /// </summary>
+        /// <param name="path">The path to remove the extensions of.</param>
+        /// <returns>An entirely extensionless file name.</returns>
+        /// <remarks>
+        /// If the provided string was null, empty, or already extensionless it will just be returned as it is.
+        /// </remarks>
+        public static string GetExtensionlessFileName(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                return path;
+            }
+
+            while (path.Contains('.'))
+            {
+                path = Path.GetFileNameWithoutExtension(path);
+            }
+
+            return path;
+        }
+
+        #endregion
+
+        #region Operations
+
+        /// <summary>
         /// Backup a file or folder on a path if it exists by adding .bak to its extension.
         /// </summary>
         /// <param name="path">A string representing the path to a file to backup.</param>
@@ -165,6 +198,29 @@ namespace Utilities
         }
 
         /// <summary>
+        /// Copy a directory and all of its files and subdirectories.
+        /// </summary>
+        /// <param name="path">A string representing a path to the folder to copy.</param>
+        /// <param name="newPath">A string representing a path to copy the selected folder to.</param>
+        public static void CopyDirectory(string path, string newPath)
+        {
+            foreach (var directory in Directory.GetDirectories(path))
+            {
+                //Get the path of the new directory
+                var newDirectory = Path.Combine(newPath, Path.GetFileName(directory));
+                //Create the directory if it doesn't already exist
+                Directory.CreateDirectory(newDirectory);
+                //Recursively copy the directory
+                CopyDirectory(directory, newDirectory);
+            }
+
+            foreach (var file in Directory.GetFiles(path))
+            {
+                File.Copy(file, Path.Combine(newPath, Path.GetFileName(file)));
+            }
+        }
+
+        /// <summary>
         /// Clones a file on a path if it exists and deletes or backups the original.
         /// </summary>
         /// <param name="path">A string representing the path to a file to clone.</param>
@@ -195,6 +251,10 @@ namespace Utilities
             }
         }
 
+        #endregion
+
+        #region Write
+
         /// <summary>
         /// Writes a file overwriting if it exists and if specified to do so.
         /// </summary>
@@ -210,28 +270,9 @@ namespace Utilities
                 File.WriteAllBytes(path, bytes);
         }
 
-        /// <summary>
-        /// Copy a directory and all of its files and subdirectories.
-        /// </summary>
-        /// <param name="path">A string representing a path to the folder to copy.</param>
-        /// <param name="newPath">A string representing a path to copy the selected folder to.</param>
-        public static void CopyDirectory(string path, string newPath)
-        {
-            foreach (var directory in Directory.GetDirectories(path))
-            {
-                //Get the path of the new directory
-                var newDirectory = Path.Combine(newPath, Path.GetFileName(directory));
-                //Create the directory if it doesn't already exist
-                Directory.CreateDirectory(newDirectory);
-                //Recursively copy the directory
-                CopyDirectory(directory, newDirectory);
-            }
+        #endregion
 
-            foreach (var file in Directory.GetFiles(path))
-            {
-                File.Copy(file, Path.Combine(newPath, Path.GetFileName(file)));
-            }
-        }
+        #region Open
 
         /// <summary>
         /// Open a folder on the specified path in explorer.exe.
@@ -281,5 +322,7 @@ namespace Utilities
         {
             return OpenFolder(ResourcesFolderPath);
         }
+
+        #endregion
     }
 }

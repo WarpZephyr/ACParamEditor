@@ -1,13 +1,15 @@
 ﻿using SoulsFormats;
 using System.Security.Cryptography;
 
-namespace ACParamEditor
+namespace ParamExporter
 {
     /// <summary>
     /// A class for storing information about loaded params.
     /// </summary>
     public class ParamInfo
     {
+        #region Properties
+
         /// <summary>
         /// The name of the file the param is from.
         /// </summary>
@@ -19,124 +21,77 @@ namespace ACParamEditor
         public string Path { get; set; }
 
         /// <summary>
-        /// The ParamType of the param.
-        /// </summary>
-        public string Type
-        {
-            get
-            {
-                if (Param == null)
-                    throw new InvalidOperationException("Param must exist to get param type from it.");
-
-                return Param.ParamType;
-            }
-        }
-
-        /// <summary>
         /// The game the param originated from.
         /// </summary>
         public string Game { get; set; } = string.Empty;
 
         /// <summary>
+        /// The ParamType of the param.
+        /// </summary>
+        public string Type => Param.ParamType;
+
+        /// <summary>
         /// The param itself.
         /// </summary>
-        public PARAM? Param { get; set; }
+        public PARAM Param { get; set; }
 
         /// <summary>
         /// The def applied to the param.
         /// </summary>
-        public PARAMDEF? Def
-        {
-            get
-            {
-                if (Param == null)
-                    throw new InvalidOperationException("Param must exist to get def from it.");
-
-                return Param.AppliedParamdef;
-            }
-        }
+        public PARAMDEF? Def => Param.AppliedParamdef;
 
         /// <summary>
         /// The type of compression that was applied to the param file when read.
         /// </summary>
-        public DCX.Type Compression
+        public DCX.Type Compression { get => Param.Compression; set => Param.Compression = value; }
+
+        /// <summary>
+        /// Originally matched the paramdef for version 101, but since is always 0 or 0xFF.
+        /// </summary>
+        public byte ParamFormatVersion { get => Param.ParamdefFormatVersion; set => Param.ParamdefFormatVersion = value; }
+
+        /// <summary>
+        /// Originally matched the paramdef for version 101, but since is always 0 or 0xFF.
+        /// </summary>
+        public short DefFormatVersion
         {
             get
             {
-                if (Param == null)
-                    throw new InvalidOperationException("Param must exist to get compression type from it.");
+                if (Def == null)
+                    throw new InvalidOperationException("Def must exist to get format version from it.");
 
-                return Param.Compression;
-            }
-            set
-            {
-                if (Param == null)
-                    throw new InvalidOperationException("Param must exist to set it's compression type.");
-
-                Param.Compression = value;
+                return Def.FormatVersion;
             }
         }
 
         /// <summary>
         /// The current revision of the row structure within the param.
         /// </summary>
-        public short Revision
-        {
-            get
-            {
-                if (Param == null)
-                    throw new InvalidOperationException("Param must exist to get revision from it.");
-
-                return Param.ParamdefDataVersion;
-            }
-        }
+        public short ParamDataVersion { get => Param.ParamdefDataVersion; set => Param.ParamdefDataVersion = value; }
 
         /// <summary>
-        /// Originally matched the paramdef for version 101, but since is always 0 or 0xFF.
+        /// The current revision of the row structure within the param.
         /// </summary>
-        public short FormatVersion
+        public short DefDataVersion
         {
             get
             {
-                if (Param == null)
-                    throw new InvalidOperationException("Param must exist to get format version from it.");
+                if (Def == null)
+                    throw new InvalidOperationException("Def must exist to get data version from it.");
 
-                return Param.ParamdefFormatVersion;
+                return Def.DataVersion;
             }
         }
 
         /// <summary>
         /// The number of rows in the param.
         /// </summary>
-        public int RowCount
-        {
-            get
-            {
-                if (Param == null)
-                    throw new InvalidOperationException("Param must exist to get row count from it.");
-                return Param.Rows.Count;
-            }
-        }
+        public int RowCount => Param.Rows.Count;
 
         /// <summary>
         /// The total number of cells in the param.
         /// </summary>
-        public int TotalCellCount
-        {
-            get
-            {
-                if (Param == null)
-                    throw new InvalidOperationException("Param must exist to get total cell count from it.");
-
-                if (!AppliedDef)
-                    throw new InvalidOperationException("Def must be applied to param first to get the total cell count.");
-
-                if (Param.Rows.Count == 0)
-                    throw new InvalidOperationException("Param must have at least one row.");
-
-                return CellsPerRow * RowCount;
-            }
-        }
+        public int TotalCellCount => CellsPerRow * RowCount;
 
         /// <summary>
         /// The number of cells per row in the param.
@@ -145,83 +100,55 @@ namespace ACParamEditor
         {
             get
             {
-                if (Param == null)
-                    throw new InvalidOperationException("Param must exist to get cell count per row from it.");
+                if (Def == null || !AppliedDef)
+                    throw new InvalidOperationException("Def must be applied to param first to get a cell count.");
 
-                if (Param.Rows.Count == 0)
-                    throw new InvalidOperationException("Param must have at least one row.");
-
-                return Param.Rows[0].Cells.Count;
+                return Def.Fields.Count;
             }
         }
 
         /// <summary>
-        /// Get the detected size of the param.
+        /// Get the detected size of rows in the param.
         /// </summary>
-        public long DetectedSize
+        public long DetectedRowSize
         {
             get
             {
                 if (Param == null)
-                    throw new InvalidOperationException("Param must exist to get detected size from it.");
+                    throw new InvalidOperationException("Param must exist to get detected size of rows from it.");
 
-                return Param.DetectedSize;
+                return Param.DetectedRowSize;
             }
         }
 
         /// <summary>
         /// Whether or not a def has been applied to the param.
         /// </summary>
-        public bool AppliedDef
-        {
-            get
-            {
-                if (Param == null)
-                    throw new InvalidOperationException("Param must exist to check if it has a def applied.");
-
-                return Param.AppliedParamdef != null;
-            }
-        }
+        public bool AppliedDef => Param.AppliedParamdef != null;
 
         /// <summary>
         /// Whether or not the param is read and written in Big Endian.
         /// </summary>
-        public bool BigEndian
-        {
-            get
-            {
-                if (Param == null)
-                    throw new InvalidOperationException("Param must exist to check endianness.");
-
-                return Param.BigEndian;
-            }
-        }
+        public bool BigEndian { get => Param.BigEndian; set => Param.BigEndian = value; }
 
         /// <summary>
-        /// Whether or not the param file was compressed when read.
+        /// Whether or not the param is to be compressed.
         /// </summary>
-        public bool Compressed
-        {
-            get
-            {
-                if (Param == null)
-                    throw new InvalidOperationException("Param must exist to check if it is compressed.");
+        public bool Compressed => Param.Compression != DCX.Type.None;
 
-                return Param.Compression != DCX.Type.None;
-            }
-        }
+        /// <summary>
+        /// Whether or not this param has a ParamType set.
+        /// </summary>
+        public bool HasType => !string.IsNullOrEmpty(Type);
 
         /// <summary>
         /// Set whether or not this param has been modified since last save.
         /// </summary>
         public bool Modified { get; set; } = false;
 
-        public ParamInfo()
-        {
-            Path = string.Empty;
-            Name = string.Empty;
-            Param = null;
-        }
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Read a param from a path and get its info.
@@ -297,6 +224,23 @@ namespace ACParamEditor
         }
 
         /// <summary>
+        /// Set a param, its def, and path.
+        /// </summary>
+        /// <param name="param">The param to get the info of.</param>
+        /// <param name="def">A def to apply to the param.</param>
+        /// <param name="path">The path to a param to read.</param>
+        public ParamInfo(PARAM param, PARAMDEF? def, string path)
+        {
+            Path = path;
+            Name = System.IO.Path.GetFileName(Path);
+            Param = param;
+            if (def != null)
+            {
+                Param.ApplyParamdefSomewhatCarefully(def);
+            }
+        }
+
+        /// <summary>
         /// Read a param, set the path of the param, then attempt to apply defs from a list to the param.
         /// </summary>
         /// <param name="path">The path to a param to read.</param>
@@ -351,23 +295,15 @@ namespace ACParamEditor
             Param.ApplyParamdefSomewhatCarefully(defs);
         }
 
+        #endregion
+
+        #region Get
+
         public string GetNameFromPath()
         {
             if (!File.Exists(Path))
                 throw new InvalidOperationException("The name cannot be retrieved from the path as a file was not found.");
             return System.IO.Path.GetFileName(Path);
-        }
-
-        /// <summary>
-        /// Set the name of the param from its path.
-        /// </summary>
-        /// <exception cref="InvalidOperationException">A file could not be found on the set path.</exception>
-        public void SetNameFromPath()
-        {
-            if (!File.Exists(Path))
-                throw new InvalidOperationException("The name cannot be retrieved from the path as a file was not found.");
-
-            Name = System.IO.Path.GetFileName(Path);
         }
 
         /// <summary>
@@ -433,23 +369,6 @@ namespace ACParamEditor
         }
 
         /// <summary>
-        /// Set the ids of all the rows in a param.
-        /// </summary>
-        /// <param name="ids">A list of ids to set.</param>
-        /// <exception cref="InvalidOperationException">The param was null or the number of ids to set did not match the number of rows.</exception>
-        public void SetRowIDs(IList<int> ids)
-        {
-            if (Param == null)
-                throw new InvalidOperationException("Param must exist to set it's row ids.");
-            if (ids.Count != RowCount)
-                throw new InvalidOperationException("The number of ids to set did not match the number of rows.");
-
-            for (int i = 0; i < RowCount; i++)
-                Param.Rows[i].ID = ids[i];
-            Modified = true;
-        }
-
-        /// <summary>
         /// Get the names of all the rows in a param.
         /// </summary>
         /// <returns>A string array with all the row names in this param.</returns>
@@ -462,23 +381,6 @@ namespace ACParamEditor
             for (int i = 0; i < RowCount; i++)
                 names[i] = Param.Rows[i].Name;
             return names;
-        }
-
-        /// <summary>
-        /// Set the names of all the rows in a param.
-        /// </summary>
-        /// <param name="names">A list of names to set.</param>
-        /// <exception cref="InvalidOperationException">The param was null or the number of names to set did not match the number of rows.</exception>
-        public void SetRowNames(IList<string> names)
-        {
-            if (Param == null)
-                throw new InvalidOperationException("Param must exist to set it's row names.");
-            if (names.Count != RowCount)
-                throw new InvalidOperationException("The number of names to set did not match the number of rows.");
-
-            for (int i = 0; i < RowCount; i++)
-                Param.Rows[i].Name = names[i];
-            Modified = true;
         }
 
         /// <summary>
@@ -658,10 +560,62 @@ namespace ACParamEditor
         /// <returns>A SHA256 hash byte array.</returns>
         public byte[] GetHash()
         {
-            SHA256 sha = SHA256.Create();
-            byte[] param = WriteToBytes();
-            return sha.ComputeHash(param);
+            return SHA256.Create().ComputeHash(WriteToBytes());
         }
+
+        #endregion
+
+        #region Set
+
+        /// <summary>
+        /// Set the name of the param from its path.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">A file could not be found on the set path.</exception>
+        public void SetNameFromPath()
+        {
+            if (!File.Exists(Path))
+                throw new InvalidOperationException("The name cannot be retrieved from the path as a file was not found.");
+
+            Name = System.IO.Path.GetFileName(Path);
+        }
+
+        /// <summary>
+        /// Set the ids of all the rows in a param.
+        /// </summary>
+        /// <param name="ids">A list of ids to set.</param>
+        /// <exception cref="InvalidOperationException">The param was null or the number of ids to set did not match the number of rows.</exception>
+        public void SetRowIDs(IList<int> ids)
+        {
+            if (Param == null)
+                throw new InvalidOperationException("Param must exist to set it's row ids.");
+            if (ids.Count != RowCount)
+                throw new InvalidOperationException("The number of ids to set did not match the number of rows.");
+
+            for (int i = 0; i < RowCount; i++)
+                Param.Rows[i].ID = ids[i];
+            Modified = true;
+        }
+
+        /// <summary>
+        /// Set the names of all the rows in a param.
+        /// </summary>
+        /// <param name="names">A list of names to set.</param>
+        /// <exception cref="InvalidOperationException">The param was null or the number of names to set did not match the number of rows.</exception>
+        public void SetRowNames(IList<string> names)
+        {
+            if (Param == null)
+                throw new InvalidOperationException("Param must exist to set it's row names.");
+            if (names.Count != RowCount)
+                throw new InvalidOperationException("The number of names to set did not match the number of rows.");
+
+            for (int i = 0; i < RowCount; i++)
+                Param.Rows[i].Name = names[i];
+            Modified = true;
+        }
+
+        #endregion
+
+        #region Check
 
         /// <summary>
         /// Check if a row is compatible with the param.
@@ -701,6 +655,10 @@ namespace ACParamEditor
             return false;
         }
 
+        #endregion
+
+        #region Write
+
         /// <summary>
         /// Write the param to its set path.
         /// </summary>
@@ -725,6 +683,8 @@ namespace ACParamEditor
                 throw new InvalidOperationException("Param must exist to write it.");
             return Param.Write();
         }
+
+        #endregion
 
         /// <summary>
         /// Get the name of the param file.

@@ -1,11 +1,13 @@
 using CustomForms;
 using SoulsFormats;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using System.Diagnostics;
 using System.Windows.Forms;
 using Utilities;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
-namespace ACParamEditor
+namespace ParamExporter
 {
     public partial class MainWindow : Form
     {
@@ -15,14 +17,29 @@ namespace ACParamEditor
         private static readonly string DefFolderPath = $"{PathUtil.ResourcesFolderPath}\\Def";
 
         /// <summary>
+        /// The path to the dbp resource folder.
+        /// </summary>
+        private static readonly string DbpFolderPath = $"{PathUtil.ResourcesFolderPath}\\Dbp";
+
+        /// <summary>
+        /// The path to the tdf resource folder.
+        /// </summary>
+        private static readonly string TdfFolderPath = $"{PathUtil.ResourcesFolderPath}\\Tdf";
+
+        /// <summary>
         /// The path to the param resource folder.
         /// </summary>
         private static readonly string ParamFolderPath = $"{PathUtil.ResourcesFolderPath}\\Param";
 
         /// <summary>
-        /// The currently loaded defs.
+        /// The file name of the TypelessMapping list.
         /// </summary>
-        private List<PARAMDEF> LoadedDefs { get; set; } = new List<PARAMDEF>();
+        private static readonly string TypelessMappingName = "TypelessMapping.txt";
+
+        /// <summary>
+        /// The currently loaded param to def map.
+        /// </summary>
+        private Dictionary<string, PARAMDEF> DefMap = new Dictionary<string, PARAMDEF>();
 
         /// <summary>
         /// The currently loaded params.
@@ -34,9 +51,17 @@ namespace ACParamEditor
         /// </summary>
         private List<PARAM.Row> RowCopies { get; set; } = new List<PARAM.Row>();
 
+        /// <summary>
+        /// The max number of entries that can be in the log.
+        /// </summary>
+        private int MaxLogEntries { get; set; } = 1000;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            // Lock events that slow down initialization.
+            LockEvents();
 
             // Set new renderer to override colors
             var menuRenderer = new ColorableToolStripRenderer();
@@ -44,15 +69,14 @@ namespace ACParamEditor
             ParamContextMenu.Renderer = menuRenderer;
             RowContextMenu.Renderer = menuRenderer;
             CellContextMenu.Renderer = menuRenderer;
+            LogContextMenu.Renderer = menuRenderer;
 
             // Disable Image Margins for all subitems of below menu items
             ((ToolStripDropDownMenu)MenuFile.DropDown).ShowImageMargin = false;
-            ((ToolStripDropDownMenu)MenuEditor.DropDown).ShowImageMargin = false;
-            ((ToolStripDropDownMenu)MenuOther.DropDown).ShowImageMargin = false;
-            ((ToolStripDropDownMenu)MenuHelp.DropDown).ShowImageMargin = false;
             ParamContextMenu.ShowImageMargin = false;
             RowContextMenu.ShowImageMargin = false;
             CellContextMenu.ShowImageMargin = false;
+            LogContextMenu.ShowImageMargin = false;
 
             // Initialization
             RerfeshColumnVisibility();
@@ -64,14 +88,22 @@ namespace ACParamEditor
                 MenuGameCombobox.SelectedIndex = 1;
 
             // Attempt to load defs.
+            UpdateStatus("Initial def load start.");
             LoadDefs();
 
-            // Data bind param list
+            // Data bind param list.
             ParamDataGridView.AutoGenerateColumns = false;
             ParamDataGridView.DataSource = Params;
             ParamDataGridView.Columns["paramfilename"].DataPropertyName = "Name";
             ParamDataGridView.Columns["paramtype"].DataPropertyName = "Type";
+            ParamDataGridView.Columns["paramformatversion"].DataPropertyName = "ParamFormatVersion";
+            ParamDataGridView.Columns["paramdefformatversion"].DataPropertyName = "DefFormatVersion";
+            ParamDataGridView.Columns["paramdataversion"].DataPropertyName = "ParamDataVersion";
+            ParamDataGridView.Columns["paramdefdataversion"].DataPropertyName = "DefDataVersion";
             ParamDataGridView.Columns["paramgame"].DataPropertyName = "Game";
+
+            // Unlock locked events.
+            UnlockEvents();
         }
 
         #region Form IO
@@ -79,10 +111,14 @@ namespace ACParamEditor
         private void MenuFileOpen_Click(object sender, EventArgs e)
         {
             UpdateStatus("Opening params.");
-            string[] paths = PathUtil.GetFilePaths("C:\\Users", "Open Params", "Param (*.bin)|*.bin|Param (*.param)|*.param|All (*.*)|*.*");
-            LoadParams(paths);
+            string[] paths = PathUtil.GetFilePaths("C:\\Users", "Open Params", "Param (*.bin)|*.bin|Param (*.param)|*.param|All Files (*)|*");
             if (paths.Length == 0)
+            {
                 UpdateStatus("Canceling opening params.");
+                return;
+            }
+
+            LoadParamsFast(paths, sender, e);
         }
 
         private void MenuFileSave_Click(object sender, EventArgs e)
@@ -165,8 +201,55 @@ namespace ACParamEditor
             int count = ParamDataGridView.RowCount;
             Params.Clear();
             RefreshDataGridViews();
-
             UpdateStatus($"Closed all {count} params.");
+        }
+
+        private void MenuFileReload_Click(object sender, EventArgs e)
+        {
+            if (ParamDataGridView.Rows.Count == 0)
+                return;
+
+            bool question = FormUtil.ShowQuestionDialog("Are you sure you want to reload all currently selected params without saving?", "Reload Selected Params");
+            if (!question)
+                return;
+
+            var paths = new List<string>();
+            var closed = new List<int>();
+            foreach (DataGridViewCell cell in ParamDataGridView.SelectedCells)
+            {
+                if (!closed.Contains(cell.RowIndex))
+                {
+                    var paraminfo = (ParamInfo)ParamDataGridView.Rows[cell.RowIndex].DataBoundItem;
+                    paths.Add(paraminfo.Path);
+                    Params.Remove(paraminfo);
+                    closed.Add(cell.RowIndex);
+                }
+            }
+
+            LoadParamsFast(paths, sender, e);
+            RefreshDataGridViews();
+            UpdateStatus($"Reloaded {closed.Count} params.");
+        }
+
+        private void MenuFileReloadAll_Click(object sender, EventArgs e)
+        {
+            if (ParamDataGridView.Rows.Count == 0)
+                return;
+
+            bool question = FormUtil.ShowQuestionDialog("Are you sure you want to reload all params without saving?", "Reload All Params");
+            if (!question)
+                return;
+
+            var paths = new List<string>();
+            foreach (var paraminfo in Params)
+            {
+                paths.Add(paraminfo.Path);
+            }
+
+            Params.Clear();
+            LoadParamsFast(paths, sender, e);
+            RefreshDataGridViews();
+            UpdateStatus($"Reloaded all {paths.Count} params.");
         }
 
         #endregion
@@ -185,6 +268,38 @@ namespace ACParamEditor
         {
             ParamDataGridView.Columns["paramtype"].Visible = ParamViewType.Checked;
             UpdateStatus(ParamViewType.Checked ? "Showing Types" : "Hid Types");
+            ParamContextMenu.Show();
+            ParamView.DropDown.Show();
+        }
+
+        private void ParamViewParamFormatVersion_Click(object sender, EventArgs e)
+        {
+            ParamDataGridView.Columns["paramformatversion"].Visible = ParamViewParamFormatVersion.Checked;
+            UpdateStatus(ParamViewParamFormatVersion.Checked ? "Showing Param Format Versions" : "Hid Param Format Versions");
+            ParamContextMenu.Show();
+            ParamView.DropDown.Show();
+        }
+
+        private void ParamViewDefFormatVersion_Click(object sender, EventArgs e)
+        {
+            ParamDataGridView.Columns["paramdefformatversion"].Visible = ParamViewDefFormatVersion.Checked;
+            UpdateStatus(ParamViewParamFormatVersion.Checked ? "Showing Def Format Versions" : "Hid Def Format Versions");
+            ParamContextMenu.Show();
+            ParamView.DropDown.Show();
+        }
+
+        private void ParamViewParamDataVersion_Click(object sender, EventArgs e)
+        {
+            ParamDataGridView.Columns["paramdataversion"].Visible = ParamViewParamDataVersion.Checked;
+            UpdateStatus(ParamViewParamDataVersion.Checked ? "Showing Param Data Versions" : "Hid Param Data Versions");
+            ParamContextMenu.Show();
+            ParamView.DropDown.Show();
+        }
+
+        private void ParamViewDefDataVersion_Click(object sender, EventArgs e)
+        {
+            ParamDataGridView.Columns["paramdefdataversion"].Visible = ParamViewDefDataVersion.Checked;
+            UpdateStatus(ParamViewParamDataVersion.Checked ? "Showing Def Data Versions" : "Hid Def Data Versions");
             ParamContextMenu.Show();
             ParamView.DropDown.Show();
         }
@@ -327,34 +442,69 @@ namespace ACParamEditor
 
         #endregion
 
+        #region Form Log
+
+        private void LogContextMenuCopy_Click(object sender, EventArgs e)
+        {
+            var copy_buffer = new System.Text.StringBuilder();
+            foreach (object item in LogListBox.Items)
+            {
+                copy_buffer.AppendLine(item.ToString());
+            }
+
+            if (copy_buffer.Length > 0)
+            {
+                Clipboard.SetDataObject(copy_buffer.ToString());
+            }
+        }
+
+        private void LogContextMenuClear_Click(object sender, EventArgs e)
+        {
+            LogListBox.Items.Clear();
+        }
+
+        private void LogListBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.C)
+            {
+                var copy_buffer = new System.Text.StringBuilder();
+                foreach (object item in LogListBox.SelectedItems)
+                {
+                    copy_buffer.AppendLine(item.ToString());
+                }
+
+                if (copy_buffer.Length > 0)
+                {
+                    Clipboard.SetDataObject(copy_buffer.ToString());
+                }
+            }
+            else if (e.Control && e.KeyCode == Keys.A)
+            {
+                for (int i = 0; i < LogListBox.Items.Count; i++)
+                {
+                    LogListBox.SetSelected(i, true);
+                }
+            }
+        }
+
+        #endregion
+
         #region Form DataGridView
 
-        private void ParamDataGridView_SelectionChanged(object sender, EventArgs e)
+        private void ParamDataGridView_SelectionChanged(object? sender, EventArgs e)
         {
             if (ParamDataGridView.Rows.Count == 0)
                 return;
 
             RefreshRows();
-
-            int count = ParamDataGridView.GetSelectedRowCountBySelectedCells();
-            if (count > 1)
-                UpdateStatus($"Selected {count} params.");
         }
 
-        private void RowDataGridView_SelectionChanged(object sender, EventArgs e)
+        private void RowDataGridView_SelectionChanged(object? sender, EventArgs e)
         {
             if (ParamDataGridView.Rows.Count == 0)
                 return;
 
-            // This feels hacky
             var currentparam = (ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem;
-            if (currentparam.Param == null)
-            {
-                Params.Remove(currentparam);
-                UpdateStatus("Warning: Invalid param found, removing.");
-                return;
-            }
-
             if (currentparam.RowCount == 0)
             {
                 CellDataGridView.DataSource = null;
@@ -363,7 +513,6 @@ namespace ACParamEditor
 
             if (RowDataGridView.CurrentRow.Index + 1 > currentparam.RowCount)
                 return;
-            // This feels hacky
 
             CellDataGridView.AutoGenerateColumns = false;
             CellDataGridView.DataSource = ((PARAM.Row)RowDataGridView.CurrentRow.DataBoundItem).Cells;
@@ -382,10 +531,6 @@ namespace ACParamEditor
             CellDataGridView.Columns["paramcellsortid"].DataPropertyName = "SortID";
             CellDataGridView.Columns["paramcellarraylength"].DataPropertyName = "ArrayLength";
             CellDataGridView.Columns["paramcellbitsize"].DataPropertyName = "BitSize";
-
-            int count = RowDataGridView.GetSelectedRowCountBySelectedCells();
-            if (count > 1)
-                UpdateStatus($"Selected {count} rows.");
         }
 
         private void RowDataGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
@@ -405,16 +550,6 @@ namespace ACParamEditor
                     UpdateStatus($"{e.FormattedValue} is not a valid row ID.");
                 }
             }
-        }
-
-        private void CellDataGridView_SelectionChanged(object sender, EventArgs e)
-        {
-            if (ParamDataGridView.Rows.Count == 0)
-                return;
-
-            int count = CellDataGridView.GetSelectedRowCountBySelectedCells();
-            if (count > 1)
-                UpdateStatus($"Selected {count} clls.");
         }
 
         private void CellDataGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
@@ -441,7 +576,7 @@ namespace ACParamEditor
             RefreshDefGames();
         }
 
-        private void MenuGameCombobox_SelectedIndexChanged(object sender, EventArgs e)
+        private void MenuGameCombobox_SelectedIndexChanged(object? sender, EventArgs e)
         {
             LoadDefs();
         }
@@ -450,7 +585,7 @@ namespace ACParamEditor
 
         #region Form DragDrop
 
-        private void MainFormSplitContainerA_DragEnter(object sender, DragEventArgs e)
+        private void ParamSplitContainerOuter_DragEnter(object sender, DragEventArgs e)
         {
             var data = e.Data;
             if (data == null)
@@ -460,14 +595,14 @@ namespace ACParamEditor
                 e.Effect = DragDropEffects.Copy;
         }
 
-        private void MainFormSplitContainerA_DragDrop(object sender, DragEventArgs e)
+        private void ParamSplitContainerOuter_DragDrop(object sender, DragEventArgs e)
         {
             var data = e.Data;
             if (data == null)
                 return;
 
             string[] paths = (string[])data.GetData(DataFormats.FileDrop);
-            LoadParams(paths);
+            LoadParamsFast(paths, sender, e);
         }
 
         #endregion
@@ -480,13 +615,6 @@ namespace ACParamEditor
                 return;
 
             var currentparam = (ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem;
-            if (currentparam.Param == null)
-            {
-                Params.Remove(currentparam);
-                UpdateStatus("Warning: Invalid param found, removing.");
-                return;
-            }
-
             int id = 1;
             if (currentparam.Param.Rows.Count > 0)
                 id = currentparam.GetNextRowID();
@@ -509,12 +637,6 @@ namespace ACParamEditor
             }
 
             var currentparam = (ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem;
-            if (currentparam.Param == null)
-            {
-                Params.Remove(currentparam);
-                UpdateStatus("Warning: Invalid param found, removing.");
-                return;
-            }
 
             var found = new List<int>();
             foreach (DataGridViewCell cell in RowDataGridView.SelectedCells)
@@ -555,12 +677,6 @@ namespace ACParamEditor
                 return;
 
             var currentparam = (ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem;
-            if (currentparam.Param == null)
-            {
-                Params.Remove(currentparam);
-                UpdateStatus("Warning: Invalid param found, removing.");
-                return;
-            }
 
             if (!currentparam.RowCompatible(RowCopies[0]))
             {
@@ -568,15 +684,25 @@ namespace ACParamEditor
                 return;
             }
 
+            int count = 0;
             foreach (var row in RowCopies)
             {
+                var rows = (List<PARAM.Row>)RowDataGridView.DataSource;
+                if (rows.Count == ushort.MaxValue)
+                {
+                    UpdateStatus($"Row limit of {ushort.MaxValue} reached, stopped pasting.");
+                    UpdateStatus($"Pasted {count} rows.");
+                    return;
+                }
+
                 if (currentparam.ContainsRowID(row.ID))
                     row.ID = currentparam.GetNextRowID();
-                ((List<PARAM.Row>)RowDataGridView.DataSource).Add(row);
+                rows.Add(row);
+                count++;
             }
 
             RefreshRows();
-            UpdateStatus($"Pasted {RowCopies.Count} rows.");
+            UpdateStatus($"Pasted {count} rows.");
         }
 
         private void RowDuplicate_Click(object sender, EventArgs e)
@@ -596,164 +722,25 @@ namespace ACParamEditor
             }
 
             var currentparam = (ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem;
-            if (currentparam.Param == null)
-            {
-                Params.Remove(currentparam);
-                UpdateStatus("Warning: Invalid param found, removing.");
-                return;
-            }
 
+            int count = 0;
             foreach (var row in copies)
             {
+                var rows = (List<PARAM.Row>)RowDataGridView.DataSource;
+                if (rows.Count == ushort.MaxValue)
+                {
+                    UpdateStatus($"Row limit of {ushort.MaxValue} reached, stopped duplicating.");
+                    UpdateStatus($"Duplicated {count} rows.");
+                    return;
+                }
+
                 if (currentparam.ContainsRowID(row.ID))
                     row.ID = currentparam.GetNextRowID();
-                ((List<PARAM.Row>)RowDataGridView.DataSource).Add(row);
+                rows.Add(row);
             }
 
             RefreshRows();
-            UpdateStatus($"Duplicated {copies.Count} rows.");
-        }
-
-        #endregion
-
-        #region Form Editor
-
-        private void MenuEditorDef_Click(object sender, EventArgs e)
-        {
-            var form = new DefEditorForm();
-            UpdateStatus("Opened Param Def Editor");
-            form.ShowDialog();
-            UpdateStatus("Closed Param Def Editor");
-        }
-
-        #endregion
-
-        #region Form Other
-
-        private void MenuOtherOpenResourcesFolder_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                bool question = FormUtil.ShowQuestionDialog("Are you sure you want to open the Resources folder?", "Open Resources Folder");
-                if (!question)
-                {
-                    UpdateStatus("Canceled opening Resources folder.");
-                    return;
-                }
-
-                if (PathUtil.OpenResources())
-                {
-                    UpdateStatus("Opened Resources folder.");
-                }
-                else
-                {
-                    UpdateStatus("Could not find Resources folder.");
-                }
-            }
-            catch
-            {
-                UpdateStatus("Failed to open Resources folder.");
-            }
-        }
-
-        private void MenuOtherOpenResourcesDefFolder_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                bool question = FormUtil.ShowQuestionDialog("Are you sure you want to open the Resources Def folder?", "Open Resources Def Folder");
-                if (!question)
-                {
-                    UpdateStatus("Canceled opening Resources Def folder.");
-                    return;
-                }
-
-                if (PathUtil.OpenFolder(DefFolderPath))
-                {
-                    UpdateStatus("Opened Resources Def folder.");
-                }
-                else
-                {
-                    UpdateStatus("Could not find Resources Def folder.");
-                }
-            }
-            catch
-            {
-                UpdateStatus("Failed to open Resources Def folder.");
-            }
-        }
-
-        private void MenuOtherOpenCurrentDefsFolder_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                bool question = FormUtil.ShowQuestionDialog("Are you sure you want to open the Current Def folder?", "Open Current Def Folder");
-                if (!question)
-                {
-                    UpdateStatus("Canceled opening Current Def folder.");
-                    return;
-                }
-
-                if (PathUtil.OpenFolder(GetCurrentDefPath()))
-                {
-                    UpdateStatus("Opened Current Def folder.");
-                }
-                else
-                {
-                    RefreshDefGames();
-                    UpdateStatus("Could not find Current Def folder, refreshing def combobox.");
-                }
-            }
-            catch
-            {
-                UpdateStatus("Failed to open Current Def folder.");
-            }
-        }
-
-        #endregion
-
-        #region Form Help
-
-        private void MenuHelpWhatIsAParam_Click(object sender, EventArgs e)
-        {
-            FormUtil.ShowInformationDialog("A param is a file used for settings in FromSoftware games.\n" +
-                "Params are like spreadsheets in that they have rows, and those rows have cells.\n\n" +
-                "You can add as many rows as you want as they are entries.\n" +
-                "However cells must always be the same across all rows.\n\n" +
-                "Params are read using \".def\" files which define them.\n" +
-                "Without a def file, you cannot read a param, though defs they can be made.\n\n" +
-                "Generally params are in a \"param\" folder,\n" +
-                "The extensions used are usually \".bin\" though rarely \".param\" is also seen.", "What is a param?");
-        }
-
-        private void MenuHelpAddingNewRows_Click(object sender, EventArgs e)
-        {
-            FormUtil.ShowInformationDialog("Rows are entries for the same data.\n" +
-                "They can be added by right-clicking and pressing \"New\"\n" +
-                "You can also copy and paste or duplicate all selected rows.\n" +
-                "If the rows in another param are compatible, you can paste the copied rows into it.\n\n" +
-                "Selected rows can also be deleted.", "Adding New Rows");
-        }
-
-        private void MenuHelpSelectingDifferentDefs_Click(object sender, EventArgs e)
-        {
-            FormUtil.ShowInformationDialog("The combobox, or dropdown in the upper right corner will allow you to select different sets of defs from the Resources folder.", "Selecting different defs");
-        }
-
-        private void MenuHelpAddingNewDefSets_Click(object sender, EventArgs e)
-        {
-            FormUtil.ShowInformationDialog("The \"Resources\\Def\\\" folder with the program holds several different def sets.\n\n" +
-                "The program will treat any folder it finds in here as a new set of defs.\n\n" +
-                "Any defs found inside will be loaded which switched to in the combobox in the upper right corner.\n\n" +
-                "The names of added folders will be displayed as the name in the combobox.\n\n" +
-                "Def files and XML files designed for def can be used.\n" +
-                "Defs are usually found along in the \"def\" folder in the under the \"param\" folder in game files.\n\n" +
-                "Newer games may not include defs, in which case they must be made with XML.", "Adding different defs");
-        }
-
-        private void MenuHelpIhadACrash_Click(object sender, EventArgs e)
-        {
-            FormUtil.ShowInformationDialog("If you had a crash, any issues, or just suggestions about the program, you can leave an issue on the github repo here:\n\n" +
-                "https://www.github.com/WarpZephyr/ACParamEditor", "I had a crash!");
+            UpdateStatus($"Duplicated {count} rows.");
         }
 
         #endregion
@@ -767,19 +754,19 @@ namespace ACParamEditor
             RefreshRows();
             RerfeshColumnVisibility();
             RefreshDefGames();
-            UpdateStatus("Refreshed all.");
+            UpdateStatus("Refreshed form.");
         }
 
         private void RefreshParamOpenAccess()
         {
-            if (LoadedDefs.Count == 0)
+            if (DefMap.Count == 0)
             {
                 MenuFileOpen.Enabled = false;
                 MenuFileSave.Enabled = false;
                 MenuFileSaveAll.Enabled = false;
                 MenuFileClose.Enabled = false;
                 MenuFileCloseAll.Enabled = false;
-                MainFormSplitContainerA.AllowDrop = false;
+                ParamSplitContainerOuter.AllowDrop = false;
             }
             else
             {
@@ -788,7 +775,7 @@ namespace ACParamEditor
                 MenuFileSaveAll.Enabled = true;
                 MenuFileClose.Enabled = true;
                 MenuFileCloseAll.Enabled = true;
-                MainFormSplitContainerA.AllowDrop = true;
+                ParamSplitContainerOuter.AllowDrop = true;
             }
         }
 
@@ -799,8 +786,6 @@ namespace ACParamEditor
                 RowDataGridView.DataSource = null;
                 CellDataGridView.DataSource = null;
             }
-
-            UpdateStatus("Refreshed DataGridViews.");
         }
 
         private void RefreshRows()
@@ -810,19 +795,9 @@ namespace ACParamEditor
 
             RowDataGridView.AutoGenerateColumns = false;
             RowDataGridView.DataSource = new List<PARAM.Row>();
-            RowDataGridView.Refresh();
-            var param = ((ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem).Param;
-            if (param == null)
-            {
-                Params.Remove(((ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem));
-                UpdateStatus("Warning: Invalid param found, removing.");
-                return;
-            }
-
-            RowDataGridView.DataSource = param.Rows;
+            RowDataGridView.DataSource = ((ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem).Param.Rows;
             RowDataGridView.Columns["paramrowid"].DataPropertyName = "ID";
             RowDataGridView.Columns["paramrowname"].DataPropertyName = "Name";
-            UpdateStatus("Refreshed rows.");
         }
 
         private void RerfeshColumnVisibility()
@@ -846,7 +821,6 @@ namespace ACParamEditor
             CellDataGridView.Columns["paramcellsortid"].Visible = CellViewSortID.Checked;
             CellDataGridView.Columns["paramcellarraylength"].Visible = CellViewArrayLength.Checked;
             CellDataGridView.Columns["paramcellbitsize"].Visible = CellViewBitSize.Checked;
-            UpdateStatus("Refreshed column visibility.");
         }
 
         private void RefreshDefGames()
@@ -875,8 +849,6 @@ namespace ACParamEditor
             foreach (string name in gamenames)
                 if (!MenuGameCombobox.Items.Contains(name))
                     MenuGameCombobox.Items.Add(name);
-
-            UpdateStatus("Refreshed def detection.");
         }
 
         #endregion
@@ -885,96 +857,19 @@ namespace ACParamEditor
 
         private void UpdateStatus(string text)
         {
-            MainFormStatusLabel.Text = text;
-        }
+            if (LogListBox.Items.Count + 1 > MaxLogEntries)
+            {
+                LogListBox.Items.RemoveAt(0);
+            }
 
-        private void UpdateParamLoadStatus(int total, int skipped, int failed)
-        {
-            if (total == 1)
-            {
-                if (total - failed - skipped == total)
-                {
-                    UpdateStatus("Successfully read param.");
-                }
-                else if (skipped == 1)
-                {
-                    UpdateStatus("Skipped already loaded param.");
-                }
-                else if (failed == 1)
-                {
-                    UpdateStatus("Failed to read file.");
-                }
-            }
-            else if (total > 1)
-            {
-                if (total - failed - skipped == total)
-                {
-                    UpdateStatus($"Successfully read all {total} params.");
-                }
-                else if (failed == 0 && skipped > 0)
-                {
-                    UpdateStatus($"Successfully read {total - skipped} params and skipped {skipped} already loaded params.");
-                }
-                else if (total - failed != 0 && skipped == 0)
-                {
-                    UpdateStatus($"Read {total - failed} params, failed reading {failed} files.");
-                }
-                else if (total - failed - skipped != 0 && failed > 0 && skipped > 0)
-                {
-                    UpdateStatus($"Read {total - failed - skipped} params, skipped {skipped} already loaded params, failed reading {failed} files.");
-                }
-                else if (failed > 0 && skipped > 0)
-                {
-                    UpdateStatus($"Skipped {skipped} already loaded params, failed reading {failed} files.");
-                }
-                else if (failed == 0 && total - skipped == 0)
-                {
-                    UpdateStatus($"Skipped all {total} already loaded params.");
-                }
-                else if (skipped == 0 && total - failed == 0)
-                {
-                    UpdateStatus($"Failed to read all {total} files.");
-                }
-            }
-        }
+            LogListBox.Items.Add(text);
+            LogListBox.ScrollToBottom();
 
-        private void UpdateDefLoadStatus(int total, int failed)
-        {
-            if (total == 0)
-            {
-                UpdateStatus($"No param defs found in {MenuGameCombobox.Text}, disabling param loading until defs are loaded.");
-            }
-            else if (total == 1)
-            {
-                if (total - failed == total)
-                {
-                    UpdateStatus($"Successfully read only param def in {MenuGameCombobox.Text}.");
-                }
-                else if (failed == 1)
-                {
-                    UpdateStatus($"Failed to read only file in {MenuGameCombobox.Text}, disabling param loading until defs are loaded.");
-                }
-            }
-            else if (total > 1)
-            {
-                if (total - failed == total)
-                {
-                    UpdateStatus($"Successfully read all {total} {MenuGameCombobox.Text} param defs.");
-                }
-                else if (total - failed != 0)
-                {
-                    UpdateStatus($"Read {total - failed} {MenuGameCombobox.Text} param defs, failed reading {failed} files.");
-                }
-                else if (total - failed == 0)
-                {
-                    UpdateStatus($"Failed to read all {total} files in {MenuGameCombobox.Text}, disabling param loading until defs are loaded.");
-                }
-            }
         }
 
         #endregion
 
-        # region Param Defs
+        #region Param Defs
 
         private string GetCurrentDefPath()
         {
@@ -1002,7 +897,7 @@ namespace ACParamEditor
 
         private void LoadDefs()
         {
-            LoadedDefs.Clear();
+            DefMap.Clear();
 
             if (MenuGameCombobox.Text == "None")
             {
@@ -1015,25 +910,75 @@ namespace ACParamEditor
             if (!Directory.Exists(dir))
             {
                 RefreshDefGames();
-                UpdateStatus("Old defs selection does not exist and was removed.");
+                UpdateStatus("Current defs selection does not exist and was removed.");
+                LoadDefs();
                 return;
             }
 
             string[] paths = Directory.GetFiles(dir, "*", SearchOption.TopDirectoryOnly);
+            string mappingPath = Path.Combine(dir, TypelessMappingName);
 
             int total = paths.Length;
             int failed = 0;
+            int skipped = 1;
             foreach (string path in paths)
             {
+                if (Path.GetFileName(path) == TypelessMappingName)
+                {
+                    UpdateStatus($"Skipped {TypelessMappingName}");
+                    skipped++;
+                    continue;
+                }
+
                 var def = ReadParamDef(path);
                 if (def != null)
-                    LoadedDefs.Add(def);
-                else
-                    failed++;
+                {
+                    if (!DefMap.ContainsKey(def.ParamType))
+                    {
+                        DefMap.Add(def.ParamType, def);
+                        continue;
+                    }
+
+                    UpdateStatus($"Skipped already loaded {Path.GetFileName(path) ?? "Unknown File"}");
+                    skipped++;
+                    continue;
+                }
+
+                UpdateStatus($"Failed to read {Path.GetFileName(path) ?? "Unknown File"} as a def.");
+                failed++;
             }
 
-            UpdateDefLoadStatus(total, failed);
+            LoadDefMappings(mappingPath);
+            UpdateStatus($"Loaded {total - failed - skipped} {MenuGameCombobox.Text} defs, skipped {skipped} files, and failed to read {failed} files out of {total} total files.");
             RefreshParamOpenAccess();
+        }
+
+        private void LoadDefMappings(string mappingPath)
+        {
+            if (!File.Exists(mappingPath))
+            {
+                return;
+            }
+
+            int count = 0;
+            int failed = 0;
+            string[] lines = File.ReadAllLines(mappingPath);
+            var mappings = Mapping.ParseMapping(lines);
+            foreach (var pair in mappings)
+            {
+                if (DefMap.TryGetValue(pair.Value, out PARAMDEF? def))
+                {
+                    if (def != null)
+                    {
+                        DefMap.Add(pair.Key, def);
+                        count++;
+                        continue;
+                    }
+                }
+                failed++;
+            }
+
+            UpdateStatus($"Loaded {count} typeless param to def mappings, failed to load {failed} mappings.");
         }
 
         #endregion
@@ -1042,77 +987,94 @@ namespace ACParamEditor
 
         private ParamInfo ReadParamInfo(string path)
         {
-            var paraminfo = new ParamInfo(path, LoadedDefs);
+            PARAM param = PARAM.Read(path);
+            if (!DefMap.TryGetValue(param.ParamType, out PARAMDEF? def))
+            {
+                DefMap.TryGetValue(PathUtil.GetExtensionlessFileName(path), out def);
+            }
+
+            var paraminfo = new ParamInfo(param, def, path);
             paraminfo.Game = MenuGameCombobox.Text;
             return paraminfo;
         }
 
-        private void LoadParams(string[] paths)
+        private void LoadParams(IList<string> paths)
         {
-            if (paths == null || paths.Length == 0)
+            if (paths == null || paths.Count == 0)
                 return;
 
-            int total = paths.Length;
             int skipped = 0;
             int failed = 0;
             bool skip = false;
+
             foreach (string path in paths)
             {
                 if (path == null || !File.Exists(path))
                     continue;
 
-                try
+                if (Params.ContainsParam(path))
                 {
-#if DEBUG
-                    if (BND3.Is(path))
+                    if (!skip)
                     {
-                        ReadBinder(BND3.Read(path), path, "\\");
-                        continue;
-                    }
-#endif
-
-                    var paraminfo = ReadParamInfo(path);
-                    if (paraminfo.AppliedDef == false)
-                    {
-                        failed++;
-                        continue;
-                    }
-
-                    if (Params.ContainsParam(paraminfo))
-                    {
-                        if (!skip)
-                        {
-                            skip = FormUtil.ShowQuestionDialog($"A param that already exists has been detected, would you like to skip already loaded params?", "Skip loaded params");
-                            if (skip)
-                            {
-                                skipped++;
-                                continue;
-                            }
-                        }
-                        else if (skip)
+                        skip = FormUtil.ShowQuestionDialog($"A param that already exists has been detected, would you like to skip already loaded params?", "Skip loaded params");
+                        if (skip)
                         {
                             skipped++;
                             continue;
                         }
+                    }
+                    else if (skip)
+                    {
+                        skipped++;
+                        continue;
+                    }
+                }
+
+                try
+                {
+                    var paraminfo = ReadParamInfo(path);
+                    if (paraminfo.AppliedDef == false)
+                    {
+                        UpdateStatus($"Failed to read {Path.GetFileName(path) ?? "Unknown File"} because the param def could either not be found or matched.");
+                        failed++;
+                        continue;
                     }
 
                     Params.Add(paraminfo);
                 }
                 catch
                 {
+                    UpdateStatus($"Failed to read {Path.GetFileName(path) ?? "Unknown File"} as a param.");
                     failed++;
                     continue;
                 }
             }
 
-            UpdateParamLoadStatus(total, skipped, failed);
+            UpdateStatus($"Loaded {paths.Count - failed - skipped} params, skipped {skipped} files, and failed to read {failed} files out of {paths.Count} total files.");
+        }
+
+        /// <summary>
+        /// Load params faster by locking events that are called too much during load.
+        /// </summary>
+        /// <remarks>
+        /// Sender and EventArgs are necessary as we need an event to fire after unlocking again.
+        /// </remarks>
+        /// <param name="paths">The paths to the params to load.</param>
+        /// <param name="sender">The sender object of the event calling this method.</param>
+        /// <param name="e">The EventArgs of the event calling this method.</param>
+        private void LoadParamsFast(IList<string> paths, object sender, EventArgs e)
+        {
+            LockEvents();
+            LoadParams(paths);
+            UnlockEvents();
+            ParamDataGridView_SelectionChanged(sender, e);
         }
 
         #endregion
 
         #region Validation
 
-        private bool CellValueValid(PARAM.Cell cell, object newvalue)
+        private static bool CellValueValid(PARAM.Cell cell, object newvalue)
         {
             var temp = new PARAM.Cell(cell);
             try
@@ -1128,42 +1090,29 @@ namespace ACParamEditor
 
         #endregion
 
-        #region Binder - Experimental
+        #region Event
 
-        private void ReadBinder(IBinder bnd, string path, string rel)
+        /// <summary>
+        /// Lock certain events because they cause unnecessary slowdown during initialization and mass loading.
+        /// </summary>
+        private void LockEvents()
         {
-            foreach (var file in bnd.Files)
-            {
-                if (BND3.Is(file.Bytes))
-                {
-                    string prev = new string(rel);
-                    ReadBinder(BND3.Read(file.Bytes), path, rel += $"{file.Name}\\");
-                    rel = prev;
-                }
-                else if (BND4.Is(file.Bytes))
-                {
-                    string prev = new string(rel);
-                    ReadBinder(BND4.Read(file.Bytes), path, rel += $"{file.Name}\\");
-                    rel = prev;
-                }
-                else
-                {
-                    try
-                    {
-                        string prev = new string(rel);
-                        var param = new ParamInfo(PARAM.Read(file.Bytes), path, rel += file.Name, LoadedDefs);
-                        if (param.AppliedDef)
-                            Params.Add(param);
-                        rel = prev;
-                    }
-                    catch
-                    {
-                        continue;
-                    }
-                }
-            }
+            ParamDataGridView.SelectionChanged -= ParamDataGridView_SelectionChanged;
+            RowDataGridView.SelectionChanged -= RowDataGridView_SelectionChanged;
+            MenuGameCombobox.SelectedIndexChanged -= MenuGameCombobox_SelectedIndexChanged;
+        }
+
+        /// <summary>
+        /// Unlock certain events again once they are ready to be used.
+        /// </summary>
+        private void UnlockEvents()
+        {
+            ParamDataGridView.SelectionChanged += ParamDataGridView_SelectionChanged;
+            RowDataGridView.SelectionChanged += RowDataGridView_SelectionChanged;
+            MenuGameCombobox.SelectedIndexChanged += MenuGameCombobox_SelectedIndexChanged;
         }
 
         #endregion
+
     }
 }

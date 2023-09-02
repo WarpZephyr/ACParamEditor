@@ -1,7 +1,4 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
-
-namespace CustomForms
+﻿namespace CustomForms
 {
     /// <summary>
     /// A class that inherits ProfessionalColorTable to override colors based on whats selected.

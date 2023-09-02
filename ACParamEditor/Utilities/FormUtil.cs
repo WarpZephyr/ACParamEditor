@@ -78,24 +78,24 @@ namespace Utilities
         /// <summary>
         /// Shows a ComboBox dialog.
         /// </summary>
-        /// <param name="message">The message to show in the dialog.</param>
-        /// <param name="caption">The caption to give this dialog.</param>
+        /// <param name="text">The text to show in the dialog.</param>
+        /// <param name="title">The title to give this dialog.</param>
         /// <param name="options">The options to give the user.</param>
         /// <param name="style">The dropdown style of the combobox.</param>
         /// <returns>What option the user choose or an empty string if cancelled.</returns>
-        public static string ShowComboBoxDialog(string? message = null, string? caption = null, string[]? options = null, ComboBoxStyle style = ComboBoxStyle.DropDownList)
+        public static string ShowComboBoxDialog(string? text = null, string? title = null, string[]? options = null, ComboBoxStyle style = ComboBoxStyle.DropDownList)
         {
             var prompt = new Form
             {
                 Width = 240,
                 Height = 125,
                 FormBorderStyle = FormBorderStyle.FixedDialog,
-                Text = caption ?? "ComboBox Dialog",
+                Text = title ?? "ComboBox Dialog",
                 StartPosition = FormStartPosition.CenterScreen,
                 MaximizeBox = false
             };
 
-            var textLabel = new Label { Left = 8, Top = 8, Width = 200, Text = message ?? "Select something." };
+            var textLabel = new Label { Left = 8, Top = 8, Width = 200, Text = text ?? "Select something." };
             var combobox = new ComboBox { Left = 10, Top = 28, Width = 200 };
             combobox.Items.AddRange(options ?? new string[] { "Default" });
             combobox.DropDownStyle = style;

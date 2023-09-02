@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace ACParamEditor
+namespace ParamExporter
 {
     public static class Extensions
     {
@@ -149,15 +149,15 @@ namespace ACParamEditor
         }
 
         /// <summary>
-        /// Check if a ParamdefInfo list contains a param def already.
+        /// Check if a ParamInfo list contains a param already.
         /// </summary>
-        /// <param name="deflist">An enumerable list of ParamdefInfo.</param>
-        /// <param name="definfo">The param def info to check for.</param>
-        /// <returns>Whether or not the ParamdefInfo list contains the param def already.</returns>
-        public static bool ContainsParamdef(this IEnumerable<ParamdefInfo> deflist, ParamdefInfo definfo)
+        /// <param name="paramlist">An enumerable list of ParamInfo.</param>
+        /// <param name="path">The param info path to check for.</param>
+        /// <returns>Whether or not the ParamInfo list contains the param already.</returns>
+        public static bool ContainsParam(this IEnumerable<ParamInfo> paramlist, string path)
         {
-            foreach (var param in deflist)
-                if (param.Path == definfo.Path)
+            foreach (var param in paramlist)
+                if (param.Path == path)
                     return true;
             return false;
         }

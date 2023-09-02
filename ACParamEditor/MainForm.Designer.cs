@@ -1,4 +1,6 @@
-﻿namespace ACParamEditor
+﻿using CustomForms;
+
+namespace ParamExporter
 {
     partial class MainWindow
     {
@@ -41,33 +43,35 @@
             MenuFileSaveAll = new ToolStripMenuItem();
             MenuFileClose = new ToolStripMenuItem();
             MenuFileCloseAll = new ToolStripMenuItem();
+            MenuFileReload = new ToolStripMenuItem();
+            MenuFileReloadAll = new ToolStripMenuItem();
             MenuGameCombobox = new ToolStripComboBox();
-            MenuEditor = new ToolStripMenuItem();
-            MenuEditorDef = new ToolStripMenuItem();
-            MenuOther = new ToolStripMenuItem();
-            MenuOtherOpenResourcesFolder = new ToolStripMenuItem();
-            MenuOtherOpenResourcesDefFolder = new ToolStripMenuItem();
-            MenuOtherOpenCurrentDefsFolder = new ToolStripMenuItem();
-            MenuHelp = new ToolStripMenuItem();
-            MenuHelpWhatIsAParam = new ToolStripMenuItem();
-            MenuHelpAddingNewRows = new ToolStripMenuItem();
-            MenuHelpSelectingDifferentDefs = new ToolStripMenuItem();
-            MenuHelpAddingNewDefSets = new ToolStripMenuItem();
-            MenuHelpIhadACrash = new ToolStripMenuItem();
-            MainFormStatusStrip = new StatusStrip();
-            MainFormStatusLabel = new ToolStripStatusLabel();
-            MainFormSplitContainerA = new SplitContainer();
-            ParamDataGridView = new DataGridView();
+            ParamSplitContainerOuter = new SplitContainer();
+            ParamDataGridView = new DoubleBufferedDataGridView();
             paramfilename = new DataGridViewTextBoxColumn();
             paramtype = new DataGridViewTextBoxColumn();
+            paramformatversion = new DataGridViewTextBoxColumn();
+            paramdefformatversion = new DataGridViewTextBoxColumn();
+            paramdataversion = new DataGridViewTextBoxColumn();
+            paramdefdataversion = new DataGridViewTextBoxColumn();
             paramgame = new DataGridViewTextBoxColumn();
             ParamContextMenu = new ContextMenuStrip(components);
             ParamView = new ToolStripMenuItem();
             ParamViewName = new ToolStripMenuItem();
             ParamViewType = new ToolStripMenuItem();
+            ParamViewParamFormatVersion = new ToolStripMenuItem();
+            ParamViewDefFormatVersion = new ToolStripMenuItem();
+            ParamViewParamDataVersion = new ToolStripMenuItem();
+            ParamViewDefDataVersion = new ToolStripMenuItem();
             ParamViewGame = new ToolStripMenuItem();
-            MainFormSplitContainerB = new SplitContainer();
-            RowDataGridView = new DataGridView();
+            ParamContextMenuSave = new ToolStripMenuItem();
+            ParamContextMenuSaveAll = new ToolStripMenuItem();
+            ParamContextMenuClose = new ToolStripMenuItem();
+            ParamContextMenuCloseAll = new ToolStripMenuItem();
+            ParamContextMenuReload = new ToolStripMenuItem();
+            ParamContextMenuReloadAll = new ToolStripMenuItem();
+            ParamSplitContainerInner = new SplitContainer();
+            RowDataGridView = new DoubleBufferedDataGridView();
             paramrowid = new DataGridViewTextBoxColumn();
             paramrowname = new DataGridViewTextBoxColumn();
             RowContextMenu = new ContextMenuStrip(components);
@@ -79,7 +83,7 @@
             RowCopy = new ToolStripMenuItem();
             RowPaste = new ToolStripMenuItem();
             RowDuplicate = new ToolStripMenuItem();
-            CellDataGridView = new DataGridView();
+            CellDataGridView = new DoubleBufferedDataGridView();
             paramcelldisplaytype = new DataGridViewTextBoxColumn();
             paramcellinternaltype = new DataGridViewTextBoxColumn();
             paramcellvalue = new DataGridViewTextBoxColumn();
@@ -110,28 +114,37 @@
             CellViewSortID = new ToolStripMenuItem();
             CellViewArrayLength = new ToolStripMenuItem();
             CellViewBitSize = new ToolStripMenuItem();
+            LogListBox = new ScrollingListBox();
+            LogContextMenu = new ContextMenuStrip(components);
+            LogContextMenuCopy = new ToolStripMenuItem();
+            LogContextMenuClear = new ToolStripMenuItem();
+            MainWindowSplitContainer = new SplitContainer();
             MainFormMenu.SuspendLayout();
-            MainFormStatusStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)MainFormSplitContainerA).BeginInit();
-            MainFormSplitContainerA.Panel1.SuspendLayout();
-            MainFormSplitContainerA.Panel2.SuspendLayout();
-            MainFormSplitContainerA.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)ParamSplitContainerOuter).BeginInit();
+            ParamSplitContainerOuter.Panel1.SuspendLayout();
+            ParamSplitContainerOuter.Panel2.SuspendLayout();
+            ParamSplitContainerOuter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ParamDataGridView).BeginInit();
             ParamContextMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)MainFormSplitContainerB).BeginInit();
-            MainFormSplitContainerB.Panel1.SuspendLayout();
-            MainFormSplitContainerB.Panel2.SuspendLayout();
-            MainFormSplitContainerB.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)ParamSplitContainerInner).BeginInit();
+            ParamSplitContainerInner.Panel1.SuspendLayout();
+            ParamSplitContainerInner.Panel2.SuspendLayout();
+            ParamSplitContainerInner.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)RowDataGridView).BeginInit();
             RowContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)CellDataGridView).BeginInit();
             CellContextMenu.SuspendLayout();
+            LogContextMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)MainWindowSplitContainer).BeginInit();
+            MainWindowSplitContainer.Panel1.SuspendLayout();
+            MainWindowSplitContainer.Panel2.SuspendLayout();
+            MainWindowSplitContainer.SuspendLayout();
             SuspendLayout();
             // 
             // MainFormMenu
             // 
             MainFormMenu.BackColor = Color.FromArgb(60, 60, 60);
-            MainFormMenu.Items.AddRange(new ToolStripItem[] { MenuFile, MenuGameCombobox, MenuEditor, MenuOther, MenuHelp });
+            MainFormMenu.Items.AddRange(new ToolStripItem[] { MenuFile, MenuGameCombobox });
             MainFormMenu.Location = new Point(0, 0);
             MainFormMenu.Name = "MainFormMenu";
             MainFormMenu.Size = new Size(1270, 27);
@@ -140,7 +153,7 @@
             // MenuFile
             // 
             MenuFile.BackColor = Color.FromArgb(65, 65, 65);
-            MenuFile.DropDownItems.AddRange(new ToolStripItem[] { MenuFileOpen, MenuFileSave, MenuFileSaveAll, MenuFileClose, MenuFileCloseAll });
+            MenuFile.DropDownItems.AddRange(new ToolStripItem[] { MenuFileOpen, MenuFileSave, MenuFileSaveAll, MenuFileClose, MenuFileCloseAll, MenuFileReload, MenuFileReloadAll });
             MenuFile.ForeColor = SystemColors.Control;
             MenuFile.Name = "MenuFile";
             MenuFile.Size = new Size(37, 23);
@@ -151,9 +164,9 @@
             MenuFileOpen.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileOpen.ForeColor = SystemColors.Control;
             MenuFileOpen.Name = "MenuFileOpen";
-            MenuFileOpen.Size = new Size(120, 22);
+            MenuFileOpen.Size = new Size(127, 22);
             MenuFileOpen.Text = "Open";
-            MenuFileOpen.ToolTipText = "Open more params";
+            MenuFileOpen.ToolTipText = "Open more params.";
             MenuFileOpen.Click += MenuFileOpen_Click;
             // 
             // MenuFileSave
@@ -161,9 +174,9 @@
             MenuFileSave.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileSave.ForeColor = SystemColors.Control;
             MenuFileSave.Name = "MenuFileSave";
-            MenuFileSave.Size = new Size(120, 22);
+            MenuFileSave.Size = new Size(127, 22);
             MenuFileSave.Text = "Save";
-            MenuFileSave.ToolTipText = "Save the currently selected params";
+            MenuFileSave.ToolTipText = "Save the currently selected params.";
             MenuFileSave.Click += MenuFileSave_Click;
             // 
             // MenuFileSaveAll
@@ -171,9 +184,9 @@
             MenuFileSaveAll.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileSaveAll.ForeColor = SystemColors.Control;
             MenuFileSaveAll.Name = "MenuFileSaveAll";
-            MenuFileSaveAll.Size = new Size(120, 22);
+            MenuFileSaveAll.Size = new Size(127, 22);
             MenuFileSaveAll.Text = "Save All";
-            MenuFileSaveAll.ToolTipText = "Save all params";
+            MenuFileSaveAll.ToolTipText = "Save all params.";
             MenuFileSaveAll.Click += MenuFileSaveAll_Click;
             // 
             // MenuFileClose
@@ -181,9 +194,9 @@
             MenuFileClose.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileClose.ForeColor = SystemColors.Control;
             MenuFileClose.Name = "MenuFileClose";
-            MenuFileClose.Size = new Size(120, 22);
+            MenuFileClose.Size = new Size(127, 22);
             MenuFileClose.Text = "Close";
-            MenuFileClose.ToolTipText = "Close the currently selected params";
+            MenuFileClose.ToolTipText = "Close the currently selected params.";
             MenuFileClose.Click += MenuFileClose_Click;
             // 
             // MenuFileCloseAll
@@ -191,10 +204,30 @@
             MenuFileCloseAll.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileCloseAll.ForeColor = SystemColors.Control;
             MenuFileCloseAll.Name = "MenuFileCloseAll";
-            MenuFileCloseAll.Size = new Size(120, 22);
+            MenuFileCloseAll.Size = new Size(127, 22);
             MenuFileCloseAll.Text = "Close All";
-            MenuFileCloseAll.ToolTipText = "Close all params";
+            MenuFileCloseAll.ToolTipText = "Close all params.";
             MenuFileCloseAll.Click += MenuFileCloseAll_Click;
+            // 
+            // MenuFileReload
+            // 
+            MenuFileReload.BackColor = Color.FromArgb(55, 55, 55);
+            MenuFileReload.ForeColor = SystemColors.Control;
+            MenuFileReload.Name = "MenuFileReload";
+            MenuFileReload.Size = new Size(127, 22);
+            MenuFileReload.Text = "Reload";
+            MenuFileReload.ToolTipText = "Reload the currently selected params.";
+            MenuFileReload.Click += MenuFileReload_Click;
+            // 
+            // MenuFileReloadAll
+            // 
+            MenuFileReloadAll.BackColor = Color.FromArgb(55, 55, 55);
+            MenuFileReloadAll.ForeColor = SystemColors.Control;
+            MenuFileReloadAll.Name = "MenuFileReloadAll";
+            MenuFileReloadAll.Size = new Size(127, 22);
+            MenuFileReloadAll.Text = "Reload All";
+            MenuFileReloadAll.ToolTipText = "Reload all params.";
+            MenuFileReloadAll.Click += MenuFileReloadAll_Click;
             // 
             // MenuGameCombobox
             // 
@@ -210,149 +243,26 @@
             MenuGameCombobox.DropDown += MenuGameCombobox_DropDown;
             MenuGameCombobox.SelectedIndexChanged += MenuGameCombobox_SelectedIndexChanged;
             // 
-            // MenuEditor
+            // ParamSplitContainerOuter
             // 
-            MenuEditor.BackColor = Color.FromArgb(65, 65, 65);
-            MenuEditor.DropDownItems.AddRange(new ToolStripItem[] { MenuEditorDef });
-            MenuEditor.ForeColor = SystemColors.Control;
-            MenuEditor.Name = "MenuEditor";
-            MenuEditor.Size = new Size(50, 23);
-            MenuEditor.Text = "Editor";
+            ParamSplitContainerOuter.AllowDrop = true;
+            ParamSplitContainerOuter.Dock = DockStyle.Fill;
+            ParamSplitContainerOuter.Location = new Point(0, 0);
+            ParamSplitContainerOuter.Name = "ParamSplitContainerOuter";
             // 
-            // MenuEditorDef
+            // ParamSplitContainerOuter.Panel1
             // 
-            MenuEditorDef.BackColor = Color.FromArgb(55, 55, 55);
-            MenuEditorDef.ForeColor = SystemColors.Control;
-            MenuEditorDef.Name = "MenuEditorDef";
-            MenuEditorDef.Size = new Size(195, 22);
-            MenuEditorDef.Text = "Open Param Def Editor";
-            MenuEditorDef.Click += MenuEditorDef_Click;
+            ParamSplitContainerOuter.Panel1.Controls.Add(ParamDataGridView);
+            ParamSplitContainerOuter.Panel1.ForeColor = SystemColors.Control;
             // 
-            // MenuOther
+            // ParamSplitContainerOuter.Panel2
             // 
-            MenuOther.BackColor = Color.FromArgb(65, 65, 65);
-            MenuOther.DropDownItems.AddRange(new ToolStripItem[] { MenuOtherOpenResourcesFolder, MenuOtherOpenResourcesDefFolder, MenuOtherOpenCurrentDefsFolder });
-            MenuOther.ForeColor = SystemColors.Control;
-            MenuOther.Name = "MenuOther";
-            MenuOther.Size = new Size(49, 23);
-            MenuOther.Text = "Other";
-            // 
-            // MenuOtherOpenResourcesFolder
-            // 
-            MenuOtherOpenResourcesFolder.BackColor = Color.FromArgb(55, 55, 55);
-            MenuOtherOpenResourcesFolder.ForeColor = SystemColors.Control;
-            MenuOtherOpenResourcesFolder.Name = "MenuOtherOpenResourcesFolder";
-            MenuOtherOpenResourcesFolder.Size = new Size(216, 22);
-            MenuOtherOpenResourcesFolder.Text = "Open Resources Folder";
-            MenuOtherOpenResourcesFolder.Click += MenuOtherOpenResourcesFolder_Click;
-            // 
-            // MenuOtherOpenResourcesDefFolder
-            // 
-            MenuOtherOpenResourcesDefFolder.BackColor = Color.FromArgb(55, 55, 55);
-            MenuOtherOpenResourcesDefFolder.ForeColor = SystemColors.Control;
-            MenuOtherOpenResourcesDefFolder.Name = "MenuOtherOpenResourcesDefFolder";
-            MenuOtherOpenResourcesDefFolder.Size = new Size(216, 22);
-            MenuOtherOpenResourcesDefFolder.Text = "Open Resources Def Folder";
-            MenuOtherOpenResourcesDefFolder.Click += MenuOtherOpenResourcesDefFolder_Click;
-            // 
-            // MenuOtherOpenCurrentDefsFolder
-            // 
-            MenuOtherOpenCurrentDefsFolder.BackColor = Color.FromArgb(55, 55, 55);
-            MenuOtherOpenCurrentDefsFolder.ForeColor = SystemColors.Control;
-            MenuOtherOpenCurrentDefsFolder.Name = "MenuOtherOpenCurrentDefsFolder";
-            MenuOtherOpenCurrentDefsFolder.Size = new Size(216, 22);
-            MenuOtherOpenCurrentDefsFolder.Text = "Open Current Defs Folder";
-            MenuOtherOpenCurrentDefsFolder.Click += MenuOtherOpenCurrentDefsFolder_Click;
-            // 
-            // MenuHelp
-            // 
-            MenuHelp.BackColor = Color.FromArgb(65, 65, 65);
-            MenuHelp.DropDownItems.AddRange(new ToolStripItem[] { MenuHelpWhatIsAParam, MenuHelpAddingNewRows, MenuHelpSelectingDifferentDefs, MenuHelpAddingNewDefSets, MenuHelpIhadACrash });
-            MenuHelp.ForeColor = SystemColors.Control;
-            MenuHelp.Name = "MenuHelp";
-            MenuHelp.Size = new Size(44, 23);
-            MenuHelp.Text = "Help";
-            // 
-            // MenuHelpWhatIsAParam
-            // 
-            MenuHelpWhatIsAParam.BackColor = Color.FromArgb(55, 55, 55);
-            MenuHelpWhatIsAParam.ForeColor = SystemColors.Control;
-            MenuHelpWhatIsAParam.Name = "MenuHelpWhatIsAParam";
-            MenuHelpWhatIsAParam.Size = new Size(195, 22);
-            MenuHelpWhatIsAParam.Text = "What is a param?";
-            MenuHelpWhatIsAParam.Click += MenuHelpWhatIsAParam_Click;
-            // 
-            // MenuHelpAddingNewRows
-            // 
-            MenuHelpAddingNewRows.BackColor = Color.FromArgb(55, 55, 55);
-            MenuHelpAddingNewRows.ForeColor = SystemColors.Control;
-            MenuHelpAddingNewRows.Name = "MenuHelpAddingNewRows";
-            MenuHelpAddingNewRows.Size = new Size(195, 22);
-            MenuHelpAddingNewRows.Text = "Adding new rows";
-            MenuHelpAddingNewRows.Click += MenuHelpAddingNewRows_Click;
-            // 
-            // MenuHelpSelectingDifferentDefs
-            // 
-            MenuHelpSelectingDifferentDefs.BackColor = Color.FromArgb(55, 55, 55);
-            MenuHelpSelectingDifferentDefs.ForeColor = SystemColors.Control;
-            MenuHelpSelectingDifferentDefs.Name = "MenuHelpSelectingDifferentDefs";
-            MenuHelpSelectingDifferentDefs.Size = new Size(195, 22);
-            MenuHelpSelectingDifferentDefs.Text = "Selecting different defs";
-            MenuHelpSelectingDifferentDefs.Click += MenuHelpSelectingDifferentDefs_Click;
-            // 
-            // MenuHelpAddingNewDefSets
-            // 
-            MenuHelpAddingNewDefSets.BackColor = Color.FromArgb(55, 55, 55);
-            MenuHelpAddingNewDefSets.ForeColor = SystemColors.Control;
-            MenuHelpAddingNewDefSets.Name = "MenuHelpAddingNewDefSets";
-            MenuHelpAddingNewDefSets.Size = new Size(195, 22);
-            MenuHelpAddingNewDefSets.Text = "Adding new def sets";
-            MenuHelpAddingNewDefSets.Click += MenuHelpAddingNewDefSets_Click;
-            // 
-            // MenuHelpIhadACrash
-            // 
-            MenuHelpIhadACrash.BackColor = Color.FromArgb(55, 55, 55);
-            MenuHelpIhadACrash.ForeColor = SystemColors.Control;
-            MenuHelpIhadACrash.Name = "MenuHelpIhadACrash";
-            MenuHelpIhadACrash.Size = new Size(195, 22);
-            MenuHelpIhadACrash.Text = "I had a crash!";
-            MenuHelpIhadACrash.Click += MenuHelpIhadACrash_Click;
-            // 
-            // MainFormStatusStrip
-            // 
-            MainFormStatusStrip.BackColor = Color.FromArgb(60, 60, 60);
-            MainFormStatusStrip.Items.AddRange(new ToolStripItem[] { MainFormStatusLabel });
-            MainFormStatusStrip.Location = new Point(0, 607);
-            MainFormStatusStrip.Name = "MainFormStatusStrip";
-            MainFormStatusStrip.Size = new Size(1270, 22);
-            MainFormStatusStrip.TabIndex = 1;
-            // 
-            // MainFormStatusLabel
-            // 
-            MainFormStatusLabel.Name = "MainFormStatusLabel";
-            MainFormStatusLabel.Size = new Size(0, 17);
-            MainFormStatusLabel.ToolTipText = "This will keep you updated on what the program is doing";
-            // 
-            // MainFormSplitContainerA
-            // 
-            MainFormSplitContainerA.AllowDrop = true;
-            MainFormSplitContainerA.Dock = DockStyle.Fill;
-            MainFormSplitContainerA.Location = new Point(0, 27);
-            MainFormSplitContainerA.Name = "MainFormSplitContainerA";
-            // 
-            // MainFormSplitContainerA.Panel1
-            // 
-            MainFormSplitContainerA.Panel1.Controls.Add(ParamDataGridView);
-            MainFormSplitContainerA.Panel1.ForeColor = SystemColors.Control;
-            // 
-            // MainFormSplitContainerA.Panel2
-            // 
-            MainFormSplitContainerA.Panel2.Controls.Add(MainFormSplitContainerB);
-            MainFormSplitContainerA.Size = new Size(1270, 580);
-            MainFormSplitContainerA.SplitterDistance = 395;
-            MainFormSplitContainerA.TabIndex = 2;
-            MainFormSplitContainerA.DragDrop += MainFormSplitContainerA_DragDrop;
-            MainFormSplitContainerA.DragEnter += MainFormSplitContainerA_DragEnter;
+            ParamSplitContainerOuter.Panel2.Controls.Add(ParamSplitContainerInner);
+            ParamSplitContainerOuter.Size = new Size(1270, 600);
+            ParamSplitContainerOuter.SplitterDistance = 395;
+            ParamSplitContainerOuter.TabIndex = 2;
+            ParamSplitContainerOuter.DragDrop += ParamSplitContainerOuter_DragDrop;
+            ParamSplitContainerOuter.DragEnter += ParamSplitContainerOuter_DragEnter;
             // 
             // ParamDataGridView
             // 
@@ -372,7 +282,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             ParamDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             ParamDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ParamDataGridView.Columns.AddRange(new DataGridViewColumn[] { paramfilename, paramtype, paramgame });
+            ParamDataGridView.Columns.AddRange(new DataGridViewColumn[] { paramfilename, paramtype, paramformatversion, paramdefformatversion, paramdataversion, paramdefdataversion, paramgame });
             ParamDataGridView.ContextMenuStrip = ParamContextMenu;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(55, 55, 55);
@@ -397,7 +307,7 @@
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             ParamDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             ParamDataGridView.RowTemplate.Height = 25;
-            ParamDataGridView.Size = new Size(395, 580);
+            ParamDataGridView.Size = new Size(395, 600);
             ParamDataGridView.TabIndex = 0;
             ParamDataGridView.SelectionChanged += ParamDataGridView_SelectionChanged;
             // 
@@ -415,6 +325,32 @@
             paramtype.Name = "paramtype";
             paramtype.ReadOnly = true;
             // 
+            // paramformatversion
+            // 
+            paramformatversion.HeaderText = "Param Format Version";
+            paramformatversion.Name = "paramformatversion";
+            paramformatversion.Visible = false;
+            // 
+            // paramdefformatversion
+            // 
+            paramdefformatversion.HeaderText = "Def Format Version";
+            paramdefformatversion.Name = "paramdefformatversion";
+            paramdefformatversion.ReadOnly = true;
+            paramdefformatversion.Visible = false;
+            // 
+            // paramdataversion
+            // 
+            paramdataversion.HeaderText = "Param Data Version";
+            paramdataversion.Name = "paramdataversion";
+            paramdataversion.Visible = false;
+            // 
+            // paramdefdataversion
+            // 
+            paramdefdataversion.HeaderText = "Def Data Version";
+            paramdefdataversion.Name = "paramdefdataversion";
+            paramdefdataversion.ReadOnly = true;
+            paramdefdataversion.Visible = false;
+            // 
             // paramgame
             // 
             paramgame.HeaderText = "Game";
@@ -424,17 +360,17 @@
             // 
             // ParamContextMenu
             // 
-            ParamContextMenu.Items.AddRange(new ToolStripItem[] { ParamView });
+            ParamContextMenu.Items.AddRange(new ToolStripItem[] { ParamView, ParamContextMenuSave, ParamContextMenuSaveAll, ParamContextMenuClose, ParamContextMenuCloseAll, ParamContextMenuReload, ParamContextMenuReloadAll });
             ParamContextMenu.Name = "ParamDataGridViewContextMenu";
-            ParamContextMenu.Size = new Size(100, 26);
+            ParamContextMenu.Size = new Size(128, 158);
             // 
             // ParamView
             // 
             ParamView.BackColor = Color.FromArgb(65, 65, 65);
-            ParamView.DropDownItems.AddRange(new ToolStripItem[] { ParamViewName, ParamViewType, ParamViewGame });
+            ParamView.DropDownItems.AddRange(new ToolStripItem[] { ParamViewName, ParamViewType, ParamViewParamFormatVersion, ParamViewDefFormatVersion, ParamViewParamDataVersion, ParamViewDefDataVersion, ParamViewGame });
             ParamView.ForeColor = SystemColors.Control;
             ParamView.Name = "ParamView";
-            ParamView.Size = new Size(99, 22);
+            ParamView.Size = new Size(127, 22);
             ParamView.Text = "View";
             // 
             // ParamViewName
@@ -445,7 +381,7 @@
             ParamViewName.CheckState = CheckState.Checked;
             ParamViewName.ForeColor = SystemColors.Control;
             ParamViewName.Name = "ParamViewName";
-            ParamViewName.Size = new Size(106, 22);
+            ParamViewName.Size = new Size(190, 22);
             ParamViewName.Text = "Name";
             ParamViewName.Click += ParamViewName_Click;
             // 
@@ -457,9 +393,49 @@
             ParamViewType.CheckState = CheckState.Checked;
             ParamViewType.ForeColor = SystemColors.Control;
             ParamViewType.Name = "ParamViewType";
-            ParamViewType.Size = new Size(106, 22);
+            ParamViewType.Size = new Size(190, 22);
             ParamViewType.Text = "Type";
             ParamViewType.Click += ParamViewType_Click;
+            // 
+            // ParamViewParamFormatVersion
+            // 
+            ParamViewParamFormatVersion.BackColor = Color.FromArgb(65, 65, 65);
+            ParamViewParamFormatVersion.CheckOnClick = true;
+            ParamViewParamFormatVersion.ForeColor = SystemColors.Control;
+            ParamViewParamFormatVersion.Name = "ParamViewParamFormatVersion";
+            ParamViewParamFormatVersion.Size = new Size(190, 22);
+            ParamViewParamFormatVersion.Text = "Param Format Version";
+            ParamViewParamFormatVersion.Click += ParamViewParamFormatVersion_Click;
+            // 
+            // ParamViewDefFormatVersion
+            // 
+            ParamViewDefFormatVersion.BackColor = Color.FromArgb(65, 65, 65);
+            ParamViewDefFormatVersion.CheckOnClick = true;
+            ParamViewDefFormatVersion.ForeColor = SystemColors.Control;
+            ParamViewDefFormatVersion.Name = "ParamViewDefFormatVersion";
+            ParamViewDefFormatVersion.Size = new Size(190, 22);
+            ParamViewDefFormatVersion.Text = "Def Format Version";
+            ParamViewDefFormatVersion.Click += ParamViewDefFormatVersion_Click;
+            // 
+            // ParamViewParamDataVersion
+            // 
+            ParamViewParamDataVersion.BackColor = Color.FromArgb(65, 65, 65);
+            ParamViewParamDataVersion.CheckOnClick = true;
+            ParamViewParamDataVersion.ForeColor = SystemColors.Control;
+            ParamViewParamDataVersion.Name = "ParamViewParamDataVersion";
+            ParamViewParamDataVersion.Size = new Size(190, 22);
+            ParamViewParamDataVersion.Text = "Param Data Version";
+            ParamViewParamDataVersion.Click += ParamViewParamDataVersion_Click;
+            // 
+            // ParamViewDefDataVersion
+            // 
+            ParamViewDefDataVersion.BackColor = Color.FromArgb(65, 65, 65);
+            ParamViewDefDataVersion.CheckOnClick = true;
+            ParamViewDefDataVersion.ForeColor = SystemColors.Control;
+            ParamViewDefDataVersion.Name = "ParamViewDefDataVersion";
+            ParamViewDefDataVersion.Size = new Size(190, 22);
+            ParamViewDefDataVersion.Text = "Def Data Version";
+            ParamViewDefDataVersion.Click += ParamViewDefDataVersion_Click;
             // 
             // ParamViewGame
             // 
@@ -467,26 +443,86 @@
             ParamViewGame.CheckOnClick = true;
             ParamViewGame.ForeColor = SystemColors.Control;
             ParamViewGame.Name = "ParamViewGame";
-            ParamViewGame.Size = new Size(106, 22);
+            ParamViewGame.Size = new Size(190, 22);
             ParamViewGame.Text = "Game";
             ParamViewGame.Click += ParamViewGame_Click;
             // 
-            // MainFormSplitContainerB
+            // ParamContextMenuSave
             // 
-            MainFormSplitContainerB.Dock = DockStyle.Fill;
-            MainFormSplitContainerB.Location = new Point(0, 0);
-            MainFormSplitContainerB.Name = "MainFormSplitContainerB";
+            ParamContextMenuSave.BackColor = Color.FromArgb(65, 65, 65);
+            ParamContextMenuSave.ForeColor = SystemColors.Control;
+            ParamContextMenuSave.Name = "ParamContextMenuSave";
+            ParamContextMenuSave.Size = new Size(127, 22);
+            ParamContextMenuSave.Text = "Save";
+            ParamContextMenuSave.ToolTipText = "Save the currently selected params.";
+            ParamContextMenuSave.Click += MenuFileSave_Click;
             // 
-            // MainFormSplitContainerB.Panel1
+            // ParamContextMenuSaveAll
             // 
-            MainFormSplitContainerB.Panel1.Controls.Add(RowDataGridView);
+            ParamContextMenuSaveAll.BackColor = Color.FromArgb(65, 65, 65);
+            ParamContextMenuSaveAll.ForeColor = SystemColors.Control;
+            ParamContextMenuSaveAll.Name = "ParamContextMenuSaveAll";
+            ParamContextMenuSaveAll.Size = new Size(127, 22);
+            ParamContextMenuSaveAll.Text = "Save All";
+            ParamContextMenuSaveAll.ToolTipText = "Save all params.";
+            ParamContextMenuSaveAll.Click += MenuFileSaveAll_Click;
             // 
-            // MainFormSplitContainerB.Panel2
+            // ParamContextMenuClose
             // 
-            MainFormSplitContainerB.Panel2.Controls.Add(CellDataGridView);
-            MainFormSplitContainerB.Size = new Size(871, 580);
-            MainFormSplitContainerB.SplitterDistance = 417;
-            MainFormSplitContainerB.TabIndex = 0;
+            ParamContextMenuClose.BackColor = Color.FromArgb(65, 65, 65);
+            ParamContextMenuClose.ForeColor = SystemColors.Control;
+            ParamContextMenuClose.Name = "ParamContextMenuClose";
+            ParamContextMenuClose.Size = new Size(127, 22);
+            ParamContextMenuClose.Text = "Close";
+            ParamContextMenuClose.ToolTipText = "Close the currently selected params.";
+            ParamContextMenuClose.Click += MenuFileClose_Click;
+            // 
+            // ParamContextMenuCloseAll
+            // 
+            ParamContextMenuCloseAll.BackColor = Color.FromArgb(65, 65, 65);
+            ParamContextMenuCloseAll.ForeColor = SystemColors.Control;
+            ParamContextMenuCloseAll.Name = "ParamContextMenuCloseAll";
+            ParamContextMenuCloseAll.Size = new Size(127, 22);
+            ParamContextMenuCloseAll.Text = "Close All";
+            ParamContextMenuCloseAll.ToolTipText = "Close all params.";
+            ParamContextMenuCloseAll.Click += MenuFileCloseAll_Click;
+            // 
+            // ParamContextMenuReload
+            // 
+            ParamContextMenuReload.BackColor = Color.FromArgb(65, 65, 65);
+            ParamContextMenuReload.ForeColor = SystemColors.Control;
+            ParamContextMenuReload.Name = "ParamContextMenuReload";
+            ParamContextMenuReload.Size = new Size(127, 22);
+            ParamContextMenuReload.Text = "Reload";
+            ParamContextMenuReload.ToolTipText = "Reload the currently selected params.";
+            ParamContextMenuReload.Click += MenuFileReload_Click;
+            // 
+            // ParamContextMenuReloadAll
+            // 
+            ParamContextMenuReloadAll.BackColor = Color.FromArgb(65, 65, 65);
+            ParamContextMenuReloadAll.ForeColor = SystemColors.Control;
+            ParamContextMenuReloadAll.Name = "ParamContextMenuReloadAll";
+            ParamContextMenuReloadAll.Size = new Size(127, 22);
+            ParamContextMenuReloadAll.Text = "Reload All";
+            ParamContextMenuReloadAll.ToolTipText = "Reload all params.";
+            ParamContextMenuReloadAll.Click += MenuFileReloadAll_Click;
+            // 
+            // ParamSplitContainerInner
+            // 
+            ParamSplitContainerInner.Dock = DockStyle.Fill;
+            ParamSplitContainerInner.Location = new Point(0, 0);
+            ParamSplitContainerInner.Name = "ParamSplitContainerInner";
+            // 
+            // ParamSplitContainerInner.Panel1
+            // 
+            ParamSplitContainerInner.Panel1.Controls.Add(RowDataGridView);
+            // 
+            // ParamSplitContainerInner.Panel2
+            // 
+            ParamSplitContainerInner.Panel2.Controls.Add(CellDataGridView);
+            ParamSplitContainerInner.Size = new Size(871, 600);
+            ParamSplitContainerInner.SplitterDistance = 417;
+            ParamSplitContainerInner.TabIndex = 0;
             // 
             // RowDataGridView
             // 
@@ -517,7 +553,7 @@
             RowDataGridView.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             RowDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             RowDataGridView.RowTemplate.Height = 25;
-            RowDataGridView.Size = new Size(417, 580);
+            RowDataGridView.Size = new Size(417, 600);
             RowDataGridView.TabIndex = 1;
             RowDataGridView.CellValidating += RowDataGridView_CellValidating;
             RowDataGridView.SelectionChanged += RowDataGridView_SelectionChanged;
@@ -652,10 +688,9 @@
             CellDataGridView.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             CellDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             CellDataGridView.RowTemplate.Height = 25;
-            CellDataGridView.Size = new Size(450, 580);
+            CellDataGridView.Size = new Size(450, 600);
             CellDataGridView.TabIndex = 1;
             CellDataGridView.CellValidating += CellDataGridView_CellValidating;
-            CellDataGridView.SelectionChanged += CellDataGridView_SelectionChanged;
             // 
             // paramcelldisplaytype
             // 
@@ -781,7 +816,7 @@
             CellViewDisplayType.Name = "CellViewDisplayType";
             CellViewDisplayType.Size = new Size(175, 22);
             CellViewDisplayType.Text = "Display Type";
-            CellViewDisplayType.Click += CellViewInternalType_Click;
+            CellViewDisplayType.Click += CellViewDisplayType_Click;
             // 
             // CellViewInternalType
             // 
@@ -917,14 +952,75 @@
             CellViewBitSize.Text = "Bit Size";
             CellViewBitSize.Click += CellViewBitSize_Click;
             // 
+            // LogListBox
+            // 
+            LogListBox.BackColor = Color.FromArgb(35, 35, 35);
+            LogListBox.BorderStyle = BorderStyle.FixedSingle;
+            LogListBox.ContextMenuStrip = LogContextMenu;
+            LogListBox.Dock = DockStyle.Fill;
+            LogListBox.ForeColor = SystemColors.Window;
+            LogListBox.FormattingEnabled = true;
+            LogListBox.HorizontalScrollbar = true;
+            LogListBox.IntegralHeight = false;
+            LogListBox.ItemHeight = 15;
+            LogListBox.Location = new Point(0, 0);
+            LogListBox.Name = "LogListBox";
+            LogListBox.SelectionMode = SelectionMode.MultiExtended;
+            LogListBox.Size = new Size(1270, 118);
+            LogListBox.TabIndex = 0;
+            LogListBox.KeyDown += LogListBox_KeyDown;
+            // 
+            // LogContextMenu
+            // 
+            LogContextMenu.Items.AddRange(new ToolStripItem[] { LogContextMenuCopy, LogContextMenuClear });
+            LogContextMenu.Name = "LogContextMenu";
+            LogContextMenu.Size = new Size(103, 48);
+            // 
+            // LogContextMenuCopy
+            // 
+            LogContextMenuCopy.BackColor = Color.FromArgb(65, 65, 65);
+            LogContextMenuCopy.ForeColor = SystemColors.Control;
+            LogContextMenuCopy.Name = "LogContextMenuCopy";
+            LogContextMenuCopy.Size = new Size(102, 22);
+            LogContextMenuCopy.Text = "Copy";
+            LogContextMenuCopy.ToolTipText = "Copies the entire log to your clipboard.";
+            LogContextMenuCopy.Click += LogContextMenuCopy_Click;
+            // 
+            // LogContextMenuClear
+            // 
+            LogContextMenuClear.BackColor = Color.FromArgb(65, 65, 65);
+            LogContextMenuClear.ForeColor = SystemColors.Control;
+            LogContextMenuClear.Name = "LogContextMenuClear";
+            LogContextMenuClear.Size = new Size(102, 22);
+            LogContextMenuClear.Text = "Clear";
+            LogContextMenuClear.ToolTipText = "Clears the log.";
+            LogContextMenuClear.Click += LogContextMenuClear_Click;
+            // 
+            // MainWindowSplitContainer
+            // 
+            MainWindowSplitContainer.Dock = DockStyle.Fill;
+            MainWindowSplitContainer.Location = new Point(0, 27);
+            MainWindowSplitContainer.Name = "MainWindowSplitContainer";
+            MainWindowSplitContainer.Orientation = Orientation.Horizontal;
+            // 
+            // MainWindowSplitContainer.Panel1
+            // 
+            MainWindowSplitContainer.Panel1.Controls.Add(ParamSplitContainerOuter);
+            // 
+            // MainWindowSplitContainer.Panel2
+            // 
+            MainWindowSplitContainer.Panel2.Controls.Add(LogListBox);
+            MainWindowSplitContainer.Size = new Size(1270, 722);
+            MainWindowSplitContainer.SplitterDistance = 600;
+            MainWindowSplitContainer.TabIndex = 3;
+            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(40, 40, 40);
-            ClientSize = new Size(1270, 629);
-            Controls.Add(MainFormSplitContainerA);
-            Controls.Add(MainFormStatusStrip);
+            ClientSize = new Size(1270, 749);
+            Controls.Add(MainWindowSplitContainer);
             Controls.Add(MainFormMenu);
             ForeColor = SystemColors.Control;
             MainMenuStrip = MainFormMenu;
@@ -932,22 +1028,25 @@
             Text = "Armored Core Param Editor";
             MainFormMenu.ResumeLayout(false);
             MainFormMenu.PerformLayout();
-            MainFormStatusStrip.ResumeLayout(false);
-            MainFormStatusStrip.PerformLayout();
-            MainFormSplitContainerA.Panel1.ResumeLayout(false);
-            MainFormSplitContainerA.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)MainFormSplitContainerA).EndInit();
-            MainFormSplitContainerA.ResumeLayout(false);
+            ParamSplitContainerOuter.Panel1.ResumeLayout(false);
+            ParamSplitContainerOuter.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)ParamSplitContainerOuter).EndInit();
+            ParamSplitContainerOuter.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)ParamDataGridView).EndInit();
             ParamContextMenu.ResumeLayout(false);
-            MainFormSplitContainerB.Panel1.ResumeLayout(false);
-            MainFormSplitContainerB.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)MainFormSplitContainerB).EndInit();
-            MainFormSplitContainerB.ResumeLayout(false);
+            ParamSplitContainerInner.Panel1.ResumeLayout(false);
+            ParamSplitContainerInner.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)ParamSplitContainerInner).EndInit();
+            ParamSplitContainerInner.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)RowDataGridView).EndInit();
             RowContextMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)CellDataGridView).EndInit();
             CellContextMenu.ResumeLayout(false);
+            LogContextMenu.ResumeLayout(false);
+            MainWindowSplitContainer.Panel1.ResumeLayout(false);
+            MainWindowSplitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)MainWindowSplitContainer).EndInit();
+            MainWindowSplitContainer.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -956,13 +1055,11 @@
 
         private MenuStrip MainFormMenu;
         private ToolStripMenuItem MenuFile;
-        private StatusStrip MainFormStatusStrip;
-        private ToolStripStatusLabel MainFormStatusLabel;
-        private SplitContainer MainFormSplitContainerA;
-        private SplitContainer MainFormSplitContainerB;
-        private DataGridView ParamDataGridView;
-        private DataGridView RowDataGridView;
-        private DataGridView CellDataGridView;
+        private SplitContainer ParamSplitContainerOuter;
+        private SplitContainer ParamSplitContainerInner;
+        private DoubleBufferedDataGridView ParamDataGridView;
+        private DoubleBufferedDataGridView RowDataGridView;
+        private DoubleBufferedDataGridView CellDataGridView;
         private DataGridViewTextBoxColumn paramrowid;
         private DataGridViewTextBoxColumn paramrowname;
         private ToolStripMenuItem MenuFileOpen;
@@ -991,9 +1088,6 @@
         private ToolStripMenuItem CellViewIncrement;
         private ToolStripMenuItem CellViewMinimum;
         private ToolStripMenuItem CellViewMaximum;
-        private DataGridViewTextBoxColumn paramfilename;
-        private DataGridViewTextBoxColumn paramtype;
-        private DataGridViewTextBoxColumn paramgame;
         private ToolStripMenuItem ParamViewGame;
         private ToolStripMenuItem RowCopy;
         private ToolStripMenuItem RowPaste;
@@ -1003,18 +1097,6 @@
         private ToolStripMenuItem CellViewBitSize;
         private ToolStripMenuItem RowDelete;
         private ToolStripMenuItem RowNew;
-        private ToolStripMenuItem MenuHelp;
-        private ToolStripMenuItem MenuHelpWhatIsAParam;
-        private ToolStripMenuItem MenuHelpAddingNewRows;
-        private ToolStripMenuItem MenuHelpSelectingDifferentDefs;
-        private ToolStripMenuItem MenuHelpAddingNewDefSets;
-        private ToolStripMenuItem MenuHelpIhadACrash;
-        private ToolStripMenuItem MenuOther;
-        private ToolStripMenuItem MenuOtherOpenResourcesFolder;
-        private ToolStripMenuItem MenuOtherOpenResourcesDefFolder;
-        private ToolStripMenuItem MenuOtherOpenCurrentDefsFolder;
-        private ToolStripMenuItem MenuEditor;
-        private ToolStripMenuItem MenuEditorDef;
         private ToolStripMenuItem CellViewInternalType;
         private DataGridViewTextBoxColumn paramcelldisplaytype;
         private DataGridViewTextBoxColumn paramcellinternaltype;
@@ -1030,5 +1112,29 @@
         private DataGridViewTextBoxColumn paramcellsortid;
         private DataGridViewTextBoxColumn paramcellarraylength;
         private DataGridViewTextBoxColumn paramcellbitsize;
+        private ToolStripMenuItem ParamViewParamFormatVersion;
+        private ToolStripMenuItem ParamViewParamDataVersion;
+        private ToolStripMenuItem ParamViewDefFormatVersion;
+        private ToolStripMenuItem ParamViewDefDataVersion;
+        private DataGridViewTextBoxColumn paramfilename;
+        private DataGridViewTextBoxColumn paramtype;
+        private DataGridViewTextBoxColumn paramformatversion;
+        private DataGridViewTextBoxColumn paramdefformatversion;
+        private DataGridViewTextBoxColumn paramdataversion;
+        private DataGridViewTextBoxColumn paramdefdataversion;
+        private DataGridViewTextBoxColumn paramgame;
+        private ScrollingListBox LogListBox;
+        private SplitContainer MainWindowSplitContainer;
+        private ToolStripMenuItem MenuFileReload;
+        private ToolStripMenuItem MenuFileReloadAll;
+        private ContextMenuStrip LogContextMenu;
+        private ToolStripMenuItem LogContextMenuClear;
+        private ToolStripMenuItem ParamContextMenuSave;
+        private ToolStripMenuItem ParamContextMenuSaveAll;
+        private ToolStripMenuItem ParamContextMenuClose;
+        private ToolStripMenuItem ParamContextMenuCloseAll;
+        private ToolStripMenuItem ParamContextMenuReload;
+        private ToolStripMenuItem ParamContextMenuReloadAll;
+        private ToolStripMenuItem LogContextMenuCopy;
     }
 }
