@@ -782,6 +782,8 @@ namespace ParamExporter
                 if (rows.Count == ushort.MaxValue)
                 {
                     UpdateStatus($"Row limit of {ushort.MaxValue} reached, stopped duplicating.");
+
+                    RefreshRows();
                     UpdateStatus($"Duplicated {count} rows.");
                     return;
                 }
