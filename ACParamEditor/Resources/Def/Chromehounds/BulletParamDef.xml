@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>BULLET_PARAM_ST</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="u8 弾丸種別 = 1">
+      <DisplayName>弾丸種別</DisplayName>
+      <Enum>BULLET_AMMO_TYPE</Enum>
+      <Description>弾制御タイプ</Description>
+      <EditFlags>Lock</EditFlags>
+      <Minimum>1</Minimum>
+      <Maximum>50</Maximum>
+    </Field>
+    <Field Def="u8 弾出現数 = 1">
+      <DisplayName>弾出現数</DisplayName>
+      <Description>1回の消費で同時に出る弾の数</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>1</Minimum>
+      <Maximum>32</Maximum>
+    </Field>
+    <Field Def="dummy8 dummmy_1[2]">
+      <DisplayName />
+    </Field>
+    <Field Def="f32 ﾗﾝﾀﾞﾑ角度X(deg)">
+      <DisplayName>ﾗﾝﾀﾞﾑ角度X(deg)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>180</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="f32 ﾗﾝﾀﾞﾑ角度Y(deg)">
+      <DisplayName>ﾗﾝﾀﾞﾑ角度Y(deg)</DisplayName>
+      <Minimum>0</Minimum>
+      <Maximum>180</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <Field Def="dummy8 dummmy_2[12]">
+      <DisplayName />
+    </Field>
+    <Field Def="u16 SFXID">
+      <DisplayName>SFXID</DisplayName>
+      <Description>弾の見た目SFX</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>1999</Maximum>
+    </Field>
+    <Field Def="u16 着弾ｴﾌｪｸﾄID">
+      <DisplayName>着弾ｴﾌｪｸﾄID</DisplayName>
+      <Description>着弾ｴﾌｪｸﾄパラメータシートのIDを設定</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u16 爆発ID = 1">
+      <DisplayName>爆発ID</DisplayName>
+      <Description>爆発パラメータシートのIDを設定</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>1</Minimum>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u16 寿命SFXID">
+      <DisplayName>寿命SFXID</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Maximum>1999</Maximum>
+    </Field>
+    <Field Def="u16 炎ID">
+      <DisplayName>炎ID</DisplayName>
+      <Description>炎パラメータシートのIDを設定</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="u16 地雷モデルID">
+      <DisplayName>地雷モデルID</DisplayName>
+      <Description>マインセンサーで使うため、SFXで使っているモデルIDを指定</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>9999</Maximum>
+    </Field>
+    <Field Def="dummy8 dummmy_3[12]">
+      <DisplayName />
+    </Field>
+    <Field Def="f32 反動">
+      <DisplayName>反動</DisplayName>
+      <Description>発射時の反動</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 ﾀﾞﾒｰｼﾞ">
+      <DisplayName>ﾀﾞﾒｰｼﾞ</DisplayName>
+      <Description>ダメージ</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="u8 ﾀﾞﾒｰｼﾞ属性">
+      <DisplayName>ﾀﾞﾒｰｼﾞ属性</DisplayName>
+      <Enum>BULLET_DAMAGE_ATTR</Enum>
+      <Description>ダメージ属性</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="dummy8 dummmy_4[3]">
+      <DisplayName />
+    </Field>
+    <Field Def="f32 ﾀﾞﾒｰｼﾞ減衰開始">
+      <DisplayName>ﾀﾞﾒｰｼﾞ減衰開始</DisplayName>
+      <Description>ダメージ減衰開始する距離</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 ﾀﾞﾒｰｼﾞ減衰率">
+      <DisplayName>ﾀﾞﾒｰｼﾞ減衰率</DisplayName>
+      <Description>ダメージ減衰開始からの減衰割合</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 ﾀﾞﾒｰｼﾞ反動">
+      <DisplayName>ﾀﾞﾒｰｼﾞ反動</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 ﾀﾞﾒｰｼﾞ熱量">
+      <DisplayName>ﾀﾞﾒｰｼﾞ熱量</DisplayName>
+      <Description>爆風の持つ熱量</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 爆発遅延(s)">
+      <DisplayName>爆発遅延(s)</DisplayName>
+      <Description>設置後、弾が爆発するまで</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>900</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 重力(m/s^2)">
+      <DisplayName>重力(m/s^2)</DisplayName>
+      <Description>弾の受ける重力</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 射程距離(m)">
+      <DisplayName>射程距離(m)</DisplayName>
+      <Description>弾が重力を受け始める距離</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 射程後重力(m/s^2)">
+      <DisplayName>射程後重力(m/s^2)</DisplayName>
+      <Description>射程距離後の重力</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 初速(m/s)">
+      <DisplayName>初速(m/s)</DisplayName>
+      <Description>弾の初速</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 最低速度(m/s)">
+      <DisplayName>最低速度(m/s)</DisplayName>
+      <Description>弾の最低速度</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 最高速度(m/s)">
+      <DisplayName>最高速度(m/s)</DisplayName>
+      <Description>弾の最高速度</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 加速度(m/s^2)">
+      <DisplayName>加速度(m/s^2)</DisplayName>
+      <Description>推進方向への加速度</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>-9999</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 加速開始時間(s)">
+      <DisplayName>加速開始時間(s)</DisplayName>
+      <Description>発射後、何秒で加速を開始するか</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 誘導開始距離(m)">
+      <DisplayName>誘導開始距離(m)</DisplayName>
+      <Description>目標から何mの地点から誘導を開始するか？</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 追尾性能(deg/s)">
+      <DisplayName>追尾性能(deg/s)</DisplayName>
+      <Description>1秒あたり、何[deg]角度を補正して敵に向かうか？</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 寿命(s)">
+      <DisplayName>寿命(s)</DisplayName>
+      <Description>生存時間</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>9999</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="u8 追尾認識範囲(deg) = 180">
+      <DisplayName>追尾認識範囲(deg)</DisplayName>
+      <Description>ホーミングミサイルが対象を認識する画角</Description>
+      <EditFlags>None</EditFlags>
+      <Maximum>180</Maximum>
+    </Field>
+    <Field Def="s8 だみー">
+      <DisplayName>だみー</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>0</Maximum>
+      <Increment>0</Increment>
+    </Field>
+    <Field Def="s8 だみー">
+      <DisplayName>だみー</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>0</Maximum>
+      <Increment>0</Increment>
+    </Field>
+    <Field Def="s8 だみー">
+      <DisplayName>だみー</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>0</Maximum>
+      <Increment>0</Increment>
+    </Field>
+    <Field Def="dummy8 dummmy_5[1]">
+      <DisplayName />
+    </Field>
+    <Field Def="dummy8 dummmy_6[1]">
+      <DisplayName />
+    </Field>
+    <Field Def="dummy8 dummmy_7[1]">
+      <DisplayName />
+    </Field>
+    <Field Def="dummy8 dummmy_8[1]">
+      <DisplayName />
+    </Field>
+  </Fields>
+</PARAMDEF>

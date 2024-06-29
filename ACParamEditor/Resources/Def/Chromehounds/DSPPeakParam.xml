@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>DSPPEAKPARAM</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="f32 CutoffFrequency = 10000">
+      <DisplayName>CutoffFrequency</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>1</Minimum>
+      <Maximum>24000</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 BandwidthFrequency = 10000">
+      <DisplayName>BandwidthFrequency</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>1</Minimum>
+      <Maximum>24000</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <Field Def="f32 Gain">
+      <DisplayName>Gain</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>-42</Minimum>
+      <Maximum>12</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+  </Fields>
+</PARAMDEF>

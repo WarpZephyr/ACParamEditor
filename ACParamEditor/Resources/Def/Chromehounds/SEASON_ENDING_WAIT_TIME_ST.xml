@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="0">
+  <ParamType>SEASON_ENDING_WAIT_TIME_ST</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <Version>0</Version>
+  <Fields>
+    <Field Def="s32 minutes" />
+  </Fields>
+</PARAMDEF>

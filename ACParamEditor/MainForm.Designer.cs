@@ -2,7 +2,7 @@
 
 namespace ParamExporter
 {
-    partial class MainWindow
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -39,6 +39,7 @@ namespace ParamExporter
             MainFormMenu = new MenuStrip();
             MenuFile = new ToolStripMenuItem();
             MenuFileOpen = new ToolStripMenuItem();
+            MenuFileOpenFromList = new ToolStripMenuItem();
             MenuFileSave = new ToolStripMenuItem();
             MenuFileSaveAll = new ToolStripMenuItem();
             MenuFileClose = new ToolStripMenuItem();
@@ -153,7 +154,7 @@ namespace ParamExporter
             // MenuFile
             // 
             MenuFile.BackColor = Color.FromArgb(65, 65, 65);
-            MenuFile.DropDownItems.AddRange(new ToolStripItem[] { MenuFileOpen, MenuFileSave, MenuFileSaveAll, MenuFileClose, MenuFileCloseAll, MenuFileReload, MenuFileReloadAll });
+            MenuFile.DropDownItems.AddRange(new ToolStripItem[] { MenuFileOpen, MenuFileOpenFromList, MenuFileSave, MenuFileSaveAll, MenuFileClose, MenuFileCloseAll, MenuFileReload, MenuFileReloadAll });
             MenuFile.ForeColor = SystemColors.Control;
             MenuFile.Name = "MenuFile";
             MenuFile.Size = new Size(37, 23);
@@ -164,17 +165,27 @@ namespace ParamExporter
             MenuFileOpen.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileOpen.ForeColor = SystemColors.Control;
             MenuFileOpen.Name = "MenuFileOpen";
-            MenuFileOpen.Size = new Size(127, 22);
+            MenuFileOpen.Size = new Size(180, 22);
             MenuFileOpen.Text = "Open";
             MenuFileOpen.ToolTipText = "Open more params.";
             MenuFileOpen.Click += MenuFileOpen_Click;
+            // 
+            // MenuFileOpenFromList
+            // 
+            MenuFileOpenFromList.BackColor = Color.FromArgb(55, 55, 55);
+            MenuFileOpenFromList.ForeColor = SystemColors.Control;
+            MenuFileOpenFromList.Name = "MenuFileOpenFromList";
+            MenuFileOpenFromList.Size = new Size(180, 22);
+            MenuFileOpenFromList.Text = "Open From List";
+            MenuFileOpenFromList.ToolTipText = "Open more params.";
+            MenuFileOpenFromList.Click += MenuFileOpenFromList_Click;
             // 
             // MenuFileSave
             // 
             MenuFileSave.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileSave.ForeColor = SystemColors.Control;
             MenuFileSave.Name = "MenuFileSave";
-            MenuFileSave.Size = new Size(127, 22);
+            MenuFileSave.Size = new Size(180, 22);
             MenuFileSave.Text = "Save";
             MenuFileSave.ToolTipText = "Save the currently selected params.";
             MenuFileSave.Click += MenuFileSave_Click;
@@ -184,7 +195,7 @@ namespace ParamExporter
             MenuFileSaveAll.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileSaveAll.ForeColor = SystemColors.Control;
             MenuFileSaveAll.Name = "MenuFileSaveAll";
-            MenuFileSaveAll.Size = new Size(127, 22);
+            MenuFileSaveAll.Size = new Size(180, 22);
             MenuFileSaveAll.Text = "Save All";
             MenuFileSaveAll.ToolTipText = "Save all params.";
             MenuFileSaveAll.Click += MenuFileSaveAll_Click;
@@ -194,7 +205,7 @@ namespace ParamExporter
             MenuFileClose.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileClose.ForeColor = SystemColors.Control;
             MenuFileClose.Name = "MenuFileClose";
-            MenuFileClose.Size = new Size(127, 22);
+            MenuFileClose.Size = new Size(180, 22);
             MenuFileClose.Text = "Close";
             MenuFileClose.ToolTipText = "Close the currently selected params.";
             MenuFileClose.Click += MenuFileClose_Click;
@@ -204,7 +215,7 @@ namespace ParamExporter
             MenuFileCloseAll.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileCloseAll.ForeColor = SystemColors.Control;
             MenuFileCloseAll.Name = "MenuFileCloseAll";
-            MenuFileCloseAll.Size = new Size(127, 22);
+            MenuFileCloseAll.Size = new Size(180, 22);
             MenuFileCloseAll.Text = "Close All";
             MenuFileCloseAll.ToolTipText = "Close all params.";
             MenuFileCloseAll.Click += MenuFileCloseAll_Click;
@@ -214,7 +225,7 @@ namespace ParamExporter
             MenuFileReload.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileReload.ForeColor = SystemColors.Control;
             MenuFileReload.Name = "MenuFileReload";
-            MenuFileReload.Size = new Size(127, 22);
+            MenuFileReload.Size = new Size(180, 22);
             MenuFileReload.Text = "Reload";
             MenuFileReload.ToolTipText = "Reload the currently selected params.";
             MenuFileReload.Click += MenuFileReload_Click;
@@ -224,7 +235,7 @@ namespace ParamExporter
             MenuFileReloadAll.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileReloadAll.ForeColor = SystemColors.Control;
             MenuFileReloadAll.Name = "MenuFileReloadAll";
-            MenuFileReloadAll.Size = new Size(127, 22);
+            MenuFileReloadAll.Size = new Size(180, 22);
             MenuFileReloadAll.Text = "Reload All";
             MenuFileReloadAll.ToolTipText = "Reload all params.";
             MenuFileReloadAll.Click += MenuFileReloadAll_Click;
@@ -310,6 +321,7 @@ namespace ParamExporter
             ParamDataGridView.Size = new Size(395, 600);
             ParamDataGridView.TabIndex = 0;
             ParamDataGridView.SelectionChanged += ParamDataGridView_SelectionChanged;
+            ParamDataGridView.KeyDown += ParamDataGridView_KeyDown;
             // 
             // paramfilename
             // 
@@ -557,6 +569,7 @@ namespace ParamExporter
             RowDataGridView.TabIndex = 1;
             RowDataGridView.CellValidating += RowDataGridView_CellValidating;
             RowDataGridView.SelectionChanged += RowDataGridView_SelectionChanged;
+            RowDataGridView.KeyDown += RowDataGridView_KeyDown;
             // 
             // paramrowid
             // 
@@ -1014,7 +1027,7 @@ namespace ParamExporter
             MainWindowSplitContainer.SplitterDistance = 600;
             MainWindowSplitContainer.TabIndex = 3;
             // 
-            // MainWindow
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -1024,7 +1037,7 @@ namespace ParamExporter
             Controls.Add(MainFormMenu);
             ForeColor = SystemColors.Control;
             MainMenuStrip = MainFormMenu;
-            Name = "MainWindow";
+            Name = "MainForm";
             Text = "Armored Core Param Editor";
             MainFormMenu.ResumeLayout(false);
             MainFormMenu.PerformLayout();
@@ -1136,5 +1149,6 @@ namespace ParamExporter
         private ToolStripMenuItem ParamContextMenuReload;
         private ToolStripMenuItem ParamContextMenuReloadAll;
         private ToolStripMenuItem LogContextMenuCopy;
+        private ToolStripMenuItem MenuFileOpenFromList;
     }
 }

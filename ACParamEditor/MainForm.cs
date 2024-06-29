@@ -1,15 +1,15 @@
+#if DEBUG
+#define DEBUG_CRASH
+#endif
+
 using CustomForms;
 using SoulsFormats;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Windows.Forms;
 using Utilities;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace ParamExporter
 {
-    public partial class MainWindow : Form
+    public partial class MainForm : Form
     {
         /// <summary>
         /// The path to the def resource folder.
@@ -56,7 +56,7 @@ namespace ParamExporter
         /// </summary>
         private int MaxLogEntries { get; set; } = 1000;
 
-        public MainWindow()
+        public MainForm()
         {
             InitializeComponent();
 
@@ -79,7 +79,7 @@ namespace ParamExporter
             LogContextMenu.ShowImageMargin = false;
 
             // Initialization
-            RerfeshColumnVisibility();
+            RefreshColumnVisibility();
             RefreshDefGames();
 
             // Set combobox selected item.
@@ -119,6 +119,53 @@ namespace ParamExporter
             }
 
             LoadParamsFast(paths, sender, e);
+        }
+
+        private void MenuFileOpenFromList_Click(object sender, EventArgs e)
+        {
+            UpdateStatus("Opening params from list.");
+            string? listPath = PathUtil.GetFilePath("C:\\Users", "Open Param List", "Text (*.txt)|*.txt|All Files (*)|*");
+            if (string.IsNullOrWhiteSpace(listPath))
+            {
+                UpdateStatus("Canceling opening param list.");
+                return;
+            }
+
+            string[] list = File.ReadAllLines(listPath);
+            if (list.Length < 1)
+            {
+                UpdateStatus("Nothing in list, canceling opening param list.");
+                return;
+            }
+
+            if (!list[0].Contains(Path.VolumeSeparatorChar))
+            {
+                string rootPath = FormUtil.ShowInputDialog("Please input the root path of the list.", "Input Root Path");
+                if (string.IsNullOrWhiteSpace(rootPath))
+                {
+                    UpdateStatus("Root path not valid, canceling opening param list.");
+                    return;
+                }
+                else if (!Directory.Exists(rootPath))
+                {
+                    UpdateStatus("Root path does not exist, canceling opening param list.");
+                    return;
+                }
+
+                if (rootPath.EndsWith(Path.DirectorySeparatorChar))
+                    rootPath = rootPath[..(rootPath.Length - 1)];
+
+                for (int i = 0; i < list.Length; i++)
+                {
+                    string corrected = list[i].Replace('\\', Path.DirectorySeparatorChar).Replace('/', Path.DirectorySeparatorChar);
+                    if (!corrected.StartsWith(Path.DirectorySeparatorChar))
+                        corrected = Path.DirectorySeparatorChar + corrected;
+
+                    list[i] = rootPath + corrected;
+                }
+            }
+
+            LoadParamsFast(list, sender, e);
         }
 
         private void MenuFileSave_Click(object sender, EventArgs e)
@@ -638,18 +685,23 @@ namespace ParamExporter
 
             var currentparam = (ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem;
 
-            var found = new List<int>();
+            var removalList = new List<PARAM.Row>();
             foreach (DataGridViewCell cell in RowDataGridView.SelectedCells)
             {
-                if (!found.Contains(cell.RowIndex))
+                var row = (PARAM.Row)RowDataGridView.Rows[cell.RowIndex].DataBoundItem;
+                if (!removalList.Contains(row))
                 {
-                    currentparam.Param.Rows.Remove((PARAM.Row)RowDataGridView.Rows[cell.RowIndex].DataBoundItem);
-                    found.Add(cell.RowIndex);
+                    removalList.Add(row);
                 }
             }
 
+            foreach (var row in removalList)
+            {
+                currentparam.Param.Rows.Remove(row);
+            }
+
             RefreshRows();
-            UpdateStatus($"Deleted {found.Count} rows.");
+            UpdateStatus($"Deleted {removalList.Count} rows.");
         }
 
         private void RowCopy_Click(object sender, EventArgs e)
@@ -745,6 +797,56 @@ namespace ParamExporter
 
         #endregion
 
+        #region Form Key Events
+
+        private void ParamDataGridView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control)
+            {
+                if (e.Shift)
+                {
+                    if (e.KeyCode == Keys.S) MenuFileSaveAll_Click(sender, e);
+                    else if (e.KeyCode == Keys.D) MenuFileCloseAll_Click(sender, e);
+                    else if (e.KeyCode == Keys.R) MenuFileReloadAll_Click(sender, e);
+                }
+                else
+                {
+                    if (e.KeyCode == Keys.S) MenuFileSave_Click(sender, e);
+                    else if (e.KeyCode == Keys.D) MenuFileClose_Click(sender, e);
+                    else if (e.KeyCode == Keys.R) MenuFileReload_Click(sender, e);
+                    else if (e.KeyCode == Keys.O) MenuFileOpen_Click(sender, e);
+                }
+            }
+            else
+            {
+
+            }
+        }
+
+        private void RowDataGridView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control)
+            {
+                if (e.Shift)
+                {
+
+                }
+                else
+                {
+                    if (e.KeyCode == Keys.N) RowNew_Click(sender, e);
+                    else if (e.KeyCode == Keys.C) RowCopy_Click(sender, e);
+                    else if (e.KeyCode == Keys.V) RowPaste_Click(sender, e);
+                    else if (e.KeyCode == Keys.D) RowDuplicate_Click(sender, e);
+                }
+            }
+            else
+            {
+                if (e.KeyCode == Keys.Delete) RowDelete_Click(sender, e);
+            }
+        }
+
+        #endregion
+
         #region Refresh
 
         private void RefreshAll()
@@ -752,7 +854,7 @@ namespace ParamExporter
             RefreshParamOpenAccess();
             RefreshDataGridViews();
             RefreshRows();
-            RerfeshColumnVisibility();
+            RefreshColumnVisibility();
             RefreshDefGames();
             UpdateStatus("Refreshed form.");
         }
@@ -800,7 +902,7 @@ namespace ParamExporter
             RowDataGridView.Columns["paramrowname"].DataPropertyName = "Name";
         }
 
-        private void RerfeshColumnVisibility()
+        private void RefreshColumnVisibility()
         {
             ParamDataGridView.Columns["paramfilename"].Visible = ParamViewName.Checked;
             ParamDataGridView.Columns["paramtype"].Visible = ParamViewType.Checked;
@@ -864,7 +966,6 @@ namespace ParamExporter
 
             LogListBox.Items.Add(text);
             LogListBox.ScrollToBottom();
-
         }
 
         #endregion
@@ -882,17 +983,21 @@ namespace ParamExporter
                 return null;
             if (!File.Exists(path))
                 return null;
+#if !DEBUG_CRASH
             try
             {
+#endif
                 if (path.EndsWith(".xml"))
-                    return PARAMDEF.XmlDeserialize(path);
+                    return PARAMDEF.XmlDeserialize(path, false, false);
                 else
                     return PARAMDEF.Read(path);
+#if !DEBUG_CRASH
             }
             catch
             {
                 return null;
             }
+#endif
         }
 
         private void LoadDefs()
@@ -920,7 +1025,7 @@ namespace ParamExporter
 
             int total = paths.Length;
             int failed = 0;
-            int skipped = 1;
+            int skipped = 0;
             foreach (string path in paths)
             {
                 if (Path.GetFileName(path) == TypelessMappingName)
@@ -1003,6 +1108,7 @@ namespace ParamExporter
             if (paths == null || paths.Count == 0)
                 return;
 
+            int success = 0;
             int skipped = 0;
             int failed = 0;
             bool skip = false;
@@ -1030,8 +1136,10 @@ namespace ParamExporter
                     }
                 }
 
+#if !DEBUG_CRASH
                 try
                 {
+#endif
                     var paraminfo = ReadParamInfo(path);
                     if (paraminfo.AppliedDef == false)
                     {
@@ -1040,7 +1148,9 @@ namespace ParamExporter
                         continue;
                     }
 
+                    success++;
                     Params.Add(paraminfo);
+#if !DEBUG_CRASH
                 }
                 catch
                 {
@@ -1048,9 +1158,10 @@ namespace ParamExporter
                     failed++;
                     continue;
                 }
+#endif
             }
 
-            UpdateStatus($"Loaded {paths.Count - failed - skipped} params, skipped {skipped} files, and failed to read {failed} files out of {paths.Count} total files.");
+            UpdateStatus($"Loaded {success} params, skipped {skipped} files, and failed to read {failed} files out of {paths.Count} total files.");
         }
 
         /// <summary>
@@ -1113,6 +1224,5 @@ namespace ParamExporter
         }
 
         #endregion
-
     }
 }
