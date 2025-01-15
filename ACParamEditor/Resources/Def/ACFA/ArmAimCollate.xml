@@ -6,16 +6,16 @@
   <Unicode>False</Unicode>
   <FormatVersion>101</FormatVersion>
   <Fields>
-    <Field Def="fixstr Arm Type[16]">
+    <Field Def="fixstr ArmType[16]">
       <DisplayName>腕構えタイプ</DisplayName>
     </Field>
-    <Field Def="fixstr Weapon Stance Type[16]">
+    <Field Def="fixstr WeaponStanceType[16]">
       <DisplayName>武器構えタイプ</DisplayName>
     </Field>
-    <Field Def="u16 Stance Data ID = 0">
+    <Field Def="u16 StanceDataID = 0">
       <DisplayName>構えデータID</DisplayName>
     </Field>
-    <Field Def="dummy8 reserve[2]">
+    <Field Def="dummy8 reserved[2]">
       <DisplayName>予約</DisplayName>
       <EditFlags>Wrap</EditFlags>
     </Field>

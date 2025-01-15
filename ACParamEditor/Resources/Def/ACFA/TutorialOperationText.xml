@@ -6,19 +6,19 @@
   <Unicode>False</Unicode>
   <FormatVersion>101</FormatVersion>
   <Fields>
-    <Field Def="u32 Operation description message ID = 0">
+    <Field Def="u32 DescMessageID = 0">
       <DisplayName>操作説明メッセージID</DisplayName>
       <Maximum>9000000</Maximum>
     </Field>
-    <Field Def="u8 key font 1 = 0">
+    <Field Def="u8 KeyFont1 = 0">
       <DisplayName>キーフォント１</DisplayName>
       <Enum>TUTORIAL_KEY_ICON</Enum>
     </Field>
-    <Field Def="u8 key font 2 = 0">
+    <Field Def="u8 KeyFont2 = 0">
       <DisplayName>キーフォント２</DisplayName>
       <Enum>TUTORIAL_KEY_ICON</Enum>
     </Field>
-    <Field Def="fixstr reserve[2]">
+    <Field Def="fixstr reserved[2]">
       <DisplayName>予約</DisplayName>
       <EditFlags>None</EditFlags>
     </Field>

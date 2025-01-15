@@ -6,40 +6,40 @@
   <Unicode>False</Unicode>
   <FormatVersion>101</FormatVersion>
   <Fields>
-    <Field Def="s32 Program = 10">
+    <Field Def="s32 BehaviorID = 10">
       <DisplayName>プログラム</DisplayName>
       <Enum>BULLET_BEHAVIOR_ID</Enum>
       <EditFlags>Wrap, Lock</EditFlags>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="u8 Can be shot down = 0">
+    <Field Def="u8 bShootable = 0">
       <DisplayName>撃墜可</DisplayName>
       <Enum>ON_OFF</Enum>
       <Description>この弾が「迎撃可」の弾によって撃ち落されることができる</Description>
       <EditFlags>None</EditFlags>
       <Maximum>1</Maximum>
     </Field>
-    <Field Def="u8 Can go underwater = 0">
+    <Field Def="u8 bCanGoWater = 0">
       <DisplayName>水中可</DisplayName>
       <Enum>ON_OFF</Enum>
       <EditFlags>None</EditFlags>
       <Maximum>1</Maximum>
     </Field>
-    <Field Def="u8 Can penetrate wire mesh = 1">
+    <Field Def="u8 bWireThrough = 1">
       <DisplayName>金網貫通</DisplayName>
       <Enum>ON_OFF</Enum>
       <EditFlags>None</EditFlags>
       <Maximum>1</Maximum>
     </Field>
-    <Field Def="u8 Can intercept = 0">
+    <Field Def="u8 bInterceptable = 0">
       <DisplayName>迎撃可</DisplayName>
       <Enum>ON_OFF</Enum>
       <Description>この弾が「撃墜可」の弾を撃ち落すことができる</Description>
       <EditFlags>None</EditFlags>
       <Maximum>1</Maximum>
     </Field>
-    <Field Def="f32 Hit Radius">
+    <Field Def="f32 HitRadius">
       <DisplayName>当たり半径</DisplayName>
       <Description>コジマ汚染はこの値を無視します</Description>
       <EditFlags>None</EditFlags>
@@ -47,7 +47,7 @@
       <Maximum>99</Maximum>
       <Increment>0.1</Increment>
     </Field>
-    <Field Def="f32 Proximity Fuse Distance">
+    <Field Def="f32 ProximityFuseRange">
       <DisplayName>近接信管距離</DisplayName>
       <Description>コジマ汚染はこの値を無視します</Description>
       <EditFlags>None</EditFlags>
@@ -55,56 +55,56 @@
       <Maximum>9999</Maximum>
       <Increment>1</Increment>
     </Field>
-    <Field Def="f32 Attenuation: Power">
+    <Field Def="f32 DecayPower">
       <DisplayName>減衰：威力</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>1</Maximum>
       <Increment>0.05</Increment>
     </Field>
-    <Field Def="f32 Attenuation: Recoil">
+    <Field Def="f32 DecayRecoil">
       <DisplayName>減衰：反動</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>1</Maximum>
       <Increment>0.05</Increment>
     </Field>
-    <Field Def="f32 Attenuation: Diffusion">
+    <Field Def="f32 DecayDiffusion">
       <DisplayName>減衰：拡散力</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>1</Maximum>
       <Increment>0.05</Increment>
     </Field>
-    <Field Def="f32 Attenuation: Penetration">
+    <Field Def="f32 DecayPenetration">
       <DisplayName>減衰：貫通力</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>1</Maximum>
       <Increment>0.05</Increment>
     </Field>
-    <Field Def="f32 Effect Duration = 300">
+    <Field Def="f32 EffectiveFrame = 300">
       <DisplayName>効果発生時間</DisplayName>
       <Minimum>-1</Minimum>
       <Maximum>9999</Maximum>
       <Increment>1</Increment>
     </Field>
-    <Field Def="f32 Initial Radius of Effect = 100">
+    <Field Def="f32 InitRadius = 100">
       <DisplayName>初期効果半径</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
       <Increment>10</Increment>
     </Field>
-    <Field Def="f32 Ending Radius of Effect = 150">
+    <Field Def="f32 MaxRadius = 150">
       <DisplayName>終了効果半径</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
       <Increment>10</Increment>
     </Field>
-    <Field Def="f32 Initial PA Diffusion Power (per second) = 1000">
+    <Field Def="f32 MaxDiffusion = 1000">
       <DisplayName>初期ＰＡ拡散力(/秒)</DisplayName>
       <EditFlags>None</EditFlags>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
       <Increment>10</Increment>
     </Field>
-    <Field Def="f32 Ending PA Diffusion Power (per second)">
+    <Field Def="f32 MinDiffusion">
       <DisplayName>終了ＰＡ拡散力(/秒)</DisplayName>
       <EditFlags>None</EditFlags>
       <Minimum>0</Minimum>

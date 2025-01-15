@@ -13,15 +13,15 @@
       <DisplayName>ダミー</DisplayName>
       <EditFlags>None</EditFlags>
     </Field>
-    <Field Def="fixstrW Pilot Name[31]">
+    <Field Def="fixstrW PilotName[31]">
       <DisplayName>搭乗者名</DisplayName>
     </Field>
-    <Field Def="fixstrW AC Name[32]">
+    <Field Def="fixstrW AcName[32]">
       <DisplayName>機体名</DisplayName>
     </Field>
     <Field Def="fixstr Affiliation[32]">
       <DisplayName>所属勢力</DisplayName>
-      <Description>Not currently in use. Leaving it in as specifications may change.</Description>
+      <Description>現在使用していない　仕様変更があるかもしれないそうなので残す</Description>
       <EditFlags>None</EditFlags>
     </Field>
   </Fields>

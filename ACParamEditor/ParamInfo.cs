@@ -240,61 +240,6 @@ namespace ParamExporter
             }
         }
 
-        /// <summary>
-        /// Read a param, set the path of the param, then attempt to apply defs from a list to the param.
-        /// </summary>
-        /// <param name="path">The path to a param to read.</param>
-        /// <param name="defs">A list of defs to apply to the param.</param>
-        public ParamInfo(string path, IList<PARAMDEF> defs)
-        {
-            Path = path;
-            Name = System.IO.Path.GetFileName(Path);
-            Param = PARAM.Read(Path);
-            Param.ApplyParamdefSomewhatCarefully(defs);
-        }
-
-        /// <summary>
-        /// Get the info for a param and attempt to apply defs from a list to the param.
-        /// </summary>
-        /// <param name="param">A param.</param>
-        /// <param name="defs">A list of defs to apply to the param.</param>
-        public ParamInfo(PARAM param, IList<PARAMDEF> defs)
-        {
-            Path = string.Empty;
-            Name = string.Empty;
-            Param = param;
-            Param.ApplyParamdefSomewhatCarefully(defs);
-        }
-
-        /// <summary>
-        /// Get the info for a param, set the path, then attempt to apply defs from a list to the param.
-        /// </summary>
-        /// <param name="param">A param.</param>
-        /// <param name="path">The path to the param.</param>
-        /// <param name="defs">A list of defs to apply to the param.</param>
-        public ParamInfo(PARAM param, string path, IList<PARAMDEF> defs)
-        {
-            Path = path;
-            Name = System.IO.Path.GetFileName(Path);
-            Param = param;
-            Param.ApplyParamdefSomewhatCarefully(defs);
-        }
-
-        /// <summary>
-        /// Get the info for a param, set the path and name, then attempt to apply defs from a list to the param.
-        /// </summary>
-        /// <param name="param">A param.</param>
-        /// <param name="name">The name of the param.</param>
-        /// <param name="path">The path to the param.</param>
-        /// <param name="defs">A list of defs to apply to the param.</param>
-        public ParamInfo(PARAM param, string path, string name, IList<PARAMDEF> defs)
-        {
-            Path = path;
-            Name = name;
-            Param = param;
-            Param.ApplyParamdefSomewhatCarefully(defs);
-        }
-
         #endregion
 
         #region Get

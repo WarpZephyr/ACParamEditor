@@ -6,60 +6,60 @@
   <Unicode>False</Unicode>
   <FormatVersion>101</FormatVersion>
   <Fields>
-    <Field Def="u32 Bullet ID = 0">
+    <Field Def="u32 BulletID = 0">
       <DisplayName>弾丸ID</DisplayName>
       <Maximum>8999999</Maximum>
     </Field>
-    <Field Def="s32 SFX = 0">
+    <Field Def="s32 SfxType = 0">
       <DisplayName>SFX</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>99999</Maximum>
     </Field>
-    <Field Def="u32 Landing Effect ID = 0">
+    <Field Def="u32 HitEffectID = 0">
       <DisplayName>着弾ID</DisplayName>
       <Maximum>8999999</Maximum>
     </Field>
-    <Field Def="u8 Damage: Type = 0">
+    <Field Def="u8 DamageType = 0">
       <DisplayName>ダメージ：タイプ</DisplayName>
       <Enum>DAMAGE_TYPE</Enum>
       <EditFlags>None</EditFlags>
       <Maximum>1</Maximum>
     </Field>
-    <Field Def="u8 Damage: Pierce = 0">
+    <Field Def="u8 DamagePierce = 0">
       <DisplayName>ダメージ：貫通</DisplayName>
       <EditFlags>None</EditFlags>
       <Maximum>1</Maximum>
     </Field>
-    <Field Def="u8 Damage: Ball Recoil = 0">
+    <Field Def="u8 DamageBallRecoil = 0">
       <DisplayName>ダメージ：球反動</DisplayName>
       <Enum>ON_OFF</Enum>
       <EditFlags>None</EditFlags>
       <Maximum>1</Maximum>
     </Field>
-    <Field Def="u8 Damage: Reduction Rate = 0">
+    <Field Def="u8 DamageReturnRate = 0">
       <DisplayName>ダメージ：還元率</DisplayName>
       <Description>発射した本人に、着弾後のダメージが入る割合</Description>
       <Maximum>100</Maximum>
     </Field>
-    <Field Def="f32 Damage: Power">
+    <Field Def="f32 DamagePower">
       <DisplayName>ダメージ：威力</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>999999</Maximum>
       <Increment>5</Increment>
     </Field>
-    <Field Def="f32 Damage: Recoil">
+    <Field Def="f32 DamageRecoil">
       <DisplayName>ダメージ：反動</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>999999</Maximum>
       <Increment>5</Increment>
     </Field>
-    <Field Def="f32 Damage: Diffusion">
+    <Field Def="f32 DamageDiffusion">
       <DisplayName>ダメージ：拡散力</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>999999</Maximum>
       <Increment>5</Increment>
     </Field>
-    <Field Def="f32 Damage: Penetration">
+    <Field Def="f32 DamagePenetration">
       <DisplayName>ダメージ：貫通力</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>999999</Maximum>

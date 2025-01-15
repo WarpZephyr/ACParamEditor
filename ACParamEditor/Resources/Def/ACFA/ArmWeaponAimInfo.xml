@@ -6,13 +6,13 @@
   <Unicode>False</Unicode>
   <FormatVersion>101</FormatVersion>
   <Fields>
-    <Field Def="fixstr Equipped Joint Control Name[16]">
+    <Field Def="fixstr EquipJointCtrlName[16]">
       <DisplayName>装備時関節制御名</DisplayName>
     </Field>
-    <Field Def="fixstr Release Time Contact Control Name[16]">
+    <Field Def="fixstr ReleaseJointCtrlName[16]">
       <DisplayName>解除時間接制御名</DisplayName>
     </Field>
-    <Field Def="f32 Animation Interpolation Condition When Canceling">
+    <Field Def="f32 ReleaseAnimInterpolation">
       <DisplayName>解除時アニメ補間具合</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>1</Maximum>

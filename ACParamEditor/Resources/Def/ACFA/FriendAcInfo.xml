@@ -9,30 +9,30 @@
     <Field Def="u8 ID = 0">
       <DisplayName>ID</DisplayName>
     </Field>
-    <Field Def="u8 Appearance Mission ID = 0">
+    <Field Def="u8 MissionID = 0">
       <DisplayName>登場ミッションID</DisplayName>
     </Field>
-    <Field Def="u8 AcDataInfo ID = 0">
+    <Field Def="u8 AcDataInfoID = 0">
       <DisplayName>ACのデータID</DisplayName>
     </Field>
-    <Field Def="u8 AcProfileInfo ID = 0">
+    <Field Def="u8 AcProfileInfoID = 0">
       <DisplayName>プロフィールデータID</DisplayName>
     </Field>
-    <Field Def="fixstr AI Script Name[15]">
+    <Field Def="fixstr AIScriptName[15]">
       <DisplayName>AIの名前</DisplayName>
     </Field>
-    <Field Def="u8 Compensation Amount (Percentage) = 0">
+    <Field Def="u8 CompensationPercent = 0">
       <DisplayName>報酬金額(割合)</DisplayName>
       <EditFlags>Wrap, Lock</EditFlags>
       <Maximum>100</Maximum>
     </Field>
-    <Field Def="u16 AcFightMessage ID = 0">
+    <Field Def="u16 AcFightMessageID = 0">
       <DisplayName>AC対戦メッセージID</DisplayName>
-      <Description>0 means disabled.</Description>
+      <Description>0は無効</Description>
       <EditFlags>Wrap, Lock</EditFlags>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="u16 CharaEventData ID = 0">
+    <Field Def="u16 CharaEventDataID = 0">
       <DisplayName>キャラスクリプトID</DisplayName>
       <Maximum>9999</Maximum>
     </Field>

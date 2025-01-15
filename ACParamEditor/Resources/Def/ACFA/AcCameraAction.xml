@@ -6,78 +6,78 @@
   <Unicode>False</Unicode>
   <FormatVersion>101</FormatVersion>
   <Fields>
-    <Field Def="s16 action ID = 0">
+    <Field Def="s16 ActionId = 0">
       <DisplayName>アクションID</DisplayName>
       <Enum>AC_ACTION_ID</Enum>
       <EditFlags>Lock</EditFlags>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="fixstr --reserve--[25]">
+    <Field Def="fixstr ActionReserved[25]">
       <DisplayName>--予約--</DisplayName>
     </Field>
-    <Field Def="u8 Valid Angle of view = 1">
+    <Field Def="u8 FovEnable = 1">
       <DisplayName>画角有効</DisplayName>
       <Enum>ON_OFF</Enum>
       <EditFlags>None</EditFlags>
       <Maximum>1</Maximum>
     </Field>
-    <Field Def="s16 Angle of view: Maximum angle of view = 82">
+    <Field Def="s16 FovMaxAngle = 82">
       <DisplayName>画角:最大画角</DisplayName>
       <Minimum>1</Minimum>
       <Maximum>180</Maximum>
     </Field>
-    <Field Def="s16 Angle of View: Increased Frame = 300">
+    <Field Def="s16 FovMaxFrame = 300">
       <DisplayName>画角:増加フレーム</DisplayName>
       <EditFlags>None</EditFlags>
       <Minimum>0</Minimum>
       <Maximum>2000</Maximum>
     </Field>
-    <Field Def="s16 Angle of view: Sustained frame (-1=∞) = -1">
+    <Field Def="s16 FovKeepFrame = -1">
       <DisplayName>画角:持続フレーム(-1=∞)</DisplayName>
       <EditFlags>None</EditFlags>
       <Minimum>-1</Minimum>
       <Maximum>2000</Maximum>
     </Field>
-    <Field Def="s16 Angle of view: Return frame = 30">
+    <Field Def="s16 FovFadeFrame = 30">
       <DisplayName>画角:戻りフレーム</DisplayName>
       <EditFlags>None</EditFlags>
       <Minimum>0</Minimum>
       <Maximum>2000</Maximum>
     </Field>
-    <Field Def="fixstr --reserve--[16]">
+    <Field Def="fixstr FovReserved[16]">
       <DisplayName>--予約--</DisplayName>
     </Field>
-    <Field Def="f32 sway: acceleration sway strength">
+    <Field Def="f32 ShakeAccelRate">
       <DisplayName>揺れ:加速揺れ強度</DisplayName>
       <EditFlags>None</EditFlags>
       <Minimum>0</Minimum>
       <Maximum>10</Maximum>
     </Field>
-    <Field Def="f32 Shake: Starting Acceleration">
+    <Field Def="f32 ShakeAccelMin">
       <DisplayName>揺れ:開始加速度</DisplayName>
       <EditFlags>None</EditFlags>
       <Minimum>0</Minimum>
       <Maximum>500</Maximum>
       <Increment>0.1</Increment>
     </Field>
-    <Field Def="f32 Shake: Maximum acceleration">
+    <Field Def="f32 ShakeAccelMax">
       <DisplayName>揺れ:最大加速度</DisplayName>
       <EditFlags>None</EditFlags>
       <Minimum>0</Minimum>
       <Maximum>500</Maximum>
       <Increment>0.1</Increment>
     </Field>
-    <Field Def="fixstr --reserve--[16]">
+    <Field Def="fixstr reserved2[16]">
       <DisplayName>--予約--</DisplayName>
     </Field>
-    <Field Def="f32 Blur: Blur Influence">
+    <Field Def="f32 BlurRate">
       <DisplayName>ブラー:ブラー影響度</DisplayName>
       <EditFlags>None</EditFlags>
       <Minimum>0</Minimum>
       <Maximum>10</Maximum>
     </Field>
-    <Field Def="fixstr --reserve--[32]">
+    <Field Def="fixstr reserved3[32]">
       <DisplayName>--予約--</DisplayName>
       <EditFlags>None</EditFlags>
     </Field>

@@ -6,52 +6,52 @@
   <Unicode>False</Unicode>
   <FormatVersion>101</FormatVersion>
   <Fields>
-    <Field Def="s16 sand = 0">
+    <Field Def="s16 Sand = 0">
       <DisplayName>砂</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="s16 soil = 0">
+    <Field Def="s16 Clay = 0">
       <DisplayName>土</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="s16 stone = 0">
+    <Field Def="s16 Stone = 0">
       <DisplayName>石</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="s16 snow = 0">
+    <Field Def="s16 Snow = 0">
       <DisplayName>雪</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="s16 ice = 0">
+    <Field Def="s16 Ice = 0">
       <DisplayName>氷</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="s16 concrete = 0">
+    <Field Def="s16 Concrete = 0">
       <DisplayName>ｺﾝｸﾘ</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="s16 iron = 0">
+    <Field Def="s16 Iron = 0">
       <DisplayName>鉄</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="s16 VR = 0">
+    <Field Def="s16 Virtual = 0">
       <DisplayName>ＶＲ</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="s16 other = 0">
+    <Field Def="s16 Default = 0">
       <DisplayName>その他</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="s16 ---- = 0">
+    <Field Def="s16 blank = 0">
       <DisplayName>----</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>

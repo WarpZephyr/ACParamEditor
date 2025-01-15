@@ -6,13 +6,13 @@
   <Unicode>False</Unicode>
   <FormatVersion>101</FormatVersion>
   <Fields>
-    <Field Def="s16 AcLightBooster = 0">
+    <Field Def="s16 AcBoosterLight = 0">
       <DisplayName>AcLightブースター</DisplayName>
       <Description>ブースターSFX</Description>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="s16 AcMainbooster = 0">
+    <Field Def="s16 AcMainBooster = 0">
       <DisplayName>Acメインブースタ</DisplayName>
       <Description>メインブースタ</Description>
       <Minimum>0</Minimum>
@@ -30,19 +30,19 @@
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="s16 AcQB　Normal = 0">
+    <Field Def="s16 AcQBNormal = 0">
       <DisplayName>AcQB　Normal</DisplayName>
       <Description>QB　Normal</Description>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="s16 AcQB　Charge・Shortage = 0">
+    <Field Def="s16 AcQBShortage = 0">
       <DisplayName>AcQB　Charge・Shortage</DisplayName>
       <Description>QB　Charge・Shortage</Description>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="s16 AcQB_Large = 0">
+    <Field Def="s16 AcQBLarge = 0">
       <DisplayName>AcQB_Large</DisplayName>
       <Description>QB_Large</Description>
       <Minimum>0</Minimum>
@@ -54,55 +54,55 @@
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="s16 Enemy main booster = 0">
+    <Field Def="s16 EnemyMainBooster = 0">
       <DisplayName>敵メインブースタ</DisplayName>
       <Description>敵メインブースタ</Description>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="s16 Enemy foot booster = 0">
+    <Field Def="s16 EnemyLegBooster = 0">
       <DisplayName>敵足ブースタ</DisplayName>
       <Description>敵足ブースタ</Description>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="s16 Player water splash (large) = 619">
+    <Field Def="s16 AcWaterSfxBig = 619">
       <DisplayName>自機水しぶき（大）</DisplayName>
       <Description>自機水しぶき（大）</Description>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="s16 Player water splash (small) = 620">
+    <Field Def="s16 AcWaterSfxSmall = 620">
       <DisplayName>自機水しぶき（小）</DisplayName>
       <Description>自機水しぶき（小）</Description>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="s16 Enemy splash (large) = 619">
+    <Field Def="s16 EnemyWaterSfxBig = 619">
       <DisplayName>敵水しぶき（大）</DisplayName>
       <Description>敵水しぶき（大）</Description>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="s16 Enemy splash (small) = 620">
+    <Field Def="s16 EnemyWaterSfxSmall = 620">
       <DisplayName>敵水しぶき（小）</DisplayName>
       <Description>敵水しぶき（小）</Description>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="s16 Bullet splash (large) = 0">
+    <Field Def="s16 BulletWaterSfxBig = 0">
       <DisplayName>弾丸水しぶき（大）</DisplayName>
       <Description>弾丸水しぶき（大）</Description>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="s16 Bullet splash (small) = 627">
+    <Field Def="s16 BulletWaterSfxSmall = 627">
       <DisplayName>弾丸しぶき（小）</DisplayName>
       <Description>弾丸しぶき（小）</Description>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="dummy8 ----[32]">
+    <Field Def="dummy8 reserved[32]">
       <DisplayName>----</DisplayName>
       <EditFlags>Wrap</EditFlags>
     </Field>

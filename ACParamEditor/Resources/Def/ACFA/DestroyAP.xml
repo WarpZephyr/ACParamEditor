@@ -10,15 +10,15 @@
       <DisplayName>ＡＰ</DisplayName>
       <Maximum>999999</Maximum>
     </Field>
-    <Field Def="u32 Minimum effective damage = 0">
+    <Field Def="u32 CutoffDamage = 0">
       <DisplayName>最低有効ダメージ</DisplayName>
       <Maximum>999999</Maximum>
     </Field>
-    <Field Def="u8 Collision defense = 0">
+    <Field Def="u8 CollisionDef = 0">
       <DisplayName>衝突防御力</DisplayName>
       <Maximum>100</Maximum>
     </Field>
-    <Field Def="fixstr reserve[23]">
+    <Field Def="fixstr reserved[23]">
       <DisplayName>予約</DisplayName>
       <EditFlags>None</EditFlags>
     </Field>

@@ -6,15 +6,15 @@
   <Unicode>False</Unicode>
   <FormatVersion>101</FormatVersion>
   <Fields>
-    <Field Def="fixstr MSB Layer Name[16]">
+    <Field Def="fixstr MSBLayerName[16]">
       <DisplayName>レイヤー名</DisplayName>
       <EditFlags>None</EditFlags>
     </Field>
-    <Field Def="fixstr Target Model Name[16]">
+    <Field Def="fixstr TargetModelName[16]">
       <DisplayName>ターゲットモデル名</DisplayName>
       <EditFlags>None</EditFlags>
     </Field>
-    <Field Def="s32 Number of Targets = 0">
+    <Field Def="s32 NumTargets = 0">
       <DisplayName>ターゲット数</DisplayName>
       <EditFlags>None</EditFlags>
       <Minimum>0</Minimum>

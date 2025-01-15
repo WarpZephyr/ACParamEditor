@@ -165,7 +165,7 @@ namespace ParamExporter
             MenuFileOpen.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileOpen.ForeColor = SystemColors.Control;
             MenuFileOpen.Name = "MenuFileOpen";
-            MenuFileOpen.Size = new Size(180, 22);
+            MenuFileOpen.Size = new Size(155, 22);
             MenuFileOpen.Text = "Open";
             MenuFileOpen.ToolTipText = "Open more params.";
             MenuFileOpen.Click += MenuFileOpen_Click;
@@ -175,7 +175,7 @@ namespace ParamExporter
             MenuFileOpenFromList.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileOpenFromList.ForeColor = SystemColors.Control;
             MenuFileOpenFromList.Name = "MenuFileOpenFromList";
-            MenuFileOpenFromList.Size = new Size(180, 22);
+            MenuFileOpenFromList.Size = new Size(155, 22);
             MenuFileOpenFromList.Text = "Open From List";
             MenuFileOpenFromList.ToolTipText = "Open more params.";
             MenuFileOpenFromList.Click += MenuFileOpenFromList_Click;
@@ -185,7 +185,7 @@ namespace ParamExporter
             MenuFileSave.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileSave.ForeColor = SystemColors.Control;
             MenuFileSave.Name = "MenuFileSave";
-            MenuFileSave.Size = new Size(180, 22);
+            MenuFileSave.Size = new Size(155, 22);
             MenuFileSave.Text = "Save";
             MenuFileSave.ToolTipText = "Save the currently selected params.";
             MenuFileSave.Click += MenuFileSave_Click;
@@ -195,7 +195,7 @@ namespace ParamExporter
             MenuFileSaveAll.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileSaveAll.ForeColor = SystemColors.Control;
             MenuFileSaveAll.Name = "MenuFileSaveAll";
-            MenuFileSaveAll.Size = new Size(180, 22);
+            MenuFileSaveAll.Size = new Size(155, 22);
             MenuFileSaveAll.Text = "Save All";
             MenuFileSaveAll.ToolTipText = "Save all params.";
             MenuFileSaveAll.Click += MenuFileSaveAll_Click;
@@ -205,7 +205,7 @@ namespace ParamExporter
             MenuFileClose.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileClose.ForeColor = SystemColors.Control;
             MenuFileClose.Name = "MenuFileClose";
-            MenuFileClose.Size = new Size(180, 22);
+            MenuFileClose.Size = new Size(155, 22);
             MenuFileClose.Text = "Close";
             MenuFileClose.ToolTipText = "Close the currently selected params.";
             MenuFileClose.Click += MenuFileClose_Click;
@@ -215,7 +215,7 @@ namespace ParamExporter
             MenuFileCloseAll.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileCloseAll.ForeColor = SystemColors.Control;
             MenuFileCloseAll.Name = "MenuFileCloseAll";
-            MenuFileCloseAll.Size = new Size(180, 22);
+            MenuFileCloseAll.Size = new Size(155, 22);
             MenuFileCloseAll.Text = "Close All";
             MenuFileCloseAll.ToolTipText = "Close all params.";
             MenuFileCloseAll.Click += MenuFileCloseAll_Click;
@@ -225,7 +225,7 @@ namespace ParamExporter
             MenuFileReload.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileReload.ForeColor = SystemColors.Control;
             MenuFileReload.Name = "MenuFileReload";
-            MenuFileReload.Size = new Size(180, 22);
+            MenuFileReload.Size = new Size(155, 22);
             MenuFileReload.Text = "Reload";
             MenuFileReload.ToolTipText = "Reload the currently selected params.";
             MenuFileReload.Click += MenuFileReload_Click;
@@ -235,7 +235,7 @@ namespace ParamExporter
             MenuFileReloadAll.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileReloadAll.ForeColor = SystemColors.Control;
             MenuFileReloadAll.Name = "MenuFileReloadAll";
-            MenuFileReloadAll.Size = new Size(180, 22);
+            MenuFileReloadAll.Size = new Size(155, 22);
             MenuFileReloadAll.Text = "Reload All";
             MenuFileReloadAll.ToolTipText = "Reload all params.";
             MenuFileReloadAll.Click += MenuFileReloadAll_Click;
@@ -318,6 +318,7 @@ namespace ParamExporter
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             ParamDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             ParamDataGridView.RowTemplate.Height = 25;
+            ParamDataGridView.ShowCellToolTips = false;
             ParamDataGridView.Size = new Size(395, 600);
             ParamDataGridView.TabIndex = 0;
             ParamDataGridView.SelectionChanged += ParamDataGridView_SelectionChanged;
@@ -565,6 +566,7 @@ namespace ParamExporter
             RowDataGridView.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             RowDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             RowDataGridView.RowTemplate.Height = 25;
+            RowDataGridView.ShowCellToolTips = false;
             RowDataGridView.Size = new Size(417, 600);
             RowDataGridView.TabIndex = 1;
             RowDataGridView.CellValidating += RowDataGridView_CellValidating;
@@ -701,6 +703,7 @@ namespace ParamExporter
             CellDataGridView.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             CellDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             CellDataGridView.RowTemplate.Height = 25;
+            CellDataGridView.ShowCellToolTips = false;
             CellDataGridView.Size = new Size(450, 600);
             CellDataGridView.TabIndex = 1;
             CellDataGridView.CellValidating += CellDataGridView_CellValidating;

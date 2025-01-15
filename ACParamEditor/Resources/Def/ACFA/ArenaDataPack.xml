@@ -9,38 +9,38 @@
     <Field Def="u8 ID = 0">
       <DisplayName>ID</DisplayName>
     </Field>
-    <Field Def="u8 reserve = 0">
+    <Field Def="u8 reserved0 = 0">
       <DisplayName>予約</DisplayName>
       <EditFlags>Wrap, Lock</EditFlags>
     </Field>
-    <Field Def="fixstrW DataPack ID[30]">
+    <Field Def="fixstrW DataPackID[30]">
       <DisplayName>データパックID</DisplayName>
     </Field>
-    <Field Def="fixstr Client name[32]">
+    <Field Def="fixstr ClientName[32]">
       <DisplayName>依頼者名</DisplayName>
     </Field>
-    <Field Def="fixstr reserve[2]">
+    <Field Def="fixstr reserved1[2]">
       <DisplayName>予約</DisplayName>
       <EditFlags>None</EditFlags>
     </Field>
-    <Field Def="u32 Reward Amount = 0">
+    <Field Def="u32 RewardAmount = 0">
       <DisplayName>報酬金額</DisplayName>
       <Maximum>999999</Maximum>
     </Field>
-    <Field Def="u8 reserve = 0">
+    <Field Def="u8 reserved2 = 0">
       <DisplayName>予約</DisplayName>
       <EditFlags>Wrap, Lock</EditFlags>
     </Field>
-    <Field Def="s8 Rewarded Part Category = 0">
+    <Field Def="s8 RewardPartCategory = 0">
       <DisplayName>報酬パーツ種別</DisplayName>
       <Enum>PARTS_CATEGORY</Enum>
       <Minimum>0</Minimum>
     </Field>
-    <Field Def="u16 Rewarded Part ID = 0">
+    <Field Def="u16 RewardPartID = 0">
       <DisplayName>報酬パーツID</DisplayName>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="fixstr reserve[24]">
+    <Field Def="fixstr reserved3[24]">
       <DisplayName>予約</DisplayName>
       <EditFlags>None</EditFlags>
     </Field>

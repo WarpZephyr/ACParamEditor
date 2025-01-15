@@ -6,13 +6,13 @@
   <Unicode>False</Unicode>
   <FormatVersion>101</FormatVersion>
   <Fields>
-    <Field Def="u32 Text ID1 = 0">
+    <Field Def="u32 TextID1 = 0">
       <DisplayName>テキストID１</DisplayName>
       <Description>テキストID１</Description>
       <EditFlags>None</EditFlags>
       <Maximum>9000000</Maximum>
     </Field>
-    <Field Def="u32 Text ID2 = 0">
+    <Field Def="u32 TextID2 = 0">
       <DisplayName>テキストID２</DisplayName>
       <Description>テキストID２</Description>
       <EditFlags>None</EditFlags>

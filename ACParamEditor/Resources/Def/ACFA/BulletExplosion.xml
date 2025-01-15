@@ -6,40 +6,40 @@
   <Unicode>False</Unicode>
   <FormatVersion>101</FormatVersion>
   <Fields>
-    <Field Def="s32 Program = 0">
+    <Field Def="s32 BehaviorID = 0">
       <DisplayName>プログラム</DisplayName>
       <Enum>BULLET_BEHAVIOR_ID</Enum>
       <EditFlags>Wrap, Lock</EditFlags>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
     </Field>
-    <Field Def="u8 Can be shot down = 0">
+    <Field Def="u8 bShootable = 0">
       <DisplayName>撃墜可</DisplayName>
       <Enum>ON_OFF</Enum>
       <Description>この弾が「迎撃可」の弾によって撃ち落されることができる</Description>
       <EditFlags>None</EditFlags>
       <Maximum>1</Maximum>
     </Field>
-    <Field Def="u8 Can go underwater = 0">
+    <Field Def="u8 bCanGoWater = 0">
       <DisplayName>水中可</DisplayName>
       <Enum>ON_OFF</Enum>
       <EditFlags>None</EditFlags>
       <Maximum>1</Maximum>
     </Field>
-    <Field Def="u8 Can penetrate wire mesh = 1">
+    <Field Def="u8 bWireThrough = 1">
       <DisplayName>金網貫通</DisplayName>
       <Enum>ON_OFF</Enum>
       <EditFlags>None</EditFlags>
       <Maximum>1</Maximum>
     </Field>
-    <Field Def="u8 Can intercept = 1">
+    <Field Def="u8 bInterceptable = 1">
       <DisplayName>迎撃可</DisplayName>
       <Enum>ON_OFF</Enum>
       <Description>この弾が「撃墜可」の弾を撃ち落すことができる</Description>
       <EditFlags>None</EditFlags>
       <Maximum>1</Maximum>
     </Field>
-    <Field Def="f32 Hit Radius">
+    <Field Def="f32 HitRadius">
       <DisplayName>当たり半径</DisplayName>
       <Description>球爆発はこの値を無視します</Description>
       <EditFlags>None</EditFlags>
@@ -47,73 +47,73 @@
       <Maximum>99</Maximum>
       <Increment>0.1</Increment>
     </Field>
-    <Field Def="f32 Proximity Fuse Distance">
+    <Field Def="f32 ProximityFuseRange">
       <DisplayName>近接信管距離</DisplayName>
       <EditFlags>None</EditFlags>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
       <Increment>1</Increment>
     </Field>
-    <Field Def="f32 Attenuation: Power">
+    <Field Def="f32 DecayPower">
       <DisplayName>減衰：威力</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>1</Maximum>
       <Increment>0.05</Increment>
     </Field>
-    <Field Def="f32 Attenuation: Recoil">
+    <Field Def="f32 DecayRecoil">
       <DisplayName>減衰：反動</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>1</Maximum>
       <Increment>0.05</Increment>
     </Field>
-    <Field Def="f32 Attenuation: Diffusion">
+    <Field Def="f32 DecayDiffusion">
       <DisplayName>減衰：拡散力</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>1</Maximum>
       <Increment>0.05</Increment>
     </Field>
-    <Field Def="f32 Attenuation: Penetration">
+    <Field Def="f32 DecayPenetration">
       <DisplayName>減衰：貫通力</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>1</Maximum>
       <Increment>0.05</Increment>
     </Field>
-    <Field Def="f32 Initial Blast Radius = 6">
+    <Field Def="f32 InitRadius = 6">
       <DisplayName>初期爆発半径</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>999</Maximum>
       <Increment>0.1</Increment>
     </Field>
-    <Field Def="f32 Max Blast Radius = 16">
+    <Field Def="f32 MaxRadius = 16">
       <DisplayName>最大爆発半径</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>999</Maximum>
       <Increment>0.1</Increment>
     </Field>
-    <Field Def="f32 Damage Time = 25">
+    <Field Def="f32 DamageFrame = 25">
       <DisplayName>ダメージ発生時間</DisplayName>
       <Minimum>-1</Minimum>
       <Maximum>999</Maximum>
       <Increment>1</Increment>
     </Field>
-    <Field Def="f32 Damage Reduction Per Frame = 0.5">
+    <Field Def="f32 DamageFrameDecayRate = 0.5">
       <DisplayName>フレーム単位のダメージ減衰係数</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>1</Maximum>
     </Field>
-    <Field Def="f32 Flash Area of Effect">
+    <Field Def="f32 FlashRange">
       <DisplayName>閃光 効果範囲</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>9999</Maximum>
       <Increment>1</Increment>
     </Field>
-    <Field Def="f32 Flash Effective Time (in seconds)">
+    <Field Def="f32 FlashTime">
       <DisplayName>閃光 効果時間(秒)</DisplayName>
       <Minimum>0</Minimum>
       <Maximum>999</Maximum>
       <Increment>0.1</Increment>
     </Field>
-    <Field Def="f32 Flash Effect">
+    <Field Def="f32 Brightness">
       <DisplayName>照明効果</DisplayName>
       <Description>( 0以外の値を )設定するとダメージが無効になります</Description>
       <Minimum>0</Minimum>
