@@ -114,7 +114,7 @@ namespace Utilities
                 Multiselect = true
             };
 
-            return filePathDialog.ShowDialog() == DialogResult.OK ? filePathDialog.FileNames.ToArray() : Array.Empty<string>();
+            return filePathDialog.ShowDialog() == DialogResult.OK ? filePathDialog.FileNames : Array.Empty<string>();
         }
 
         /// <summary>

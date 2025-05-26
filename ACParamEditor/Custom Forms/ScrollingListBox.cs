@@ -23,7 +23,7 @@ namespace CustomForms
         private const int _SB_BOTTOM = 7;
 
         /// <summary>
-        /// Scrolls to the bottom of the RichTextBox.
+        /// Scrolls to the bottom of the <see cref="ScrollingListBox"/>.
         /// </summary>
         public void ScrollToBottom()
         {

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace ParamExporter
+namespace ACParamEditor
 {
     public static class Extensions
     {

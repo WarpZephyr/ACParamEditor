@@ -1,5 +1,5 @@
 #if DEBUG
-#define DEBUG_CRASH
+//#define DEBUG_CRASH
 #endif
 
 using CustomForms;
@@ -7,7 +7,7 @@ using SoulsFormats;
 using System.ComponentModel;
 using Utilities;
 
-namespace ParamExporter
+namespace ACParamEditor
 {
     public partial class MainForm : Form
     {
@@ -39,7 +39,7 @@ namespace ParamExporter
         /// <summary>
         /// The currently loaded param to def map.
         /// </summary>
-        private Dictionary<string, PARAMDEF> DefMap = new Dictionary<string, PARAMDEF>();
+        private Dictionary<string, ParamDefInfo> DefMap = new Dictionary<string, ParamDefInfo>();
 
         /// <summary>
         /// The currently loaded params.
@@ -297,6 +297,24 @@ namespace ParamExporter
             LoadParamsFast(paths, sender, e);
             RefreshDataGridViews();
             UpdateStatus($"Reloaded all {paths.Count} params.");
+        }
+
+        #endregion
+
+        #region Form Export
+
+        private void MenuExportParamdefs_Click(object sender, EventArgs e)
+        {
+            UpdateStatus("Exporting paramdefs.");
+            string? folderPath = PathUtil.GetFolderPath();
+            if (folderPath == null)
+            {
+                UpdateStatus("Canceling exporting paramdefs.");
+                return;
+            }
+
+            ExportXmlDefs(folderPath);
+            UpdateStatus("Exported paramdefs.");
         }
 
         #endregion
@@ -974,6 +992,29 @@ namespace ParamExporter
 
         #region Param Defs
 
+        private void ExportXmlDefs(string folder)
+        {
+            if (File.Exists(folder))
+            {
+                UpdateStatus($"Cannot export paramdefs as folder path is a file: {folder}");
+                return;
+            }
+
+            foreach (var defpair in DefMap)
+            {
+                var value = defpair.Value;
+                var name = value.Name;
+                var def = value.Def;
+                ExportXmlDef(Path.Combine(folder, $"{Path.GetFileNameWithoutExtension(name)}.xml"), def);
+            }
+        }
+
+        private void ExportXmlDef(string path, PARAMDEF def)
+        {
+            PathUtil.Backup(path);
+            def.XmlSerialize(path, true);
+        }
+
         private string GetCurrentDefPath()
         {
             return $"{DefFolderPath}\\{MenuGameCombobox.Text}";
@@ -1042,7 +1083,7 @@ namespace ParamExporter
                 {
                     if (!DefMap.ContainsKey(def.ParamType))
                     {
-                        DefMap.Add(def.ParamType, def);
+                        DefMap.Add(def.ParamType, new ParamDefInfo(Path.GetFileNameWithoutExtension(path), def));
                         continue;
                     }
 
@@ -1073,7 +1114,7 @@ namespace ParamExporter
             var mappings = Mapping.ParseMapping(lines);
             foreach (var pair in mappings)
             {
-                if (DefMap.TryGetValue(pair.Value, out PARAMDEF? def))
+                if (DefMap.TryGetValue(pair.Value, out ParamDefInfo? def))
                 {
                     if (def != null)
                     {
@@ -1095,12 +1136,12 @@ namespace ParamExporter
         private ParamInfo ReadParamInfo(string path)
         {
             PARAM param = PARAM.Read(path);
-            if (!DefMap.TryGetValue(param.ParamType, out PARAMDEF? def))
+            if (!DefMap.TryGetValue(param.ParamType, out ParamDefInfo? def))
             {
                 DefMap.TryGetValue(PathUtil.GetExtensionlessFileName(path), out def);
             }
 
-            var paraminfo = new ParamInfo(param, def, path);
+            var paraminfo = new ParamInfo(param, def?.Def, path);
             paraminfo.Game = MenuGameCombobox.Text;
             return paraminfo;
         }
@@ -1226,5 +1267,6 @@ namespace ParamExporter
         }
 
         #endregion
+
     }
 }

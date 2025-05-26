@@ -42,7 +42,7 @@
       <EditFlags>None</EditFlags>
       <Maximum>1</Maximum>
     </Field>
-    <Field Def="u8 reserve = 0">
+    <Field Def="u8 reserve[9]">
       <DisplayName>--予約--</DisplayName>
       <Enum>ON_OFF</Enum>
       <EditFlags>None</EditFlags>

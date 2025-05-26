@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>LIGHT_SELECT_ST</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>False</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>0</FormatVersion>
+  <Fields>
+    <!-- +0x0 -->
+    <Field Def="u8 unnamed[1] = 1">
+      <DisplayName>AC_LIGHT</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0x1 -->
+    <Field Def="u8 unnamed[1] = 1">
+      <DisplayName>HEAD_LIGHT</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0x2 -->
+    <Field Def="u8 unnamed[1] = 1">
+      <DisplayName>CORE_LIGHT</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0x3 -->
+    <Field Def="u8 unnamed[1] = 1">
+      <DisplayName>ARM_LIGHT</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0x4 -->
+    <Field Def="u8 unnamed[1] = 1">
+      <DisplayName>LEG_LIGHT</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0x5 -->
+    <Field Def="u8 unnamed[1] = 1">
+      <DisplayName>BOOSTER_LIGHT</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0x6 -->
+    <Field Def="u8 unnamed[1] = 1">
+      <DisplayName>GENERATOR_LIGHT</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0x7 -->
+    <Field Def="u8 unnamed[1] = 1">
+      <DisplayName>RADIATOR_LIGHT</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0x8 -->
+    <Field Def="u8 unnamed[1] = 1">
+      <DisplayName>FCS_LIGHT</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0x9 -->
+    <Field Def="u8 unnamed[1] = 1">
+      <DisplayName>INSIDE_LIGHT</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0xA -->
+    <Field Def="u8 unnamed[1] = 1">
+      <DisplayName>EXTENTION_LIGHT</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0xB -->
+    <Field Def="u8 unnamed[1] = 1">
+      <DisplayName>BACK_R_LIGHT</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0xC -->
+    <Field Def="u8 unnamed[1] = 1">
+      <DisplayName>BACK_L_LIGHT</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0xD -->
+    <Field Def="u8 unnamed[1] = 1">
+      <DisplayName>ARM_R_LIGHT</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0xE -->
+    <Field Def="u8 unnamed[1] = 1">
+      <DisplayName>ARM_L_LIGHT</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0xF -->
+    <Field Def="u8 unnamed[1] = 1">
+      <DisplayName>SUB_R_LIGHT</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0x10 -->
+    <Field Def="u8 unnamed[1] = 1">
+      <DisplayName>SUB_L_LIGHT</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0x11 -->
+    <Field Def="u8 unnamed[1] = 1">
+      <DisplayName>OPTION_LIGHT</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0x12 -->
+    <Field Def="u8 unnamed[1] = 1">
+      <DisplayName>TOROPHY_LIGHT</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0x13 -->
+    <Field Def="u8 unnamed[1] = 1">
+      <DisplayName>CUP_LIGHT</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0x14 -->
+    <Field Def="u8 unnamed[1] = 1">
+      <DisplayName>PAD_LIGHT</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0x15 -->
+    <Field Def="u8 unnamed[1] = 1">
+      <DisplayName>AC_THUMBNAIL</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0x16 -->
+    <Field Def="u8 unnamed[1]">
+      <DisplayName>DUMMY</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>0</Maximum>
+      <Increment>0</Increment>
+    </Field>
+    <!-- +0x17 -->
+    <Field Def="u8 unnamed[1]">
+      <DisplayName>DUMMY</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>0</Maximum>
+      <Increment>0</Increment>
+    </Field>
+  </Fields>
+</PARAMDEF>

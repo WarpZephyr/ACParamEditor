@@ -101,8 +101,5 @@
       <EditFlags>Wrap, Lock</EditFlags>
       <Maximum>1999</Maximum>
     </Field>
-    <Field Def="dummy8 dummmy_1[2]">
-      <DisplayName />
-    </Field>
   </Fields>
 </PARAMDEF>

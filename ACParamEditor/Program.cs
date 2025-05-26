@@ -1,4 +1,4 @@
-namespace ParamExporter
+namespace ACParamEditor
 {
     internal static class Program
     {

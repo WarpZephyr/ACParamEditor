@@ -11,10 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\SoulsFormatsExtended\SoulsFormats\SoulsFormatsExtended.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Resources\Dbp\AC4\acanimparam.dbp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -1302,14 +1298,23 @@
     <None Update="Resources\Def\ACFF\AIParamCnvTable.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\Def\ACFF\AIPARAM_CNVTABLE_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Def\ACFF\AITacticsParam.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\ACFF\AsmColor.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\Def\ACFF\ASM_COLOR_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Def\ACFF\CameraParam.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\ACFF\CAMERA_MODE_PARAM.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\ACFF\ComParam_AbilityGain.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1317,17 +1322,32 @@
     <None Update="Resources\Def\ACFF\ComParam_AbilityGain2.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\Def\ACFF\COMPARAM_ABILITY_GAIN_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Def\ACFF\ComParam_Analysis.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\ACFF\COMPARAM_ANALYSIS_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\ACFF\ComParam_Info.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\Def\ACFF\COMPARAM_INFO_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Def\ACFF\ComParam_Op.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\Def\ACFF\COMPARAM_OP_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Def\ACFF\ComParam_System.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\ACFF\COMPARAM_SYSTEM_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\ACFF\ComParam_ThinkAct.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1341,11 +1361,44 @@
     <None Update="Resources\Def\ACFF\ComParam_ThinkWp.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\Def\ACFF\COMPARAM_THINK_ACT_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\ACFF\COMPARAM_THINK_EXT_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\ACFF\COMPARAM_THINK_INS_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\ACFF\COMPARAM_THINK_WP_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\ACFF\COM_AI_CHARAPARAM_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\ACFF\COM_AI_CTRLPARAM_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\ACFF\COM_ANALYSE_PARAM_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\ACFF\COM_MANIP_PARAM_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\ACFF\COM_TACTICS_PARAM_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Def\ACFF\ControllerParam.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\Def\ACFF\CONTROLLER_PARAM_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Def\ACFF\DirLightParam.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\ACFF\DIR_LIGHT_PARAM.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\ACFF\LightParam.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1356,6 +1409,15 @@
     <None Update="Resources\Def\ACFF\LightSelect.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\Def\ACFF\LIGHT_PARAM.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\ACFF\LIGHT_PARAM_EX.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\ACFF\LIGHT_SELECT_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Def\ACFF\MenuAmim.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -1365,11 +1427,26 @@
     <None Update="Resources\Def\ACFF\MenuCameraParamEx.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\Def\ACFF\MENU_AMIM_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\ACFF\MENU_CAMERA_PARAM_EX_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\ACFF\MENU_CAMERA_PARAM_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Def\ACFF\ModelParam.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\Def\ACFF\MODEL_PARAM_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Def\ACFF\SprAnimParam.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\ACFF\SPR_ANIM_PARAM_ST.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\ACVD\aaparam.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -2347,6 +2424,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\Chromehounds\DSPStateVariableParam.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\Chromehounds\MapConfigParam.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\Chromehounds\MenuMapInfo.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\Chromehounds\SEASON_ENDING_WAIT_TIME_ST.xml">
@@ -3865,6 +3948,10 @@
 
   <ItemGroup>
     <Folder Include="Resources\Tdf\AC6\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\SoulsFormatsNEXT\SoulsFormats\SoulsFormats.csproj" />
   </ItemGroup>
 
   <ItemGroup>

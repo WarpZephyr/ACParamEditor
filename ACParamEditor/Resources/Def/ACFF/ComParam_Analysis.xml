@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>COMPARAM_ANALYSIS_ST</ParamType>
+  <DataVersion>3</DataVersion>
+  <BigEndian>False</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>0</FormatVersion>
+  <Fields>
+    <!-- +0x0 -->
+    <Field Def="f32 unnamed">
+      <DisplayName>よやく1</DisplayName>
+      <Enum />
+      <EditFlags>Lock</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1000</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <!-- +0x4 -->
+    <Field Def="s32 unnamed">
+      <DisplayName>よやく2</DisplayName>
+      <Enum />
+      <EditFlags>Lock</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>180</Maximum>
+    </Field>
+    <!-- +0x8 -->
+    <Field Def="f32 unnamed">
+      <DisplayName>みさいるよくし:てんじょうとのきょり[m]</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>500</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <!-- +0xC -->
+    <Field Def="f32 unnamed">
+      <DisplayName>みさいるよくし:かべとのきょり[m]</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>500</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <!-- +0x10 -->
+    <Field Def="f32 unnamed">
+      <DisplayName>にげはんてい:てきかりょくほせいち</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>3</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <!-- +0x14 -->
+    <Field Def="s16 unnamed">
+      <DisplayName>にげはんてい:ひつようぼうぎょすきる[Lv]</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>24</Maximum>
+    </Field>
+    <!-- +0x16 -->
+    <Field Def="s16 unnamed">
+      <DisplayName>じかんぎれねらい:のこりじかん[sec]</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>300</Maximum>
+      <Increment>0</Increment>
+    </Field>
+    <!-- +0x18 -->
+    <Field Def="f32 unnamed">
+      <DisplayName>じかんぎれねらい:ひょうかかさんち</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>5</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <!-- +0x1C -->
+    <Field Def="s32 unnamed">
+      <DisplayName>えねるぎーかんり:せいげんかいしきじゅんち</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>30000</Maximum>
+      <Increment>100</Increment>
+    </Field>
+    <!-- +0x20 -->
+    <Field Def="s32 unnamed">
+      <DisplayName>おんどかんり:せいげんかいしきじゅんち</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>600</Maximum>
+    </Field>
+    <!-- +0x24 -->
+    <Field Def="u16 unnamed = 30">
+      <DisplayName>ぱ-じ:ふようなものぶんせきじかん[sec]</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>600</Maximum>
+    </Field>
+    <!-- +0x26 -->
+    <Field Def="dummy8 unnamed[10]">
+      <DisplayName>パディング</DisplayName>
+      <Enum />
+    </Field>
+  </Fields>
+</PARAMDEF>

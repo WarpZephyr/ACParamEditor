@@ -1,7 +1,7 @@
 ﻿using SoulsFormats;
 using System.Security.Cryptography;
 
-namespace ParamExporter
+namespace ACParamEditor
 {
     /// <summary>
     /// A class for storing information about loaded params.
@@ -117,7 +117,7 @@ namespace ParamExporter
                 if (Param == null)
                     throw new InvalidOperationException("Param must exist to get detected size of rows from it.");
 
-                return Param.DetectedRowSize;
+                return Param.DetectedSize;
             }
         }
 
@@ -298,216 +298,6 @@ namespace ParamExporter
             return GetMaxRowID() + 1;
         }
 
-        /// <summary>
-        /// Get the ids of all the rows in a param.
-        /// </summary>
-        /// <returns>An int array with all the row ids in this param.</returns>
-        /// <exception cref="InvalidOperationException">The param was null.</exception>
-        public int[] GetRowIDs()
-        {
-            if (Param == null)
-                throw new InvalidOperationException("Param must exist to get row ids from it.");
-            int[] ids = new int[RowCount];
-            for (int i = 0; i < RowCount; i++)
-                ids[i] = Param.Rows[i].ID;
-            return ids;
-        }
-
-        /// <summary>
-        /// Get the names of all the rows in a param.
-        /// </summary>
-        /// <returns>A string array with all the row names in this param.</returns>
-        /// <exception cref="InvalidOperationException">The param was null.</exception>
-        public string[] GetRowNames()
-        {
-            if (Param == null)
-                throw new InvalidOperationException("Param must exist to get row names from it.");
-            string[] names = new string[RowCount];
-            for (int i = 0; i < RowCount; i++)
-                names[i] = Param.Rows[i].Name;
-            return names;
-        }
-
-        /// <summary>
-        /// Get the display names of all the cells in each row of the param.
-        /// </summary>
-        /// <returns>A string array with the display names of all the cells in each row of this param.</returns>
-        /// <exception cref="InvalidOperationException">The param or paramdef was null, or the param had no rows.</exception>
-        public string[] GetCellDisplayNames()
-        {
-            if (Param == null)
-                throw new InvalidOperationException("Param must exist to get cell display names from it.");
-            if (!AppliedDef)
-                throw new InvalidOperationException("Param must have def applied first to get cell display names from it.");
-            if (Param.Rows.Count == 0)
-                throw new InvalidOperationException("Param must have at least one row.");
-            string[] names = new string[CellsPerRow];
-            for (int i = 0; i < CellsPerRow; i++)
-                names[i] = Param.Rows[0].Cells[i].Def.DisplayName;
-            return names;
-        }
-
-        /// <summary>
-        /// Get the internal names of all the cells in each row of the param.
-        /// </summary>
-        /// <returns>A string array with the internal names of all the cells in each row of this param.</returns>
-        /// <exception cref="InvalidOperationException">The param or paramdef was null, or the param had no rows.</exception>
-        public string[] GetCellInternalNames()
-        {
-            if (Param == null)
-                throw new InvalidOperationException("Param must exist to get cell internal names from it.");
-            if (!AppliedDef)
-                throw new InvalidOperationException("Param must have def applied first to get cell internal names from it.");
-            if (Param.Rows.Count == 0)
-                throw new InvalidOperationException("Param must have at least one row.");
-            string[] names = new string[CellsPerRow];
-            for (int i = 0; i < CellsPerRow; i++)
-                names[i] = Param.Rows[0].Cells[i].Def.InternalName;
-            return names;
-        }
-
-        /// <summary>
-        /// Get the descriptions of all the cells in each row of the param.
-        /// </summary>
-        /// <returns>A string array with the descriptions of all the cells in each row of this param.</returns>
-        /// <exception cref="InvalidOperationException">The param or paramdef was null, or the param had no rows.</exception>
-        public string[] GetCellDescriptions()
-        {
-            if (Param == null)
-                throw new InvalidOperationException("Param must exist to get cell descriptions from it.");
-            if (!AppliedDef)
-                throw new InvalidOperationException("Param must have def applied first to get cell descriptions from it.");
-            if (Param.Rows.Count == 0)
-                throw new InvalidOperationException("Param must have at least one row.");
-            string[] names = new string[CellsPerRow];
-            for (int i = 0; i < CellsPerRow; i++)
-                names[i] = Param.Rows[0].Cells[i].Def.Description;
-            return names;
-        }
-
-        /// <summary>
-        /// Get the display formats of all the cells in each row of the param.
-        /// </summary>
-        /// <returns>A string array with the display formats of all the cells in each row of this param.</returns>
-        /// <exception cref="InvalidOperationException">The param or paramdef was null, or the param had no rows.</exception>
-        public string[] GetCellDisplayFormats()
-        {
-            if (Param == null)
-                throw new InvalidOperationException("Param must exist to get cell display formats from it.");
-            if (!AppliedDef)
-                throw new InvalidOperationException("Param must have def applied first to get cell display formats from it.");
-            if (Param.Rows.Count == 0)
-                throw new InvalidOperationException("Param must have at least one row.");
-            string[] names = new string[CellsPerRow];
-            for (int i = 0; i < CellsPerRow; i++)
-                names[i] = Param.Rows[0].Cells[i].Def.DisplayFormat;
-            return names;
-        }
-
-        /// <summary>
-        /// Get the defaults of all the cells in each row of the param.
-        /// </summary>
-        /// <returns>An object array with the defaults of all the cells in each row of this param.</returns>
-        /// <exception cref="InvalidOperationException">The param or paramdef was null, or the param had no rows.</exception>
-        public object[] GetCellDefaults()
-        {
-            if (Param == null)
-                throw new InvalidOperationException("Param must exist to get cell defaults from it.");
-            if (!AppliedDef)
-                throw new InvalidOperationException("Param must have def applied first to get cell defaults from it.");
-            if (Param.Rows.Count == 0)
-                throw new InvalidOperationException("Param must have at least one row.");
-            object[] values = new object[CellsPerRow];
-            for (int i = 0; i < CellsPerRow; i++)
-                values[i] = Param.Rows[0].Cells[i].Def.Default;
-            return values;
-        }
-
-        /// <summary>
-        /// Get the increments of all the cells in each row of the param.
-        /// </summary>
-        /// <returns>An object array with the increments of all the cells in each row of this param.</returns>
-        /// <exception cref="InvalidOperationException">The param or paramdef was null, or the param had no rows.</exception>
-        public object[] GetCellIncrements()
-        {
-            if (Param == null)
-                throw new InvalidOperationException("Param must exist to get cell increments from it.");
-            if (!AppliedDef)
-                throw new InvalidOperationException("Param must have def applied first to get cell increments from it.");
-            if (Param.Rows.Count == 0)
-                throw new InvalidOperationException("Param must have at least one row.");
-            object[] values = new object[CellsPerRow];
-            for (int i = 0; i < CellsPerRow; i++)
-                values[i] = Param.Rows[0].Cells[i].Def.Increment;
-            return values;
-        }
-
-        /// <summary>
-        /// Get the minimums of all the cells in each row of the param.
-        /// </summary>
-        /// <returns>An object array with the minimums of all the cells in each row of this param.</returns>
-        /// <exception cref="InvalidOperationException">The param or paramdef was null, or the param had no rows.</exception>
-        public object[] GetCellMinimums()
-        {
-            if (Param == null)
-                throw new InvalidOperationException("Param must exist to get cell minimums from it.");
-            if (!AppliedDef)
-                throw new InvalidOperationException("Param must have def applied first to get cell minimums from it.");
-            if (Param.Rows.Count == 0)
-                throw new InvalidOperationException("Param must have at least one row.");
-            object[] values = new object[CellsPerRow];
-            for (int i = 0; i < CellsPerRow; i++)
-                values[i] = Param.Rows[0].Cells[i].Def.Minimum;
-            return values;
-        }
-
-        /// <summary>
-        /// Get the maximums of all the cells in each row of the param.
-        /// </summary>
-        /// <returns>An object array with the maximums of all the cells in each row of this param.</returns>
-        /// <exception cref="InvalidOperationException">The param or paramdef was null, or the param had no rows.</exception>
-        public object[] GetCellMaximums()
-        {
-            if (Param == null)
-                throw new InvalidOperationException("Param must exist to get cell maximums from it.");
-            if (!AppliedDef)
-                throw new InvalidOperationException("Param must have def applied first to get cell maximums from it.");
-            if (Param.Rows.Count == 0)
-                throw new InvalidOperationException("Param must have at least one row.");
-            object[] values = new object[CellsPerRow];
-            for (int i = 0; i < CellsPerRow; i++)
-                values[i] = Param.Rows[0].Cells[i].Def.Maximum;
-            return values;
-        }
-
-        /// <summary>
-        /// Get the display types of all the cells in each row of the param.
-        /// </summary>
-        /// <returns>A DefType array with the display types of all the cells in each row of this param.</returns>
-        /// <exception cref="InvalidOperationException">The param or paramdef was null, or the param had no rows.</exception>
-        public DefType[] GetCellTypes()
-        {
-            if (Param == null)
-                throw new InvalidOperationException("Param must exist to get cell types from it.");
-            if (!AppliedDef)
-                throw new InvalidOperationException("Param must have def applied first to get cell types from it.");
-            if (Param.Rows.Count == 0)
-                throw new InvalidOperationException("Param must have at least one row.");
-            DefType[] types = new DefType[CellsPerRow];
-            for (int i = 0; i < CellsPerRow; i++)
-                types[i] = Param.Rows[0].Cells[i].Def.DisplayType;
-            return types;
-        }
-
-        /// <summary>
-        /// Get a SHA256 hash of the param as a byte array.
-        /// </summary>
-        /// <returns>A SHA256 hash byte array.</returns>
-        public byte[] GetHash()
-        {
-            return SHA256.Create().ComputeHash(WriteToBytes());
-        }
-
         #endregion
 
         #region Set
@@ -635,6 +425,7 @@ namespace ParamExporter
         /// Get the name of the param file.
         /// </summary>
         /// <returns>The name of the param file.</returns>
-        public override string ToString() => Name;
+        public override string ToString()
+            => Name;
     }
 }
