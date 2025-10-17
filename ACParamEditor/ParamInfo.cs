@@ -41,11 +41,6 @@ namespace ACParamEditor
         public PARAMDEF? Def => Param.AppliedParamdef;
 
         /// <summary>
-        /// The type of compression that was applied to the param file when read.
-        /// </summary>
-        public DCX.Type Compression { get => Param.Compression; set => Param.Compression = value; }
-
-        /// <summary>
         /// Originally matched the paramdef for version 101, but since is always 0 or 0xFF.
         /// </summary>
         public byte ParamFormatVersion { get => Param.ParamdefFormatVersion; set => Param.ParamdefFormatVersion = value; }
@@ -130,11 +125,6 @@ namespace ACParamEditor
         /// Whether or not the param is read and written in Big Endian.
         /// </summary>
         public bool BigEndian { get => Param.BigEndian; set => Param.BigEndian = value; }
-
-        /// <summary>
-        /// Whether or not the param is to be compressed.
-        /// </summary>
-        public bool Compressed => Param.Compression != DCX.Type.None;
 
         /// <summary>
         /// Whether or not this param has a ParamType set.

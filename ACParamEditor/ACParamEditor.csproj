@@ -2366,73 +2366,103 @@
     <None Update="Resources\Def\ACV\zoomblurparam.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\BulletEffectParamDef.def">
+    <None Update="Resources\Def\CH\BulletEffectParamDef.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\BulletEffectParamDef.xml">
+    <None Update="Resources\Def\CH\BulletEffectParamDef.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\BulletExplParamDef.def">
+    <None Update="Resources\Def\CH\BulletExplParamDef.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\BulletExplParamDef.xml">
+    <None Update="Resources\Def\CH\BulletExplParamDef.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\BulletParamDef.def">
+    <None Update="Resources\Def\CH\BulletParamDef.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\BulletParamDef.xml">
+    <None Update="Resources\Def\CH\BulletParamDef.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\DSPCompParam.def">
+    <None Update="Resources\Def\CH\DSPCompParam.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\DSPCompParam.xml">
+    <None Update="Resources\Def\CH\DSPCompParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\DSPDelayParam.def">
+    <None Update="Resources\Def\CH\DSPDelayParam.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\DSPDelayParam.xml">
+    <None Update="Resources\Def\CH\DSPDelayParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\DSPEQParam.def">
+    <None Update="Resources\Def\CH\DSPEQParam.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\DSPEQParam.xml">
+    <None Update="Resources\Def\CH\DSPEQParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\DSPOverDriveParam.def">
+    <None Update="Resources\Def\CH\DSPOverDriveParam.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\DSPOverDriveParam.xml">
+    <None Update="Resources\Def\CH\DSPOverDriveParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\DSPPeakParam.def">
+    <None Update="Resources\Def\CH\DSPPeakParam.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\DSPPeakParam.xml">
+    <None Update="Resources\Def\CH\DSPPeakParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\DSPShelvingParam.def">
+    <None Update="Resources\Def\CH\DSPShelvingParam.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\DSPShelvingParam.xml">
+    <None Update="Resources\Def\CH\DSPShelvingParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\DSPStateVariableParam.def">
+    <None Update="Resources\Def\CH\DSPStateVariableParam.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\DSPStateVariableParam.xml">
+    <None Update="Resources\Def\CH\DSPStateVariableParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\MapConfigParam.xml">
+    <None Update="Resources\Def\CH\MapConfigParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\MenuMapInfo.xml">
+    <None Update="Resources\Def\CH\MenuMapInfo.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\Chromehounds\SEASON_ENDING_WAIT_TIME_ST.xml">
+    <None Update="Resources\Def\CH\SEASON_ENDING_WAIT_TIME_ST.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\EA\battlecolorparam.def">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\EA\battledebugparam.def">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\EA\battlefieldparam.def">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\EA\battleopparam.def">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\EA\battleopparam2.def">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\EA\battlesceneparam.def">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\EA\battleunitsizeparam.def">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\EA\friendpointobtainparam.def">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\EA\unitbattleparam.def">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\EA\unitsizesfxparam.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Paths\AC4\paramlist.ini">
