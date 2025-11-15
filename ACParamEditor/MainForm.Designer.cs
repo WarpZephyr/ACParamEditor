@@ -36,6 +36,9 @@ namespace ACParamEditor
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             MainFormMenu = new MenuStrip();
             MenuFile = new ToolStripMenuItem();
             MenuFileOpen = new ToolStripMenuItem();
@@ -47,6 +50,8 @@ namespace ACParamEditor
             MenuFileReload = new ToolStripMenuItem();
             MenuFileReloadAll = new ToolStripMenuItem();
             MenuGameCombobox = new ToolStripComboBox();
+            MenuExport = new ToolStripMenuItem();
+            MenuExportParamdefs = new ToolStripMenuItem();
             ParamSplitContainerOuter = new SplitContainer();
             ParamDataGridView = new DoubleBufferedDataGridView();
             paramfilename = new DataGridViewTextBoxColumn();
@@ -85,20 +90,6 @@ namespace ACParamEditor
             RowPaste = new ToolStripMenuItem();
             RowDuplicate = new ToolStripMenuItem();
             CellDataGridView = new DoubleBufferedDataGridView();
-            paramcelldisplaytype = new DataGridViewTextBoxColumn();
-            paramcellinternaltype = new DataGridViewTextBoxColumn();
-            paramcellvalue = new DataGridViewTextBoxColumn();
-            paramcelldisplayname = new DataGridViewTextBoxColumn();
-            paramcellinternalname = new DataGridViewTextBoxColumn();
-            paramcelldescription = new DataGridViewTextBoxColumn();
-            paramcelldisplayformat = new DataGridViewTextBoxColumn();
-            paramcelldefault = new DataGridViewTextBoxColumn();
-            paramcellincrement = new DataGridViewTextBoxColumn();
-            paramcellmaximum = new DataGridViewTextBoxColumn();
-            paramcellminimum = new DataGridViewTextBoxColumn();
-            paramcellsortid = new DataGridViewTextBoxColumn();
-            paramcellarraylength = new DataGridViewTextBoxColumn();
-            paramcellbitsize = new DataGridViewTextBoxColumn();
             CellContextMenu = new ContextMenuStrip(components);
             CellView = new ToolStripMenuItem();
             CellViewDisplayType = new ToolStripMenuItem();
@@ -120,8 +111,20 @@ namespace ACParamEditor
             LogContextMenuCopy = new ToolStripMenuItem();
             LogContextMenuClear = new ToolStripMenuItem();
             MainWindowSplitContainer = new SplitContainer();
-            MenuExport = new ToolStripMenuItem();
-            MenuExportParamdefs = new ToolStripMenuItem();
+            paramcelldisplaytype = new DataGridViewTextBoxColumn();
+            paramcellinternaltype = new DataGridViewTextBoxColumn();
+            paramcellvalue = new DataGridViewMultilineTextBoxColumn();
+            paramcelldisplayname = new DataGridViewTextBoxColumn();
+            paramcellinternalname = new DataGridViewTextBoxColumn();
+            paramcelldescription = new DataGridViewMultilineTextBoxColumn();
+            paramcelldisplayformat = new DataGridViewTextBoxColumn();
+            paramcelldefault = new DataGridViewTextBoxColumn();
+            paramcellincrement = new DataGridViewTextBoxColumn();
+            paramcellmaximum = new DataGridViewTextBoxColumn();
+            paramcellminimum = new DataGridViewTextBoxColumn();
+            paramcellsortid = new DataGridViewTextBoxColumn();
+            paramcellarraylength = new DataGridViewTextBoxColumn();
+            paramcellbitsize = new DataGridViewTextBoxColumn();
             MainFormMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ParamSplitContainerOuter).BeginInit();
             ParamSplitContainerOuter.Panel1.SuspendLayout();
@@ -167,7 +170,7 @@ namespace ACParamEditor
             MenuFileOpen.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileOpen.ForeColor = SystemColors.Control;
             MenuFileOpen.Name = "MenuFileOpen";
-            MenuFileOpen.Size = new Size(180, 22);
+            MenuFileOpen.Size = new Size(155, 22);
             MenuFileOpen.Text = "Open";
             MenuFileOpen.ToolTipText = "Open more params.";
             MenuFileOpen.Click += MenuFileOpen_Click;
@@ -177,7 +180,7 @@ namespace ACParamEditor
             MenuFileOpenFromList.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileOpenFromList.ForeColor = SystemColors.Control;
             MenuFileOpenFromList.Name = "MenuFileOpenFromList";
-            MenuFileOpenFromList.Size = new Size(180, 22);
+            MenuFileOpenFromList.Size = new Size(155, 22);
             MenuFileOpenFromList.Text = "Open From List";
             MenuFileOpenFromList.ToolTipText = "Open more params.";
             MenuFileOpenFromList.Click += MenuFileOpenFromList_Click;
@@ -187,7 +190,7 @@ namespace ACParamEditor
             MenuFileSave.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileSave.ForeColor = SystemColors.Control;
             MenuFileSave.Name = "MenuFileSave";
-            MenuFileSave.Size = new Size(180, 22);
+            MenuFileSave.Size = new Size(155, 22);
             MenuFileSave.Text = "Save";
             MenuFileSave.ToolTipText = "Save the currently selected params.";
             MenuFileSave.Click += MenuFileSave_Click;
@@ -197,7 +200,7 @@ namespace ACParamEditor
             MenuFileSaveAll.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileSaveAll.ForeColor = SystemColors.Control;
             MenuFileSaveAll.Name = "MenuFileSaveAll";
-            MenuFileSaveAll.Size = new Size(180, 22);
+            MenuFileSaveAll.Size = new Size(155, 22);
             MenuFileSaveAll.Text = "Save All";
             MenuFileSaveAll.ToolTipText = "Save all params.";
             MenuFileSaveAll.Click += MenuFileSaveAll_Click;
@@ -207,7 +210,7 @@ namespace ACParamEditor
             MenuFileClose.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileClose.ForeColor = SystemColors.Control;
             MenuFileClose.Name = "MenuFileClose";
-            MenuFileClose.Size = new Size(180, 22);
+            MenuFileClose.Size = new Size(155, 22);
             MenuFileClose.Text = "Close";
             MenuFileClose.ToolTipText = "Close the currently selected params.";
             MenuFileClose.Click += MenuFileClose_Click;
@@ -217,7 +220,7 @@ namespace ACParamEditor
             MenuFileCloseAll.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileCloseAll.ForeColor = SystemColors.Control;
             MenuFileCloseAll.Name = "MenuFileCloseAll";
-            MenuFileCloseAll.Size = new Size(180, 22);
+            MenuFileCloseAll.Size = new Size(155, 22);
             MenuFileCloseAll.Text = "Close All";
             MenuFileCloseAll.ToolTipText = "Close all params.";
             MenuFileCloseAll.Click += MenuFileCloseAll_Click;
@@ -227,7 +230,7 @@ namespace ACParamEditor
             MenuFileReload.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileReload.ForeColor = SystemColors.Control;
             MenuFileReload.Name = "MenuFileReload";
-            MenuFileReload.Size = new Size(180, 22);
+            MenuFileReload.Size = new Size(155, 22);
             MenuFileReload.Text = "Reload";
             MenuFileReload.ToolTipText = "Reload the currently selected params.";
             MenuFileReload.Click += MenuFileReload_Click;
@@ -237,7 +240,7 @@ namespace ACParamEditor
             MenuFileReloadAll.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileReloadAll.ForeColor = SystemColors.Control;
             MenuFileReloadAll.Name = "MenuFileReloadAll";
-            MenuFileReloadAll.Size = new Size(180, 22);
+            MenuFileReloadAll.Size = new Size(155, 22);
             MenuFileReloadAll.Text = "Reload All";
             MenuFileReloadAll.ToolTipText = "Reload all params.";
             MenuFileReloadAll.Click += MenuFileReloadAll_Click;
@@ -255,6 +258,24 @@ namespace ACParamEditor
             MenuGameCombobox.ToolTipText = "Select which set of defs from Resources should be used";
             MenuGameCombobox.DropDown += MenuGameCombobox_DropDown;
             MenuGameCombobox.SelectedIndexChanged += MenuGameCombobox_SelectedIndexChanged;
+            // 
+            // MenuExport
+            // 
+            MenuExport.BackColor = Color.FromArgb(65, 65, 65);
+            MenuExport.DropDownItems.AddRange(new ToolStripItem[] { MenuExportParamdefs });
+            MenuExport.ForeColor = SystemColors.Control;
+            MenuExport.Name = "MenuExport";
+            MenuExport.Size = new Size(53, 23);
+            MenuExport.Text = "Export";
+            // 
+            // MenuExportParamdefs
+            // 
+            MenuExportParamdefs.BackColor = Color.FromArgb(55, 55, 55);
+            MenuExportParamdefs.ForeColor = SystemColors.Control;
+            MenuExportParamdefs.Name = "MenuExportParamdefs";
+            MenuExportParamdefs.Size = new Size(130, 22);
+            MenuExportParamdefs.Text = "Paramdefs";
+            MenuExportParamdefs.Click += MenuExportParamdefs_Click;
             // 
             // ParamSplitContainerOuter
             // 
@@ -682,6 +703,7 @@ namespace ACParamEditor
             CellDataGridView.AllowUserToDeleteRows = false;
             CellDataGridView.AllowUserToOrderColumns = true;
             CellDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            CellDataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             CellDataGridView.BackgroundColor = Color.FromArgb(45, 45, 45);
             CellDataGridView.BorderStyle = BorderStyle.None;
             CellDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
@@ -696,7 +718,14 @@ namespace ACParamEditor
             CellDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             CellDataGridView.Columns.AddRange(new DataGridViewColumn[] { paramcelldisplaytype, paramcellinternaltype, paramcellvalue, paramcelldisplayname, paramcellinternalname, paramcelldescription, paramcelldisplayformat, paramcelldefault, paramcellincrement, paramcellmaximum, paramcellminimum, paramcellsortid, paramcellarraylength, paramcellbitsize });
             CellDataGridView.ContextMenuStrip = CellContextMenu;
-            CellDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = Color.FromArgb(55, 55, 55);
+            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle8.ForeColor = SystemColors.Control;
+            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(75, 75, 75);
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.Control;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
+            CellDataGridView.DefaultCellStyle = dataGridViewCellStyle8;
             CellDataGridView.Dock = DockStyle.Fill;
             CellDataGridView.EnableHeadersVisualStyles = false;
             CellDataGridView.GridColor = Color.FromArgb(45, 45, 45);
@@ -708,106 +737,8 @@ namespace ACParamEditor
             CellDataGridView.ShowCellToolTips = false;
             CellDataGridView.Size = new Size(450, 600);
             CellDataGridView.TabIndex = 1;
+            CellDataGridView.CellFormatting += CellDataGridView_CellFormatting;
             CellDataGridView.CellValidating += CellDataGridView_CellValidating;
-            // 
-            // paramcelldisplaytype
-            // 
-            paramcelldisplaytype.FillWeight = 40F;
-            paramcelldisplaytype.HeaderText = "Display Type";
-            paramcelldisplaytype.Name = "paramcelldisplaytype";
-            paramcelldisplaytype.ReadOnly = true;
-            paramcelldisplaytype.Resizable = DataGridViewTriState.True;
-            // 
-            // paramcellinternaltype
-            // 
-            paramcellinternaltype.HeaderText = "Internal Type";
-            paramcellinternaltype.Name = "paramcellinternaltype";
-            paramcellinternaltype.Visible = false;
-            // 
-            // paramcellvalue
-            // 
-            paramcellvalue.FillWeight = 60F;
-            paramcellvalue.HeaderText = "Cell Value";
-            paramcellvalue.Name = "paramcellvalue";
-            // 
-            // paramcelldisplayname
-            // 
-            paramcelldisplayname.FillWeight = 70F;
-            paramcelldisplayname.HeaderText = "Display Name";
-            paramcelldisplayname.Name = "paramcelldisplayname";
-            paramcelldisplayname.ReadOnly = true;
-            // 
-            // paramcellinternalname
-            // 
-            paramcellinternalname.FillWeight = 75F;
-            paramcellinternalname.HeaderText = "Internal Name";
-            paramcellinternalname.Name = "paramcellinternalname";
-            paramcellinternalname.ReadOnly = true;
-            paramcellinternalname.Visible = false;
-            // 
-            // paramcelldescription
-            // 
-            paramcelldescription.FillWeight = 130F;
-            paramcelldescription.HeaderText = "Description";
-            paramcelldescription.Name = "paramcelldescription";
-            paramcelldescription.ReadOnly = true;
-            paramcelldescription.Visible = false;
-            // 
-            // paramcelldisplayformat
-            // 
-            paramcelldisplayformat.HeaderText = "Display Format";
-            paramcelldisplayformat.Name = "paramcelldisplayformat";
-            paramcelldisplayformat.ReadOnly = true;
-            paramcelldisplayformat.Visible = false;
-            // 
-            // paramcelldefault
-            // 
-            paramcelldefault.HeaderText = "Default Value";
-            paramcelldefault.Name = "paramcelldefault";
-            paramcelldefault.ReadOnly = true;
-            paramcelldefault.Visible = false;
-            // 
-            // paramcellincrement
-            // 
-            paramcellincrement.HeaderText = "Increment Amount";
-            paramcellincrement.Name = "paramcellincrement";
-            paramcellincrement.ReadOnly = true;
-            paramcellincrement.Visible = false;
-            // 
-            // paramcellmaximum
-            // 
-            paramcellmaximum.HeaderText = "Maxmium Value";
-            paramcellmaximum.Name = "paramcellmaximum";
-            paramcellmaximum.ReadOnly = true;
-            paramcellmaximum.Visible = false;
-            // 
-            // paramcellminimum
-            // 
-            paramcellminimum.HeaderText = "Minimum Value";
-            paramcellminimum.Name = "paramcellminimum";
-            paramcellminimum.ReadOnly = true;
-            paramcellminimum.Visible = false;
-            // 
-            // paramcellsortid
-            // 
-            paramcellsortid.HeaderText = "Sort ID";
-            paramcellsortid.Name = "paramcellsortid";
-            paramcellsortid.ReadOnly = true;
-            paramcellsortid.Visible = false;
-            // 
-            // paramcellarraylength
-            // 
-            paramcellarraylength.HeaderText = "Array Length";
-            paramcellarraylength.Name = "paramcellarraylength";
-            paramcellarraylength.ReadOnly = true;
-            paramcellarraylength.Visible = false;
-            // 
-            // paramcellbitsize
-            // 
-            paramcellbitsize.HeaderText = "Bit Size";
-            paramcellbitsize.Name = "paramcellbitsize";
-            paramcellbitsize.ReadOnly = true;
-            paramcellbitsize.Visible = false;
             // 
             // CellContextMenu
             // 
@@ -1032,23 +963,111 @@ namespace ACParamEditor
             MainWindowSplitContainer.SplitterDistance = 600;
             MainWindowSplitContainer.TabIndex = 3;
             // 
-            // MenuExport
+            // paramcelldisplaytype
             // 
-            MenuExport.BackColor = Color.FromArgb(65, 65, 65);
-            MenuExport.DropDownItems.AddRange(new ToolStripItem[] { MenuExportParamdefs });
-            MenuExport.ForeColor = SystemColors.Control;
-            MenuExport.Name = "MenuExport";
-            MenuExport.Size = new Size(53, 23);
-            MenuExport.Text = "Export";
+            paramcelldisplaytype.FillWeight = 40F;
+            paramcelldisplaytype.HeaderText = "Display Type";
+            paramcelldisplaytype.Name = "paramcelldisplaytype";
+            paramcelldisplaytype.ReadOnly = true;
+            paramcelldisplaytype.Resizable = DataGridViewTriState.True;
             // 
-            // MenuExportParamdefs
+            // paramcellinternaltype
             // 
-            MenuExportParamdefs.BackColor = Color.FromArgb(55, 55, 55);
-            MenuExportParamdefs.ForeColor = SystemColors.Control;
-            MenuExportParamdefs.Name = "MenuExportParamdefs";
-            MenuExportParamdefs.Size = new Size(180, 22);
-            MenuExportParamdefs.Text = "Paramdefs";
-            MenuExportParamdefs.Click += MenuExportParamdefs_Click;
+            paramcellinternaltype.HeaderText = "Internal Type";
+            paramcellinternaltype.Name = "paramcellinternaltype";
+            paramcellinternaltype.Visible = false;
+            // 
+            // paramcellvalue
+            // 
+            paramcellvalue.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            paramcellvalue.DefaultCellStyle = dataGridViewCellStyle6;
+            paramcellvalue.FillWeight = 60F;
+            paramcellvalue.HeaderText = "Cell Value";
+            paramcellvalue.Name = "paramcellvalue";
+            // 
+            // paramcelldisplayname
+            // 
+            paramcelldisplayname.FillWeight = 70F;
+            paramcelldisplayname.HeaderText = "Display Name";
+            paramcelldisplayname.Name = "paramcelldisplayname";
+            paramcelldisplayname.ReadOnly = true;
+            // 
+            // paramcellinternalname
+            // 
+            paramcellinternalname.FillWeight = 75F;
+            paramcellinternalname.HeaderText = "Internal Name";
+            paramcellinternalname.Name = "paramcellinternalname";
+            paramcellinternalname.ReadOnly = true;
+            paramcellinternalname.Visible = false;
+            // 
+            // paramcelldescription
+            // 
+            paramcelldescription.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
+            paramcelldescription.DefaultCellStyle = dataGridViewCellStyle7;
+            paramcelldescription.FillWeight = 130F;
+            paramcelldescription.HeaderText = "Description";
+            paramcelldescription.Name = "paramcelldescription";
+            paramcelldescription.ReadOnly = true;
+            paramcelldescription.Visible = false;
+            paramcelldescription.Width = 91;
+            // 
+            // paramcelldisplayformat
+            // 
+            paramcelldisplayformat.HeaderText = "Display Format";
+            paramcelldisplayformat.Name = "paramcelldisplayformat";
+            paramcelldisplayformat.ReadOnly = true;
+            paramcelldisplayformat.Visible = false;
+            // 
+            // paramcelldefault
+            // 
+            paramcelldefault.HeaderText = "Default Value";
+            paramcelldefault.Name = "paramcelldefault";
+            paramcelldefault.ReadOnly = true;
+            paramcelldefault.Visible = false;
+            // 
+            // paramcellincrement
+            // 
+            paramcellincrement.HeaderText = "Increment Amount";
+            paramcellincrement.Name = "paramcellincrement";
+            paramcellincrement.ReadOnly = true;
+            paramcellincrement.Visible = false;
+            // 
+            // paramcellmaximum
+            // 
+            paramcellmaximum.HeaderText = "Maxmium Value";
+            paramcellmaximum.Name = "paramcellmaximum";
+            paramcellmaximum.ReadOnly = true;
+            paramcellmaximum.Visible = false;
+            // 
+            // paramcellminimum
+            // 
+            paramcellminimum.HeaderText = "Minimum Value";
+            paramcellminimum.Name = "paramcellminimum";
+            paramcellminimum.ReadOnly = true;
+            paramcellminimum.Visible = false;
+            // 
+            // paramcellsortid
+            // 
+            paramcellsortid.HeaderText = "Sort ID";
+            paramcellsortid.Name = "paramcellsortid";
+            paramcellsortid.ReadOnly = true;
+            paramcellsortid.Visible = false;
+            // 
+            // paramcellarraylength
+            // 
+            paramcellarraylength.HeaderText = "Array Length";
+            paramcellarraylength.Name = "paramcellarraylength";
+            paramcellarraylength.ReadOnly = true;
+            paramcellarraylength.Visible = false;
+            // 
+            // paramcellbitsize
+            // 
+            paramcellbitsize.HeaderText = "Bit Size";
+            paramcellbitsize.Name = "paramcellbitsize";
+            paramcellbitsize.ReadOnly = true;
+            paramcellbitsize.Visible = false;
             // 
             // MainForm
             // 
@@ -1134,20 +1153,6 @@ namespace ACParamEditor
         private ToolStripMenuItem RowDelete;
         private ToolStripMenuItem RowNew;
         private ToolStripMenuItem CellViewInternalType;
-        private DataGridViewTextBoxColumn paramcelldisplaytype;
-        private DataGridViewTextBoxColumn paramcellinternaltype;
-        private DataGridViewTextBoxColumn paramcellvalue;
-        private DataGridViewTextBoxColumn paramcelldisplayname;
-        private DataGridViewTextBoxColumn paramcellinternalname;
-        private DataGridViewTextBoxColumn paramcelldescription;
-        private DataGridViewTextBoxColumn paramcelldisplayformat;
-        private DataGridViewTextBoxColumn paramcelldefault;
-        private DataGridViewTextBoxColumn paramcellincrement;
-        private DataGridViewTextBoxColumn paramcellmaximum;
-        private DataGridViewTextBoxColumn paramcellminimum;
-        private DataGridViewTextBoxColumn paramcellsortid;
-        private DataGridViewTextBoxColumn paramcellarraylength;
-        private DataGridViewTextBoxColumn paramcellbitsize;
         private ToolStripMenuItem ParamViewParamFormatVersion;
         private ToolStripMenuItem ParamViewParamDataVersion;
         private ToolStripMenuItem ParamViewDefFormatVersion;
@@ -1175,5 +1180,19 @@ namespace ACParamEditor
         private ToolStripMenuItem MenuFileOpenFromList;
         private ToolStripMenuItem MenuExport;
         private ToolStripMenuItem MenuExportParamdefs;
+        private DataGridViewTextBoxColumn paramcelldisplaytype;
+        private DataGridViewTextBoxColumn paramcellinternaltype;
+        private DataGridViewMultilineTextBoxColumn paramcellvalue;
+        private DataGridViewTextBoxColumn paramcelldisplayname;
+        private DataGridViewTextBoxColumn paramcellinternalname;
+        private DataGridViewMultilineTextBoxColumn paramcelldescription;
+        private DataGridViewTextBoxColumn paramcelldisplayformat;
+        private DataGridViewTextBoxColumn paramcelldefault;
+        private DataGridViewTextBoxColumn paramcellincrement;
+        private DataGridViewTextBoxColumn paramcellmaximum;
+        private DataGridViewTextBoxColumn paramcellminimum;
+        private DataGridViewTextBoxColumn paramcellsortid;
+        private DataGridViewTextBoxColumn paramcellarraylength;
+        private DataGridViewTextBoxColumn paramcellbitsize;
     }
 }

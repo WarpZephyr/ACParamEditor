@@ -63,6 +63,9 @@ namespace ACParamEditor
             // Lock events that slow down initialization.
             LockEvents();
 
+            // Prepare the display for multline cell editing
+            PrepareMultlineCellEditDisplay();
+
             // Set new renderer to override colors
             var menuRenderer = new ColorableToolStripRenderer();
             MainFormMenu.Renderer = menuRenderer;
@@ -83,9 +86,7 @@ namespace ACParamEditor
             RefreshDefGames();
 
             // Set combobox selected item.
-            MenuGameCombobox.SelectedIndex = 0;
-            if (MenuGameCombobox.Items.Count > 1)
-                MenuGameCombobox.SelectedIndex = 1;
+            TrySetSavedDefSet();
 
             // Attempt to load defs.
             UpdateStatus("Initial def load start.");
@@ -623,13 +624,57 @@ namespace ACParamEditor
                 return;
 
             var cell = (PARAM.Cell)CellDataGridView.CurrentRow.DataBoundItem;
-
             if (!CellValueValid(cell, e.FormattedValue))
             {
                 CellDataGridView.CancelEdit();
                 CellDataGridView.EndEdit();
                 UpdateStatus($"Invalid value: {e.FormattedValue}");
             }
+        }
+
+        private void CellDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // Unfortunately the data grid editing cell object only displays \r\n as newlines
+            // This will overwrite any singular \n with \r\n to fix that, while also making all newlines save that way
+            if (e.Value is string str)
+            {
+                // If we replace \n right away we could end up with \r\r\n
+                // First replace \r\n with \n, then fix it back with \n to \r\n
+                e.Value = str.Replace("\r\n", "\n").Replace("\n", "\r\n");
+            }
+        }
+
+        private void PrepareMultlineCellEditDisplay()
+        {
+            // This somehow updates the edited cell as it's being edited to resize it cleanly.
+            // https://stackoverflow.com/a/78950461
+            CellDataGridView.EditingControlShowing += (sender, e) =>
+            {
+                if (e.Control is TextBox textBox)
+                {
+                    string revertText = textBox.Text;
+                    textBox.TextChanged -= OnTextChanged;
+                    textBox.PreviewKeyDown -= PreviewKeyDown;
+                    textBox.TextChanged += OnTextChanged;
+                    textBox.PreviewKeyDown += PreviewKeyDown;
+
+                    void OnTextChanged(object? sender, EventArgs e)
+                    {
+                        BeginInvoke(() => // Because drawing artifacts have been known to occur otherwise.
+                        {
+                            CellDataGridView.CurrentCell.Value = textBox.Text;
+                        });
+                    }
+
+                    void PreviewKeyDown(object? sender, PreviewKeyDownEventArgs e)
+                    {
+                        if (e.KeyData == Keys.Escape)
+                        {
+                            CellDataGridView.CurrentCell.Value = revertText;
+                        }
+                    }
+                }
+            };
         }
 
         #endregion
@@ -643,6 +688,15 @@ namespace ACParamEditor
 
         private void MenuGameCombobox_SelectedIndexChanged(object? sender, EventArgs e)
         {
+            // TODO: Make defset system clearer by not relying on the combobox as data storage
+            // Try to save our new selection if possible, otherwise save "None"
+            if (MenuGameCombobox.SelectedIndex < MenuGameCombobox.Items.Count)
+            {
+                string? selection = MenuGameCombobox.Items[MenuGameCombobox.SelectedIndex] as string ?? "None";
+                Properties.Settings.Default.SelectedDefSet = selection;
+                Properties.Settings.Default.Save();
+            }
+
             LoadDefs();
         }
 
@@ -971,6 +1025,39 @@ namespace ACParamEditor
             foreach (string name in gamenames)
                 if (!MenuGameCombobox.Items.Contains(name))
                     MenuGameCombobox.Items.Add(name);
+        }
+
+        private void TrySetSavedDefSet()
+        {
+            // TODO: Make defset system clearer by not relying on the combobox as data storage
+            // Try to load the saved def set
+            string preferredDefSet = Properties.Settings.Default.SelectedDefSet;
+
+            // Try to find it's index by name
+            int index = MenuGameCombobox.Items.IndexOf(preferredDefSet);
+            if (index == -1)
+            {
+                // If we couldn't find it...
+                if (MenuGameCombobox.Items.Count == 1)
+                {
+                    // TODO: Possible rework on how "None" works or if it is even necessary?
+                    // ... and we only have 1 item, that item currently must be "None" which is our only option
+                    preferredDefSet = "None";
+                    Properties.Settings.Default.SelectedDefSet = preferredDefSet;
+                    Properties.Settings.Default.Save();
+                }
+                else if (MenuGameCombobox.Items.Count > 1)
+                {
+                    // ... and we have more than 1 item, try using it, otherwise use "None"
+                    Properties.Settings.Default.SelectedDefSet = MenuGameCombobox.Items[1] as string ?? "None";
+                    Properties.Settings.Default.Save();
+                }
+            }
+            else
+            {
+                // Set the selected index if we found it
+                MenuGameCombobox.SelectedIndex = index;
+            }
         }
 
         #endregion
