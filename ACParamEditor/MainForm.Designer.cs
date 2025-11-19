@@ -1,6 +1,8 @@
-﻿using CustomForms;
+﻿using CustomWinForms;
+using System.Drawing;
+using System.Windows.Forms;
 
-namespace ACParamEditor
+namespace AcParamEditor
 {
     partial class MainForm
     {

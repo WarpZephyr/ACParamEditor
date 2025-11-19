@@ -1,75 +1,94 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<PARAMDEF XmlVersion="0">
+<PARAMDEF XmlVersion="3">
   <ParamType>CHR_HIT_MATERIAL_CHECK_PARAM_ST</ParamType>
   <DataVersion>1</DataVersion>
   <BigEndian>False</BigEndian>
   <Unicode>True</Unicode>
   <FormatVersion>203</FormatVersion>
   <Fields>
-    <!-- <Field Def="dummy8 paramSize[256]" /> -->
-    <Field Def="s32 Unk0x00"></Field>
-    <Field Def="s32 Unk0x04"></Field>
-    <Field Def="s32 Unk0x08"></Field>
-    <Field Def="s32 Unk0x0C"></Field>
-    <Field Def="s32 Unk0x10"></Field>
-    <Field Def="s32 Unk0x14"></Field>
-    <Field Def="s32 Unk0x18"></Field>
-    <Field Def="s32 Unk0x1C"></Field>
-    <Field Def="s32 Unk0x20"></Field>
-    <Field Def="s32 Unk0x24"></Field>
-    <Field Def="s32 Unk0x28"></Field>
-    <Field Def="s32 Unk0x2C"></Field>
-    <Field Def="s32 Unk0x30"></Field>
-    <Field Def="s32 Unk0x34"></Field>
-    <Field Def="s32 Unk0x38"></Field>
-    <Field Def="s32 Unk0x3C"></Field>
-    <Field Def="s32 Unk0x40"></Field>
-    <Field Def="s32 Unk0x44"></Field>
-    <Field Def="s32 Unk0x48"></Field>
-    <Field Def="s32 Unk0x4C"></Field>
-    <Field Def="s32 Unk0x50"></Field>
-    <Field Def="s32 Unk0x54"></Field>
-    <Field Def="s32 Unk0x58"></Field>
-    <Field Def="s32 Unk0x5C"></Field>
-    <Field Def="s32 Unk0x60"></Field>
-    <Field Def="s32 Unk0x64"></Field>
-    <Field Def="s32 Unk0x68"></Field>
-    <Field Def="s32 Unk0x6C"></Field>
-    <Field Def="s32 Unk0x70"></Field>
-    <Field Def="s32 Unk0x74"></Field>
-    <Field Def="s32 Unk0x78"></Field>
-    <Field Def="s32 Unk0x7C"></Field>
-    <Field Def="s32 Unk0x80"></Field>
-    <Field Def="s32 Unk0x84"></Field>
-    <Field Def="s32 Unk0x88"></Field>
-    <Field Def="s32 Unk0x8C"></Field>
-    <Field Def="s32 Unk0x90"></Field>
-    <Field Def="s32 Unk0x94"></Field>
-    <Field Def="s32 Unk0x98"></Field>
-    <Field Def="s32 Unk0x9C"></Field>
-    <Field Def="s32 Unk0xA0"></Field>
-    <Field Def="s32 Unk0xA4"></Field>
-    <Field Def="s32 Unk0xA8"></Field>
-    <Field Def="s32 Unk0xAC"></Field>
-    <Field Def="s32 Unk0xB0"></Field>
-    <Field Def="s32 Unk0xB4"></Field>
-    <Field Def="s32 Unk0xB8"></Field>
-    <Field Def="s32 Unk0xBC"></Field>
-    <Field Def="s32 Unk0xC0"></Field>
-    <Field Def="s32 Unk0xC4"></Field>
-    <Field Def="s32 Unk0xC8"></Field>
-    <Field Def="s32 Unk0xCC"></Field>
-    <Field Def="s32 Unk0xD0"></Field>
-    <Field Def="s32 Unk0xD4"></Field>
-    <Field Def="s32 Unk0xD8"></Field>
-    <Field Def="s32 Unk0xDC"></Field>
-    <Field Def="s32 Unk0xE0"></Field>
-    <Field Def="s32 Unk0xE4"></Field>
-    <Field Def="s32 Unk0xE8"></Field>
-    <Field Def="s32 Unk0xEC"></Field>
-    <Field Def="s32 Unk0xF0"></Field>
-    <Field Def="s32 Unk0xF4"></Field>
-    <Field Def="s32 Unk0xF8"></Field>
-    <Field Def="s32 Unk0xFC"></Field>
+    <Field Def="s32 HitMaterialId_0 = -1">
+      <DisplayName>ヒットマテリアルID 0</DisplayName>
+      <Description>接地しているかチェックする地面のマテリアルID 0</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>-1</Minimum>
+      <Maximum>99999999</Maximum>
+      <SortID>10</SortID>
+    </Field>
+    <Field Def="s32 HitMaterialId_1 = -1">
+      <DisplayName>ヒットマテリアルID 1</DisplayName>
+      <Description>接地しているかチェックする地面のマテリアルID 1</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>-1</Minimum>
+      <Maximum>99999999</Maximum>
+      <SortID>20</SortID>
+    </Field>
+    <Field Def="s32 HitMaterialId_2 = -1">
+      <DisplayName>ヒットマテリアルID 2</DisplayName>
+      <Description>接地しているかチェックする地面のマテリアルID 2</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>-1</Minimum>
+      <Maximum>99999999</Maximum>
+      <SortID>30</SortID>
+    </Field>
+    <Field Def="s32 HitMaterialId_3 = -1">
+      <DisplayName>ヒットマテリアルID 3</DisplayName>
+      <Description>接地しているかチェックする地面のマテリアルID 3</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>-1</Minimum>
+      <Maximum>99999999</Maximum>
+      <SortID>40</SortID>
+    </Field>
+    <Field Def="s32 HitMaterialId_4 = -1">
+      <DisplayName>ヒットマテリアルID 4</DisplayName>
+      <Description>接地しているかチェックする地面のマテリアルID 4</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>-1</Minimum>
+      <Maximum>99999999</Maximum>
+      <SortID>50</SortID>
+    </Field>
+    <Field Def="s32 HitMaterialId_5 = -1">
+      <DisplayName>ヒットマテリアルID 5</DisplayName>
+      <Description>接地しているかチェックする地面のマテリアルID 5</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>-1</Minimum>
+      <Maximum>99999999</Maximum>
+      <SortID>60</SortID>
+    </Field>
+    <Field Def="s32 HitMaterialId_6 = -1">
+      <DisplayName>ヒットマテリアルID 6</DisplayName>
+      <Description>接地しているかチェックする地面のマテリアルID 6</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>-1</Minimum>
+      <Maximum>99999999</Maximum>
+      <SortID>70</SortID>
+    </Field>
+    <Field Def="s32 HitMaterialId_7 = -1">
+      <DisplayName>ヒットマテリアルID 7</DisplayName>
+      <Description>接地しているかチェックする地面のマテリアルID 7</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>-1</Minimum>
+      <Maximum>99999999</Maximum>
+      <SortID>80</SortID>
+    </Field>
+    <Field Def="s32 HitMaterialId_8 = -1">
+      <DisplayName>ヒットマテリアルID 8</DisplayName>
+      <Description>接地しているかチェックする地面のマテリアルID 8</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>-1</Minimum>
+      <Maximum>99999999</Maximum>
+      <SortID>90</SortID>
+    </Field>
+    <Field Def="s32 HitMaterialId_9 = -1">
+      <DisplayName>ヒットマテリアルID 9</DisplayName>
+      <Description>接地しているかチェックする地面のマテリアルID 9</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>-1</Minimum>
+      <Maximum>99999999</Maximum>
+      <SortID>100</SortID>
+    </Field>
+    <Field Def="dummy8 reserve_0[216]">
+      <DisplayName>予約</DisplayName>
+      <SortID>101</SortID>
+    </Field>
   </Fields>
 </PARAMDEF>

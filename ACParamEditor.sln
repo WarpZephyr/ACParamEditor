@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33712.159
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ACParamEditor", "ACParamEditor\ACParamEditor.csproj", "{4FA58A8C-8048-4FE6-B415-88A19064FAC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcParamEditor", "AcParamEditor\AcParamEditor.csproj", "{4FA58A8C-8048-4FE6-B415-88A19064FAC6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoulsFormats", "..\SoulsFormatsNEXT\SoulsFormats\SoulsFormats.csproj", "{A4FDBC2B-2028-910D-8100-CA63031A0582}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomWinForms", "CustomWinForms\CustomWinForms.csproj", "{57A2C797-36B3-46B6-9328-6D5E650F1AAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{A4FDBC2B-2028-910D-8100-CA63031A0582}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4FDBC2B-2028-910D-8100-CA63031A0582}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4FDBC2B-2028-910D-8100-CA63031A0582}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57A2C797-36B3-46B6-9328-6D5E650F1AAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57A2C797-36B3-46B6-9328-6D5E650F1AAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57A2C797-36B3-46B6-9328-6D5E650F1AAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57A2C797-36B3-46B6-9328-6D5E650F1AAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

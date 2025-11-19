@@ -2,264 +2,18 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net9.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyVersion>1.2.3.0</AssemblyVersion>
-    <FileVersion>1.2.3.0</FileVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AssemblyVersion>1.2.4.0</AssemblyVersion>
+    <FileVersion>1.2.4.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <None Update="Resources\Dbp\AC4\acanimparam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\AC4\acbehavior.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\AC4\accambehavior.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\AC4\acsisdisplaycommon.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\AC4\aigeneralparam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\AC4\assemble.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\AC4\damage.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\AC4\enemybehavior.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\AC4\explosion.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\AC4\lockdeflection.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\AC4\missile.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\AC4\missionestimatecommon.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\AC4\missiongeneralparam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\AC4\movementparam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\AC4\newacbehavior.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\AC4\primalarmor.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\AC4\radar.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\AC4\sidebooster.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\AC4\weaponestimation.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACFA\AcAnimParam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACFA\AcsisDisplayCommon.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACFA\AcVibrationParam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACFA\AIGeneralParam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACFA\Assemble.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACFA\Damage.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACFA\EnemyBehavior.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACFA\Explosion.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACFA\LockDeflection.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACFA\Missile.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACFA\MissionEstimateCommon.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACFA\MissionGeneralParam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACFA\NewAcBehavior.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACFA\Radar.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACFA\SideBooster.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACFA\SuperOverBooster.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACFA\WeaponEstimation.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\acanimparam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\acsisdisplaycommon.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\acvibrationparam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\aigeneralparam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\assemble.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\damage.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\dlcsystemparam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\enemybehavior.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\explosion.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\lockdeflection.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\menuparam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\menusoundid.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\missile.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\missionestimatecommon.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\missiongeneralparam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\newacbehavior.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\newenemybehavior.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\radar.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\serversystemparam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\sidebooster.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\staticdrawparam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\superoverbooster.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACVD\weaponestimation.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\acanimparam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\acsisdisplaycommon.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\acvibrationparam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\aigeneralparam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\assemble.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\damage.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\dlcsystemparam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\enemybehavior.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\explosion.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\lockdeflection.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\menuparam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\menusoundid.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\missile.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\missionestimatecommon.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\missiongeneralparam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\newacbehavior.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\newenemybehavior.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\radar.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\serversystemparam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\sidebooster.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\staticdrawparam.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\superoverbooster.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Dbp\ACV\weaponestimation.dbp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC4\acactrestrictionparam.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -444,7 +198,19 @@
     <None Update="Resources\Def\AC6\ActionButtonParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\Def\AC6\AiAnimTblParam.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\AIAttackParam.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\AiOddsParam.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Def\AC6\AiSoundParam.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\AiStandardInfo.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\AnimMoveCorrectionParam.xml">
@@ -453,7 +219,10 @@
     <None Update="Resources\Def\AC6\ArenaParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\AC6\AssetEnvironmentGeometryParam.xml">
+    <None Update="Resources\Def\AC6\AssemEvaluateParam.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\AssetGeometryParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\AssetMaterialSfxParam.xml">
@@ -474,13 +243,10 @@
     <None Update="Resources\Def\AC6\AtkParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\AC6\AttachObj.xml">
+    <None Update="Resources\Def\AC6\AttachObjParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\AttackActionParam.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Def\AC6\AutoAssembleEvaluate.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\BehaviorChangeStateMatrixParam.xml">
@@ -507,10 +273,10 @@
     <None Update="Resources\Def\AC6\BudgetParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\AC6\Bullet.xml">
+    <None Update="Resources\Def\AC6\BulletCreateLimitParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\AC6\BulletCreateLimitParam.xml">
+    <None Update="Resources\Def\AC6\BulletParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\BulletShotgunParam.xml">
@@ -523,6 +289,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\CameraFadeParam.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\CameraRumbleParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\CartridgeBehaviorParam.xml">
@@ -576,16 +345,10 @@
     <None Update="Resources\Def\AC6\DecalParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\AC6\DefaultKeyAssignParam.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Def\AC6\Depthline.xml">
+    <None Update="Resources\Def\AC6\DepthLine.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\DirectionCameraParam.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Def\AC6\EFID_common.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\EmblemPieceSpec.xml">
@@ -595,6 +358,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\EnemyCommonParam.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\EnemyStandardInfo.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\EquipmentLineupParam.xml">
@@ -624,10 +390,13 @@
     <None Update="Resources\Def\AC6\EquipParamProtector.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\AC6\EquipParamWeapon_NPC.xml">
+    <None Update="Resources\Def\AC6\EquipParamWeapon.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\AC6\EquipParamWeapon_PC.xml">
+    <None Update="Resources\Def\AC6\EquipParamWeapon_Npc.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\EventFlagUsageParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\FeFreeDialogParam.xml">
@@ -648,6 +417,12 @@
     <None Update="Resources\Def\AC6\GameAreaParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\Def\AC6\GameDataUnlockParam.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\GameInfoParam.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Def\AC6\GamePresenceParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -657,7 +432,52 @@
     <None Update="Resources\Def\AC6\GarageCameraAnimParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\AC6\GarageCutsceneParam.xml">
+    <None Update="Resources\Def\AC6\GarageCutSceneParam.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\GraphicsConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\GraphicsConfig_AAQuality.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\GraphicsConfig_DecalQuality.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\GraphicsConfig_DOFQuality.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\GraphicsConfig_EffectQuality.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\GraphicsConfig_LightingQuality.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\GraphicsConfig_MotionBlurQuality.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\GraphicsConfig_RaytracingQuality.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\GraphicsConfig_ReflectionQuality.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\GraphicsConfig_ShaderQuality.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\GraphicsConfig_ShadowQuality.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\GraphicsConfig_SSAOQuality.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\GraphicsConfig_TextureFilterQuality.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\GraphicsConfig_VolumetricEffectQuality.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\GraphicsConfig_WaterQuality.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\GraphicsParam.xml">
@@ -711,6 +531,9 @@
     <None Update="Resources\Def\AC6\KeyAssignMenuItemParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\Def\AC6\KeyAssignParam.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Def\AC6\KnockBackParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -738,7 +561,7 @@
     <None Update="Resources\Def\AC6\LookAtSpineParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\AC6\Magic.xml">
+    <None Update="Resources\Def\AC6\MagicParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\MailParam.xml">
@@ -756,7 +579,7 @@
     <None Update="Resources\Def\AC6\MapPartsParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\AC6\MaterialExParam.xml">
+    <None Update="Resources\Def\AC6\MaterialEx.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\MenuBehaviorParam.xml">
@@ -789,16 +612,19 @@
     <None Update="Resources\Def\AC6\MenuPropertySpecParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\AC6\MenuValueTableParam.xml">
+    <None Update="Resources\Def\AC6\MenuValueTableSpecParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\AC6\MercenaryRankTable.xml">
+    <None Update="Resources\Def\AC6\MercenaryRankRecord.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\MessageBoxParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\MiniAreaParam.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\MissileParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\MissionParam.xml">
@@ -864,13 +690,13 @@
     <None Update="Resources\Def\AC6\ObjActParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\AC6\OsReinforce.xml">
+    <None Update="Resources\Def\AC6\ObjectParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\AC6\OsReinforcePoint.xml">
+    <None Update="Resources\Def\AC6\OsReinforceParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\AC6\PadRumble.xml">
+    <None Update="Resources\Def\AC6\OsReinforcePointParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\PartsBreakLotteryParam.xml">
@@ -880,6 +706,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\PartsDrawParam.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\PartsTexPreset.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\PartsTokenParam.xml">
@@ -904,6 +733,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\PlayRegionParam.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\QwcChangeParam.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\QwcJudgeParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\RagdollParam.xml">
@@ -948,6 +783,9 @@
     <None Update="Resources\Def\AC6\ShopLineupParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\Def\AC6\SkillParam.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Def\AC6\SkydomeAssetParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -966,10 +804,10 @@
     <None Update="Resources\Def\AC6\SoundParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\AC6\SpEffectParam.xml">
+    <None Update="Resources\Def\AC6\SpEffect.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\AC6\SpEffectVfxParam.xml">
+    <None Update="Resources\Def\AC6\SpEffectVfx.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\SubWindowCamParam.xml">
@@ -988,6 +826,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\TankWheelParam.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Def\AC6\TentativeParamType.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\AC6\TentativePlayerParam.xml">
@@ -1014,12 +855,6 @@
     <None Update="Resources\Def\AC6\TutorialParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\AC6\TypelessMapping.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Def\AC6\UnlockParam.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Resources\Def\AC6\WepAbsorpPosParam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -1035,10 +870,10 @@
     <None Update="Resources\Def\AC6\WwiseValueToStrConvertParamFormat.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\AC6\WwiseValueToStrParam.xml">
+    <None Update="Resources\Def\AC6\WwiseValueToStrConvertParamFormatW.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Def\AC6\Zoomblur.xml">
+    <None Update="Resources\Def\AC6\ZoomBlur.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\ACFA\AaParam.xml">
@@ -2467,27 +2302,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Def\EA\unitsizesfxparam.def">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Paths\AC4\paramlist.ini">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Paths\AC4\paramlist.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Paths\ACFA\paramlist.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Paths\ACVD\bulletparamlist.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Paths\ACVD\paramlist.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Paths\ACV\bulletparamlist.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Paths\ACV\paramlist.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Tdf\AC6\AccountParamID.tdf">
@@ -3986,10 +3800,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\SoulsFormatsNEXT\SoulsFormats\SoulsFormats.csproj" />
+    <ProjectReference Include="..\CustomWinForms\CustomWinForms.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Custom Forms\ScrollingListBox.cs" />
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>

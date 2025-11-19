@@ -1,19 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<PARAMDEF XmlVersion="0">
+<PARAMDEF XmlVersion="3">
   <ParamType>MAP_PARTS_PARAM_ST</ParamType>
   <DataVersion>1</DataVersion>
   <BigEndian>False</BigEndian>
   <Unicode>True</Unicode>
   <FormatVersion>203</FormatVersion>
   <Fields>
-    <!-- <Field Def="dummy8 paramSize[32]" /> -->
-    <Field Def="f32 Unk0x00"></Field>
-    <Field Def="f32 Unk0x04"></Field>
-    <Field Def="s32 Unk0x08"></Field>
-    <Field Def="s32 Unk0x0C"></Field>
-    <Field Def="s32 Unk0x10"></Field>
-    <Field Def="s32 Unk0x14"></Field>
-    <Field Def="s32 Unk0x18"></Field>
-    <Field Def="s32 Unk0x1C"></Field>
+    <Field Def="f32 camDitherFadeMinDist">
+      <DisplayName>カメラディザフェード最小距離[m]</DisplayName>
+      <Description>カメラディザフェード最小距離[m]。「カメラディザフェード最小距離」、「カメラディザフェード最大距離」の両方に「0.0」を設定するとカメラディザフェードが無効になります。</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <SortID>100</SortID>
+    </Field>
+    <Field Def="f32 camDitherFadeMaxDist">
+      <DisplayName>カメラディザフェード最大距離[m]</DisplayName>
+      <Description>カメラディザフェード最大距離[m]。「カメラディザフェード最小距離」、「カメラディザフェード最大距離」の両方に「0.0」を設定するとカメラディザフェードが無効になります。</Description>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+      <SortID>200</SortID>
+    </Field>
+    <Field Def="dummy8 pad[24]">
+      <DisplayName>パディング</DisplayName>
+      <SortID>201</SortID>
+    </Field>
   </Fields>
 </PARAMDEF>

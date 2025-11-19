@@ -1,4 +1,7 @@
-namespace ACParamEditor
+using System;
+using System.Windows.Forms;
+
+namespace AcParamEditor
 {
     internal static class Program
     {

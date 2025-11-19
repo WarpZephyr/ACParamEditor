@@ -1,12 +1,14 @@
 ﻿using SoulsFormats;
-using System.Security.Cryptography;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
-namespace ACParamEditor
+namespace AcParamEditor
 {
     /// <summary>
     /// A class for storing information about loaded params.
     /// </summary>
-    public class ParamInfo
+    internal class ParamInfo
     {
         #region Properties
 

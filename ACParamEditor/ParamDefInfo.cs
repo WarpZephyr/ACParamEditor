@@ -1,8 +1,8 @@
 ﻿using SoulsFormats;
 
-namespace ACParamEditor
+namespace AcParamEditor
 {
-    public class ParamDefInfo
+    internal class ParamDefInfo
     {
         public string Name { get; set; }
         public PARAMDEF Def { get; set; }

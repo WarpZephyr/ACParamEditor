@@ -2,62 +2,67 @@
 //#define DEBUG_CRASH
 #endif
 
-using CustomForms;
+using AcParamEditor.Extensions;
+using AcParamEditor.Utilities;
+using CustomWinForms;
 using SoulsFormats;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using Utilities;
+using System.IO;
+using System.Windows.Forms;
 
-namespace ACParamEditor
+namespace AcParamEditor
 {
     public partial class MainForm : Form
     {
         /// <summary>
-        /// The path to the def resource folder.
+        /// A string representing the path to a generic resource folder named "Resources" inside of the directory the program is running from.
         /// </summary>
-        private static readonly string DefFolderPath = $"{PathUtil.ResourcesFolderPath}\\Def";
+        private static readonly string ResourcesFolderPath = $"{AppInfo.AppDirectory}\\Resources";
 
         /// <summary>
-        /// The path to the dbp resource folder.
+        /// The path to the def resource folder.
         /// </summary>
-        private static readonly string DbpFolderPath = $"{PathUtil.ResourcesFolderPath}\\Dbp";
+        private static readonly string DefFolderPath = $"{ResourcesFolderPath}\\Def";
 
         /// <summary>
         /// The path to the tdf resource folder.
         /// </summary>
-        private static readonly string TdfFolderPath = $"{PathUtil.ResourcesFolderPath}\\Tdf";
+        private static readonly string TdfFolderPath = $"{ResourcesFolderPath}\\Tdf";
 
         /// <summary>
-        /// The path to the param resource folder.
+        /// The file name of the TentativeParamType list.
         /// </summary>
-        private static readonly string ParamFolderPath = $"{PathUtil.ResourcesFolderPath}\\Param";
-
-        /// <summary>
-        /// The file name of the TypelessMapping list.
-        /// </summary>
-        private static readonly string TypelessMappingName = "TypelessMapping.txt";
+        private const string TentativeParamTypeName = "TentativeParamType.csv";
 
         /// <summary>
         /// The currently loaded param to def map.
         /// </summary>
-        private Dictionary<string, ParamDefInfo> DefMap = new Dictionary<string, ParamDefInfo>();
+        private readonly Dictionary<string, ParamDefInfo> DefMap;
 
         /// <summary>
         /// The currently loaded params.
         /// </summary>
-        private BindingList<ParamInfo> Params { get; set; } = new BindingList<ParamInfo>();
+        private readonly BindingList<ParamInfo> Params;
 
         /// <summary>
         /// The currently copied param rows.
         /// </summary>
-        private List<PARAM.Row> RowCopies { get; set; } = new List<PARAM.Row>();
+        private List<PARAM.Row> RowCopies;
 
         /// <summary>
         /// The max number of entries that can be in the log.
         /// </summary>
-        private int MaxLogEntries { get; set; } = 1000;
+        private readonly int MaxLogEntries;
 
         public MainForm()
         {
+            DefMap = [];
+            Params = [];
+            RowCopies = [];
+            MaxLogEntries = 1000;
+
             InitializeComponent();
 
             // Lock events that slow down initialization.
@@ -95,13 +100,13 @@ namespace ACParamEditor
             // Data bind param list.
             ParamDataGridView.AutoGenerateColumns = false;
             ParamDataGridView.DataSource = Params;
-            ParamDataGridView.Columns["paramfilename"].DataPropertyName = "Name";
-            ParamDataGridView.Columns["paramtype"].DataPropertyName = "Type";
-            ParamDataGridView.Columns["paramformatversion"].DataPropertyName = "ParamFormatVersion";
-            ParamDataGridView.Columns["paramdefformatversion"].DataPropertyName = "DefFormatVersion";
-            ParamDataGridView.Columns["paramdataversion"].DataPropertyName = "ParamDataVersion";
-            ParamDataGridView.Columns["paramdefdataversion"].DataPropertyName = "DefDataVersion";
-            ParamDataGridView.Columns["paramgame"].DataPropertyName = "Game";
+            GetColumnOrThrow(ParamDataGridView.Columns, "paramfilename").DataPropertyName = "Name";
+            GetColumnOrThrow(ParamDataGridView.Columns, "paramtype").DataPropertyName = "Type";
+            GetColumnOrThrow(ParamDataGridView.Columns, "paramformatversion").DataPropertyName = "ParamFormatVersion";
+            GetColumnOrThrow(ParamDataGridView.Columns, "paramdefformatversion").DataPropertyName = "DefFormatVersion";
+            GetColumnOrThrow(ParamDataGridView.Columns, "paramdataversion").DataPropertyName = "ParamDataVersion";
+            GetColumnOrThrow(ParamDataGridView.Columns, "paramdefdataversion").DataPropertyName = "DefDataVersion";
+            GetColumnOrThrow(ParamDataGridView.Columns, "paramgame").DataPropertyName = "Game";
 
             // Unlock locked events.
             UnlockEvents();
@@ -112,7 +117,7 @@ namespace ACParamEditor
         private void MenuFileOpen_Click(object sender, EventArgs e)
         {
             UpdateStatus("Opening params.");
-            string[] paths = PathUtil.GetFilePaths("C:\\Users", "Open Params", "Param (*.bin)|*.bin|Param (*.param)|*.param|All Files (*)|*");
+            string[] paths = FileDialogs.GetFilePaths("C:\\Users", "Open Params", "Param (*.bin)|*.bin|Param (*.param)|*.param|All Files (*)|*");
             if (paths.Length == 0)
             {
                 UpdateStatus("Canceling opening params.");
@@ -125,7 +130,7 @@ namespace ACParamEditor
         private void MenuFileOpenFromList_Click(object sender, EventArgs e)
         {
             UpdateStatus("Opening params from list.");
-            string? listPath = PathUtil.GetFilePath("C:\\Users", "Open Param List", "Text (*.txt)|*.txt|All Files (*)|*");
+            string? listPath = FileDialogs.GetFilePath("C:\\Users", "Open Param List", "Text (*.txt)|*.txt|All Files (*)|*");
             if (string.IsNullOrWhiteSpace(listPath))
             {
                 UpdateStatus("Canceling opening param list.");
@@ -141,7 +146,7 @@ namespace ACParamEditor
 
             if (!list[0].Contains(Path.VolumeSeparatorChar))
             {
-                string rootPath = FormUtil.ShowInputDialog("Please input the root path of the list.", "Input Root Path");
+                string rootPath = FormDialogs.ShowInputDialog("Please input the root path of the list.", "Input Root Path");
                 if (string.IsNullOrWhiteSpace(rootPath))
                 {
                     UpdateStatus("Root path not valid, canceling opening param list.");
@@ -174,7 +179,7 @@ namespace ACParamEditor
             if (ParamDataGridView.Rows.Count == 0)
                 return;
 
-            bool question = FormUtil.ShowQuestionDialog("Are you sure you want to save all currently selected params?", "Save Selected Params");
+            bool question = FormDialogs.ShowQuestionDialog("Are you sure you want to save all currently selected params?", "Save Selected Params");
             if (!question)
                 return;
 
@@ -183,8 +188,8 @@ namespace ACParamEditor
             {
                 if (!saved.Contains(cell.RowIndex))
                 {
-                    var paraminfo = (ParamInfo)ParamDataGridView.Rows[cell.RowIndex].DataBoundItem;
-                    PathUtil.Backup(paraminfo.Path);
+                    var paraminfo = (ParamInfo?)ParamDataGridView.Rows[cell.RowIndex].DataBoundItem ?? throw new Exception("Failed to get param data.");
+                    FileEx.BackupFile(paraminfo.Path);
                     paraminfo.WriteToPath();
                     saved.Add(cell.RowIndex);
                 }
@@ -198,15 +203,15 @@ namespace ACParamEditor
             if (ParamDataGridView.Rows.Count == 0)
                 return;
 
-            bool question = FormUtil.ShowQuestionDialog("Are you sure you want to save all params?", "Save All Params");
+            bool question = FormDialogs.ShowQuestionDialog("Are you sure you want to save all params?", "Save All Params");
             if (!question)
                 return;
 
             int count = ParamDataGridView.RowCount;
             foreach (DataGridViewRow row in ParamDataGridView.Rows)
             {
-                var paraminfo = (ParamInfo)row.DataBoundItem;
-                PathUtil.Backup(paraminfo.Path);
+                var paraminfo = (ParamInfo?)row.DataBoundItem ?? throw new Exception("Failed to get param data.");
+                FileEx.BackupFile(paraminfo.Path);
                 paraminfo.WriteToPath();
             }
 
@@ -218,7 +223,7 @@ namespace ACParamEditor
             if (ParamDataGridView.Rows.Count == 0)
                 return;
 
-            bool question = FormUtil.ShowQuestionDialog("Are you sure you want to close all currently selected params?", "Close Selected Params");
+            bool question = FormDialogs.ShowQuestionDialog("Are you sure you want to close all currently selected params?", "Close Selected Params");
             if (!question)
                 return;
 
@@ -227,7 +232,7 @@ namespace ACParamEditor
             {
                 if (!closed.Contains(cell.RowIndex))
                 {
-                    var paraminfo = (ParamInfo)ParamDataGridView.Rows[cell.RowIndex].DataBoundItem;
+                    var paraminfo = (ParamInfo?)ParamDataGridView.Rows[cell.RowIndex].DataBoundItem ?? throw new Exception("Failed to get param data.");
                     Params.Remove(paraminfo);
                     closed.Add(cell.RowIndex);
                 }
@@ -242,7 +247,7 @@ namespace ACParamEditor
             if (ParamDataGridView.Rows.Count == 0)
                 return;
 
-            bool question = FormUtil.ShowQuestionDialog("Are you sure you want to close all params?", "Close All Params");
+            bool question = FormDialogs.ShowQuestionDialog("Are you sure you want to close all params?", "Close All Params");
             if (!question)
                 return;
 
@@ -257,7 +262,7 @@ namespace ACParamEditor
             if (ParamDataGridView.Rows.Count == 0)
                 return;
 
-            bool question = FormUtil.ShowQuestionDialog("Are you sure you want to reload all currently selected params without saving?", "Reload Selected Params");
+            bool question = FormDialogs.ShowQuestionDialog("Are you sure you want to reload all currently selected params without saving?", "Reload Selected Params");
             if (!question)
                 return;
 
@@ -267,7 +272,7 @@ namespace ACParamEditor
             {
                 if (!closed.Contains(cell.RowIndex))
                 {
-                    var paraminfo = (ParamInfo)ParamDataGridView.Rows[cell.RowIndex].DataBoundItem;
+                    var paraminfo = (ParamInfo?)ParamDataGridView.Rows[cell.RowIndex].DataBoundItem ?? throw new Exception("Failed to get param data.");
                     paths.Add(paraminfo.Path);
                     Params.Remove(paraminfo);
                     closed.Add(cell.RowIndex);
@@ -284,7 +289,7 @@ namespace ACParamEditor
             if (ParamDataGridView.Rows.Count == 0)
                 return;
 
-            bool question = FormUtil.ShowQuestionDialog("Are you sure you want to reload all params without saving?", "Reload All Params");
+            bool question = FormDialogs.ShowQuestionDialog("Are you sure you want to reload all params without saving?", "Reload All Params");
             if (!question)
                 return;
 
@@ -307,7 +312,7 @@ namespace ACParamEditor
         private void MenuExportParamdefs_Click(object sender, EventArgs e)
         {
             UpdateStatus("Exporting paramdefs.");
-            string? folderPath = PathUtil.GetFolderPath();
+            string? folderPath = FileDialogs.GetFolderPath();
             if (folderPath == null)
             {
                 UpdateStatus("Canceling exporting paramdefs.");
@@ -324,7 +329,7 @@ namespace ACParamEditor
 
         private void ParamViewName_Click(object sender, EventArgs e)
         {
-            ParamDataGridView.Columns["paramfilename"].Visible = ParamViewName.Checked;
+            GetColumnOrThrow(ParamDataGridView.Columns, "paramfilename").Visible = ParamViewName.Checked;
             UpdateStatus(ParamViewName.Checked ? "Showing Names" : "Hid Names");
             ParamContextMenu.Show();
             ParamView.DropDown.Show();
@@ -332,7 +337,7 @@ namespace ACParamEditor
 
         private void ParamViewType_Click(object sender, EventArgs e)
         {
-            ParamDataGridView.Columns["paramtype"].Visible = ParamViewType.Checked;
+            GetColumnOrThrow(ParamDataGridView.Columns, "paramtype").Visible = ParamViewType.Checked;
             UpdateStatus(ParamViewType.Checked ? "Showing Types" : "Hid Types");
             ParamContextMenu.Show();
             ParamView.DropDown.Show();
@@ -340,7 +345,7 @@ namespace ACParamEditor
 
         private void ParamViewParamFormatVersion_Click(object sender, EventArgs e)
         {
-            ParamDataGridView.Columns["paramformatversion"].Visible = ParamViewParamFormatVersion.Checked;
+            GetColumnOrThrow(ParamDataGridView.Columns, "paramformatversion").Visible = ParamViewParamFormatVersion.Checked;
             UpdateStatus(ParamViewParamFormatVersion.Checked ? "Showing Param Format Versions" : "Hid Param Format Versions");
             ParamContextMenu.Show();
             ParamView.DropDown.Show();
@@ -348,7 +353,7 @@ namespace ACParamEditor
 
         private void ParamViewDefFormatVersion_Click(object sender, EventArgs e)
         {
-            ParamDataGridView.Columns["paramdefformatversion"].Visible = ParamViewDefFormatVersion.Checked;
+            GetColumnOrThrow(ParamDataGridView.Columns, "paramdefformatversion").Visible = ParamViewDefFormatVersion.Checked;
             UpdateStatus(ParamViewParamFormatVersion.Checked ? "Showing Def Format Versions" : "Hid Def Format Versions");
             ParamContextMenu.Show();
             ParamView.DropDown.Show();
@@ -356,7 +361,7 @@ namespace ACParamEditor
 
         private void ParamViewParamDataVersion_Click(object sender, EventArgs e)
         {
-            ParamDataGridView.Columns["paramdataversion"].Visible = ParamViewParamDataVersion.Checked;
+            GetColumnOrThrow(ParamDataGridView.Columns, "paramdataversion").Visible = ParamViewParamDataVersion.Checked;
             UpdateStatus(ParamViewParamDataVersion.Checked ? "Showing Param Data Versions" : "Hid Param Data Versions");
             ParamContextMenu.Show();
             ParamView.DropDown.Show();
@@ -364,7 +369,7 @@ namespace ACParamEditor
 
         private void ParamViewDefDataVersion_Click(object sender, EventArgs e)
         {
-            ParamDataGridView.Columns["paramdefdataversion"].Visible = ParamViewDefDataVersion.Checked;
+            GetColumnOrThrow(ParamDataGridView.Columns, "paramdefdataversion").Visible = ParamViewDefDataVersion.Checked;
             UpdateStatus(ParamViewParamDataVersion.Checked ? "Showing Def Data Versions" : "Hid Def Data Versions");
             ParamContextMenu.Show();
             ParamView.DropDown.Show();
@@ -372,7 +377,7 @@ namespace ACParamEditor
 
         private void ParamViewGame_Click(object sender, EventArgs e)
         {
-            ParamDataGridView.Columns["paramgame"].Visible = ParamViewGame.Checked;
+            GetColumnOrThrow(ParamDataGridView.Columns, "paramgame").Visible = ParamViewGame.Checked;
             UpdateStatus(ParamViewType.Checked ? "Showing Games" : "Hid Games");
             ParamContextMenu.Show();
             ParamView.DropDown.Show();
@@ -380,7 +385,7 @@ namespace ACParamEditor
 
         private void RowViewID_Click(object sender, EventArgs e)
         {
-            RowDataGridView.Columns["paramrowid"].Visible = RowViewID.Checked;
+            GetColumnOrThrow(RowDataGridView.Columns, "paramrowid").Visible = RowViewID.Checked;
             UpdateStatus(RowViewID.Checked ? "Showing IDs" : "Hid IDs");
             RowContextMenu.Show();
             RowView.DropDown.Show();
@@ -388,7 +393,7 @@ namespace ACParamEditor
 
         private void RowViewName_Click(object sender, EventArgs e)
         {
-            RowDataGridView.Columns["paramrowname"].Visible = RowViewName.Checked;
+            GetColumnOrThrow(RowDataGridView.Columns, "paramrowname").Visible = RowViewName.Checked;
             UpdateStatus(RowViewName.Checked ? "Showing Row Names" : "Hid Row Names");
             RowContextMenu.Show();
             RowView.DropDown.Show();
@@ -396,7 +401,7 @@ namespace ACParamEditor
 
         private void CellViewDisplayType_Click(object sender, EventArgs e)
         {
-            CellDataGridView.Columns["paramcelldisplaytype"].Visible = CellViewDisplayType.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcelldisplaytype").Visible = CellViewDisplayType.Checked;
             UpdateStatus(CellViewDisplayType.Checked ? "Showing Cell Display Types" : "Hid Cell Display Types");
             CellContextMenu.Show();
             CellView.DropDown.Show();
@@ -404,7 +409,7 @@ namespace ACParamEditor
 
         private void CellViewInternalType_Click(object sender, EventArgs e)
         {
-            CellDataGridView.Columns["paramcellinternaltype"].Visible = CellViewInternalType.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellinternaltype").Visible = CellViewInternalType.Checked;
             UpdateStatus(CellViewInternalType.Checked ? "Showing Cell Internal Types" : "Hid Cell Internal Types");
             CellContextMenu.Show();
             CellView.DropDown.Show();
@@ -412,7 +417,7 @@ namespace ACParamEditor
 
         private void CellViewValue_Click(object sender, EventArgs e)
         {
-            CellDataGridView.Columns["paramcellvalue"].Visible = CellViewValue.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellvalue").Visible = CellViewValue.Checked;
             UpdateStatus(CellViewValue.Checked ? "Showing Cell Values" : "Hid Cell Values");
             CellContextMenu.Show();
             CellView.DropDown.Show();
@@ -420,7 +425,7 @@ namespace ACParamEditor
 
         private void CellViewDisplayName_Click(object sender, EventArgs e)
         {
-            CellDataGridView.Columns["paramcelldisplayname"].Visible = CellViewDisplayName.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcelldisplayname").Visible = CellViewDisplayName.Checked;
             UpdateStatus(CellViewDisplayName.Checked ? "Showing Cell Display Names" : "Hid Cell Display Names");
             CellContextMenu.Show();
             CellView.DropDown.Show();
@@ -428,7 +433,7 @@ namespace ACParamEditor
 
         private void CellViewInternalName_Click(object sender, EventArgs e)
         {
-            CellDataGridView.Columns["paramcellinternalname"].Visible = CellViewInternalName.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellinternalname").Visible = CellViewInternalName.Checked;
             UpdateStatus(CellViewInternalName.Checked ? "Showing Cell Internal Names" : "Hid Cell Internal Names");
             CellContextMenu.Show();
             CellView.DropDown.Show();
@@ -436,7 +441,7 @@ namespace ACParamEditor
 
         private void CellViewDescription_Click(object sender, EventArgs e)
         {
-            CellDataGridView.Columns["paramcelldescription"].Visible = CellViewDescription.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcelldescription").Visible = CellViewDescription.Checked;
             UpdateStatus(CellViewDescription.Checked ? "Showing Cell Descriptions" : "Hid Cell Descriptions");
             CellContextMenu.Show();
             CellView.DropDown.Show();
@@ -444,7 +449,7 @@ namespace ACParamEditor
 
         private void CellViewDisplayFormat_Click(object sender, EventArgs e)
         {
-            CellDataGridView.Columns["paramcelldisplayformat"].Visible = CellViewDisplayFormat.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcelldisplayformat").Visible = CellViewDisplayFormat.Checked;
             UpdateStatus(CellViewDisplayFormat.Checked ? "Showing Cell Display Formats" : "Hid Cell Display Formats");
             CellContextMenu.Show();
             CellView.DropDown.Show();
@@ -452,7 +457,7 @@ namespace ACParamEditor
 
         private void CellViewDefault_Click(object sender, EventArgs e)
         {
-            CellDataGridView.Columns["paramcelldefault"].Visible = CellViewDefault.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcelldefault").Visible = CellViewDefault.Checked;
             UpdateStatus(CellViewDefault.Checked ? "Showing Cell Default Values" : "Hid Cell Default Values");
             CellContextMenu.Show();
             CellView.DropDown.Show();
@@ -460,7 +465,7 @@ namespace ACParamEditor
 
         private void CellViewIncrement_Click(object sender, EventArgs e)
         {
-            CellDataGridView.Columns["paramcellincrement"].Visible = CellViewIncrement.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellincrement").Visible = CellViewIncrement.Checked;
             UpdateStatus(CellViewIncrement.Checked ? "Showing Cell Increment Amount" : "Hid Cell Increment Amount");
             CellContextMenu.Show();
             CellView.DropDown.Show();
@@ -468,7 +473,7 @@ namespace ACParamEditor
 
         private void CellViewMinimum_Click(object sender, EventArgs e)
         {
-            CellDataGridView.Columns["paramcellminimum"].Visible = CellViewMinimum.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellminimum").Visible = CellViewMinimum.Checked;
             UpdateStatus(CellViewMinimum.Checked ? "Showing Cell Minimum Values" : "Hid Cell Mimimum Values");
             CellContextMenu.Show();
             CellView.DropDown.Show();
@@ -476,7 +481,7 @@ namespace ACParamEditor
 
         private void CellViewMaximum_Click(object sender, EventArgs e)
         {
-            CellDataGridView.Columns["paramcellmaximum"].Visible = CellViewMaximum.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellmaximum").Visible = CellViewMaximum.Checked;
             UpdateStatus(CellViewMaximum.Checked ? "Showing Cell Maximum Values" : "Hid Cell Maximum Values");
             CellContextMenu.Show();
             CellView.DropDown.Show();
@@ -484,7 +489,7 @@ namespace ACParamEditor
 
         private void CellViewSortID_Click(object sender, EventArgs e)
         {
-            CellDataGridView.Columns["paramcellsortid"].Visible = CellViewSortID.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellsortid").Visible = CellViewSortID.Checked;
             UpdateStatus(CellViewSortID.Checked ? "Showing Cell Sort IDs" : "Hid Cell Sort IDs");
             CellContextMenu.Show();
             CellView.DropDown.Show();
@@ -492,7 +497,7 @@ namespace ACParamEditor
 
         private void CellViewArrayLength_Click(object sender, EventArgs e)
         {
-            CellDataGridView.Columns["paramcellarraylength"].Visible = CellViewArrayLength.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellarraylength").Visible = CellViewArrayLength.Checked;
             UpdateStatus(CellViewArrayLength.Checked ? "Showing Cell Array Lengths" : "Hid Cell Array Lengths");
             CellContextMenu.Show();
             CellView.DropDown.Show();
@@ -500,7 +505,7 @@ namespace ACParamEditor
 
         private void CellViewBitSize_Click(object sender, EventArgs e)
         {
-            CellDataGridView.Columns["paramcellbitsize"].Visible = CellViewBitSize.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellbitsize").Visible = CellViewBitSize.Checked;
             UpdateStatus(CellViewBitSize.Checked ? "Showing Cell Bit Sizes" : "Hid Cell Bit Sizes");
             CellContextMenu.Show();
             CellView.DropDown.Show();
@@ -557,6 +562,9 @@ namespace ACParamEditor
 
         #region Form DataGridView
 
+        private static DataGridViewColumn GetColumnOrThrow(DataGridViewColumnCollection columns, string columnName)
+            => columns[columnName] ?? throw new Exception($"Couldn't get column: \"{columnName}\"");
+
         private void ParamDataGridView_SelectionChanged(object? sender, EventArgs e)
         {
             if (ParamDataGridView.Rows.Count == 0)
@@ -570,33 +578,37 @@ namespace ACParamEditor
             if (ParamDataGridView.Rows.Count == 0)
                 return;
 
-            var currentparam = (ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem;
+            var currentParamViewRow = ParamDataGridView.CurrentRow ?? throw new Exception("Failed to get current param view row.");
+            var currentparam = (ParamInfo?)currentParamViewRow.DataBoundItem ?? throw new Exception("Failed to get param data.");
             if (currentparam.RowCount == 0)
             {
                 CellDataGridView.DataSource = null;
                 return;
             }
 
-            if (RowDataGridView.CurrentRow.Index + 1 > currentparam.RowCount)
+            var currentRowViewRow = RowDataGridView.CurrentRow ?? throw new Exception("Failed to get current row view row.");
+            if (currentRowViewRow.Index + 1 > currentparam.RowCount)
                 return;
 
             CellDataGridView.AutoGenerateColumns = false;
-            CellDataGridView.DataSource = ((PARAM.Row)RowDataGridView.CurrentRow.DataBoundItem).Cells;
 
-            CellDataGridView.Columns["paramcelldisplaytype"].DataPropertyName = "DisplayType";
-            CellDataGridView.Columns["paramcellinternaltype"].DataPropertyName = "InternalType";
-            CellDataGridView.Columns["paramcellvalue"].DataPropertyName = "Value";
-            CellDataGridView.Columns["paramcelldisplayname"].DataPropertyName = "DisplayName";
-            CellDataGridView.Columns["paramcellinternalname"].DataPropertyName = "InternalName";
-            CellDataGridView.Columns["paramcelldescription"].DataPropertyName = "Description";
-            CellDataGridView.Columns["paramcelldisplayformat"].DataPropertyName = "DisplayFormat";
-            CellDataGridView.Columns["paramcelldefault"].DataPropertyName = "Default";
-            CellDataGridView.Columns["paramcellincrement"].DataPropertyName = "Increment";
-            CellDataGridView.Columns["paramcellminimum"].DataPropertyName = "Minimum";
-            CellDataGridView.Columns["paramcellmaximum"].DataPropertyName = "Maximum";
-            CellDataGridView.Columns["paramcellsortid"].DataPropertyName = "SortID";
-            CellDataGridView.Columns["paramcellarraylength"].DataPropertyName = "ArrayLength";
-            CellDataGridView.Columns["paramcellbitsize"].DataPropertyName = "BitSize";
+            var currentRow = (PARAM.Row?)currentRowViewRow.DataBoundItem ?? throw new Exception("Failed to get param row data.");
+            CellDataGridView.DataSource = currentRow.Cells;
+
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcelldisplaytype").DataPropertyName = "DisplayType";
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellinternaltype").DataPropertyName = "InternalType";
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellvalue").DataPropertyName = "Value";
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcelldisplayname").DataPropertyName = "DisplayName";
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellinternalname").DataPropertyName = "InternalName";
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcelldescription").DataPropertyName = "Description";
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcelldisplayformat").DataPropertyName = "DisplayFormat";
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcelldefault").DataPropertyName = "Default";
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellincrement").DataPropertyName = "Increment";
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellminimum").DataPropertyName = "Minimum";
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellmaximum").DataPropertyName = "Maximum";
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellsortid").DataPropertyName = "SortID";
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellarraylength").DataPropertyName = "ArrayLength";
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellbitsize").DataPropertyName = "BitSize";
         }
 
         private void RowDataGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
@@ -623,8 +635,10 @@ namespace ACParamEditor
             if (!CellDataGridView.IsCurrentCellInEditMode)
                 return;
 
-            var cell = (PARAM.Cell)CellDataGridView.CurrentRow.DataBoundItem;
-            if (!CellValueValid(cell, e.FormattedValue))
+            var row = CellDataGridView.CurrentRow ?? throw new Exception("Failed to get the current row for the cell data grid.");
+            var cell = (PARAM.Cell?)row.DataBoundItem ?? throw new Exception("Failed to get cell data.");
+            var formattedValue = e.FormattedValue ?? throw new Exception("Failed to get formatted value.");
+            if (!CellValueValid(cell, formattedValue))
             {
                 CellDataGridView.CancelEdit();
                 CellDataGridView.EndEdit();
@@ -662,7 +676,8 @@ namespace ACParamEditor
                     {
                         BeginInvoke(() => // Because drawing artifacts have been known to occur otherwise.
                         {
-                            CellDataGridView.CurrentCell.Value = textBox.Text;
+                            var currentCell = CellDataGridView.CurrentCell ?? throw new Exception("Failed to get current cell.");
+                            currentCell.Value = textBox.Text;
                         });
                     }
 
@@ -670,7 +685,8 @@ namespace ACParamEditor
                     {
                         if (e.KeyData == Keys.Escape)
                         {
-                            CellDataGridView.CurrentCell.Value = revertText;
+                            var currentCell = CellDataGridView.CurrentCell ?? throw new Exception("Failed to get current cell.");
+                            currentCell.Value = revertText;
                         }
                     }
                 }
@@ -720,7 +736,10 @@ namespace ACParamEditor
             if (data == null)
                 return;
 
-            string[] paths = (string[])data.GetData(DataFormats.FileDrop);
+            string[]? paths = (string[]?)data.GetData(DataFormats.FileDrop);
+            if (paths == null)
+                return;
+
             LoadParamsFast(paths, sender, e);
         }
 
@@ -733,7 +752,9 @@ namespace ACParamEditor
             if (ParamDataGridView.Rows.Count == 0)
                 return;
 
-            var currentparam = (ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem;
+            var currentRow = ParamDataGridView.CurrentRow ?? throw new Exception("Failed to get current row.");
+            var currentparam = (ParamInfo?)currentRow.DataBoundItem ?? throw new Exception("Failed to get param data.");
+
             int id = 1;
             if (currentparam.Param.Rows.Count > 0)
                 id = currentparam.GetNextRowID();
@@ -748,19 +769,20 @@ namespace ACParamEditor
             if (ParamDataGridView.Rows.Count == 0)
                 return;
 
-            bool question = FormUtil.ShowQuestionDialog("Are you sure you wish to delete the currently selected rows?", "Delete Currently Selected Rows");
+            bool question = FormDialogs.ShowQuestionDialog("Are you sure you wish to delete the currently selected rows?", "Delete Currently Selected Rows");
             if (!question)
             {
                 UpdateStatus("Canceled row deletion.");
                 return;
             }
 
-            var currentparam = (ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem;
+            var currentRow = ParamDataGridView.CurrentRow ?? throw new Exception("Failed to get current row.");
+            var currentParam = (ParamInfo?)currentRow.DataBoundItem ?? throw new Exception("Failed to get param data.");
 
             var removalList = new List<PARAM.Row>();
             foreach (DataGridViewCell cell in RowDataGridView.SelectedCells)
             {
-                var row = (PARAM.Row)RowDataGridView.Rows[cell.RowIndex].DataBoundItem;
+                var row = (PARAM.Row?)RowDataGridView.Rows[cell.RowIndex].DataBoundItem ?? throw new Exception("Failed to get param row data.");
                 if (!removalList.Contains(row))
                 {
                     removalList.Add(row);
@@ -769,7 +791,7 @@ namespace ACParamEditor
 
             foreach (var row in removalList)
             {
-                currentparam.Param.Rows.Remove(row);
+                currentParam.Param.Rows.Remove(row);
             }
 
             RefreshRows();
@@ -787,7 +809,8 @@ namespace ACParamEditor
             {
                 if (!found.Contains(cell.RowIndex))
                 {
-                    copies.Add(new PARAM.Row((PARAM.Row)RowDataGridView.Rows[cell.RowIndex].DataBoundItem));
+                    var row = (PARAM.Row?)RowDataGridView.Rows[cell.RowIndex].DataBoundItem ?? throw new Exception("Failed to get param row data.");
+                    copies.Add(new PARAM.Row(row));
                     found.Add(cell.RowIndex);
                 }
             }
@@ -800,9 +823,10 @@ namespace ACParamEditor
             if (ParamDataGridView.CurrentRow == null || RowCopies.Count == 0)
                 return;
 
-            var currentparam = (ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem;
+            var currentRow = ParamDataGridView.CurrentRow ?? throw new Exception("Failed to get current row.");
+            var currentParam = (ParamInfo?)currentRow.DataBoundItem ?? throw new Exception("Failed to get param data.");
 
-            if (!currentparam.RowCompatible(RowCopies[0]))
+            if (!currentParam.RowCompatible(RowCopies[0]))
             {
                 UpdateStatus($"Copied rows are not compatibile.");
                 return;
@@ -811,7 +835,7 @@ namespace ACParamEditor
             int count = 0;
             foreach (var row in RowCopies)
             {
-                var rows = (List<PARAM.Row>)RowDataGridView.DataSource;
+                var rows = (List<PARAM.Row>?)RowDataGridView.DataSource ?? throw new Exception("Failed to get param rows data.");
                 if (rows.Count == ushort.MaxValue)
                 {
                     UpdateStatus($"Row limit of {ushort.MaxValue} reached, stopped pasting.");
@@ -819,8 +843,8 @@ namespace ACParamEditor
                     return;
                 }
 
-                if (currentparam.ContainsRowID(row.ID))
-                    row.ID = currentparam.GetNextRowID();
+                if (currentParam.ContainsRowID(row.ID))
+                    row.ID = currentParam.GetNextRowID();
                 rows.Add(row);
                 count++;
             }
@@ -840,17 +864,18 @@ namespace ACParamEditor
             {
                 if (!found.Contains(cell.RowIndex))
                 {
-                    copies.Add(new PARAM.Row((PARAM.Row)RowDataGridView.Rows[cell.RowIndex].DataBoundItem));
+                    var row = (PARAM.Row?)RowDataGridView.Rows[cell.RowIndex].DataBoundItem ?? throw new Exception("Failed to get param row data.");
+                    copies.Add(new PARAM.Row(row));
                     found.Add(cell.RowIndex);
                 }
             }
 
-            var currentparam = (ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem;
+            var currentParam = (ParamInfo?)ParamDataGridView.CurrentRow.DataBoundItem ?? throw new Exception("Failed to get param data.");
 
             int count = 0;
             foreach (var row in copies)
             {
-                var rows = (List<PARAM.Row>)RowDataGridView.DataSource;
+                var rows = (List<PARAM.Row>?)RowDataGridView.DataSource ?? throw new Exception("Failed to get param rows data.");
                 if (rows.Count == ushort.MaxValue)
                 {
                     UpdateStatus($"Row limit of {ushort.MaxValue} reached, stopped duplicating.");
@@ -860,8 +885,8 @@ namespace ACParamEditor
                     return;
                 }
 
-                if (currentparam.ContainsRowID(row.ID))
-                    row.ID = currentparam.GetNextRowID();
+                if (currentParam.ContainsRowID(row.ID))
+                    row.ID = currentParam.GetNextRowID();
                 rows.Add(row);
             }
 
@@ -923,16 +948,6 @@ namespace ACParamEditor
 
         #region Refresh
 
-        private void RefreshAll()
-        {
-            RefreshParamOpenAccess();
-            RefreshDataGridViews();
-            RefreshRows();
-            RefreshColumnVisibility();
-            RefreshDefGames();
-            UpdateStatus("Refreshed form.");
-        }
-
         private void RefreshParamOpenAccess()
         {
             if (DefMap.Count == 0)
@@ -971,32 +986,35 @@ namespace ACParamEditor
 
             RowDataGridView.AutoGenerateColumns = false;
             RowDataGridView.DataSource = new List<PARAM.Row>();
-            RowDataGridView.DataSource = ((ParamInfo)ParamDataGridView.CurrentRow.DataBoundItem).Param.Rows;
-            RowDataGridView.Columns["paramrowid"].DataPropertyName = "ID";
-            RowDataGridView.Columns["paramrowname"].DataPropertyName = "Name";
+
+            var currentRow = ParamDataGridView.CurrentRow ?? throw new Exception("Failed to get current row.");
+            var paraminfo = (ParamInfo?)currentRow.DataBoundItem ?? throw new Exception("Failed to get param data.");
+            RowDataGridView.DataSource = paraminfo.Param.Rows;
+            GetColumnOrThrow(RowDataGridView.Columns, "paramrowid").DataPropertyName = "ID";
+            GetColumnOrThrow(RowDataGridView.Columns, "paramrowname").DataPropertyName = "Name";
         }
 
         private void RefreshColumnVisibility()
         {
-            ParamDataGridView.Columns["paramfilename"].Visible = ParamViewName.Checked;
-            ParamDataGridView.Columns["paramtype"].Visible = ParamViewType.Checked;
-            ParamDataGridView.Columns["paramgame"].Visible = ParamViewGame.Checked;
-            RowDataGridView.Columns["paramrowid"].Visible = RowViewID.Checked;
-            RowDataGridView.Columns["paramrowname"].Visible = RowViewName.Checked;
-            CellDataGridView.Columns["paramcelldisplaytype"].Visible = CellViewDisplayType.Checked;
-            CellDataGridView.Columns["paramcellinternaltype"].Visible = CellViewInternalType.Checked;
-            CellDataGridView.Columns["paramcellvalue"].Visible = CellViewValue.Checked;
-            CellDataGridView.Columns["paramcelldisplayname"].Visible = CellViewDisplayName.Checked;
-            CellDataGridView.Columns["paramcellinternalname"].Visible = CellViewInternalName.Checked;
-            CellDataGridView.Columns["paramcelldescription"].Visible = CellViewInternalName.Checked;
-            CellDataGridView.Columns["paramcelldisplayformat"].Visible = CellViewDisplayFormat.Checked;
-            CellDataGridView.Columns["paramcelldefault"].Visible = CellViewDefault.Checked;
-            CellDataGridView.Columns["paramcellincrement"].Visible = CellViewIncrement.Checked;
-            CellDataGridView.Columns["paramcellminimum"].Visible = CellViewMinimum.Checked;
-            CellDataGridView.Columns["paramcellmaximum"].Visible = CellViewMaximum.Checked;
-            CellDataGridView.Columns["paramcellsortid"].Visible = CellViewSortID.Checked;
-            CellDataGridView.Columns["paramcellarraylength"].Visible = CellViewArrayLength.Checked;
-            CellDataGridView.Columns["paramcellbitsize"].Visible = CellViewBitSize.Checked;
+            GetColumnOrThrow(ParamDataGridView.Columns, "paramfilename").Visible = ParamViewName.Checked;
+            GetColumnOrThrow(ParamDataGridView.Columns, "paramtype").Visible = ParamViewType.Checked;
+            GetColumnOrThrow(ParamDataGridView.Columns, "paramgame").Visible = ParamViewGame.Checked;
+            GetColumnOrThrow(RowDataGridView.Columns, "paramrowid").Visible = RowViewID.Checked;
+            GetColumnOrThrow(RowDataGridView.Columns, "paramrowname").Visible = RowViewName.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcelldisplaytype").Visible = CellViewDisplayType.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellinternaltype").Visible = CellViewInternalType.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellvalue").Visible = CellViewValue.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcelldisplayname").Visible = CellViewDisplayName.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellinternalname").Visible = CellViewInternalName.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcelldescription").Visible = CellViewInternalName.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcelldisplayformat").Visible = CellViewDisplayFormat.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcelldefault").Visible = CellViewDefault.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellincrement").Visible = CellViewIncrement.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellminimum").Visible = CellViewMinimum.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellmaximum").Visible = CellViewMaximum.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellsortid").Visible = CellViewSortID.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellarraylength").Visible = CellViewArrayLength.Checked;
+            GetColumnOrThrow(CellDataGridView.Columns, "paramcellbitsize").Visible = CellViewBitSize.Checked;
         }
 
         private void RefreshDefGames()
@@ -1092,14 +1110,12 @@ namespace ACParamEditor
                 var value = defpair.Value;
                 var name = value.Name;
                 var def = value.Def;
-                ExportXmlDef(Path.Combine(folder, $"{Path.GetFileNameWithoutExtension(name)}.xml"), def);
-            }
-        }
 
-        private void ExportXmlDef(string path, PARAMDEF def)
-        {
-            PathUtil.Backup(path);
-            def.XmlSerialize(path, true);
+                const StringComparison strComp = StringComparison.InvariantCultureIgnoreCase;
+                string outPath = Path.Combine(folder, name.Replace(".def", ".xml", strComp).Replace(".paramdef", ".xml", strComp));
+                FileEx.BackupFile(outPath);
+                def.XmlSerialize(outPath, true);
+            }
         }
 
         private string GetCurrentDefPath()
@@ -1151,16 +1167,16 @@ namespace ACParamEditor
             }
 
             string[] paths = Directory.GetFiles(dir, "*", SearchOption.TopDirectoryOnly);
-            string mappingPath = Path.Combine(dir, TypelessMappingName);
+            string csvPath = Path.Combine(dir, TentativeParamTypeName);
 
             int total = paths.Length;
             int failed = 0;
             int skipped = 0;
             foreach (string path in paths)
             {
-                if (Path.GetFileName(path) == TypelessMappingName)
+                if (Path.GetFileName(path) == TentativeParamTypeName)
                 {
-                    UpdateStatus($"Skipped {TypelessMappingName}");
+                    UpdateStatus($"Skipped {TentativeParamTypeName}");
                     skipped++;
                     continue;
                 }
@@ -1183,37 +1199,9 @@ namespace ACParamEditor
                 failed++;
             }
 
-            LoadDefMappings(mappingPath);
+            TentativeParamTypeMap.LoadCsv(DefMap, csvPath);
             UpdateStatus($"Loaded {total - failed - skipped} {MenuGameCombobox.Text} defs, skipped {skipped} files, and failed to read {failed} files out of {total} total files.");
             RefreshParamOpenAccess();
-        }
-
-        private void LoadDefMappings(string mappingPath)
-        {
-            if (!File.Exists(mappingPath))
-            {
-                return;
-            }
-
-            int count = 0;
-            int failed = 0;
-            string[] lines = File.ReadAllLines(mappingPath);
-            var mappings = Mapping.ParseMapping(lines);
-            foreach (var pair in mappings)
-            {
-                if (DefMap.TryGetValue(pair.Value, out ParamDefInfo? def))
-                {
-                    if (def != null)
-                    {
-                        DefMap.Add(pair.Key, def);
-                        count++;
-                        continue;
-                    }
-                }
-                failed++;
-            }
-
-            UpdateStatus($"Loaded {count} typeless param to def mappings, failed to load {failed} mappings.");
         }
 
         #endregion
@@ -1225,11 +1213,14 @@ namespace ACParamEditor
             PARAM param = PARAM.Read(path);
             if (!DefMap.TryGetValue(param.ParamType, out ParamDefInfo? def))
             {
-                DefMap.TryGetValue(PathUtil.GetExtensionlessFileName(path), out def);
+                DefMap.TryGetValue(PathEx.RemoveFileExtensions(path), out def);
             }
 
-            var paraminfo = new ParamInfo(param, def?.Def, path);
-            paraminfo.Game = MenuGameCombobox.Text;
+            var paraminfo = new ParamInfo(param, def?.Def, path)
+            {
+                Game = MenuGameCombobox.Text
+            };
+
             return paraminfo;
         }
 
@@ -1252,7 +1243,7 @@ namespace ACParamEditor
                 {
                     if (!skip)
                     {
-                        skip = FormUtil.ShowQuestionDialog($"A param that already exists has been detected, would you like to skip already loaded params?", "Skip loaded params");
+                        skip = FormDialogs.ShowQuestionDialog($"A param that already exists has been detected, would you like to skip already loaded params?", "Skip loaded params");
                         if (skip)
                         {
                             skipped++;
