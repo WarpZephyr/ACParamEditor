@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>DSPDELAYPARAM</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>True</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>101</FormatVersion>
+  <Fields>
+    <Field Def="f32 Gain = 0.5">
+      <DisplayName>Gain</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+    <Field Def="f32 DelayTime = 100">
+      <DisplayName>DelayTime</DisplayName>
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>500</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+  </Fields>
+</PARAMDEF>

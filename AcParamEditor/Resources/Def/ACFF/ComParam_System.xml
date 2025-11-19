@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>COMPARAM_SYSTEM_ST</ParamType>
+  <DataVersion>2</DataVersion>
+  <BigEndian>False</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>0</FormatVersion>
+  <Fields>
+    <!-- +0x0 -->
+    <Field Def="s16 unnamed = 50">
+      <DisplayName>きんきょり</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>500</Maximum>
+    </Field>
+    <!-- +0x2 -->
+    <Field Def="s16 unnamed = 150">
+      <DisplayName>きんきょりきょうかい</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>500</Maximum>
+    </Field>
+    <!-- +0x4 -->
+    <Field Def="dummy8 unnamed[12]">
+      <DisplayName>だみい</DisplayName>
+      <Enum />
+    </Field>
+  </Fields>
+</PARAMDEF>

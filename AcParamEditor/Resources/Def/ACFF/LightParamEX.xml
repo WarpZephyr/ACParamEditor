@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>LIGHT_PARAM_EX</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>False</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>0</FormatVersion>
+  <Fields>
+    <!-- +0x0 -->
+    <Field Def="f32 unnamed = -30">
+      <DisplayName>LIGHT_PITCH1</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>-90</Minimum>
+      <Maximum>90</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <!-- +0x4 -->
+    <Field Def="f32 unnamed = 40">
+      <DisplayName>LIGHT_YAW1</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>-180</Minimum>
+      <Maximum>180</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <!-- +0x8 -->
+    <Field Def="u8 unnamed[1] = 244">
+      <DisplayName>LIGHT_COLOR_R1</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+    </Field>
+    <!-- +0x9 -->
+    <Field Def="u8 unnamed[1] = 244">
+      <DisplayName>LIGHT_COLOR_G1</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+    </Field>
+    <!-- +0xA -->
+    <Field Def="u8 unnamed[1] = 244">
+      <DisplayName>LIGHT_COLOR_B1</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+    </Field>
+    <!-- +0xB -->
+    <Field Def="u8 unnamed[1]">
+      <DisplayName>LIGHT_COLOR_A1</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>0</Maximum>
+      <Increment>0</Increment>
+    </Field>
+    <!-- +0xC -->
+    <Field Def="f32 unnamed = -30">
+      <DisplayName>LIGHT_PITCH2</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>-90</Minimum>
+      <Maximum>90</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <!-- +0x10 -->
+    <Field Def="f32 unnamed = 40">
+      <DisplayName>LIGHT_YAW2</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>-180</Minimum>
+      <Maximum>180</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <!-- +0x14 -->
+    <Field Def="u8 unnamed[1] = 244">
+      <DisplayName>LIGHT_COLOR_R2</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+    </Field>
+    <!-- +0x15 -->
+    <Field Def="u8 unnamed[1] = 244">
+      <DisplayName>LIGHT_COLOR_G2</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+    </Field>
+    <!-- +0x16 -->
+    <Field Def="u8 unnamed[1] = 244">
+      <DisplayName>LIGHT_COLOR_B2</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+    </Field>
+    <!-- +0x17 -->
+    <Field Def="u8 unnamed[1]">
+      <DisplayName>LIGHT_COLOR_A2</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>0</Maximum>
+      <Increment>0</Increment>
+    </Field>
+    <!-- +0x18 -->
+    <Field Def="f32 unnamed = -30">
+      <DisplayName>LIGHT_PITCH3</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>-90</Minimum>
+      <Maximum>90</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <!-- +0x1C -->
+    <Field Def="f32 unnamed = 40">
+      <DisplayName>LIGHT_YAW3</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>-180</Minimum>
+      <Maximum>180</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <!-- +0x20 -->
+    <Field Def="u8 unnamed[1] = 244">
+      <DisplayName>LIGHT_COLOR_R3</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+    </Field>
+    <!-- +0x21 -->
+    <Field Def="u8 unnamed[1] = 244">
+      <DisplayName>LIGHT_COLOR_G3</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+    </Field>
+    <!-- +0x22 -->
+    <Field Def="u8 unnamed[1] = 244">
+      <DisplayName>LIGHT_COLOR_B3</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+    </Field>
+    <!-- +0x23 -->
+    <Field Def="u8 unnamed[1]">
+      <DisplayName>LIGHT_COLOR_A3</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>0</Maximum>
+      <Increment>0</Increment>
+    </Field>
+    <!-- +0x24 -->
+    <Field Def="u8 unnamed[1] = 64">
+      <DisplayName>AMB_COLOR_R</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+    </Field>
+    <!-- +0x25 -->
+    <Field Def="u8 unnamed[1] = 64">
+      <DisplayName>AMB_COLOR_G</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+    </Field>
+    <!-- +0x26 -->
+    <Field Def="u8 unnamed[1] = 64">
+      <DisplayName>AMB_COLOR_B</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+    </Field>
+    <!-- +0x27 -->
+    <Field Def="u8 unnamed[1]">
+      <DisplayName>AMB_COLOR_A</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>0</Maximum>
+      <Increment>0</Increment>
+    </Field>
+  </Fields>
+</PARAMDEF>

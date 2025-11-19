@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>COMPARAM_OP_ST</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>False</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>0</FormatVersion>
+  <Fields>
+    <!-- +0x0 -->
+    <Field Def="s16 unnamed">
+      <DisplayName>きんせつごのおいうち:こうげきすきる[Lv]</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>24</Maximum>
+    </Field>
+    <!-- +0x2 -->
+    <Field Def="s16 unnamed">
+      <DisplayName>きんせつごのばっくぶ-すた:ぼうぎょすきる[Lv]</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>24</Maximum>
+    </Field>
+    <!-- +0x4 -->
+    <Field Def="s16 unnamed">
+      <DisplayName>しゃとつぶれ-ど:こうげきすきる&lt;OBしゃとつ&gt;[Lv]</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>24</Maximum>
+    </Field>
+    <!-- +0x6 -->
+    <Field Def="dummy8 unnamed[10]">
+      <DisplayName>ダミー</DisplayName>
+      <Enum />
+    </Field>
+  </Fields>
+</PARAMDEF>

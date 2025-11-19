@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>CONTROLLER_PARAM_ST</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>False</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>0</FormatVersion>
+  <Fields>
+    <!-- +0x0 -->
+    <Field Def="f32 unnamed = 8">
+      <DisplayName>POSITION_X</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>-100</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <!-- +0x4 -->
+    <Field Def="f32 unnamed = 5">
+      <DisplayName>POSITION_Y</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>-100</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <!-- +0x8 -->
+    <Field Def="f32 unnamed = 10">
+      <DisplayName>POSITION_Z</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>-100</Minimum>
+      <Maximum>100</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <!-- +0xC -->
+    <Field Def="f32 unnamed">
+      <DisplayName>FRONT_ANGLE_X</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>-360</Minimum>
+      <Maximum>360</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <!-- +0x10 -->
+    <Field Def="f32 unnamed">
+      <DisplayName>FRONT_ANGLE_Y</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>-360</Minimum>
+      <Maximum>360</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <!-- +0x14 -->
+    <Field Def="f32 unnamed">
+      <DisplayName>FRONT_ANGLE_Z</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>-360</Minimum>
+      <Maximum>360</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <!-- +0x18 -->
+    <Field Def="f32 unnamed">
+      <DisplayName>BACK_ANGLE_X</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>-360</Minimum>
+      <Maximum>360</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <!-- +0x1C -->
+    <Field Def="f32 unnamed = 180">
+      <DisplayName>BACK_ANGLE_Y</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>-360</Minimum>
+      <Maximum>360</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <!-- +0x20 -->
+    <Field Def="f32 unnamed">
+      <DisplayName>BACK_ANGLE_Z</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>-360</Minimum>
+      <Maximum>360</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+  </Fields>
+</PARAMDEF>

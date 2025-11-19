@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>COM_TACTICS_PARAM_ST</ParamType>
+  <DataVersion>2</DataVersion>
+  <BigEndian>False</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>0</FormatVersion>
+  <Fields>
+    <!-- +0x0 -->
+    <Field Def="f32 unnamed">
+      <DisplayName>atkSkillLevel</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>24.8</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <!-- +0x4 -->
+    <Field Def="f32 unnamed">
+      <DisplayName>defSkillLevel</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>24.8</Maximum>
+      <Increment>0.1</Increment>
+    </Field>
+    <!-- +0x8 -->
+    <Field Def="u32 unnamed">
+      <DisplayName>baseDist</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>0</Maximum>
+      <Increment>0</Increment>
+    </Field>
+    <!-- +0xC -->
+    <Field Def="u32 unnamed">
+      <DisplayName>baseWeapon</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>0</Maximum>
+      <Increment>0</Increment>
+    </Field>
+    <!-- +0x10 -->
+    <Field Def="u8 unnamed[1]">
+      <DisplayName>actChangeDegree</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>64</Maximum>
+    </Field>
+    <!-- +0x11 -->
+    <Field Def="u8 unnamed[1]">
+      <DisplayName>forceBladeRate</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>64</Maximum>
+    </Field>
+    <!-- +0x12 -->
+    <Field Def="s8 unnamed">
+      <DisplayName>enePreferentialWeapon</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1</Maximum>
+    </Field>
+    <!-- +0x13 -->
+    <Field Def="dummy8 unnamed[1]">
+      <DisplayName>padding</DisplayName>
+      <Enum />
+    </Field>
+    <!-- +0x14 -->
+    <Field Def="f32 unnamed">
+      <DisplayName>alertLv1Energy</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1000</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <!-- +0x18 -->
+    <Field Def="f32 unnamed">
+      <DisplayName>alertLv2Energy</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1000</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <!-- +0x1C -->
+    <Field Def="f32 unnamed">
+      <DisplayName>safeEnergy</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1000</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <!-- +0x20 -->
+    <Field Def="f32 unnamed">
+      <DisplayName>alertLv1Temp</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>500</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <!-- +0x24 -->
+    <Field Def="f32 unnamed">
+      <DisplayName>alertLv2Temp</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>500</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <!-- +0x28 -->
+    <Field Def="f32 unnamed">
+      <DisplayName>safeTemp</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>500</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <!-- +0x2C -->
+    <Field Def="u8 unnamed[1]">
+      <DisplayName>firstLockAtkRate</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>50</Maximum>
+    </Field>
+    <!-- +0x2D -->
+    <Field Def="u8 unnamed[1]">
+      <DisplayName>eoUseRate</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>100</Maximum>
+    </Field>
+    <!-- +0x2E -->
+    <Field Def="dummy8 unnamed[2]">
+      <DisplayName>padding2</DisplayName>
+      <Enum />
+    </Field>
+    <!-- +0x30 -->
+    <Field Def="f32 unnamed">
+      <DisplayName>eoTerminationRangeMag</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>1</Minimum>
+      <Maximum>1.5</Maximum>
+    </Field>
+    <!-- +0x34 -->
+    <Field Def="s32 unnamed">
+      <DisplayName>shieldUseRate</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>100</Maximum>
+    </Field>
+    <!-- +0x38 -->
+    <Field Def="f32 unnamed">
+      <DisplayName>shieldTerminationRangeMag</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>1</Minimum>
+      <Maximum>1.5</Maximum>
+    </Field>
+    <!-- +0x3C -->
+    <Field Def="u8 unnamed[1]">
+      <DisplayName>useBlockObjRate</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>100</Maximum>
+    </Field>
+    <!-- +0x3D -->
+    <Field Def="u8 unnamed[1]">
+      <DisplayName>useEnePackApRate</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>100</Maximum>
+    </Field>
+    <!-- +0x3E -->
+    <Field Def="dummy8 unnamed[2]">
+      <DisplayName>padding3</DisplayName>
+      <Enum />
+    </Field>
+    <!-- +0x40 -->
+    <Field Def="f32 unnamed">
+      <DisplayName>useEnePackDist</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>0</Minimum>
+      <Maximum>1000</Maximum>
+      <Increment>1</Increment>
+    </Field>
+    <!-- +0x44 -->
+    <Field Def="f32 unnamed">
+      <DisplayName>distMag</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Minimum>-2</Minimum>
+      <Maximum>2</Maximum>
+    </Field>
+    <!-- +0x48 -->
+    <Field Def="dummy8 unnamed[8]">
+      <DisplayName>padding4</DisplayName>
+      <Enum />
+    </Field>
+  </Fields>
+</PARAMDEF>

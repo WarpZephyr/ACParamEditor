@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PARAMDEF XmlVersion="3">
+  <ParamType>LIGHT_PARAM</ParamType>
+  <DataVersion>1</DataVersion>
+  <BigEndian>False</BigEndian>
+  <Unicode>False</Unicode>
+  <FormatVersion>0</FormatVersion>
+  <Fields>
+    <!-- +0x0 -->
+    <Field Def="u8 unnamed[1] = 64">
+      <DisplayName>AMB_COLOR_R</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+    </Field>
+    <!-- +0x1 -->
+    <Field Def="u8 unnamed[1] = 64">
+      <DisplayName>AMB_COLOR_G</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+    </Field>
+    <!-- +0x2 -->
+    <Field Def="u8 unnamed[1] = 64">
+      <DisplayName>AMB_COLOR_B</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+    </Field>
+    <!-- +0x3 -->
+    <Field Def="u8 unnamed[1]">
+      <DisplayName>AMB_COLOR_A</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>0</Maximum>
+      <Increment>0</Increment>
+    </Field>
+    <!-- +0x4 -->
+    <Field Def="u8 unnamed[1] = 95">
+      <DisplayName>SPE_COLOR_R</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+    </Field>
+    <!-- +0x5 -->
+    <Field Def="u8 unnamed[1] = 125">
+      <DisplayName>SPE_COLOR_G</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+    </Field>
+    <!-- +0x6 -->
+    <Field Def="u8 unnamed[1] = 125">
+      <DisplayName>SPE_COLOR_B</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+    </Field>
+    <!-- +0x7 -->
+    <Field Def="u8 unnamed[1]">
+      <DisplayName>SPE_COLOR_A</DisplayName>
+      <Enum />
+      <EditFlags>None</EditFlags>
+      <Maximum>0</Maximum>
+      <Increment>0</Increment>
+    </Field>
+  </Fields>
+</PARAMDEF>
