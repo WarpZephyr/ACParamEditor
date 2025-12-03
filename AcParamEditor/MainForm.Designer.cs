@@ -92,6 +92,20 @@ namespace AcParamEditor
             RowPaste = new ToolStripMenuItem();
             RowDuplicate = new ToolStripMenuItem();
             CellDataGridView = new DoubleBufferedDataGridView();
+            paramcelldisplaytype = new DataGridViewTextBoxColumn();
+            paramcellinternaltype = new DataGridViewTextBoxColumn();
+            paramcellvalue = new DataGridViewMultilineTextBoxColumn();
+            paramcelldisplayname = new DataGridViewTextBoxColumn();
+            paramcellinternalname = new DataGridViewTextBoxColumn();
+            paramcelldescription = new DataGridViewMultilineTextBoxColumn();
+            paramcelldisplayformat = new DataGridViewTextBoxColumn();
+            paramcelldefault = new DataGridViewTextBoxColumn();
+            paramcellincrement = new DataGridViewTextBoxColumn();
+            paramcellmaximum = new DataGridViewTextBoxColumn();
+            paramcellminimum = new DataGridViewTextBoxColumn();
+            paramcellsortid = new DataGridViewTextBoxColumn();
+            paramcellarraylength = new DataGridViewTextBoxColumn();
+            paramcellbitsize = new DataGridViewTextBoxColumn();
             CellContextMenu = new ContextMenuStrip(components);
             CellView = new ToolStripMenuItem();
             CellViewDisplayType = new ToolStripMenuItem();
@@ -113,20 +127,6 @@ namespace AcParamEditor
             LogContextMenuCopy = new ToolStripMenuItem();
             LogContextMenuClear = new ToolStripMenuItem();
             MainWindowSplitContainer = new SplitContainer();
-            paramcelldisplaytype = new DataGridViewTextBoxColumn();
-            paramcellinternaltype = new DataGridViewTextBoxColumn();
-            paramcellvalue = new DataGridViewMultilineTextBoxColumn();
-            paramcelldisplayname = new DataGridViewTextBoxColumn();
-            paramcellinternalname = new DataGridViewTextBoxColumn();
-            paramcelldescription = new DataGridViewMultilineTextBoxColumn();
-            paramcelldisplayformat = new DataGridViewTextBoxColumn();
-            paramcelldefault = new DataGridViewTextBoxColumn();
-            paramcellincrement = new DataGridViewTextBoxColumn();
-            paramcellmaximum = new DataGridViewTextBoxColumn();
-            paramcellminimum = new DataGridViewTextBoxColumn();
-            paramcellsortid = new DataGridViewTextBoxColumn();
-            paramcellarraylength = new DataGridViewTextBoxColumn();
-            paramcellbitsize = new DataGridViewTextBoxColumn();
             MainFormMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ParamSplitContainerOuter).BeginInit();
             ParamSplitContainerOuter.Panel1.SuspendLayout();
@@ -311,7 +311,7 @@ namespace AcParamEditor
             ParamDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(50, 50, 50);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
             dataGridViewCellStyle1.ForeColor = SystemColors.Control;
             dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(70, 70, 70);
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.Control;
@@ -322,7 +322,7 @@ namespace AcParamEditor
             ParamDataGridView.ContextMenuStrip = ParamContextMenu;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(55, 55, 55);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
             dataGridViewCellStyle2.ForeColor = SystemColors.Control;
             dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(75, 75, 75);
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.Control;
@@ -336,13 +336,12 @@ namespace AcParamEditor
             ParamDataGridView.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = Color.FromArgb(50, 50, 50);
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
             dataGridViewCellStyle3.ForeColor = SystemColors.Control;
             dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(70, 70, 70);
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.Control;
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             ParamDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            ParamDataGridView.RowTemplate.Height = 25;
             ParamDataGridView.ShowCellToolTips = false;
             ParamDataGridView.Size = new Size(395, 600);
             ParamDataGridView.TabIndex = 0;
@@ -573,7 +572,7 @@ namespace AcParamEditor
             RowDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = Color.FromArgb(50, 50, 50);
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
             dataGridViewCellStyle4.ForeColor = SystemColors.Control;
             dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(70, 70, 70);
             dataGridViewCellStyle4.SelectionForeColor = SystemColors.Control;
@@ -590,7 +589,6 @@ namespace AcParamEditor
             RowDataGridView.Name = "RowDataGridView";
             RowDataGridView.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             RowDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            RowDataGridView.RowTemplate.Height = 25;
             RowDataGridView.ShowCellToolTips = false;
             RowDataGridView.Size = new Size(417, 600);
             RowDataGridView.TabIndex = 1;
@@ -711,7 +709,7 @@ namespace AcParamEditor
             CellDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = Color.FromArgb(50, 50, 50);
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
             dataGridViewCellStyle5.ForeColor = SystemColors.Control;
             dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(70, 70, 70);
             dataGridViewCellStyle5.SelectionForeColor = SystemColors.Control;
@@ -722,7 +720,7 @@ namespace AcParamEditor
             CellDataGridView.ContextMenuStrip = CellContextMenu;
             dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle8.BackColor = Color.FromArgb(55, 55, 55);
-            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F);
             dataGridViewCellStyle8.ForeColor = SystemColors.Control;
             dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(75, 75, 75);
             dataGridViewCellStyle8.SelectionForeColor = SystemColors.Control;
@@ -735,12 +733,116 @@ namespace AcParamEditor
             CellDataGridView.Name = "CellDataGridView";
             CellDataGridView.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             CellDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            CellDataGridView.RowTemplate.Height = 25;
             CellDataGridView.ShowCellToolTips = false;
             CellDataGridView.Size = new Size(450, 600);
             CellDataGridView.TabIndex = 1;
             CellDataGridView.CellFormatting += CellDataGridView_CellFormatting;
-            CellDataGridView.CellValidating += CellDataGridView_CellValidating;
+            CellDataGridView.DataError += CellDataGridView_DataError;
+            // 
+            // paramcelldisplaytype
+            // 
+            paramcelldisplaytype.FillWeight = 40F;
+            paramcelldisplaytype.HeaderText = "Display Type";
+            paramcelldisplaytype.Name = "paramcelldisplaytype";
+            paramcelldisplaytype.ReadOnly = true;
+            paramcelldisplaytype.Resizable = DataGridViewTriState.True;
+            // 
+            // paramcellinternaltype
+            // 
+            paramcellinternaltype.HeaderText = "Internal Type";
+            paramcellinternaltype.Name = "paramcellinternaltype";
+            paramcellinternaltype.Visible = false;
+            // 
+            // paramcellvalue
+            // 
+            paramcellvalue.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            paramcellvalue.DefaultCellStyle = dataGridViewCellStyle6;
+            paramcellvalue.FillWeight = 60F;
+            paramcellvalue.HeaderText = "Cell Value";
+            paramcellvalue.Name = "paramcellvalue";
+            // 
+            // paramcelldisplayname
+            // 
+            paramcelldisplayname.FillWeight = 70F;
+            paramcelldisplayname.HeaderText = "Display Name";
+            paramcelldisplayname.Name = "paramcelldisplayname";
+            paramcelldisplayname.ReadOnly = true;
+            // 
+            // paramcellinternalname
+            // 
+            paramcellinternalname.FillWeight = 75F;
+            paramcellinternalname.HeaderText = "Internal Name";
+            paramcellinternalname.Name = "paramcellinternalname";
+            paramcellinternalname.ReadOnly = true;
+            paramcellinternalname.Visible = false;
+            // 
+            // paramcelldescription
+            // 
+            paramcelldescription.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
+            paramcelldescription.DefaultCellStyle = dataGridViewCellStyle7;
+            paramcelldescription.FillWeight = 130F;
+            paramcelldescription.HeaderText = "Description";
+            paramcelldescription.Name = "paramcelldescription";
+            paramcelldescription.ReadOnly = true;
+            paramcelldescription.Visible = false;
+            // 
+            // paramcelldisplayformat
+            // 
+            paramcelldisplayformat.HeaderText = "Display Format";
+            paramcelldisplayformat.Name = "paramcelldisplayformat";
+            paramcelldisplayformat.ReadOnly = true;
+            paramcelldisplayformat.Visible = false;
+            // 
+            // paramcelldefault
+            // 
+            paramcelldefault.HeaderText = "Default Value";
+            paramcelldefault.Name = "paramcelldefault";
+            paramcelldefault.ReadOnly = true;
+            paramcelldefault.Visible = false;
+            // 
+            // paramcellincrement
+            // 
+            paramcellincrement.HeaderText = "Increment Amount";
+            paramcellincrement.Name = "paramcellincrement";
+            paramcellincrement.ReadOnly = true;
+            paramcellincrement.Visible = false;
+            // 
+            // paramcellmaximum
+            // 
+            paramcellmaximum.HeaderText = "Maxmium Value";
+            paramcellmaximum.Name = "paramcellmaximum";
+            paramcellmaximum.ReadOnly = true;
+            paramcellmaximum.Visible = false;
+            // 
+            // paramcellminimum
+            // 
+            paramcellminimum.HeaderText = "Minimum Value";
+            paramcellminimum.Name = "paramcellminimum";
+            paramcellminimum.ReadOnly = true;
+            paramcellminimum.Visible = false;
+            // 
+            // paramcellsortid
+            // 
+            paramcellsortid.HeaderText = "Sort ID";
+            paramcellsortid.Name = "paramcellsortid";
+            paramcellsortid.ReadOnly = true;
+            paramcellsortid.Visible = false;
+            // 
+            // paramcellarraylength
+            // 
+            paramcellarraylength.HeaderText = "Array Length";
+            paramcellarraylength.Name = "paramcellarraylength";
+            paramcellarraylength.ReadOnly = true;
+            paramcellarraylength.Visible = false;
+            // 
+            // paramcellbitsize
+            // 
+            paramcellbitsize.HeaderText = "Bit Size";
+            paramcellbitsize.Name = "paramcellbitsize";
+            paramcellbitsize.ReadOnly = true;
+            paramcellbitsize.Visible = false;
             // 
             // CellContextMenu
             // 
@@ -913,7 +1015,6 @@ namespace AcParamEditor
             LogListBox.FormattingEnabled = true;
             LogListBox.HorizontalScrollbar = true;
             LogListBox.IntegralHeight = false;
-            LogListBox.ItemHeight = 15;
             LogListBox.Location = new Point(0, 0);
             LogListBox.Name = "LogListBox";
             LogListBox.SelectionMode = SelectionMode.MultiExtended;
@@ -964,112 +1065,6 @@ namespace AcParamEditor
             MainWindowSplitContainer.Size = new Size(1270, 722);
             MainWindowSplitContainer.SplitterDistance = 600;
             MainWindowSplitContainer.TabIndex = 3;
-            // 
-            // paramcelldisplaytype
-            // 
-            paramcelldisplaytype.FillWeight = 40F;
-            paramcelldisplaytype.HeaderText = "Display Type";
-            paramcelldisplaytype.Name = "paramcelldisplaytype";
-            paramcelldisplaytype.ReadOnly = true;
-            paramcelldisplaytype.Resizable = DataGridViewTriState.True;
-            // 
-            // paramcellinternaltype
-            // 
-            paramcellinternaltype.HeaderText = "Internal Type";
-            paramcellinternaltype.Name = "paramcellinternaltype";
-            paramcellinternaltype.Visible = false;
-            // 
-            // paramcellvalue
-            // 
-            paramcellvalue.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            paramcellvalue.DefaultCellStyle = dataGridViewCellStyle6;
-            paramcellvalue.FillWeight = 60F;
-            paramcellvalue.HeaderText = "Cell Value";
-            paramcellvalue.Name = "paramcellvalue";
-            // 
-            // paramcelldisplayname
-            // 
-            paramcelldisplayname.FillWeight = 70F;
-            paramcelldisplayname.HeaderText = "Display Name";
-            paramcelldisplayname.Name = "paramcelldisplayname";
-            paramcelldisplayname.ReadOnly = true;
-            // 
-            // paramcellinternalname
-            // 
-            paramcellinternalname.FillWeight = 75F;
-            paramcellinternalname.HeaderText = "Internal Name";
-            paramcellinternalname.Name = "paramcellinternalname";
-            paramcellinternalname.ReadOnly = true;
-            paramcellinternalname.Visible = false;
-            // 
-            // paramcelldescription
-            // 
-            paramcelldescription.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
-            paramcelldescription.DefaultCellStyle = dataGridViewCellStyle7;
-            paramcelldescription.FillWeight = 130F;
-            paramcelldescription.HeaderText = "Description";
-            paramcelldescription.Name = "paramcelldescription";
-            paramcelldescription.ReadOnly = true;
-            paramcelldescription.Visible = false;
-            paramcelldescription.Width = 91;
-            // 
-            // paramcelldisplayformat
-            // 
-            paramcelldisplayformat.HeaderText = "Display Format";
-            paramcelldisplayformat.Name = "paramcelldisplayformat";
-            paramcelldisplayformat.ReadOnly = true;
-            paramcelldisplayformat.Visible = false;
-            // 
-            // paramcelldefault
-            // 
-            paramcelldefault.HeaderText = "Default Value";
-            paramcelldefault.Name = "paramcelldefault";
-            paramcelldefault.ReadOnly = true;
-            paramcelldefault.Visible = false;
-            // 
-            // paramcellincrement
-            // 
-            paramcellincrement.HeaderText = "Increment Amount";
-            paramcellincrement.Name = "paramcellincrement";
-            paramcellincrement.ReadOnly = true;
-            paramcellincrement.Visible = false;
-            // 
-            // paramcellmaximum
-            // 
-            paramcellmaximum.HeaderText = "Maxmium Value";
-            paramcellmaximum.Name = "paramcellmaximum";
-            paramcellmaximum.ReadOnly = true;
-            paramcellmaximum.Visible = false;
-            // 
-            // paramcellminimum
-            // 
-            paramcellminimum.HeaderText = "Minimum Value";
-            paramcellminimum.Name = "paramcellminimum";
-            paramcellminimum.ReadOnly = true;
-            paramcellminimum.Visible = false;
-            // 
-            // paramcellsortid
-            // 
-            paramcellsortid.HeaderText = "Sort ID";
-            paramcellsortid.Name = "paramcellsortid";
-            paramcellsortid.ReadOnly = true;
-            paramcellsortid.Visible = false;
-            // 
-            // paramcellarraylength
-            // 
-            paramcellarraylength.HeaderText = "Array Length";
-            paramcellarraylength.Name = "paramcellarraylength";
-            paramcellarraylength.ReadOnly = true;
-            paramcellarraylength.Visible = false;
-            // 
-            // paramcellbitsize
-            // 
-            paramcellbitsize.HeaderText = "Bit Size";
-            paramcellbitsize.Name = "paramcellbitsize";
-            paramcellbitsize.ReadOnly = true;
-            paramcellbitsize.Visible = false;
             // 
             // MainForm
             // 
