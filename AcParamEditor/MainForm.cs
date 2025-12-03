@@ -3,13 +3,19 @@
 #endif
 
 using AcParamEditor.Extensions;
+using AcParamEditor.Text;
 using AcParamEditor.Utilities;
+using CsvHelper;
+using CsvHelper.Configuration;
 using CustomWinForms;
 using SoulsFormats;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
 
 namespace AcParamEditor
@@ -117,7 +123,7 @@ namespace AcParamEditor
         private void MenuFileOpen_Click(object sender, EventArgs e)
         {
             UpdateStatus("Opening params.");
-            string[] paths = FileDialogs.GetFilePaths("C:\\Users", "Open Params", "Param (*.bin)|*.bin|Param (*.param)|*.param|All Files (*)|*");
+            string[] paths = FileDialogs.GetFilePaths("C:\\Users", "Open Params", "Param (*.bin)|*.bin|Param (*.param)|*.param|Csv Param (*.csv)|*.csv|All Files (*)|*");
             if (paths.Length == 0)
             {
                 UpdateStatus("Canceling opening params.");
@@ -125,53 +131,6 @@ namespace AcParamEditor
             }
 
             LoadParamsFast(paths, sender, e);
-        }
-
-        private void MenuFileOpenFromList_Click(object sender, EventArgs e)
-        {
-            UpdateStatus("Opening params from list.");
-            string? listPath = FileDialogs.GetFilePath("C:\\Users", "Open Param List", "Text (*.txt)|*.txt|All Files (*)|*");
-            if (string.IsNullOrWhiteSpace(listPath))
-            {
-                UpdateStatus("Canceling opening param list.");
-                return;
-            }
-
-            string[] list = File.ReadAllLines(listPath);
-            if (list.Length < 1)
-            {
-                UpdateStatus("Nothing in list, canceling opening param list.");
-                return;
-            }
-
-            if (!list[0].Contains(Path.VolumeSeparatorChar))
-            {
-                string rootPath = FormDialogs.ShowInputDialog("Please input the root path of the list.", "Input Root Path");
-                if (string.IsNullOrWhiteSpace(rootPath))
-                {
-                    UpdateStatus("Root path not valid, canceling opening param list.");
-                    return;
-                }
-                else if (!Directory.Exists(rootPath))
-                {
-                    UpdateStatus("Root path does not exist, canceling opening param list.");
-                    return;
-                }
-
-                if (rootPath.EndsWith(Path.DirectorySeparatorChar))
-                    rootPath = rootPath[..(rootPath.Length - 1)];
-
-                for (int i = 0; i < list.Length; i++)
-                {
-                    string corrected = list[i].Replace('\\', Path.DirectorySeparatorChar).Replace('/', Path.DirectorySeparatorChar);
-                    if (!corrected.StartsWith(Path.DirectorySeparatorChar))
-                        corrected = Path.DirectorySeparatorChar + corrected;
-
-                    list[i] = rootPath + corrected;
-                }
-            }
-
-            LoadParamsFast(list, sender, e);
         }
 
         private void MenuFileSave_Click(object sender, EventArgs e)
@@ -308,6 +267,24 @@ namespace AcParamEditor
         #endregion
 
         #region Form Export
+
+        private void MenuExportParamsCsv_Click(object sender, EventArgs e)
+        {
+            if (ParamDataGridView.Rows.Count == 0)
+                return;
+
+            bool question = FormDialogs.ShowQuestionDialog("Are you sure you want to export all currently selected params to CSV?", "Export Selected Params to CSV");
+            if (!question)
+                return;
+
+            foreach (DataGridViewCell cell in ParamDataGridView.SelectedCells)
+            {
+                var paraminfo = (ParamInfo?)ParamDataGridView.Rows[cell.RowIndex].DataBoundItem ?? throw new Exception("Failed to get param data.");
+                ExportCsvParam(paraminfo);
+            }
+
+            UpdateStatus("Finished export.");
+        }
 
         private void MenuExportParamdefs_Click(object sender, EventArgs e)
         {
@@ -1085,6 +1062,268 @@ namespace AcParamEditor
 
         #endregion
 
+        #region Params
+
+        private static string ConvertParamToCsv(PARAM param)
+        {
+            using var tb = new TextBuilder();
+            using var csv = new CsvWriter(tb, CultureInfo.InvariantCulture, true);
+
+            // Write param header information
+            csv.WriteField(param.ParamType);
+            csv.WriteField(param.BigEndian ? "BigEndian" : "LittleEndian");
+            csv.WriteField(param.Format2D);
+            csv.WriteField(param.Format2E);
+            csv.WriteField(param.Unk06);
+            if (param.HeaderlessRows)
+                csv.WriteField("HeaderlessRows");
+            else if (param.UnnamedRows)
+                csv.WriteField("UnnamedRows");
+            csv.NextRecord();
+
+            // Write actual csv header
+            csv.WriteField("Row Id");
+            csv.WriteField("Row Name");
+            foreach (var field in param.AppliedParamdef.Fields)
+            {
+                string name = field.InternalName;
+                if (string.IsNullOrEmpty(name))
+                    name = field.DisplayName;
+
+                csv.WriteField(name);
+            }
+
+            // Write data rows
+            foreach (var row in param.Rows)
+            {
+                csv.NextRecord();
+
+                csv.WriteField(row.ID);
+                csv.WriteField(row.Name);
+                foreach (var cell in row.Cells)
+                {
+                    if (cell.DisplayType == PARAMDEF.DefType.dummy8 ||
+                       (cell.DisplayType == PARAMDEF.DefType.u8 && cell.ArrayLength > 1))
+                    {
+                        csv.WriteField("<dummy>");
+                    }
+                    else
+                    {
+                        csv.WriteField(cell.Value);
+                    }
+                }
+            }
+
+            csv.Flush();
+            return tb.ToString();
+        }
+
+        private void ExportCsvParam(ParamInfo param)
+        {
+            string path = param.Path + ".csv";
+            if (Directory.Exists(path))
+            {
+                UpdateStatus($"Error: Specified export path was a folder: \"{path}\"");
+                return;
+            }
+
+            File.WriteAllText(path, ConvertParamToCsv(param.Param), Encoding.Unicode);
+            UpdateStatus($"Exported param: \"{param.Name}\"");
+        }
+
+        private bool TryConvertCsvToParam(string path, [NotNullWhen(true)] out PARAM? param)
+        {
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                MissingFieldFound = null
+            };
+
+            using var tb = new StreamReader(path, Encoding.Unicode);
+            using var csv = new CsvReader(tb, config, false);
+
+            // Move to first row
+            if (!csv.Read())
+            {
+                param = null;
+                return false;
+            }
+
+            // Read paramtype
+            int index = 0;
+            string? paramType = csv.GetField(index++);
+            if (paramType == null)
+            {
+                param = null;
+                return false;
+            }
+
+            // Find paramdef
+            if (!DefMap.TryGetValue(paramType, out ParamDefInfo? paramdef))
+            {
+                param = null;
+                return false;
+            }
+
+            // Read endianness
+            bool bigEndian = true;
+            string? endianness = csv.GetField(index++);
+            if (endianness == null || endianness.StartsWith("Little", StringComparison.InvariantCultureIgnoreCase))
+                bigEndian = false;
+
+            // Read format 1
+            var format1 = PARAM.FormatFlags1.None;
+            Enum.TryParse(csv.GetField(index++), true, out format1);
+
+            // Read format 2
+            var format2 = PARAM.FormatFlags2.None;
+            Enum.TryParse(csv.GetField(index++), true, out format1);
+
+            // Read Unk06
+            _ = short.TryParse(csv.GetField(index++), out short unk06);
+
+            // Read unnamed/headerless rows
+            bool unnamedRows = false;
+            bool headerlessRows = false;
+            string? oldRowType = csv.GetField(index++);
+            if (oldRowType != null)
+            {
+                if (oldRowType.StartsWith("Headerless", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    headerlessRows = true;
+                }
+                else if (oldRowType.StartsWith("Unnamed", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    unnamedRows = true;
+                }
+            }
+
+            // Move to header row
+            index = 0;
+            if (!csv.Read())
+            {
+                param = null;
+                return false;
+            }
+
+            // Make param
+            param = new PARAM
+            {
+                BigEndian = bigEndian,
+                Format2D = format1,
+                Format2E = format2,
+                Unk06 = unk06,
+                UnnamedRows = unnamedRows,
+                HeaderlessRows = headerlessRows,
+                ParamType = paramType,
+                ParamdefDataVersion = paramdef.Def.DataVersion,
+                ParamdefFormatVersion = (byte)paramdef.Def.FormatVersion,
+                Rows = []
+            };
+
+            param.ApplyParamdef(paramdef.Def);
+
+            // Helper function for getting unique row ids
+            int maxRowId = -1;
+            var usedIds = new HashSet<int>();
+            int GetUniqueRowId(string? rowIdStr)
+            {
+                if (string.IsNullOrWhiteSpace(rowIdStr) || !int.TryParse(rowIdStr, out int rowId))
+                {
+                    rowId = ++maxRowId;
+                }
+
+                if (usedIds.Contains(rowId))
+                {
+                    rowId = ++maxRowId;
+                }
+
+                if (rowId > maxRowId)
+                {
+                    maxRowId = rowId;
+                }
+
+                usedIds.Add(rowId);
+                return rowId;
+            }
+
+            // Read data rows
+            while (csv.Read())
+            {
+                index = 0;
+                int rowId = GetUniqueRowId(csv.GetField(index++));
+                string rowName = csv.GetField(index++) ?? string.Empty;
+
+                var row = new PARAM.Row(rowId, rowName, paramdef.Def);
+                foreach (var cell in row.Cells)
+                {
+                    string? field = csv.GetField(index++);
+                    if (field != null)
+                    {
+                        switch (cell.DisplayType)
+                        {
+                            case PARAMDEF.DefType.s8:
+                                if (sbyte.TryParse(field, out sbyte sbyteValue))
+                                    cell.Value = sbyteValue;
+                                break;
+                            case PARAMDEF.DefType.u8:
+                                if (byte.TryParse(field, out byte byteValue))
+                                    cell.Value = byteValue;
+                                break;
+                            case PARAMDEF.DefType.s16:
+                                if (short.TryParse(field, out short shortValue))
+                                    cell.Value = shortValue;
+                                break;
+                            case PARAMDEF.DefType.u16:
+                                if (ushort.TryParse(field, out ushort ushortValue))
+                                    cell.Value = ushortValue;
+                                break;
+                            case PARAMDEF.DefType.s32:
+                                if (int.TryParse(field, out int intValue))
+                                    cell.Value = intValue;
+                                break;
+                            case PARAMDEF.DefType.u32:
+                                if (uint.TryParse(field, out uint uintValue))
+                                    cell.Value = uintValue;
+                                break;
+                            case PARAMDEF.DefType.b32:
+                                if (int.TryParse(field, out int bintValue))
+                                    cell.Value = bintValue;
+                                else if (bool.TryParse(field, out bool bValue))
+                                    cell.Value = bValue ? 1 : 0;
+                                break;
+                            case PARAMDEF.DefType.angle32:
+                            case PARAMDEF.DefType.f32:
+                                if (float.TryParse(field, out float floatValue))
+                                    cell.Value = floatValue;
+                                break;
+                            case PARAMDEF.DefType.f64:
+                                if (double.TryParse(field, out double doubleValue))
+                                    cell.Value = doubleValue;
+                                break;
+                            case PARAMDEF.DefType.fixstr:
+                            case PARAMDEF.DefType.fixstrW:
+                                string fixStr = field;
+                                if (fixStr.Length > cell.ArrayLength)
+                                    fixStr = fixStr[..cell.ArrayLength];
+
+                                cell.Value = fixStr;
+                                break;
+                            case PARAMDEF.DefType.dummy8:
+                            default:
+                                // Skip this
+                                break;
+                        }
+                    }
+                }
+
+                param.Rows.Add(row);
+            }
+
+            return true;
+        }
+
+        #endregion
+
         #region Param Defs
 
         private void ExportXmlDefs(string folder)
@@ -1198,15 +1437,27 @@ namespace AcParamEditor
 
         #region Params
 
-        private ParamInfo ReadParamInfo(string path)
+        private ParamInfo? ReadParamInfo(string path)
         {
-            PARAM param = PARAM.Read(path);
-            if (!DefMap.TryGetValue(param.ParamType, out ParamDefInfo? def))
+            PARAM? param;
+            if (path.EndsWith(".csv", StringComparison.InvariantCultureIgnoreCase))
             {
-                DefMap.TryGetValue(PathEx.RemoveFileExtensions(path), out def);
+                if (!TryConvertCsvToParam(path, out param))
+                    return null;
+
+                path = path[..^4];
+            }
+            else
+            {
+                param = PARAM.Read(path);
+                if (!DefMap.TryGetValue(param.ParamType, out ParamDefInfo? def))
+                    if (!DefMap.TryGetValue(PathEx.RemoveFileExtensions(path), out def))
+                        return null;
+
+                param.ApplyParamdefSomewhatCarefully(def.Def);
             }
 
-            var paraminfo = new ParamInfo(param, def?.Def, path)
+            var paraminfo = new ParamInfo(param, path)
             {
                 Game = MenuGameCombobox.Text
             };
@@ -1229,7 +1480,11 @@ namespace AcParamEditor
                 if (path == null || !File.Exists(path))
                     continue;
 
-                if (Params.ContainsParam(path))
+                string cleanedPath = path;
+                if (cleanedPath.Contains(".csv", StringComparison.InvariantCultureIgnoreCase))
+                    cleanedPath = cleanedPath[..^4];
+
+                if (Params.ContainsParam(cleanedPath))
                 {
                     if (!skip)
                     {
@@ -1252,7 +1507,7 @@ namespace AcParamEditor
                 {
 #endif
                     var paraminfo = ReadParamInfo(path);
-                    if (paraminfo.AppliedDef == false)
+                    if (paraminfo == null || paraminfo.AppliedDef == false)
                     {
                         UpdateStatus($"Failed to read {Path.GetFileName(path) ?? "Unknown File"} because the param def could either not be found or matched.");
                         failed++;

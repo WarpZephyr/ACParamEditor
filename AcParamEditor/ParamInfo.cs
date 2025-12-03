@@ -45,7 +45,11 @@ namespace AcParamEditor
         /// <summary>
         /// Originally matched the paramdef for version 101, but since is always 0 or 0xFF.
         /// </summary>
-        public byte ParamFormatVersion { get => Param.ParamdefFormatVersion; set => Param.ParamdefFormatVersion = value; }
+        public byte ParamFormatVersion
+        {
+            get => Param.ParamdefFormatVersion;
+            set => Param.ParamdefFormatVersion = value;
+        }
 
         /// <summary>
         /// Originally matched the paramdef for version 101, but since is always 0 or 0xFF.
@@ -64,7 +68,11 @@ namespace AcParamEditor
         /// <summary>
         /// The current revision of the row structure within the param.
         /// </summary>
-        public short ParamDataVersion { get => Param.ParamdefDataVersion; set => Param.ParamdefDataVersion = value; }
+        public short ParamDataVersion
+        {
+            get => Param.ParamdefDataVersion;
+            set => Param.ParamdefDataVersion = value;
+        }
 
         /// <summary>
         /// The current revision of the row structure within the param.
@@ -83,55 +91,13 @@ namespace AcParamEditor
         /// <summary>
         /// The number of rows in the param.
         /// </summary>
-        public int RowCount => Param.Rows.Count;
-
-        /// <summary>
-        /// The total number of cells in the param.
-        /// </summary>
-        public int TotalCellCount => CellsPerRow * RowCount;
-
-        /// <summary>
-        /// The number of cells per row in the param.
-        /// </summary>
-        public int CellsPerRow
-        {
-            get
-            {
-                if (Def == null || !AppliedDef)
-                    throw new InvalidOperationException("Def must be applied to param first to get a cell count.");
-
-                return Def.Fields.Count;
-            }
-        }
-
-        /// <summary>
-        /// Get the detected size of rows in the param.
-        /// </summary>
-        public long DetectedRowSize
-        {
-            get
-            {
-                if (Param == null)
-                    throw new InvalidOperationException("Param must exist to get detected size of rows from it.");
-
-                return Param.DetectedSize;
-            }
-        }
+        public int RowCount
+            => Param.Rows.Count;
 
         /// <summary>
         /// Whether or not a def has been applied to the param.
         /// </summary>
         public bool AppliedDef => Param.AppliedParamdef != null;
-
-        /// <summary>
-        /// Whether or not the param is read and written in Big Endian.
-        /// </summary>
-        public bool BigEndian { get => Param.BigEndian; set => Param.BigEndian = value; }
-
-        /// <summary>
-        /// Whether or not this param has a ParamType set.
-        /// </summary>
-        public bool HasType => !string.IsNullOrEmpty(Type);
 
         /// <summary>
         /// Set whether or not this param has been modified since last save.
@@ -143,93 +109,16 @@ namespace AcParamEditor
         #region Constructors
 
         /// <summary>
-        /// Read a param from a path and get its info.
-        /// </summary>
-        /// <param name="path">The path to a param to read.</param>
-        public ParamInfo(string path)
-        {
-            Path = path;
-            Name = System.IO.Path.GetFileName(Path);
-            Param = PARAM.Read(Path);
-        }
-
-        /// <summary>
-        /// Get the info for a param without providing the path or name.
-        /// </summary>
-        /// <param name="param">A param.</param>
-        public ParamInfo(PARAM param)
-        {
-            Path = string.Empty;
-            Name = string.Empty;
-            Param = param;
-        }
-
-        /// <summary>
-        /// Get the info for a param and set only its name.
-        /// </summary>
-        /// <param name="param">A param.</param>
-        /// <param name="name">The name of the param.</param>
-        public ParamInfo(PARAM param, string name)
-        {
-            Path = string.Empty;
-            Name = name;
-            Param = param;
-        }
-
-        /// <summary>
-        /// Get the info for a param and set its path and name.
-        /// </summary>
-        /// <param name="param">A param.</param>
-        /// <param name="path">The path to the param.</param>
-        /// <param name="name">The name of the param.</param>
-        public ParamInfo(PARAM param, string path, string name)
-        {
-            Path = path;
-            Name = name;
-            Param = param;
-        }
-
-        /// <summary>
-        /// Read a param, set the path of the param, then apply a def read from a path.
-        /// </summary>
-        /// <param name="path">The path to a param to read.</param>
-        /// <param name="defpath">The path to a def for the param to read.</param>
-        public ParamInfo(string path, string defpath)
-        {
-            Path = path;
-            Name = System.IO.Path.GetFileName(Path);
-            Param = PARAM.Read(Path);
-            Param.ApplyParamdefSomewhatCarefully(PARAMDEF.Read(defpath));
-        }
-
-        /// <summary>
-        /// Read a param, set the path of the param, then apply a def.
-        /// </summary>
-        /// <param name="path">The path to a param to read.</param>
-        /// <param name="def">A def to apply to the param.</param>
-        public ParamInfo(string path, PARAMDEF def)
-        {
-            Path = path;
-            Name = System.IO.Path.GetFileName(Path);
-            Param = PARAM.Read(Path);
-            Param.ApplyParamdefSomewhatCarefully(def);
-        }
-
-        /// <summary>
         /// Set a param, its def, and path.
         /// </summary>
         /// <param name="param">The param to get the info of.</param>
         /// <param name="def">A def to apply to the param.</param>
         /// <param name="path">The path to a param to read.</param>
-        public ParamInfo(PARAM param, PARAMDEF? def, string path)
+        public ParamInfo(PARAM param, string path)
         {
             Path = path;
             Name = System.IO.Path.GetFileName(Path);
             Param = param;
-            if (def != null)
-            {
-                Param.ApplyParamdefSomewhatCarefully(def);
-            }
         }
 
         #endregion
