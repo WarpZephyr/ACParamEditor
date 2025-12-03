@@ -1294,45 +1294,6 @@ namespace AcParamEditor
 
         #endregion
 
-        #region Validation
-
-        private static bool CellValueValid(PARAM.Cell cell, object newValue)
-        {
-            string? strValue = newValue.ToString();
-            if (strValue == null)
-                return false;
-
-            switch (cell.DisplayType)
-            {
-                case PARAMDEF.DefType.s8:
-                    return sbyte.TryParse(strValue, out _);
-                case PARAMDEF.DefType.u8:
-                    return byte.TryParse(strValue, out _);
-                case PARAMDEF.DefType.s16:
-                    return short.TryParse(strValue, out _);
-                case PARAMDEF.DefType.u16:
-                    return ushort.TryParse(strValue, out _);
-                case PARAMDEF.DefType.b32:
-                case PARAMDEF.DefType.s32:
-                    return int.TryParse(strValue, out _);
-                case PARAMDEF.DefType.u32:
-                    return uint.TryParse(strValue, out _);
-                case PARAMDEF.DefType.angle32:
-                case PARAMDEF.DefType.f32:
-                    return float.TryParse(strValue, out _);
-                case PARAMDEF.DefType.f64:
-                    return double.TryParse(strValue, out _);
-                case PARAMDEF.DefType.fixstr:
-                case PARAMDEF.DefType.fixstrW:
-                    return strValue.Length <= cell.ArrayLength;
-                case PARAMDEF.DefType.dummy8:
-                default:
-                    return false;
-            }
-        }
-
-        #endregion
-
         #region Event
 
         /// <summary>
