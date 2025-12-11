@@ -52,10 +52,17 @@ namespace AcParamEditor
             MenuFileCloseAll = new ToolStripMenuItem();
             MenuFileReloadAll = new ToolStripMenuItem();
             MenuGameCombobox = new ToolStripComboBox();
+            MenuImport = new ToolStripMenuItem();
+            MenuImportParams = new ToolStripMenuItem();
             MenuExport = new ToolStripMenuItem();
             MenuExportParams = new ToolStripMenuItem();
             MenuExportParamsCsv = new ToolStripMenuItem();
+            MenuExportParamsTsv = new ToolStripMenuItem();
+            MenuExportParamsXls = new ToolStripMenuItem();
+            MenuExportParamsXlsx = new ToolStripMenuItem();
             MenuExportParamdefs = new ToolStripMenuItem();
+            MenuOptions = new ToolStripMenuItem();
+            MenuOptionsExportAsWorkbook = new ToolStripMenuItem();
             ParamSplitContainerOuter = new SplitContainer();
             ParamDataGridView = new DoubleBufferedDataGridView();
             paramfilename = new DataGridViewTextBoxColumn();
@@ -126,6 +133,7 @@ namespace AcParamEditor
             LogContextMenuCopy = new ToolStripMenuItem();
             LogContextMenuClear = new ToolStripMenuItem();
             MainWindowSplitContainer = new SplitContainer();
+            MenuOptionsExportUsingInternalNames = new ToolStripMenuItem();
             MainFormMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ParamSplitContainerOuter).BeginInit();
             ParamSplitContainerOuter.Panel1.SuspendLayout();
@@ -151,7 +159,7 @@ namespace AcParamEditor
             // MainFormMenu
             // 
             MainFormMenu.BackColor = Color.FromArgb(60, 60, 60);
-            MainFormMenu.Items.AddRange(new ToolStripItem[] { MenuFile, MenuGameCombobox, MenuExport });
+            MainFormMenu.Items.AddRange(new ToolStripItem[] { MenuFile, MenuGameCombobox, MenuImport, MenuExport, MenuOptions });
             MainFormMenu.Location = new Point(0, 0);
             MainFormMenu.Name = "MainFormMenu";
             MainFormMenu.Size = new Size(1270, 27);
@@ -171,7 +179,7 @@ namespace AcParamEditor
             MenuFileOpen.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileOpen.ForeColor = SystemColors.Control;
             MenuFileOpen.Name = "MenuFileOpen";
-            MenuFileOpen.Size = new Size(180, 22);
+            MenuFileOpen.Size = new Size(127, 22);
             MenuFileOpen.Text = "Open";
             MenuFileOpen.ToolTipText = "Open more params.";
             MenuFileOpen.Click += MenuFileOpen_Click;
@@ -181,7 +189,7 @@ namespace AcParamEditor
             MenuFileSave.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileSave.ForeColor = SystemColors.Control;
             MenuFileSave.Name = "MenuFileSave";
-            MenuFileSave.Size = new Size(180, 22);
+            MenuFileSave.Size = new Size(127, 22);
             MenuFileSave.Text = "Save";
             MenuFileSave.ToolTipText = "Save the currently selected params.";
             MenuFileSave.Click += MenuFileSave_Click;
@@ -191,7 +199,7 @@ namespace AcParamEditor
             MenuFileClose.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileClose.ForeColor = SystemColors.Control;
             MenuFileClose.Name = "MenuFileClose";
-            MenuFileClose.Size = new Size(180, 22);
+            MenuFileClose.Size = new Size(127, 22);
             MenuFileClose.Text = "Close";
             MenuFileClose.ToolTipText = "Close the currently selected params.";
             MenuFileClose.Click += MenuFileClose_Click;
@@ -201,7 +209,7 @@ namespace AcParamEditor
             MenuFileReload.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileReload.ForeColor = SystemColors.Control;
             MenuFileReload.Name = "MenuFileReload";
-            MenuFileReload.Size = new Size(180, 22);
+            MenuFileReload.Size = new Size(127, 22);
             MenuFileReload.Text = "Reload";
             MenuFileReload.ToolTipText = "Reload the currently selected params.";
             MenuFileReload.Click += MenuFileReload_Click;
@@ -211,14 +219,14 @@ namespace AcParamEditor
             MenuFileAllSeparator.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileAllSeparator.ForeColor = SystemColors.Control;
             MenuFileAllSeparator.Name = "MenuFileAllSeparator";
-            MenuFileAllSeparator.Size = new Size(177, 6);
+            MenuFileAllSeparator.Size = new Size(124, 6);
             // 
             // MenuFileSaveAll
             // 
             MenuFileSaveAll.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileSaveAll.ForeColor = SystemColors.Control;
             MenuFileSaveAll.Name = "MenuFileSaveAll";
-            MenuFileSaveAll.Size = new Size(180, 22);
+            MenuFileSaveAll.Size = new Size(127, 22);
             MenuFileSaveAll.Text = "Save All";
             MenuFileSaveAll.ToolTipText = "Save all params.";
             MenuFileSaveAll.Click += MenuFileSaveAll_Click;
@@ -228,7 +236,7 @@ namespace AcParamEditor
             MenuFileCloseAll.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileCloseAll.ForeColor = SystemColors.Control;
             MenuFileCloseAll.Name = "MenuFileCloseAll";
-            MenuFileCloseAll.Size = new Size(180, 22);
+            MenuFileCloseAll.Size = new Size(127, 22);
             MenuFileCloseAll.Text = "Close All";
             MenuFileCloseAll.ToolTipText = "Close all params.";
             MenuFileCloseAll.Click += MenuFileCloseAll_Click;
@@ -238,7 +246,7 @@ namespace AcParamEditor
             MenuFileReloadAll.BackColor = Color.FromArgb(55, 55, 55);
             MenuFileReloadAll.ForeColor = SystemColors.Control;
             MenuFileReloadAll.Name = "MenuFileReloadAll";
-            MenuFileReloadAll.Size = new Size(180, 22);
+            MenuFileReloadAll.Size = new Size(127, 22);
             MenuFileReloadAll.Text = "Reload All";
             MenuFileReloadAll.ToolTipText = "Reload all params.";
             MenuFileReloadAll.Click += MenuFileReloadAll_Click;
@@ -257,6 +265,24 @@ namespace AcParamEditor
             MenuGameCombobox.DropDown += MenuGameCombobox_DropDown;
             MenuGameCombobox.SelectedIndexChanged += MenuGameCombobox_SelectedIndexChanged;
             // 
+            // MenuImport
+            // 
+            MenuImport.BackColor = Color.FromArgb(65, 65, 65);
+            MenuImport.DropDownItems.AddRange(new ToolStripItem[] { MenuImportParams });
+            MenuImport.ForeColor = SystemColors.Control;
+            MenuImport.Name = "MenuImport";
+            MenuImport.Size = new Size(55, 23);
+            MenuImport.Text = "Import";
+            // 
+            // MenuImportParams
+            // 
+            MenuImportParams.BackColor = Color.FromArgb(55, 55, 55);
+            MenuImportParams.ForeColor = SystemColors.Control;
+            MenuImportParams.Name = "MenuImportParams";
+            MenuImportParams.Size = new Size(113, 22);
+            MenuImportParams.Text = "Params";
+            MenuImportParams.Click += MenuImportParams_Click;
+            // 
             // MenuExport
             // 
             MenuExport.BackColor = Color.FromArgb(65, 65, 65);
@@ -269,7 +295,7 @@ namespace AcParamEditor
             // MenuExportParams
             // 
             MenuExportParams.BackColor = Color.FromArgb(55, 55, 55);
-            MenuExportParams.DropDownItems.AddRange(new ToolStripItem[] { MenuExportParamsCsv });
+            MenuExportParams.DropDownItems.AddRange(new ToolStripItem[] { MenuExportParamsCsv, MenuExportParamsTsv, MenuExportParamsXls, MenuExportParamsXlsx });
             MenuExportParams.ForeColor = SystemColors.Control;
             MenuExportParams.Name = "MenuExportParams";
             MenuExportParams.Size = new Size(130, 22);
@@ -280,9 +306,36 @@ namespace AcParamEditor
             MenuExportParamsCsv.BackColor = Color.FromArgb(60, 60, 60);
             MenuExportParamsCsv.ForeColor = SystemColors.Control;
             MenuExportParamsCsv.Name = "MenuExportParamsCsv";
-            MenuExportParamsCsv.Size = new Size(93, 22);
+            MenuExportParamsCsv.Size = new Size(95, 22);
             MenuExportParamsCsv.Text = "Csv";
             MenuExportParamsCsv.Click += MenuExportParamsCsv_Click;
+            // 
+            // MenuExportParamsTsv
+            // 
+            MenuExportParamsTsv.BackColor = Color.FromArgb(60, 60, 60);
+            MenuExportParamsTsv.ForeColor = SystemColors.Control;
+            MenuExportParamsTsv.Name = "MenuExportParamsTsv";
+            MenuExportParamsTsv.Size = new Size(95, 22);
+            MenuExportParamsTsv.Text = "Tsv";
+            MenuExportParamsTsv.Click += MenuExportParamsTsv_Click;
+            // 
+            // MenuExportParamsXls
+            // 
+            MenuExportParamsXls.BackColor = Color.FromArgb(60, 60, 60);
+            MenuExportParamsXls.ForeColor = SystemColors.Control;
+            MenuExportParamsXls.Name = "MenuExportParamsXls";
+            MenuExportParamsXls.Size = new Size(95, 22);
+            MenuExportParamsXls.Text = "Xls";
+            MenuExportParamsXls.Click += MenuExportParamsXls_Click;
+            // 
+            // MenuExportParamsXlsx
+            // 
+            MenuExportParamsXlsx.BackColor = Color.FromArgb(60, 60, 60);
+            MenuExportParamsXlsx.ForeColor = SystemColors.Control;
+            MenuExportParamsXlsx.Name = "MenuExportParamsXlsx";
+            MenuExportParamsXlsx.Size = new Size(95, 22);
+            MenuExportParamsXlsx.Text = "Xlsx";
+            MenuExportParamsXlsx.Click += MenuExportParamsXlsx_Click;
             // 
             // MenuExportParamdefs
             // 
@@ -292,6 +345,25 @@ namespace AcParamEditor
             MenuExportParamdefs.Size = new Size(130, 22);
             MenuExportParamdefs.Text = "Paramdefs";
             MenuExportParamdefs.Click += MenuExportParamdefs_Click;
+            // 
+            // MenuOptions
+            // 
+            MenuOptions.BackColor = Color.FromArgb(65, 65, 65);
+            MenuOptions.DropDownItems.AddRange(new ToolStripItem[] { MenuOptionsExportAsWorkbook, MenuOptionsExportUsingInternalNames });
+            MenuOptions.ForeColor = SystemColors.Control;
+            MenuOptions.Name = "MenuOptions";
+            MenuOptions.Size = new Size(61, 23);
+            MenuOptions.Text = "Options";
+            // 
+            // MenuOptionsExportAsWorkbook
+            // 
+            MenuOptionsExportAsWorkbook.BackColor = Color.FromArgb(55, 55, 55);
+            MenuOptionsExportAsWorkbook.CheckOnClick = true;
+            MenuOptionsExportAsWorkbook.ForeColor = SystemColors.Control;
+            MenuOptionsExportAsWorkbook.Name = "MenuOptionsExportAsWorkbook";
+            MenuOptionsExportAsWorkbook.Size = new Size(224, 22);
+            MenuOptionsExportAsWorkbook.Text = "Export As Workbook";
+            MenuOptionsExportAsWorkbook.Click += MenuOptionsExportAsWorkbook_Click;
             // 
             // ParamSplitContainerOuter
             // 
@@ -1050,6 +1122,16 @@ namespace AcParamEditor
             MainWindowSplitContainer.SplitterDistance = 600;
             MainWindowSplitContainer.TabIndex = 3;
             // 
+            // MenuOptionsExportUsingInternalNames
+            // 
+            MenuOptionsExportUsingInternalNames.BackColor = Color.FromArgb(55, 55, 55);
+            MenuOptionsExportUsingInternalNames.CheckOnClick = true;
+            MenuOptionsExportUsingInternalNames.ForeColor = SystemColors.Control;
+            MenuOptionsExportUsingInternalNames.Name = "MenuOptionsExportUsingInternalNames";
+            MenuOptionsExportUsingInternalNames.Size = new Size(224, 22);
+            MenuOptionsExportUsingInternalNames.Text = "Export Using Internal Names";
+            MenuOptionsExportUsingInternalNames.Click += MenuOptionsExportUsingInternalNames_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1174,5 +1256,13 @@ namespace AcParamEditor
         private ToolStripMenuItem MenuExportParams;
         private ToolStripMenuItem MenuExportParamsCsv;
         private ToolStripSeparator MenuFileAllSeparator;
+        private ToolStripMenuItem MenuExportParamsXls;
+        private ToolStripMenuItem MenuImport;
+        private ToolStripMenuItem MenuImportParams;
+        private ToolStripMenuItem MenuOptions;
+        private ToolStripMenuItem MenuOptionsExportAsWorkbook;
+        private ToolStripMenuItem MenuExportParamsTsv;
+        private ToolStripMenuItem MenuExportParamsXlsx;
+        private ToolStripMenuItem MenuOptionsExportUsingInternalNames;
     }
 }

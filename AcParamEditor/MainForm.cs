@@ -1,19 +1,14 @@
-#if DEBUG
-//#define DEBUG_CRASH
-#endif
-
+using AcParamEditor.Data;
+using AcParamEditor.Data.Builders;
+using AcParamEditor.Data.Configs;
+using AcParamEditor.Data.Parsers;
 using AcParamEditor.Extensions;
-using AcParamEditor.Text;
 using AcParamEditor.Utilities;
-using CsvHelper;
-using CsvHelper.Configuration;
 using CustomWinForms;
 using SoulsFormats;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -48,6 +43,11 @@ namespace AcParamEditor
         private readonly Dictionary<string, ParamDefInfo> DefMap;
 
         /// <summary>
+        /// The currently loaded param to def map.
+        /// </summary>
+        private readonly Dictionary<string, PARAMDEF> RawDefMap;
+
+        /// <summary>
         /// The currently loaded params.
         /// </summary>
         private readonly BindingList<ParamInfo> Params;
@@ -62,9 +62,20 @@ namespace AcParamEditor
         /// </summary>
         private readonly int MaxLogEntries;
 
+        /// <summary>
+        /// Whether or not the skip dialog has been shown for params yet.
+        /// </summary>
+        private bool ShownSkipAlreadyLoadedDialog;
+
+        /// <summary>
+        /// Whether or not to skip already loaded params.
+        /// </summary>
+        private bool SkipAlreadyLoaded;
+
         public MainForm()
         {
             DefMap = [];
+            RawDefMap = [];
             Params = [];
             RowCopies = [];
             MaxLogEntries = 1000;
@@ -73,6 +84,10 @@ namespace AcParamEditor
 
             // Lock events that slow down initialization.
             LockEvents();
+
+            // Set options
+            MenuOptionsExportAsWorkbook.Checked = Properties.Settings.Default.ExportAsWorkbook;
+            MenuOptionsExportUsingInternalNames.Checked = Properties.Settings.Default.ExportUsingInternalNames;
 
             // Prepare the display for multline cell editing
             PrepareMultlineCellEditDisplay();
@@ -100,7 +115,7 @@ namespace AcParamEditor
             TrySetSavedDefSet();
 
             // Attempt to load defs.
-            UpdateStatus("Initial def load start.");
+            Log("Initial def load start.");
             LoadDefs();
 
             // Data bind param list.
@@ -118,15 +133,38 @@ namespace AcParamEditor
             UnlockEvents();
         }
 
+        #region Form Options
+
+        private void MenuOptionsExportAsWorkbook_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.ExportAsWorkbook = MenuOptionsExportAsWorkbook.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void MenuOptionsExportUsingInternalNames_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.ExportUsingInternalNames = MenuOptionsExportUsingInternalNames.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        #endregion
+
         #region Form IO
 
         private void MenuFileOpen_Click(object sender, EventArgs e)
         {
-            UpdateStatus("Opening params.");
-            string[] paths = FileDialogs.GetFilePaths("C:\\Users", "Open Params", "Param (*.bin)|*.bin|Param (*.param)|*.param|Csv Param (*.csv)|*.csv|All Files (*)|*");
+            Log("Opening params.");
+            string[] paths = FileDialogs.GetFilePaths("Open Params", "Param (*.bin)|*.bin|" +
+                "Param (*.param)|*.param|" +
+                "Csv Param (*.csv)|*.csv|" +
+                "Tsv Param (*.tsv)|*.tsv|" +
+                "Xls Param (*.xls)|*.xls|" +
+                "Xlsx Param (*.xlsx)|*.xlsx|" +
+                "All Files (*)|*");
+
             if (paths.Length == 0)
             {
-                UpdateStatus("Canceling opening params.");
+                Log("Canceling opening params.");
                 return;
             }
 
@@ -138,23 +176,17 @@ namespace AcParamEditor
             if (ParamDataGridView.Rows.Count == 0)
                 return;
 
-            bool question = FormDialogs.ShowQuestionDialog("Are you sure you want to save all currently selected params?", "Save Selected Params");
-            if (!question)
+            if (!FormDialogs.ShowQuestionDialog("Are you sure you want to save all currently selected params?", "Save Selected Params"))
                 return;
 
-            var saved = new List<int>();
-            foreach (DataGridViewCell cell in ParamDataGridView.SelectedCells)
+            var selectedParams = GetSelectedParams();
+            foreach (var paramInfo in selectedParams)
             {
-                if (!saved.Contains(cell.RowIndex))
-                {
-                    var paraminfo = (ParamInfo?)ParamDataGridView.Rows[cell.RowIndex].DataBoundItem ?? throw new Exception("Failed to get param data.");
-                    FileEx.BackupFile(paraminfo.Path);
-                    paraminfo.WriteToPath();
-                    saved.Add(cell.RowIndex);
-                }
+                FileEx.BackupFile(paramInfo.Path);
+                paramInfo.WriteToPath();
             }
 
-            UpdateStatus($"Saved {saved.Count} params.");
+            Log($"Saved {selectedParams.Count} params.");
         }
 
         private void MenuFileSaveAll_Click(object sender, EventArgs e)
@@ -174,7 +206,7 @@ namespace AcParamEditor
                 paraminfo.WriteToPath();
             }
 
-            UpdateStatus($"Saved all {count} params.");
+            Log($"Saved all {count} params.");
         }
 
         private void MenuFileClose_Click(object sender, EventArgs e)
@@ -186,19 +218,14 @@ namespace AcParamEditor
             if (!question)
                 return;
 
-            var closed = new List<int>();
-            foreach (DataGridViewCell cell in ParamDataGridView.SelectedCells)
+            var selectedParams = GetSelectedParams();
+            foreach (var paramInfo in selectedParams)
             {
-                if (!closed.Contains(cell.RowIndex))
-                {
-                    var paraminfo = (ParamInfo?)ParamDataGridView.Rows[cell.RowIndex].DataBoundItem ?? throw new Exception("Failed to get param data.");
-                    Params.Remove(paraminfo);
-                    closed.Add(cell.RowIndex);
-                }
+                Params.Remove(paramInfo);
             }
 
             RefreshDataGridViews();
-            UpdateStatus($"Closed {closed.Count} params.");
+            Log($"Closed {selectedParams.Count} params.");
         }
 
         private void MenuFileCloseAll_Click(object sender, EventArgs e)
@@ -213,7 +240,7 @@ namespace AcParamEditor
             int count = ParamDataGridView.RowCount;
             Params.Clear();
             RefreshDataGridViews();
-            UpdateStatus($"Closed all {count} params.");
+            Log($"Closed all {count} params.");
         }
 
         private void MenuFileReload_Click(object sender, EventArgs e)
@@ -226,21 +253,16 @@ namespace AcParamEditor
                 return;
 
             var paths = new List<string>();
-            var closed = new List<int>();
-            foreach (DataGridViewCell cell in ParamDataGridView.SelectedCells)
+            var selectedParams = GetSelectedParams();
+            foreach (var paramInfo in selectedParams)
             {
-                if (!closed.Contains(cell.RowIndex))
-                {
-                    var paraminfo = (ParamInfo?)ParamDataGridView.Rows[cell.RowIndex].DataBoundItem ?? throw new Exception("Failed to get param data.");
-                    paths.Add(paraminfo.Path);
-                    Params.Remove(paraminfo);
-                    closed.Add(cell.RowIndex);
-                }
+                paths.Add(paramInfo.Path);
+                Params.Remove(paramInfo);
             }
 
             LoadParamsFast(paths, sender, e);
             RefreshDataGridViews();
-            UpdateStatus($"Reloaded {closed.Count} params.");
+            Log($"Reloaded {selectedParams.Count} params.");
         }
 
         private void MenuFileReloadAll_Click(object sender, EventArgs e)
@@ -261,7 +283,16 @@ namespace AcParamEditor
             Params.Clear();
             LoadParamsFast(paths, sender, e);
             RefreshDataGridViews();
-            UpdateStatus($"Reloaded all {paths.Count} params.");
+            Log($"Reloaded all {paths.Count} params.");
+        }
+
+        #endregion
+
+        #region Form Import
+
+        private void MenuImportParams_Click(object sender, EventArgs e)
+        {
+            MenuFileOpen_Click(sender, e);
         }
 
         #endregion
@@ -273,31 +304,63 @@ namespace AcParamEditor
             if (ParamDataGridView.Rows.Count == 0)
                 return;
 
-            bool question = FormDialogs.ShowQuestionDialog("Are you sure you want to export all currently selected params to CSV?", "Export Selected Params to CSV");
+            if (!FormDialogs.ShowQuestionDialog("Are you sure you want to export all currently selected params to Csv?", "Export Selected Params to Csv"))
+                return;
+
+            var selectedParams = GetSelectedParams();
+            ExportParams(selectedParams, ParamFileType.Csv, false);
+        }
+
+        private void MenuExportParamsTsv_Click(object sender, EventArgs e)
+        {
+            if (ParamDataGridView.Rows.Count == 0)
+                return;
+
+            if (!FormDialogs.ShowQuestionDialog("Are you sure you want to export all currently selected params to Tsv?", "Export Selected Params to Tsv"))
+                return;
+
+            var selectedParams = GetSelectedParams();
+            ExportParams(selectedParams, ParamFileType.Tsv, false);
+        }
+
+        private void MenuExportParamsXls_Click(object sender, EventArgs e)
+        {
+            if (ParamDataGridView.Rows.Count == 0)
+                return;
+
+            bool question = FormDialogs.ShowQuestionDialog("Are you sure you want to export all currently selected params to Xls?", "Export Selected Params to Xls");
             if (!question)
                 return;
 
-            foreach (DataGridViewCell cell in ParamDataGridView.SelectedCells)
-            {
-                var paraminfo = (ParamInfo?)ParamDataGridView.Rows[cell.RowIndex].DataBoundItem ?? throw new Exception("Failed to get param data.");
-                ExportCsvParam(paraminfo);
-            }
+            var selectedParams = GetSelectedParams();
+            ExportParams(selectedParams, ParamFileType.Xls, Properties.Settings.Default.ExportAsWorkbook);
+        }
 
-            UpdateStatus("Finished export.");
+        private void MenuExportParamsXlsx_Click(object sender, EventArgs e)
+        {
+            if (ParamDataGridView.Rows.Count == 0)
+                return;
+
+            bool question = FormDialogs.ShowQuestionDialog("Are you sure you want to export all currently selected params to Xlsx?", "Export Selected Params to Xlsx");
+            if (!question)
+                return;
+
+            var selectedParams = GetSelectedParams();
+            ExportParams(selectedParams, ParamFileType.Xlsx, Properties.Settings.Default.ExportAsWorkbook);
         }
 
         private void MenuExportParamdefs_Click(object sender, EventArgs e)
         {
-            UpdateStatus("Exporting paramdefs.");
+            Log("Exporting paramdefs.");
             string? folderPath = FileDialogs.GetFolderPath();
             if (folderPath == null)
             {
-                UpdateStatus("Canceling exporting paramdefs.");
+                Log("Canceling exporting paramdefs.");
                 return;
             }
 
             ExportXmlDefs(folderPath);
-            UpdateStatus("Exported paramdefs.");
+            Log("Exported paramdefs.");
         }
 
         #endregion
@@ -307,7 +370,7 @@ namespace AcParamEditor
         private void ParamViewName_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(ParamDataGridView.Columns, "paramfilename").Visible = ParamViewName.Checked;
-            UpdateStatus(ParamViewName.Checked ? "Showing Names" : "Hid Names");
+            Log(ParamViewName.Checked ? "Showing Names" : "Hid Names");
             ParamContextMenu.Show();
             ParamView.DropDown.Show();
         }
@@ -315,7 +378,7 @@ namespace AcParamEditor
         private void ParamViewType_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(ParamDataGridView.Columns, "paramtype").Visible = ParamViewType.Checked;
-            UpdateStatus(ParamViewType.Checked ? "Showing Types" : "Hid Types");
+            Log(ParamViewType.Checked ? "Showing Types" : "Hid Types");
             ParamContextMenu.Show();
             ParamView.DropDown.Show();
         }
@@ -323,7 +386,7 @@ namespace AcParamEditor
         private void ParamViewParamFormatVersion_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(ParamDataGridView.Columns, "paramformatversion").Visible = ParamViewParamFormatVersion.Checked;
-            UpdateStatus(ParamViewParamFormatVersion.Checked ? "Showing Param Format Versions" : "Hid Param Format Versions");
+            Log(ParamViewParamFormatVersion.Checked ? "Showing Param Format Versions" : "Hid Param Format Versions");
             ParamContextMenu.Show();
             ParamView.DropDown.Show();
         }
@@ -331,7 +394,7 @@ namespace AcParamEditor
         private void ParamViewDefFormatVersion_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(ParamDataGridView.Columns, "paramdefformatversion").Visible = ParamViewDefFormatVersion.Checked;
-            UpdateStatus(ParamViewParamFormatVersion.Checked ? "Showing Def Format Versions" : "Hid Def Format Versions");
+            Log(ParamViewParamFormatVersion.Checked ? "Showing Def Format Versions" : "Hid Def Format Versions");
             ParamContextMenu.Show();
             ParamView.DropDown.Show();
         }
@@ -339,7 +402,7 @@ namespace AcParamEditor
         private void ParamViewParamDataVersion_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(ParamDataGridView.Columns, "paramdataversion").Visible = ParamViewParamDataVersion.Checked;
-            UpdateStatus(ParamViewParamDataVersion.Checked ? "Showing Param Data Versions" : "Hid Param Data Versions");
+            Log(ParamViewParamDataVersion.Checked ? "Showing Param Data Versions" : "Hid Param Data Versions");
             ParamContextMenu.Show();
             ParamView.DropDown.Show();
         }
@@ -347,7 +410,7 @@ namespace AcParamEditor
         private void ParamViewDefDataVersion_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(ParamDataGridView.Columns, "paramdefdataversion").Visible = ParamViewDefDataVersion.Checked;
-            UpdateStatus(ParamViewParamDataVersion.Checked ? "Showing Def Data Versions" : "Hid Def Data Versions");
+            Log(ParamViewParamDataVersion.Checked ? "Showing Def Data Versions" : "Hid Def Data Versions");
             ParamContextMenu.Show();
             ParamView.DropDown.Show();
         }
@@ -355,7 +418,7 @@ namespace AcParamEditor
         private void ParamViewGame_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(ParamDataGridView.Columns, "paramgame").Visible = ParamViewGame.Checked;
-            UpdateStatus(ParamViewType.Checked ? "Showing Games" : "Hid Games");
+            Log(ParamViewType.Checked ? "Showing Games" : "Hid Games");
             ParamContextMenu.Show();
             ParamView.DropDown.Show();
         }
@@ -363,7 +426,7 @@ namespace AcParamEditor
         private void RowViewID_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(RowDataGridView.Columns, "paramrowid").Visible = RowViewID.Checked;
-            UpdateStatus(RowViewID.Checked ? "Showing IDs" : "Hid IDs");
+            Log(RowViewID.Checked ? "Showing IDs" : "Hid IDs");
             RowContextMenu.Show();
             RowView.DropDown.Show();
         }
@@ -371,7 +434,7 @@ namespace AcParamEditor
         private void RowViewName_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(RowDataGridView.Columns, "paramrowname").Visible = RowViewName.Checked;
-            UpdateStatus(RowViewName.Checked ? "Showing Row Names" : "Hid Row Names");
+            Log(RowViewName.Checked ? "Showing Row Names" : "Hid Row Names");
             RowContextMenu.Show();
             RowView.DropDown.Show();
         }
@@ -379,7 +442,7 @@ namespace AcParamEditor
         private void CellViewDisplayType_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(CellDataGridView.Columns, "paramcelldisplaytype").Visible = CellViewDisplayType.Checked;
-            UpdateStatus(CellViewDisplayType.Checked ? "Showing Cell Display Types" : "Hid Cell Display Types");
+            Log(CellViewDisplayType.Checked ? "Showing Cell Display Types" : "Hid Cell Display Types");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -387,7 +450,7 @@ namespace AcParamEditor
         private void CellViewInternalType_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(CellDataGridView.Columns, "paramcellinternaltype").Visible = CellViewInternalType.Checked;
-            UpdateStatus(CellViewInternalType.Checked ? "Showing Cell Internal Types" : "Hid Cell Internal Types");
+            Log(CellViewInternalType.Checked ? "Showing Cell Internal Types" : "Hid Cell Internal Types");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -395,7 +458,7 @@ namespace AcParamEditor
         private void CellViewValue_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(CellDataGridView.Columns, "paramcellvalue").Visible = CellViewValue.Checked;
-            UpdateStatus(CellViewValue.Checked ? "Showing Cell Values" : "Hid Cell Values");
+            Log(CellViewValue.Checked ? "Showing Cell Values" : "Hid Cell Values");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -403,7 +466,7 @@ namespace AcParamEditor
         private void CellViewDisplayName_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(CellDataGridView.Columns, "paramcelldisplayname").Visible = CellViewDisplayName.Checked;
-            UpdateStatus(CellViewDisplayName.Checked ? "Showing Cell Display Names" : "Hid Cell Display Names");
+            Log(CellViewDisplayName.Checked ? "Showing Cell Display Names" : "Hid Cell Display Names");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -411,7 +474,7 @@ namespace AcParamEditor
         private void CellViewInternalName_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(CellDataGridView.Columns, "paramcellinternalname").Visible = CellViewInternalName.Checked;
-            UpdateStatus(CellViewInternalName.Checked ? "Showing Cell Internal Names" : "Hid Cell Internal Names");
+            Log(CellViewInternalName.Checked ? "Showing Cell Internal Names" : "Hid Cell Internal Names");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -419,7 +482,7 @@ namespace AcParamEditor
         private void CellViewDescription_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(CellDataGridView.Columns, "paramcelldescription").Visible = CellViewDescription.Checked;
-            UpdateStatus(CellViewDescription.Checked ? "Showing Cell Descriptions" : "Hid Cell Descriptions");
+            Log(CellViewDescription.Checked ? "Showing Cell Descriptions" : "Hid Cell Descriptions");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -427,7 +490,7 @@ namespace AcParamEditor
         private void CellViewDisplayFormat_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(CellDataGridView.Columns, "paramcelldisplayformat").Visible = CellViewDisplayFormat.Checked;
-            UpdateStatus(CellViewDisplayFormat.Checked ? "Showing Cell Display Formats" : "Hid Cell Display Formats");
+            Log(CellViewDisplayFormat.Checked ? "Showing Cell Display Formats" : "Hid Cell Display Formats");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -435,7 +498,7 @@ namespace AcParamEditor
         private void CellViewDefault_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(CellDataGridView.Columns, "paramcelldefault").Visible = CellViewDefault.Checked;
-            UpdateStatus(CellViewDefault.Checked ? "Showing Cell Default Values" : "Hid Cell Default Values");
+            Log(CellViewDefault.Checked ? "Showing Cell Default Values" : "Hid Cell Default Values");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -443,7 +506,7 @@ namespace AcParamEditor
         private void CellViewIncrement_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(CellDataGridView.Columns, "paramcellincrement").Visible = CellViewIncrement.Checked;
-            UpdateStatus(CellViewIncrement.Checked ? "Showing Cell Increment Amount" : "Hid Cell Increment Amount");
+            Log(CellViewIncrement.Checked ? "Showing Cell Increment Amount" : "Hid Cell Increment Amount");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -451,7 +514,7 @@ namespace AcParamEditor
         private void CellViewMinimum_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(CellDataGridView.Columns, "paramcellminimum").Visible = CellViewMinimum.Checked;
-            UpdateStatus(CellViewMinimum.Checked ? "Showing Cell Minimum Values" : "Hid Cell Mimimum Values");
+            Log(CellViewMinimum.Checked ? "Showing Cell Minimum Values" : "Hid Cell Mimimum Values");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -459,7 +522,7 @@ namespace AcParamEditor
         private void CellViewMaximum_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(CellDataGridView.Columns, "paramcellmaximum").Visible = CellViewMaximum.Checked;
-            UpdateStatus(CellViewMaximum.Checked ? "Showing Cell Maximum Values" : "Hid Cell Maximum Values");
+            Log(CellViewMaximum.Checked ? "Showing Cell Maximum Values" : "Hid Cell Maximum Values");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -467,7 +530,7 @@ namespace AcParamEditor
         private void CellViewSortID_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(CellDataGridView.Columns, "paramcellsortid").Visible = CellViewSortID.Checked;
-            UpdateStatus(CellViewSortID.Checked ? "Showing Cell Sort IDs" : "Hid Cell Sort IDs");
+            Log(CellViewSortID.Checked ? "Showing Cell Sort IDs" : "Hid Cell Sort IDs");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -475,7 +538,7 @@ namespace AcParamEditor
         private void CellViewArrayLength_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(CellDataGridView.Columns, "paramcellarraylength").Visible = CellViewArrayLength.Checked;
-            UpdateStatus(CellViewArrayLength.Checked ? "Showing Cell Array Lengths" : "Hid Cell Array Lengths");
+            Log(CellViewArrayLength.Checked ? "Showing Cell Array Lengths" : "Hid Cell Array Lengths");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -483,7 +546,7 @@ namespace AcParamEditor
         private void CellViewBitSize_Click(object sender, EventArgs e)
         {
             GetColumnOrThrow(CellDataGridView.Columns, "paramcellbitsize").Visible = CellViewBitSize.Checked;
-            UpdateStatus(CellViewBitSize.Checked ? "Showing Cell Bit Sizes" : "Hid Cell Bit Sizes");
+            Log(CellViewBitSize.Checked ? "Showing Cell Bit Sizes" : "Hid Cell Bit Sizes");
             CellContextMenu.Show();
             CellView.DropDown.Show();
         }
@@ -602,7 +665,7 @@ namespace AcParamEditor
                 catch
                 {
                     RowDataGridView.CancelEdit();
-                    UpdateStatus($"{e.FormattedValue} is not a valid row ID.");
+                    Log($"{e.FormattedValue} is not a valid row ID.");
                 }
             }
         }
@@ -728,7 +791,7 @@ namespace AcParamEditor
             currentparam.Param.Rows.Add(new PARAM.Row(id, "NEWROW", currentparam.Param.AppliedParamdef));
 
             RefreshRows();
-            UpdateStatus("Made a new row.");
+            Log("Made a new row.");
         }
 
         private void RowDelete_Click(object sender, EventArgs e)
@@ -739,7 +802,7 @@ namespace AcParamEditor
             bool question = FormDialogs.ShowQuestionDialog("Are you sure you wish to delete the currently selected rows?", "Delete Currently Selected Rows");
             if (!question)
             {
-                UpdateStatus("Canceled row deletion.");
+                Log("Canceled row deletion.");
                 return;
             }
 
@@ -762,7 +825,7 @@ namespace AcParamEditor
             }
 
             RefreshRows();
-            UpdateStatus($"Deleted {removalList.Count} rows.");
+            Log($"Deleted {removalList.Count} rows.");
         }
 
         private void RowCopy_Click(object sender, EventArgs e)
@@ -782,7 +845,7 @@ namespace AcParamEditor
                 }
             }
             RowCopies = copies;
-            UpdateStatus($"Copied {RowCopies.Count} rows.");
+            Log($"Copied {RowCopies.Count} rows.");
         }
 
         private void RowPaste_Click(object sender, EventArgs e)
@@ -795,7 +858,7 @@ namespace AcParamEditor
 
             if (!currentParam.RowCompatible(RowCopies[0]))
             {
-                UpdateStatus($"Copied rows are not compatibile.");
+                Log($"Copied rows are not compatibile.");
                 return;
             }
 
@@ -805,8 +868,8 @@ namespace AcParamEditor
                 var rows = (List<PARAM.Row>?)RowDataGridView.DataSource ?? throw new Exception("Failed to get param rows data.");
                 if (rows.Count == ushort.MaxValue)
                 {
-                    UpdateStatus($"Row limit of {ushort.MaxValue} reached, stopped pasting.");
-                    UpdateStatus($"Pasted {count} rows.");
+                    Log($"Row limit of {ushort.MaxValue} reached, stopped pasting.");
+                    Log($"Pasted {count} rows.");
                     return;
                 }
 
@@ -817,7 +880,7 @@ namespace AcParamEditor
             }
 
             RefreshRows();
-            UpdateStatus($"Pasted {count} rows.");
+            Log($"Pasted {count} rows.");
         }
 
         private void RowDuplicate_Click(object sender, EventArgs e)
@@ -845,10 +908,10 @@ namespace AcParamEditor
                 var rows = (List<PARAM.Row>?)RowDataGridView.DataSource ?? throw new Exception("Failed to get param rows data.");
                 if (rows.Count == ushort.MaxValue)
                 {
-                    UpdateStatus($"Row limit of {ushort.MaxValue} reached, stopped duplicating.");
+                    Log($"Row limit of {ushort.MaxValue} reached, stopped duplicating.");
 
                     RefreshRows();
-                    UpdateStatus($"Duplicated {count} rows.");
+                    Log($"Duplicated {count} rows.");
                     return;
                 }
 
@@ -858,7 +921,7 @@ namespace AcParamEditor
             }
 
             RefreshRows();
-            UpdateStatus($"Duplicated {count} rows.");
+            Log($"Duplicated {count} rows.");
         }
 
         #endregion
@@ -1049,7 +1112,7 @@ namespace AcParamEditor
 
         #region Status
 
-        private void UpdateStatus(string text)
+        private void Log(string text)
         {
             if (LogListBox.Items.Count + 1 > MaxLogEntries)
             {
@@ -1062,275 +1125,13 @@ namespace AcParamEditor
 
         #endregion
 
-        #region Params
-
-        private static string ConvertParamToCsv(PARAM param)
-        {
-            using var tb = new TextBuilder();
-            using var csv = new CsvWriter(tb, CultureInfo.InvariantCulture, true);
-
-            // Write param header information
-            csv.WriteField(param.ParamType);
-            csv.WriteField(param.BigEndian ? "BigEndian" : "LittleEndian");
-            csv.WriteField(param.Format2D);
-            csv.WriteField(param.Format2E);
-            csv.WriteField(param.Unk06);
-            if (param.HeaderlessRows)
-                csv.WriteField("HeaderlessRows");
-            else if (param.UnnamedRows)
-                csv.WriteField("UnnamedRows");
-            csv.NextRecord();
-
-            // Write actual csv header
-            csv.WriteField("Row Id");
-            csv.WriteField("Row Name");
-            foreach (var field in param.AppliedParamdef.Fields)
-            {
-                string name = field.InternalName;
-                if (string.IsNullOrEmpty(name))
-                    name = field.DisplayName;
-
-                csv.WriteField(name);
-            }
-
-            // Write data rows
-            foreach (var row in param.Rows)
-            {
-                csv.NextRecord();
-
-                csv.WriteField(row.ID);
-                csv.WriteField(row.Name);
-                foreach (var cell in row.Cells)
-                {
-                    if (cell.DisplayType == PARAMDEF.DefType.dummy8 ||
-                       (cell.DisplayType == PARAMDEF.DefType.u8 && cell.ArrayLength > 1))
-                    {
-                        csv.WriteField("<dummy>");
-                    }
-                    else
-                    {
-                        csv.WriteField(cell.Value);
-                    }
-                }
-            }
-
-            csv.Flush();
-            return tb.ToString();
-        }
-
-        private void ExportCsvParam(ParamInfo param)
-        {
-            string path = param.Path + ".csv";
-            if (Directory.Exists(path))
-            {
-                UpdateStatus($"Error: Specified export path was a folder: \"{path}\"");
-                return;
-            }
-
-            File.WriteAllText(path, ConvertParamToCsv(param.Param), Encoding.Unicode);
-            UpdateStatus($"Exported param: \"{param.Name}\"");
-        }
-
-        private bool TryConvertCsvToParam(string path, [NotNullWhen(true)] out PARAM? param)
-        {
-            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
-            {
-                MissingFieldFound = null
-            };
-
-            using var tb = new StreamReader(path, Encoding.Unicode);
-            using var csv = new CsvReader(tb, config, false);
-
-            // Move to first row
-            if (!csv.Read())
-            {
-                param = null;
-                return false;
-            }
-
-            // Read paramtype
-            int index = 0;
-            string? paramType = csv.GetField(index++);
-            if (paramType == null)
-            {
-                param = null;
-                return false;
-            }
-
-            // Find paramdef
-            if (!DefMap.TryGetValue(paramType, out ParamDefInfo? paramdef))
-            {
-                param = null;
-                return false;
-            }
-
-            // Read endianness
-            bool bigEndian = true;
-            string? endianness = csv.GetField(index++);
-            if (endianness == null || endianness.StartsWith("Little", StringComparison.InvariantCultureIgnoreCase))
-                bigEndian = false;
-
-            // Read format 1
-            var format1 = PARAM.FormatFlags1.None;
-            Enum.TryParse(csv.GetField(index++), true, out format1);
-
-            // Read format 2
-            var format2 = PARAM.FormatFlags2.None;
-            Enum.TryParse(csv.GetField(index++), true, out format1);
-
-            // Read Unk06
-            _ = short.TryParse(csv.GetField(index++), out short unk06);
-
-            // Read unnamed/headerless rows
-            bool unnamedRows = false;
-            bool headerlessRows = false;
-            string? oldRowType = csv.GetField(index++);
-            if (oldRowType != null)
-            {
-                if (oldRowType.StartsWith("Headerless", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    headerlessRows = true;
-                }
-                else if (oldRowType.StartsWith("Unnamed", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    unnamedRows = true;
-                }
-            }
-
-            // Move to header row
-            index = 0;
-            if (!csv.Read())
-            {
-                param = null;
-                return false;
-            }
-
-            // Make param
-            param = new PARAM
-            {
-                BigEndian = bigEndian,
-                Format2D = format1,
-                Format2E = format2,
-                Unk06 = unk06,
-                UnnamedRows = unnamedRows,
-                HeaderlessRows = headerlessRows,
-                ParamType = paramType,
-                ParamdefDataVersion = paramdef.Def.DataVersion,
-                ParamdefFormatVersion = (byte)paramdef.Def.FormatVersion,
-                Rows = []
-            };
-
-            param.ApplyParamdef(paramdef.Def);
-
-            // Helper function for getting unique row ids
-            int maxRowId = -1;
-            var usedIds = new HashSet<int>();
-            int GetUniqueRowId(string? rowIdStr)
-            {
-                if (string.IsNullOrWhiteSpace(rowIdStr) || !int.TryParse(rowIdStr, out int rowId))
-                {
-                    rowId = ++maxRowId;
-                }
-
-                if (usedIds.Contains(rowId))
-                {
-                    rowId = ++maxRowId;
-                }
-
-                if (rowId > maxRowId)
-                {
-                    maxRowId = rowId;
-                }
-
-                usedIds.Add(rowId);
-                return rowId;
-            }
-
-            // Read data rows
-            while (csv.Read())
-            {
-                index = 0;
-                int rowId = GetUniqueRowId(csv.GetField(index++));
-                string rowName = csv.GetField(index++) ?? string.Empty;
-
-                var row = new PARAM.Row(rowId, rowName, paramdef.Def);
-                foreach (var cell in row.Cells)
-                {
-                    string? field = csv.GetField(index++);
-                    if (field != null)
-                    {
-                        switch (cell.DisplayType)
-                        {
-                            case PARAMDEF.DefType.s8:
-                                if (sbyte.TryParse(field, out sbyte sbyteValue))
-                                    cell.Value = sbyteValue;
-                                break;
-                            case PARAMDEF.DefType.u8:
-                                if (byte.TryParse(field, out byte byteValue))
-                                    cell.Value = byteValue;
-                                break;
-                            case PARAMDEF.DefType.s16:
-                                if (short.TryParse(field, out short shortValue))
-                                    cell.Value = shortValue;
-                                break;
-                            case PARAMDEF.DefType.u16:
-                                if (ushort.TryParse(field, out ushort ushortValue))
-                                    cell.Value = ushortValue;
-                                break;
-                            case PARAMDEF.DefType.s32:
-                                if (int.TryParse(field, out int intValue))
-                                    cell.Value = intValue;
-                                break;
-                            case PARAMDEF.DefType.u32:
-                                if (uint.TryParse(field, out uint uintValue))
-                                    cell.Value = uintValue;
-                                break;
-                            case PARAMDEF.DefType.b32:
-                                if (int.TryParse(field, out int bintValue))
-                                    cell.Value = bintValue;
-                                else if (bool.TryParse(field, out bool bValue))
-                                    cell.Value = bValue ? 1 : 0;
-                                break;
-                            case PARAMDEF.DefType.angle32:
-                            case PARAMDEF.DefType.f32:
-                                if (float.TryParse(field, out float floatValue))
-                                    cell.Value = floatValue;
-                                break;
-                            case PARAMDEF.DefType.f64:
-                                if (double.TryParse(field, out double doubleValue))
-                                    cell.Value = doubleValue;
-                                break;
-                            case PARAMDEF.DefType.fixstr:
-                            case PARAMDEF.DefType.fixstrW:
-                                string fixStr = field;
-                                if (fixStr.Length > cell.ArrayLength)
-                                    fixStr = fixStr[..cell.ArrayLength];
-
-                                cell.Value = fixStr;
-                                break;
-                            case PARAMDEF.DefType.dummy8:
-                            default:
-                                // Skip this
-                                break;
-                        }
-                    }
-                }
-
-                param.Rows.Add(row);
-            }
-
-            return true;
-        }
-
-        #endregion
-
         #region Param Defs
 
         private void ExportXmlDefs(string folder)
         {
             if (File.Exists(folder))
             {
-                UpdateStatus($"Cannot export paramdefs as folder path is a file: {folder}");
+                Log($"Cannot export paramdefs as folder path is a file: {folder}");
                 return;
             }
 
@@ -1358,30 +1159,27 @@ namespace AcParamEditor
                 return null;
             if (!File.Exists(path))
                 return null;
-#if !DEBUG_CRASH
             try
             {
-#endif
                 if (path.EndsWith(".xml"))
                     return PARAMDEF.XmlDeserialize(path, false, false);
                 else
                     return PARAMDEF.Read(path);
-#if !DEBUG_CRASH
             }
             catch
             {
                 return null;
             }
-#endif
         }
 
         private void LoadDefs()
         {
             DefMap.Clear();
+            RawDefMap.Clear();
 
             if (MenuGameCombobox.Text == "None")
             {
-                UpdateStatus("Selected defs set to None.");
+                Log("Selected defs set to None.");
                 RefreshParamOpenAccess();
                 return;
             }
@@ -1390,7 +1188,7 @@ namespace AcParamEditor
             if (!Directory.Exists(dir))
             {
                 RefreshDefGames();
-                UpdateStatus("Current defs selection does not exist and was removed.");
+                Log("Current defs selection does not exist and was removed.");
                 LoadDefs();
                 return;
             }
@@ -1405,7 +1203,7 @@ namespace AcParamEditor
             {
                 if (Path.GetFileName(path) == TentativeParamTypeName)
                 {
-                    UpdateStatus($"Skipped {TentativeParamTypeName}");
+                    Log($"Skipped {TentativeParamTypeName}");
                     skipped++;
                     continue;
                 }
@@ -1416,20 +1214,21 @@ namespace AcParamEditor
                     if (!DefMap.ContainsKey(def.ParamType))
                     {
                         DefMap.Add(def.ParamType, new ParamDefInfo(Path.GetFileNameWithoutExtension(path), def));
+                        RawDefMap.Add(def.ParamType, def);
                         continue;
                     }
 
-                    UpdateStatus($"Skipped already loaded {Path.GetFileName(path) ?? "Unknown File"}");
+                    Log($"Skipped already loaded {Path.GetFileName(path) ?? "Unknown File"}");
                     skipped++;
                     continue;
                 }
 
-                UpdateStatus($"Failed to read {Path.GetFileName(path) ?? "Unknown File"} as a def.");
+                Log($"Failed to read {Path.GetFileName(path) ?? "Unknown File"} as a def.");
                 failed++;
             }
 
-            TentativeParamTypeMap.LoadCsv(DefMap, csvPath);
-            UpdateStatus($"Loaded {total - failed - skipped} {MenuGameCombobox.Text} defs, skipped {skipped} files, and failed to read {failed} files out of {total} total files.");
+            TentativeParamTypeMap.LoadCsv(DefMap, RawDefMap, csvPath);
+            Log($"Loaded {total - failed - skipped} {MenuGameCombobox.Text} defs, skipped {skipped} files, and failed to read {failed} files out of {total} total files.");
             RefreshParamOpenAccess();
         }
 
@@ -1437,32 +1236,259 @@ namespace AcParamEditor
 
         #region Params
 
-        private ParamInfo? ReadParamInfo(string path)
+        private bool AddParam(ParamInfo paramInfo)
         {
-            PARAM? param;
-            if (path.EndsWith(".csv", StringComparison.InvariantCultureIgnoreCase))
+            bool alreadyLoaded = Params.ContainsParam(paramInfo.Path);
+            if (!ShownSkipAlreadyLoadedDialog && alreadyLoaded)
             {
-                if (!TryConvertCsvToParam(path, out param))
-                    return null;
+                SkipAlreadyLoaded = FormDialogs.ShowQuestionDialog($"Already loaded params detected, do you wish to skip already loaded params?", "Skip Already Loaded Params");
+                ShownSkipAlreadyLoadedDialog = true;
+            }
 
-                path = path[..^4];
+            if (SkipAlreadyLoaded && alreadyLoaded)
+            {
+                return false;
+            }
+
+            Params.Add(paramInfo);
+            return true;
+        }
+
+        private List<ParamInfo> GetSelectedParams()
+        {
+            // Looping over selected rows does not work unless the entire row is selected
+            // However users are freely able to select single cells in rows, because this is nice for text copying
+            // So we loop over selected cells, and ignore cells in rows we've already checked
+            var foundRows = new HashSet<int>();
+            var selectedParams = new List<ParamInfo>();
+            foreach (DataGridViewCell cell in ParamDataGridView.SelectedCells)
+            {
+                if (!foundRows.Contains(cell.RowIndex))
+                {
+                    var paraminfo = (ParamInfo?)ParamDataGridView.Rows[cell.RowIndex].DataBoundItem ?? throw new Exception("Failed to get param data.");
+                    selectedParams.Add(paraminfo);
+                    foundRows.Add(cell.RowIndex);
+                }
+            }
+
+            return selectedParams;
+        }
+
+        private void LoadBinaryParam(string path)
+        {
+            string name = PathEx.RemoveFileExtensions(Path.GetFileName(path));
+
+            PARAM? param;
+            param = PARAM.Read(path);
+            string? paramType = param.ParamType;
+            if (string.IsNullOrEmpty(paramType))
+            {
+                paramType = name;
+            }
+
+            if (!DefMap.TryGetValue(paramType, out ParamDefInfo? def))
+            {
+                Log($"Error: Could not find paramdef for: \"{name}\"");
+                return;
+            }
+
+            if (param.ApplyParamdefSomewhatCarefully(def.Def))
+            {
+                var paramInfo = new ParamInfo(param, path)
+                {
+                    Game = MenuGameCombobox.Text
+                };
+
+                if (AddParam(paramInfo))
+                    Log($"Loaded param: \"{name}\"");
+                else
+                    Log($"Skipped already loaded param: \"{name}\"");
             }
             else
             {
-                param = PARAM.Read(path);
-                if (!DefMap.TryGetValue(param.ParamType, out ParamDefInfo? def))
-                    if (!DefMap.TryGetValue(PathEx.RemoveFileExtensions(path), out def))
-                        return null;
+                Log($"Error: Found paramdef did not match the param: \"{name}\"");
+            }
+        }
 
-                param.ApplyParamdefSomewhatCarefully(def.Def);
+        private void LoadSheetParam(ISpreadSheetParser parser, ParamWorkbookConfig config, string folder)
+        {
+            using var importer = new ParamImporter(parser, config, RawDefMap);
+            while (importer.NextSheet(out string? sheetName))
+            {
+                if (importer.NextParam(out ParamImporter.ImportedParam? import))
+                {
+                    string outPath = Path.Combine(folder, $"{import.Name}{import.Extension}");
+                    var paramInfo = new ParamInfo(import.Param, outPath)
+                    {
+                        Game = MenuGameCombobox.Text
+                    };
+
+                    if (AddParam(paramInfo))
+                        Log($"Loaded sheet as param: \"{sheetName}\"");
+                    else
+                        Log($"Skipped already loaded param: \"{sheetName}\"");
+                }
+                else
+                {
+                    Log($"Error: Failed to load sheet as param: \"{sheetName}\"");
+                }
+            }
+        }
+
+        private void LoadCsvParam(string path)
+        {
+            string name = PathEx.RemoveFileExtensions(Path.GetFileName(path));
+            string? folder = Path.GetDirectoryName(path);
+            if (string.IsNullOrEmpty(folder))
+            {
+                Log($"Error: Could not get folder name for: {name}");
+                return;
             }
 
-            var paraminfo = new ParamInfo(param, path)
+            string configPath = $"{path}.config.json";
+            if (!File.Exists(configPath))
             {
-                Game = MenuGameCombobox.Text
-            };
+                Log($"Error: Could not find param config for: {name}");
+                return;
+            }
 
-            return paraminfo;
+            if (!ParamWorkbookConfig.TryLoad(configPath, out ParamWorkbookConfig? config))
+            {
+                Log($"Error: Failed to load param config for: {name}");
+                return;
+            }
+
+            using var parser = CsvParser.OpenFile(path, Encoding.UTF8, name);
+            LoadSheetParam(parser, config, folder);
+        }
+
+        private void LoadTsvParam(string path)
+        {
+            string name = PathEx.RemoveFileExtensions(Path.GetFileName(path));
+            string? folder = Path.GetDirectoryName(path);
+            if (string.IsNullOrEmpty(folder))
+            {
+                Log($"Error: Could not get folder name for: {name}");
+                return;
+            }
+
+            string configPath = $"{path}.config.json";
+            if (!File.Exists(configPath))
+            {
+                Log($"Error: Could not find param config for: {name}");
+                return;
+            }
+
+            if (!ParamWorkbookConfig.TryLoad(configPath, out ParamWorkbookConfig? config))
+            {
+                Log($"Error: Failed to load param config for: {name}");
+                return;
+            }
+
+            using var parser = TsvParser.OpenFile(path, Encoding.UTF8, name);
+            LoadSheetParam(parser, config, folder);
+        }
+
+        private void LoadXlsParams(string path)
+        {
+            string name = PathEx.RemoveFileExtensions(Path.GetFileName(path));
+            string? folder = Path.GetDirectoryName(path);
+            if (string.IsNullOrEmpty(folder))
+            {
+                Log($"Error: Could not get folder name for: {name}");
+                return;
+            }
+
+            string configPath = $"{path}.config.json";
+            if (!File.Exists(configPath))
+            {
+                Log($"Error: Could not find param config for: {name}");
+                return;
+            }
+
+            if (!ParamWorkbookConfig.TryLoad(configPath, out ParamWorkbookConfig? config))
+            {
+                Log($"Error: Failed to load param config for: {name}");
+                return;
+            }
+
+            using var parser = XlsParser.OpenFile(path);
+            LoadSheetParam(parser, config, folder);
+        }
+
+        private void LoadXlsxParams(string path)
+        {
+            string name = PathEx.RemoveFileExtensions(Path.GetFileName(path));
+            string? folder = Path.GetDirectoryName(path);
+            if (string.IsNullOrEmpty(folder))
+            {
+                Log($"Error: Could not get folder name for: {name}");
+                return;
+            }
+
+            string configPath = $"{path}.config.json";
+            if (!File.Exists(configPath))
+            {
+                Log($"Error: Could not find param config for: {name}");
+                return;
+            }
+
+            if (!ParamWorkbookConfig.TryLoad(configPath, out ParamWorkbookConfig? config))
+            {
+                Log($"Error: Failed to load param config for: {name}");
+                return;
+            }
+
+            using var parser = XlsxParser.OpenFile(path);
+            LoadSheetParam(parser, config, folder);
+        }
+
+        private void LoadParams(string path)
+        {
+            var fileType = ParamFileType.Binary;
+            string extension = Path.GetExtension(path);
+            switch (extension.ToLowerInvariant())
+            {
+                case ".csv":
+                    fileType = ParamFileType.Csv;
+                    break;
+                case ".tsv":
+                    fileType = ParamFileType.Tsv;
+                    break;
+                case ".xls":
+                    fileType = ParamFileType.Xls;
+                    break;
+                case ".xlsx":
+                    fileType = ParamFileType.Xlsx;
+                    break;
+            }
+
+            try
+            {
+                switch (fileType)
+                {
+                    case ParamFileType.Binary:
+                        LoadBinaryParam(path);
+                        break;
+                    case ParamFileType.Csv:
+                        LoadCsvParam(path);
+                        break;
+                    case ParamFileType.Tsv:
+                        LoadTsvParam(path);
+                        break;
+                    case ParamFileType.Xls:
+                        LoadXlsParams(path);
+                        break;
+                    case ParamFileType.Xlsx:
+                        LoadXlsxParams(path);
+                        break;
+                }
+            }
+            catch (IOException)
+            {
+                Log($"Error: The input file path is likely being held open by another program: \"{path}\"");
+                return;
+            }
         }
 
         private void LoadParams(IList<string> paths)
@@ -1470,64 +1496,220 @@ namespace AcParamEditor
             if (paths == null || paths.Count == 0)
                 return;
 
-            int success = 0;
-            int skipped = 0;
-            int failed = 0;
-            bool skip = false;
-
             foreach (string path in paths)
             {
                 if (path == null || !File.Exists(path))
                     continue;
 
-                string cleanedPath = path;
-                if (cleanedPath.Contains(".csv", StringComparison.InvariantCultureIgnoreCase))
-                    cleanedPath = cleanedPath[..^4];
-
-                if (Params.ContainsParam(cleanedPath))
-                {
-                    if (!skip)
-                    {
-                        skip = FormDialogs.ShowQuestionDialog($"A param that already exists has been detected, would you like to skip already loaded params?", "Skip loaded params");
-                        if (skip)
-                        {
-                            skipped++;
-                            continue;
-                        }
-                    }
-                    else if (skip)
-                    {
-                        skipped++;
-                        continue;
-                    }
-                }
-
-#if !DEBUG_CRASH
                 try
                 {
-#endif
-                    var paraminfo = ReadParamInfo(path);
-                    if (paraminfo == null || paraminfo.AppliedDef == false)
-                    {
-                        UpdateStatus($"Failed to read {Path.GetFileName(path) ?? "Unknown File"} because the param def could either not be found or matched.");
-                        failed++;
-                        continue;
-                    }
-
-                    success++;
-                    Params.Add(paraminfo);
-#if !DEBUG_CRASH
+                    LoadParams(path);
                 }
                 catch
                 {
-                    UpdateStatus($"Failed to read {Path.GetFileName(path) ?? "Unknown File"} as a param.");
-                    failed++;
+                    Log($"Error: Failed to read param: \"{Path.GetFileName(path)}\"");
                     continue;
                 }
-#endif
+            }
+        }
+
+        private void ExportBinaryParams(IList<ParamInfo> paramInfos)
+        {
+            foreach (ParamInfo paramInfo in paramInfos)
+            {
+                paramInfo.WriteToPath();
+            }
+        }
+
+        private void ExportParamAsSingleSheet(ParamInfo paramInfo, ParamExporter exporter, int columnLimit = -1, int rowLimit = -1)
+        {
+            string name = PathEx.RemoveFileExtensions(Path.GetFileName(paramInfo.Path));
+            if (columnLimit > -1 && paramInfo.Param.AppliedParamdef.Fields.Count > columnLimit)
+            {
+                Log($"Error: The number of columns exceeds the amount supported by this format: \"{name}\"");
+                return;
             }
 
-            UpdateStatus($"Loaded {success} params, skipped {skipped} files, and failed to read {failed} files out of {paths.Count} total files.");
+            if (rowLimit > -1 && paramInfo.Param.Rows.Count > rowLimit)
+            {
+                Log($"Error: The number of rows exceeds the amount supported by this format: \"{name}\"");
+                return;
+            }
+
+            string extension = Path.GetExtension(paramInfo.Path);
+            exporter.AddParam(name, extension, paramInfo.Param);
+
+            string? folder = Path.GetDirectoryName(paramInfo.Path);
+            if (string.IsNullOrEmpty(folder))
+            {
+                Log($"Error: Could not get folder name of param: \"{name}\"");
+                return;
+            }
+
+            string outPath = Path.Combine(folder, $"{name}.{exporter.Extension}");
+            string configOutPath = $"{outPath}.config.json";
+
+            try
+            {
+                exporter.Export(outPath);
+            }
+            catch (IOException)
+            {
+                Log($"Error: The output file path is likely being held open by another program: \"{outPath}\"");
+                return;
+            }
+
+            try
+            {
+                exporter.GetConfig().Save(configOutPath);
+            }
+            catch (IOException)
+            {
+                Log($"Error: The output config file path is likely being held open by another program: \"{configOutPath}\"");
+                return;
+            }
+
+            Log($"Exported param as single sheet: \"{name}\"");
+        }
+
+        private void ExportParamsAsWorkbook(IList<ParamInfo> paramInfos, ParamExporter exporter, string outPath, int columnLimit = -1, int rowLimit = -1)
+        {
+            foreach (ParamInfo paramInfo in paramInfos)
+            {
+                string name = PathEx.RemoveFileExtensions(Path.GetFileName(paramInfo.Path));
+                if (columnLimit > -1 && paramInfo.Param.AppliedParamdef.Fields.Count > columnLimit)
+                {
+                    Log($"Error: The number of columns exceeds the amount supported by this format: \"{name}\"");
+                    return;
+                }
+
+                if (rowLimit > -1 && paramInfo.Param.Rows.Count > rowLimit)
+                {
+                    Log($"Error: The number of rows exceeds the amount supported by this format: \"{name}\"");
+                    return;
+                }
+
+                string extension = Path.GetExtension(paramInfo.Path);
+                exporter.AddParam(name, extension, paramInfo.Param);
+            }
+
+            string configOutPath = $"{outPath}.config.json";
+
+            try
+            {
+                exporter.Export(outPath);
+            }
+            catch (IOException)
+            {
+                Log($"Error: The output file path is likely being held open by another program: \"{outPath}\"");
+                return;
+            }
+
+            try
+            {
+                exporter.GetConfig().Save(configOutPath);
+            }
+            catch (IOException)
+            {
+                Log($"Error: The output config file path is likely being held open by another program: \"{configOutPath}\"");
+                return;
+            }
+
+            Log("Exported params as workbook.");
+        }
+
+        private void ExportCsvParams(IList<ParamInfo> paramInfos)
+        {
+            foreach (ParamInfo paramInfo in paramInfos)
+            {
+                using var builder = new CsvBuilder(Encoding.UTF8);
+                using var exporter = new ParamExporter(builder, Properties.Settings.Default.ExportUsingInternalNames);
+                ExportParamAsSingleSheet(paramInfo, exporter);
+            }
+        }
+
+        private void ExportTsvParams(IList<ParamInfo> paramInfos)
+        {
+            foreach (ParamInfo paramInfo in paramInfos)
+            {
+                using var builder = new TsvBuilder(Encoding.UTF8);
+                using var exporter = new ParamExporter(builder, Properties.Settings.Default.ExportUsingInternalNames);
+                ExportParamAsSingleSheet(paramInfo, exporter);
+            }
+        }
+
+        private void ExportXlsParams(IList<ParamInfo> paramInfos, bool exportAsWorkbook)
+        {
+            if (exportAsWorkbook)
+            {
+                string? outPath = FileDialogs.GetSavePath("Export params as Xls workbook", "Xls Param Workbook (*.xls)|*.xls");
+                if (string.IsNullOrEmpty(outPath))
+                {
+                    Log("Canceling Xls workbook export.");
+                    return;
+                }
+
+                using var builder = new XlsBuilder();
+                using var exporter = new ParamExporter(builder, Properties.Settings.Default.ExportUsingInternalNames);
+                ExportParamsAsWorkbook(paramInfos, exporter, outPath, 256, 65536);
+            }
+            else
+            {
+                foreach (ParamInfo paramInfo in paramInfos)
+                {
+                    using var builder = new XlsBuilder();
+                    using var exporter = new ParamExporter(builder, Properties.Settings.Default.ExportUsingInternalNames);
+                    ExportParamAsSingleSheet(paramInfo, exporter, 256, 65536);
+                }
+            }
+        }
+
+        private void ExportXlsxParams(IList<ParamInfo> paramInfos, bool exportAsWorkbook)
+        {
+            if (exportAsWorkbook)
+            {
+                string? outPath = FileDialogs.GetSavePath("Export params as Xlsx workbook", "Xlsx Param Workbook (*.xlsx)|*.xlsx");
+                if (string.IsNullOrEmpty(outPath))
+                {
+                    Log("Canceling Xlsx workbook export.");
+                    return;
+                }
+
+                using var builder = new XlsxBuilder();
+                using var exporter = new ParamExporter(builder, Properties.Settings.Default.ExportUsingInternalNames);
+                ExportParamsAsWorkbook(paramInfos, exporter, outPath, 16384, 1048576);
+            }
+            else
+            {
+                foreach (ParamInfo paramInfo in paramInfos)
+                {
+                    using var builder = new XlsxBuilder();
+                    using var exporter = new ParamExporter(builder, Properties.Settings.Default.ExportUsingInternalNames);
+                    ExportParamAsSingleSheet(paramInfo, exporter, 16384, 1048576);
+                }
+            }
+        }
+
+        private void ExportParams(IList<ParamInfo> paramInfos, ParamFileType fileType, bool exportAsWorkbook)
+        {
+            switch (fileType)
+            {
+                case ParamFileType.Binary:
+                    ExportBinaryParams(paramInfos);
+                    break;
+                case ParamFileType.Csv:
+                    ExportCsvParams(paramInfos);
+                    break;
+                case ParamFileType.Tsv:
+                    ExportTsvParams(paramInfos);
+                    break;
+                case ParamFileType.Xls:
+                    ExportXlsParams(paramInfos, exportAsWorkbook);
+                    break;
+                case ParamFileType.Xlsx:
+                    ExportXlsxParams(paramInfos, exportAsWorkbook);
+                    break;
+            }
         }
 
         /// <summary>
@@ -1572,5 +1754,6 @@ namespace AcParamEditor
         }
 
         #endregion
+
     }
 }

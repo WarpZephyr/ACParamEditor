@@ -3800,6 +3800,7 @@
 
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="33.1.0" />
+    <PackageReference Include="NPOI" Version="2.7.5" />
   </ItemGroup>
 
   <ItemGroup>

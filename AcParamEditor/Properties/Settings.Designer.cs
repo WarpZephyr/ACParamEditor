@@ -34,5 +34,29 @@ namespace AcParamEditor.Properties {
                 this["SelectedDefSet"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ExportAsWorkbook {
+            get {
+                return ((bool)(this["ExportAsWorkbook"]));
+            }
+            set {
+                this["ExportAsWorkbook"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ExportUsingInternalNames {
+            get {
+                return ((bool)(this["ExportUsingInternalNames"]));
+            }
+            set {
+                this["ExportUsingInternalNames"] = value;
+            }
+        }
     }
 }

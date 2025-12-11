@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SoulsFormats;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -6,7 +7,7 @@ namespace AcParamEditor
 {
     internal static class TentativeParamTypeMap
     {
-        public static void LoadCsv(Dictionary<string, ParamDefInfo> defMap, string path)
+        public static void LoadCsv(Dictionary<string, ParamDefInfo> defMap, Dictionary<string, PARAMDEF> rawDefMap, string path)
         {
             if (!File.Exists(path))
             {
@@ -26,6 +27,7 @@ namespace AcParamEditor
                 if (defMap.TryGetValue(type, out ParamDefInfo? def))
                 {
                     defMap.Add(name, def);
+                    rawDefMap.Add(name, def.Def);
                 }
             }
         }
