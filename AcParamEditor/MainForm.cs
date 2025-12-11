@@ -1484,9 +1484,12 @@ namespace AcParamEditor
                         break;
                 }
             }
-            catch (IOException)
+            catch (IOException exception)
             {
-                Log($"Error: The input file path is likely being held open by another program: \"{path}\"");
+                if (exception.HResult == -2147024864)
+                    Log($"Error: The input file path is likely being held open by another program: \"{path}\"");
+                else
+                    Log($"Error: Failed to read param: \"{Path.GetFileName(path)}\"");
                 return;
             }
         }
@@ -1553,9 +1556,12 @@ namespace AcParamEditor
             {
                 exporter.Export(outPath);
             }
-            catch (IOException)
+            catch (IOException exception)
             {
-                Log($"Error: The output file path is likely being held open by another program: \"{outPath}\"");
+                if (exception.HResult == -2147024864)
+                    Log($"Error: The output file path is likely being held open by another program: \"{outPath}\"");
+                else
+                    Log($"Error: Failed to export file: \"{outPath}\"");
                 return;
             }
 
@@ -1563,9 +1569,12 @@ namespace AcParamEditor
             {
                 exporter.GetConfig().Save(configOutPath);
             }
-            catch (IOException)
+            catch (IOException exception)
             {
-                Log($"Error: The output config file path is likely being held open by another program: \"{configOutPath}\"");
+                if (exception.HResult == -2147024864)
+                    Log($"Error: The output config file path is likely being held open by another program: \"{outPath}\"");
+                else
+                    Log($"Error: Failed to save config file: \"{outPath}\"");
                 return;
             }
 
