@@ -89,9 +89,6 @@ namespace AcParamEditor
             MenuOptionsExportAsWorkbook.Checked = Properties.Settings.Default.ExportAsWorkbook;
             MenuOptionsExportUsingInternalNames.Checked = Properties.Settings.Default.ExportUsingInternalNames;
 
-            // Prepare the display for multline cell editing
-            PrepareMultlineCellEditDisplay();
-
             // Set new renderer to override colors
             var menuRenderer = new ColorableToolStripRenderer();
             MainFormMenu.Renderer = menuRenderer;
@@ -115,7 +112,6 @@ namespace AcParamEditor
             TrySetSavedDefSet();
 
             // Attempt to load defs.
-            Log("Initial def load start.");
             LoadDefs();
 
             // Data bind param list.
@@ -128,6 +124,9 @@ namespace AcParamEditor
             GetColumnOrThrow(ParamDataGridView.Columns, "paramdataversion").DataPropertyName = "ParamDataVersion";
             GetColumnOrThrow(ParamDataGridView.Columns, "paramdefdataversion").DataPropertyName = "DefDataVersion";
             GetColumnOrThrow(ParamDataGridView.Columns, "paramgame").DataPropertyName = "Game";
+
+            // Prepare the display for multline cell editing
+            PrepareMultlineCellEditDisplay();
 
             // Unlock locked events.
             UnlockEvents();
@@ -707,7 +706,10 @@ namespace AcParamEditor
                         BeginInvoke(() => // Because drawing artifacts have been known to occur otherwise.
                         {
                             var currentCell = CellDataGridView.CurrentCell ?? throw new Exception("Failed to get current cell.");
-                            currentCell.Value = textBox.Text;
+                            if (textBox.Text.Contains('\n')) // Added to prevent causing data errors on something like typing a "-" for numbers.
+                            {
+                                currentCell.Value = textBox.Text;
+                            }
                         });
                     }
 
@@ -1196,39 +1198,41 @@ namespace AcParamEditor
             string[] paths = Directory.GetFiles(dir, "*", SearchOption.TopDirectoryOnly);
             string csvPath = Path.Combine(dir, TentativeParamTypeName);
 
+            int loaded = 0;
             int total = paths.Length;
-            int failed = 0;
-            int skipped = 0;
             foreach (string path in paths)
             {
                 if (Path.GetFileName(path) == TentativeParamTypeName)
                 {
-                    Log($"Skipped {TentativeParamTypeName}");
-                    skipped++;
+                    total -= 1; // Don't count tentative map in the total
                     continue;
                 }
 
                 var def = ReadParamDef(path);
-                if (def != null)
+                if (def == null)
                 {
-                    if (!DefMap.ContainsKey(def.ParamType))
-                    {
-                        DefMap.Add(def.ParamType, new ParamDefInfo(Path.GetFileNameWithoutExtension(path), def));
-                        RawDefMap.Add(def.ParamType, def);
-                        continue;
-                    }
-
-                    Log($"Skipped already loaded {Path.GetFileName(path) ?? "Unknown File"}");
-                    skipped++;
+                    Log($"Failed to read {Path.GetFileName(path) ?? "Unknown File"} as a paramdef.");
                     continue;
                 }
 
-                Log($"Failed to read {Path.GetFileName(path) ?? "Unknown File"} as a def.");
-                failed++;
+                if (DefMap.ContainsKey(def.ParamType))
+                {
+                    Log($"Skipped already loaded {Path.GetFileName(path) ?? "Unknown File"}");
+                    total -= 1; // Don't count duplicates in the total
+                    continue;
+                }
+
+                DefMap.Add(def.ParamType, new ParamDefInfo(Path.GetFileNameWithoutExtension(path), def));
+                RawDefMap.Add(def.ParamType, def);
+                loaded++;
             }
 
-            TentativeParamTypeMap.LoadCsv(DefMap, RawDefMap, csvPath);
-            Log($"Loaded {total - failed - skipped} {MenuGameCombobox.Text} defs, skipped {skipped} files, and failed to read {failed} files out of {total} total files.");
+            Log($"Loaded {loaded}/{total} paramdefs.");
+            if (TentativeParamTypeMap.LoadCsv(DefMap, RawDefMap, csvPath, out int tentativeLoaded, out int tentativeTotal))
+            {
+                Log($"Mapped {tentativeLoaded}/{tentativeTotal} tentative paramdefs.");
+            }
+
             RefreshParamOpenAccess();
         }
 
